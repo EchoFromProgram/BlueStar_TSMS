@@ -9,8 +9,14 @@ import service.AccountService;
 @Service
 public class AccountServiceImpl implements AccountService
 {
+    private AccountDao accountDao = null;
+
     @Autowired
-    public AccountDao accountDao = null;
+    public void setAccountDao(AccountDao accountDao)
+    {
+        this.accountDao = accountDao;
+    }
+
     /**
      * 登陆业务，传入一个用户对象进行登陆
      *
@@ -20,8 +26,10 @@ public class AccountServiceImpl implements AccountService
     @Override
     public boolean login(User user)
     {
-        // TODO
-        return false;
+        User u = accountDao.getUserByUserName(user.getUserName());
+
+        // 判断前台登陆用户输入的密码和后台数据的密码是否一致
+        return user.getPassword().equals(u.getPassword());
     }
 
     /**
@@ -36,7 +44,6 @@ public class AccountServiceImpl implements AccountService
     @Override
     public boolean checkUserNameIfValidated(String username)
     {
-        // TODO
-        return false;
+        return accountDao.userNameIsExit(username) > 0;
     }
 }
