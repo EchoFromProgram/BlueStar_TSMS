@@ -20,6 +20,8 @@
 		VALUES(#{userName}, #{password}, #{name}, #{roleId}, #{infoId}, #{typeId})
 	</insert>
 	
+	<!-- 设置员工信息 -->
+	<update id=""></update>
 	
 	
 
