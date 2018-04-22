@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="BlueStar_TSMS:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="BlueStar_TSMS-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="BlueStar_TSMS:war exploded" />
+    </root>
+  </artifact>
+</component>

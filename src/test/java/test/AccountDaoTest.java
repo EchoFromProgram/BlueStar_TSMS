@@ -13,30 +13,35 @@ import entity.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
-public class AccountDaoTest {
-	
-	@Autowired
-	public AccountDao accountDao;
-	
-	@Test
-	public void testGetUserByUserName() {
-		User user = accountDao.getUserByUserName("1");
-		System.out.println(user);
-	}
+public class AccountDaoTest
+{
 
-	@Test
-	public void testCreateAccount() {
-		fail("Not yet implemented");
-	}
+    @Autowired
+    public AccountDao accountDao;
 
-	@Test
-	public void testSettingStaffInfo() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testGetUserByUserName()
+    {
+        User user = accountDao.getUserByUserName("1");
+        System.out.println(user);
+    }
 
-	@Test
-	public void testSettingCustomerInfo() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testCreateAccount()
+    {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testSettingStaffInfo()
+    {
+        fail("Not yet implemented");
+    }
+
+    @Test
+    public void testSettingCustomerInfo()
+    {
+        fail("Not yet implemented");
+    }
 
 }
