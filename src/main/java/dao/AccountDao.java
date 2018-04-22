@@ -44,4 +44,11 @@ public interface AccountDao
      * @param customer 传入一个客户类，用来设置客户信息
      */
     public void settingCustomerInfo(Customer customer);
+    
+    /**
+     * 根据信息id查询员工表中某个员工的信息
+     * @param infoId 信息id，根据该id查询具体信息
+     */
+    public void getStaffDetailByInfoId(int infoId);
+    
 }

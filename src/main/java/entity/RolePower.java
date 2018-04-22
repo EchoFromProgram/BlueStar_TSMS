@@ -1,4 +1,7 @@
 package entity;
+
+import java.util.List;
+
 /**
  * 角色权限表,对应role_power表
  * @author happyChicken
@@ -12,8 +15,8 @@ public class RolePower {
 	//角色id
 	private int roleId;
 	
-	//权限id
-	private int powerId;
+	//一组权限id
+	private List<Integer> powerId;
 
 	public int getRolePowerId() {
 		return rolePowerId;
@@ -31,11 +34,11 @@ public class RolePower {
 		this.roleId = roleId;
 	}
 
-	public int getPowerId() {
+	public List<Integer> getPowerId() {
 		return powerId;
 	}
 
-	public void setPowerId(int powerId) {
+	public void setPowerId(List<Integer> powerId) {
 		this.powerId = powerId;
 	}
 
@@ -43,4 +46,9 @@ public class RolePower {
 	public String toString() {
 		return "RolePower [rolePowerId=" + rolePowerId + ", roleId=" + roleId + ", powerId=" + powerId + "]";
 	}
+	
+	
+	
+
+	
 }
