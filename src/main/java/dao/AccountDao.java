@@ -1,5 +1,7 @@
 package dao;
 
+import entity.Customer;
+import entity.Staff;
 import entity.User;
 
 /**
@@ -9,6 +11,10 @@ import entity.User;
  */
 public interface AccountDao
 {
+	
+	
+	public int userNameIsExit(String username);
+	
     /**
      * 登录的方法，通过传入的用户名得到一个用户(user)对象
      *
@@ -22,7 +28,7 @@ public interface AccountDao
      *
      * @param role 传入的角色id,根据该id赋予相应的角色
      */
-    public void createAccount(User role);
+    public int createAccount(User user);
 
     /**
      * 设置员工（Staff）的信息
@@ -33,8 +39,7 @@ public interface AccountDao
      * @param telephone   电话号码
      * @param email       邮箱
      */
-    public void settingStaffInfo(String identityNum, String resume, String qq,
-                                 String telephone, String email);
+    public void settingStaffInfo(Staff staff);
 
     /**
      * 设置客户（customer）的信息
@@ -47,6 +52,5 @@ public interface AccountDao
      * @param qq          QQ号
      * @param classId     班级id
      */
-    public void settingCustomerInfo(String identityNum, String school, String gradeMajor,
-                                    String telephone, String email, String qq, int classId);
+    public void settingCustomerInfo(Customer customer);
 }
