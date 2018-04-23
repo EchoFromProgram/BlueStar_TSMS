@@ -28,7 +28,7 @@
 	
 	<!-- 扫描注解 -->
 	 <context:component-scan base-package="controller"></context:component-scan>
-	 <context:component-scan base-package="seckill.web"></context:component-scan> 
+	 <context:component-scan base-package="listener"></context:component-scan> 
 	
 	<!--配置视图解析器->显示jsp 	-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
@@ -40,6 +40,7 @@
 	    <property name="suffix" value=".html"></property>
 	</bean>
 	
+	<!-- 静态资源管理器 -->
 	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/html/" mapping="/html/**" />
@@ -48,5 +49,6 @@
 	<mvc:resources location="/less/" mapping="/less/**" />
 	<mvc:resources location="/images/" mapping="/images/**" />
 	<mvc:resources location="/csv/" mapping="/csv/**" />
+	
 	
 </beans>

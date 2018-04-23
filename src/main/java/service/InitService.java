@@ -3,11 +3,14 @@ package service;
 
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 /**
  * 提供服务器初始化的业务类
  *
  * @author Fish
  * */
+@Service
 public interface InitService
 {
     /**

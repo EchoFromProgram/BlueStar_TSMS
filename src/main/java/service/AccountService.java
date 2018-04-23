@@ -1,5 +1,7 @@
 package service;
 
+import org.springframework.stereotype.Service;
+
 import dto.AccountDto;
 import entity.User;
 
@@ -8,6 +10,7 @@ import entity.User;
  *
  * @author Fish
  */
+@Service
 public interface AccountService
 {
     /**

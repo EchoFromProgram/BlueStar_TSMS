@@ -64,18 +64,22 @@
 	    $.ajax({
 	        type: "POST",
 	        url: "loginCheck.do",
-	        data: {"username":$("#username").val(), "password":$("#password").val()},
-	        dataType: "text",
+	        data: {"userName":$("#username").val(), "password":$("#password").val()},
+	        dataType: "json",
 	        success: function(data){
-	            $('#password-help').text(data);
-	            $('#password-div').addClass("has-error");
-	            if("yes" == data)
+	            if("SUCCESS" == data.status)
 	            {
 	                window.location.href="index.do";
 	            }
-	            else if("" == data)
+	            else if("WRONG_PASSWORD" == data.status)
 	            {
-	            	
+	            	$('#password-help').text(data.data);
+		            $('#password-div').addClass("has-error");
+	            }
+	            else if("WRONG_USERNAME" == data.status)
+	            {
+	            	$('#username-help').text(data.data);
+		            $('#username-div').addClass("has-error");
 	            }
 	        }
 	    });
