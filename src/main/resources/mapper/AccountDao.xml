@@ -48,10 +48,28 @@
  		WHERE info_id = #{infoId};
 	</update>
 	
-	<!-- 根据信息id查询具体信息-->
+	<!-- 根据信息id查询员工具体信息-->
+	<select id="getStaffDetailByTid" resultType="entity.Staff">
+		SELECT t_id,identity_num, resume, qq, telephone, email
+		FROM staff WHERE t_id = #{tId};
+	</select>
+	
+	<!-- 根据信息id查询客户具体信息-->
+	<select id="getCustomerDetailByInfoId" resultType="entity.Customer">
+		SELECT info_id,identity_num, school, qq, telephone, email, class_id
+		FROM customer WHERE info_id = #{infoId};
+	</select>
 	
 	
-
+	<!--根据角色id查询角色权限表，返回一个权限的list -->
+	<select id="getPowerIdByRoleId" resultType="int">
+		SELECT power_id FROM role_power WHERE role_id = #{roleId};
+	</select>
+	
+	<!-- 得到整张权限表 -->
+	<select id="getPowers" resultType="entity.Power">
+		SELECT power_id, power FROM power;
+	</select>
 
 
 </mapper>

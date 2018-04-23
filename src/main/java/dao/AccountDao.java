@@ -1,6 +1,9 @@
 package dao;
 
+import java.util.List;
+
 import entity.Customer;
+import entity.Power;
 import entity.Staff;
 import entity.User;
 
@@ -47,8 +50,26 @@ public interface AccountDao
     
     /**
      * 根据信息id查询员工表中某个员工的信息
-     * @param infoId 信息id，根据该id查询具体信息
+     * @param infoId 信息id，根据该id查询员工具体信息
      */
-    public void getStaffDetailByInfoId(int infoId);
+    public Staff getStaffDetailByTid(int tId);
+    
+    /**
+     * 根据信息id查询客户表中某个客户的信息
+     * @param infoId 信息id，根据该id查询客户具体信息
+     */
+    public Customer getCustomerDetailByInfoId(int infoId);
+    
+    /**
+     * 根据角色id查询对应的权限集合
+     * @param roleId
+     * @return
+     */
+    public List<Integer> getPowerIdByRoleId(int roleId);
+    
+    /**
+     *返回整张power权限表 
+     */
+    public List<Power> getPowers();
     
 }

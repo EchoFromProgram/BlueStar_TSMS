@@ -2,6 +2,8 @@ package dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import entity.Customer;
+import entity.Power;
 import entity.Staff;
 import entity.User;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -50,6 +53,31 @@ public class AccountDaoTest {
 		customer.setInfoId(1);
 		customer.setClassId(1);
 		accountDao.settingCustomerInfo(customer);
+	}
+	
+	@Test
+	public void testGetPowerIdByRoleId() {
+		int roleId = 2;
+		List<Integer> list = accountDao.getPowerIdByRoleId(roleId);
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testGetPowers() {
+		List<Power> list = accountDao.getPowers();
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testGetStaffDetailByTid() {
+		Staff staff = accountDao.getStaffDetailByTid(1);
+		System.out.println(staff);
+	}
+	
+	@Test
+	public void testGetCustomerDetailByInfoId() {
+		Customer customer = accountDao.getCustomerDetailByInfoId(1);
+		System.out.println(customer);
 	}
 
 }
