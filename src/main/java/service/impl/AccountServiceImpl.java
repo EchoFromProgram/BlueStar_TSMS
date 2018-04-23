@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.AccountDao;
 import entity.User;
+import enums.LoginStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.AccountService;
@@ -20,15 +21,21 @@ public class AccountServiceImpl implements AccountService
     /**
      * 登陆业务，传入一个用户对象进行登陆
      *
-     * @param user 要登陆的用户
+     * @param user 前台传过来的要登陆的用户
      * @return true 登陆验证通过，false 用户名或密码不正确
      */
     @Override
     public boolean login(User user)
     {
+        if (user.getUserName() == null || "".equals(user.getUserName()))
+        {
+
+        }
+        // 从数据库中查出这个账号的密码
         User u = accountDao.getUserByUserName(user.getUserName());
 
         // 判断前台登陆用户输入的密码和后台数据的密码是否一致
+
         return user.getPassword().equals(u.getPassword());
     }
 
