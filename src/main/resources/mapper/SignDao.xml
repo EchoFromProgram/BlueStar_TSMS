@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.SignDao">
+
+	<!-- 插入一条签到状态 -->
+	<insert id="insertIntoSign" >
+		INSERT INTO sign(class_id,  user_id, course_id, date, status, reason)
+		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{status}, #{reason})	
+	</insert>
+
+	<!-- 根据用户id查询签到情况 -->
+	<select id="getSignsByUserId" resultType="entity.Sign">
+		SELECT	sign_id, class_id,  user_id, course_id, date, status, reason
+		FROM sign WHERE user_id = #{userId};
+	</select>
+	
+	<!-- 根据班级id查询签到情况 -->
+	<select id="getSignsByClassId" resultType="entity.Sign">
+		SELECT	sign_id, class_id,  user_id, course_id, date, status, reason
+		FROM sign WHERE class_id = #{classId};
+	</select>
+	
+	<!-- 根据用户id查询签到情况 -->
+	<select id="getAllSigns" resultType="entity.Sign">
+		SELECT	sign_id, class_id,  user_id, course_id, date, status, reason 
+		FROM sign;
+	</select>
+
+
+
+</mapper>

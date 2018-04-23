@@ -1,5 +1,6 @@
 package service;
 
+import dto.AccountDto;
 import entity.User;
 
 /**
@@ -13,9 +14,9 @@ public interface AccountService
      * 登陆业务，传入一个用户对象进行登陆
      *
      * @param user 要登陆的用户
-     * @return true 登陆验证通过，false 用户名或密码不正确
+     * @return 返回传输包装类，包含所有需要的信息
      */
-    public boolean login(User user);
+    public AccountDto login(User user);
 
     /**
      * 验证用户名是否可用

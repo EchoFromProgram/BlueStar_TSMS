@@ -1,15 +1,25 @@
 package service.impl;
 
 import dao.AccountDao;
+import dto.AccountDto;
 import entity.User;
 import enums.LoginStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.AccountService;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 账号业务实现类
+ *
+ * @author Fish
+ * */
 @Service
 public class AccountServiceImpl implements AccountService
 {
+    // 账号持久层对象
     private AccountDao accountDao = null;
 
     @Autowired
@@ -24,19 +34,35 @@ public class AccountServiceImpl implements AccountService
      * @param user 前台传过来的要登陆的用户
      * @return true 登陆验证通过，false 用户名或密码不正确
      */
-    @Override
-    public boolean login(User user)
+    public AccountDto login(User user)
     {
-        if (user.getUserName() == null || "".equals(user.getUserName()))
+        // 如果前台给过来的用户名是空的，返回错误提示
+        if (user == null || user.getUserName() == null || "".equals(user.getUserName()))
         {
-
+            return new AccountDto<String, LoginStatus>(LoginStatus.WRONG_USERNAME.getInfo(), LoginStatus.WRONG_USERNAME);
         }
+
         // 从数据库中查出这个账号的密码
         User u = accountDao.getUserByUserName(user.getUserName());
 
-        // 判断前台登陆用户输入的密码和后台数据的密码是否一致
+        // 用户名不存在！
+        if (u == null)
+        {
+            return new AccountDto<String, LoginStatus>("用户名不存在！", LoginStatus.WRONG_USERNAME);
+        }
 
-        return user.getPassword().equals(u.getPassword());
+        // 判断前台登陆用户输入的密码和后台数据的密码是否一致
+        if (!u.getPassword().equals(user.getPassword()))
+        {
+            return new AccountDto<String, LoginStatus>(LoginStatus.WRONG_PASSWORD.getInfo(), LoginStatus.WRONG_PASSWORD);
+        }
+
+        // 登陆成功，将要携带的信息带给前台
+        Map<String, Object> infos = new HashMap<>();
+        infos.put("user", u);
+        infos.put("HisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
+
+        return new AccountDto<Map, LoginStatus>(infos, LoginStatus.SUCCESS);
     }
 
     /**
@@ -48,7 +74,6 @@ public class AccountServiceImpl implements AccountService
      * @param username 用于验证的账号
      * @return true 账号存在，false 账号不存在
      */
-    @Override
     public boolean checkUserNameIfValidated(String username)
     {
         return accountDao.userNameIsExit(username) > 0;

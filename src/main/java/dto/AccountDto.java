@@ -7,7 +7,7 @@ import enums.LoginStatus;
  *
  * @author Fish
  * */
-public class AccountDto<T>
+public class AccountDto<T, E>
 {
     /**
      * 传输的主要数据
@@ -20,12 +20,12 @@ public class AccountDto<T>
      * 登陆状态
      * 这是一个枚举类，包含有登陆的状态码和状态信息
      * */
-    private LoginStatus status = null;
+    private E status = null;
 
     public AccountDto()
     {}
 
-    public AccountDto(T data, LoginStatus status)
+    public AccountDto(T data, E status)
     {
         this.data = data;
         this.status = status;
@@ -41,13 +41,22 @@ public class AccountDto<T>
         this.data = data;
     }
 
-    public LoginStatus getStatus()
+    public E getStatus()
     {
         return status;
     }
 
-    public void setStatus(LoginStatus status)
+    public void setStatus(E status)
     {
         this.status = status;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "AccountDto{" +
+                "data=" + data +
+                ", status=" + status +
+                '}';
     }
 }
