@@ -27,8 +27,8 @@ public class Sign {
 	//签到状态
 	private int status;
 	
-	//分数
-	private int score;
+	//迟到原因
+	private String reason;
 
 	public int getSignId() {
 		return signId;
@@ -78,17 +78,19 @@ public class Sign {
 		this.status = status;
 	}
 
-	public int getScore() {
-		return score;
+	public String getReason() {
+		return reason;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 	@Override
 	public String toString() {
 		return "Sign [signId=" + signId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
-				+ ", date=" + date + ", status=" + status + ", score=" + score + "]";
+				+ ", date=" + date + ", status=" + status + ", reason=" + reason + "]";
 	}
+
+	
 }
