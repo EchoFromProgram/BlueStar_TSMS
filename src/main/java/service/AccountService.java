@@ -31,4 +31,12 @@ public interface AccountService
      * @return true 账号存在，false 账号不存在
      */
     public boolean checkUserNameIfValidated(String username);
+
+    /**
+     * 创建一个用户，由前台传过来一个新用户
+     *
+     * @param user 前台传过来的用户
+     * @return 返回创建的信息状态
+     * */
+    public AccountDto createAccount(User user);
 }

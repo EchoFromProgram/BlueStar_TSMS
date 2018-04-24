@@ -31,7 +31,6 @@ public class InitServiceImpl implements InitService
      *
      * @return 整张权限表，以 Map 封装，key 值为 权限 id，value 值为权限（这里主要是 URL）
      */
-    @Override
     public Map<Integer, String> getAllPowers()
     {
         Map<Integer, String> powersMap = new HashMap<>();
@@ -39,6 +38,7 @@ public class InitServiceImpl implements InitService
 
         if (powers != null)
         {
+            // 如果成功得到权限表，就将它转成 Map
             for (Power power : powers)
             {
                 powersMap.put(power.getPowerId(), power.getPower());
