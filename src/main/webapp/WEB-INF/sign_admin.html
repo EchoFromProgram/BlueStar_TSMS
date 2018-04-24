@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/dashboard.css" rel="stylesheet">
+    <link href="../css/mycss.css" rel="stylesheet">
 </head>
 
 <body>
@@ -46,7 +47,19 @@
                 <li><a href="#">帮助</a></li>
             </ul>
             <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="您需要什么...">
+                <div class="dropdown" style="display: inline-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span id="current_select">请选择</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照姓名</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照日期</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照课程</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照班级</a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" placeholder="您想根据什么来查">
                 <input type="submit" class="form-control btn" value="搜索">
             </form>
         </div>
@@ -60,10 +73,10 @@
                 <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
             </div>
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">首页</a></li>
+                <li><a href="index.html">首页</a></li>
                 <li><a href="sign_student.html">签到-学生</a></li>
                 <li><a href="sign_teacher.html">签到-教师</a></li>
-                <li><a href="sign_admin.html">签到-管理员</a></li>
+                <li class="active"><a href="#">签到-管理员</a></li>
 
                 <li><a href="#">问卷-学生</a></li>
                 <li><a href="#">问卷-教师</a></li>
@@ -81,20 +94,68 @@
                 <li><a href="#">角色管理</a></li>
             </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">首页</h1>
 
-            <div class="row placeholders">
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">签到</h1>
+
+            <div class="row placeholders" id="sign-button">
                 <div class="col-xs-12 col-sm-11 placeholder">
-                    <img src="../img/叶子.jpg" width="300" height="300" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>蓝星苑</h4>
-                    <span class="text-muted">java程序员梦想开始的地方</span>
+                    <img src="../img/叶子.jpg" width="200" height="200" class="img-responsive" alt="查看签到情况">
+                    <h4>查看签到情况</h4>
+                    <span class="text-muted">这儿可以看到详细的</span>
                 </div>
             </div>
-            <div class="row placeholders jumbotron">
-                <div class="col-xs-12 col-sm-11 placeholder">
-                    <h1><b>欢迎来到蓝星苑</b></h1>
+
+            <h2 class="sub-header">签到情况</h2>
+            <div class="row">
+            <div class="col-sm-6 col-md-4 placeholders">
+                <img src="../img/叶子.jpg" width="100px" height="100px">
+                <h4>统计情况</h4>
+            </div>
+            <div class="col-sm-6 col-md-8">
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" style="width:80%">80%</div>
                 </div>
+                <br>
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-warning" style="width:15%">15%</div>
+                </div>
+                <br>
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-danger" style="width:5%">5%</div>
+                </div>
+                <br>
+            </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1,001</td>
+                        <td>Lorem</td>
+                        <td>ipsum</td>
+                        <td>dolor</td>
+                        <td>sit</td>
+                    </tr>
+                    <tr>
+                        <td>1,002</td>
+                        <td>amet</td>
+                        <td>consectetur</td>
+                        <td>adipiscing</td>
+                        <td>elit</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -104,25 +165,18 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="../js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
 <script src="../js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script src="../js/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="../js/myjs.js"></script>
 <script>
-function getSession(){
-    $.ajax({
-        type: "POST",
-        url: "getSessionUser.do",
-        dataType: "json",
-        success: function(data){
-			$('#username').html(data.name);
-        }
-    });
-    return false;
-};
-getSession();
+    $(".select").click(function () {
+        $('#current_select').html($(this).children().html());
+    })
 </script>
 </body>
 </html>

@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService
         // 登陆成功，将要携带的信息带给前台
         Map<String, Object> infos = new HashMap<String,Object>();
         infos.put("user", u);
-        infos.put("HisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
+        infos.put("hisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
 
         return new AccountDto<Map>(infos, LoginStatus.SUCCESS);
     }
