@@ -4,7 +4,7 @@ package entity;
  * @author happyChicken
  *
  */
-public class Class {
+public class Clazz {
 	
 	// 班级id
 	private int classId;

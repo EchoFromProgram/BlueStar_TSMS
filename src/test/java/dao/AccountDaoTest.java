@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import entity.Clazz;
+import entity.Course;
 import entity.Customer;
 import entity.Power;
 import entity.Staff;
@@ -78,6 +80,24 @@ public class AccountDaoTest {
 	public void testGetCustomerDetailByInfoId() {
 		Customer customer = accountDao.getCustomerDetailByInfoId(1);
 		System.out.println(customer);
+	}
+	
+	@Test
+	public void testGetClassIdsByInfoId() {
+		List<Integer> list = accountDao.getClassIdsByInfoId(1);
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testGetCoursesByCourseId() {
+		Course course = accountDao.getCoursesByCourseId(2);
+		System.out.println(course);
+	}
+	
+	@Test 
+	public void testGetClassesIdsByClassId() {
+		Clazz class1 = accountDao.getClassByClassId(2);
+		System.out.println(class1);
 	}
 
 }
