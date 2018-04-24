@@ -1,13 +1,14 @@
 package dto;
 
-import enums.LoginStatus;
+import enums.Statusable;
 
 /**
  * 用于账号登陆的传输信息类
+ * T 是被携带数据的类型
  *
  * @author Fish
  * */
-public class AccountDto<T, E>
+public class AccountDto<T>
 {
     /**
      * 传输的主要数据
@@ -20,18 +21,12 @@ public class AccountDto<T, E>
      * 登陆状态
      * 这是一个枚举类，包含有登陆的状态码和状态信息
      * */
-    private E status = null;
+    private Statusable status = null;
 
     public AccountDto()
     {}
 
-    public AccountDto(E status)
-    {
-        this.status = status;
-        // TODO 抽象状态
-    }
-
-    public AccountDto(T data, E status)
+    public AccountDto(T data, Statusable status)
     {
         this.data = data;
         this.status = status;
@@ -47,12 +42,12 @@ public class AccountDto<T, E>
         this.data = data;
     }
 
-    public E getStatus()
+    public Statusable getStatus()
     {
         return status;
     }
 
-    public void setStatus(E status)
+    public void setStatus(Statusable status)
     {
         this.status = status;
     }

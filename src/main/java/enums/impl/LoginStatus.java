@@ -1,11 +1,13 @@
-package enums;
+package enums.impl;
+
+import enums.Statusable;
 
 /**
  * 登陆业务要用到的传输信息状态枚举类
  *
  * @author Fish
  * */
-public enum LoginStatus
+public enum LoginStatus implements Statusable
 {
     SUCCESS(0, "登陆成功！"),
     WRONG_USERNAME(-1, "用户名错误！"),
