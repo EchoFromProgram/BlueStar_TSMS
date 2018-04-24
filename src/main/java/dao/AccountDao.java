@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import entity.Clazz;
+import entity.Course;
 import entity.Customer;
 import entity.Power;
 import entity.Staff;
@@ -20,7 +22,7 @@ public interface AccountDao
 	 * @param username 传入一个用户名，用来判断用户名是否存在
 	 * @return 返回记录数，1是用户名已存在，0是不存在
 	 */
-	public int userNameIsExit(String username);
+	public Integer userNameIsExit(String username);
 	
     /**
      * 登录的方法，通过传入的用户名得到一个用户(user)对象
@@ -34,7 +36,7 @@ public interface AccountDao
      * @param user 传入一个用户类，用来创建一个新用户
      * @return 返回影响的行数，如果是1则创建成功
      */
-    public int createAccount(User user);
+    public Integer createAccount(User user);
 
    /**
     * 设置员工信息
@@ -53,26 +55,47 @@ public interface AccountDao
      * @param tId 对应的信息id
      * @return 返回一个查询到的员工信息
      */
-    public Staff getStaffDetailByTid(int tId);
+    public Staff getStaffDetailByTid(Integer tId);
     
     /**
      * 查询一个客户的具体信息
      * @param infoId 对应的信息id
      * @return 返回一个查询到的客户信息
      */
-    public Customer getCustomerDetailByInfoId(int infoId);
+    public Customer getCustomerDetailByInfoId(Integer infoId);
     
     /**
      * 根据角色id查询对应的权限集合
      * @param roleId
      * @return 返回一个权限集合
      */
-    public List<Integer> getPowerIdByRoleId(int roleId);
+    public List<Integer> getPowerIdByRoleId(Integer roleId);
     
     /**
      * 得到整张权限表
      * @return 包含多个权限对象的集合
      */
     public List<Power> getPowers();
+    
+    /**
+     * 通过客户的信息id得到对应的班级
+     * @param infoId 信息id
+     * @return 返回客户所属班级的集合
+     */
+    public List<Integer> getClassIdsByInfoId(Integer infoId);
+    
+    /**
+     * 通过班级id得到对应的班级
+     * @param classId 班级id
+     * @return 课程id集合
+     */
+    public Clazz getClassByClassId(Integer classId);
+    
+    /**
+     * 通过课程id得到对应的课程
+     * @param courseId 课程id
+     * @return 课程集合
+     */
+    public Course getCoursesByCourseId(Integer courseId);
     
 }

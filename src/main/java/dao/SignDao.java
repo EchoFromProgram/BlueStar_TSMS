@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import entity.Sign;
 
 /**
@@ -16,25 +18,29 @@ public interface SignDao {
 	 * @param sign 签到状态
 	 * @return	影响的行数，如果是1则签到成功
 	 */
-	public int insertIntoSign(Sign sign);
+	public Integer insertIntoSign(Sign sign);
 	
 	/**
 	 * 根据用户id查询签到情况
 	 * @param userId 用户id
 	 * @return 签到情况集合
 	 */
-	public List<Sign> getSignsByUserId(int userId);
+	public List<Sign> getSignsByUserId(Integer userId);
 	
 	/**
-	 * 根据班级id查询签到情况
+	 * 根据班级id和角色id，查询某班级学生的签到情况
 	 * @param classId 班级id
-	 * @return 班级签到情况集合
+	 * @param roleId  角色id
+	 * @return 班级学生签到集合
 	 */
-	public List<Sign> getSignsByClassId(int classId);
+	public List<Sign> getSignsByClassIdAndRoleId(@Param("classId")Integer classId, 
+												 @Param("roleId")Integer  roleId);
 	
 	/**
 	 * 得到所有的签到情况
 	 * @return 所有签到情况集合
 	 */
 	public List<Sign> getAllSigns();
+	
+	
 }
