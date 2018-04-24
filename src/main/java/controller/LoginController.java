@@ -19,7 +19,7 @@ public class LoginController {
 	
 	@Resource(name="accountServiceImpl")
 	private AccountService accountService;
-
+	
 	@ResponseBody
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
 	public Object loginCheck(User user, HttpSession session)
@@ -45,14 +45,19 @@ public class LoginController {
 	public String login() {
 		return "Login";
 	}
-
+	
+	@RequestMapping(path = "sign_admin.do", produces = {"application/json;charset=UTF8"})
+	public String signAdmin() {
+		return "sign_admin";
+	}
+	
 	@ResponseBody
 	@RequestMapping(path = "getSessionUser.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionUser(HttpSession session) {
 		// TODO html访问session， 
 		return session.getAttribute("user");
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(path = "getSessionHisPowers.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionHisPower(HttpSession session) {
