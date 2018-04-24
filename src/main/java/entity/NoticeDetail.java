@@ -7,17 +7,17 @@ package entity;
 public class NoticeDetail {
 	
 	// 通知详情id
-	private int noticeDetail;
+	private int noticeDetailId;
 	
 	// 详细内容
 	private String content;
 
-	public int getNoticeDetail() {
-		return noticeDetail;
+	public int getNoticeDetailId() {
+		return noticeDetailId;
 	}
 
-	public void setNoticeDetail(int noticeDetail) {
-		this.noticeDetail = noticeDetail;
+	public void setNoticeDetailId(int noticeDetailId) {
+		this.noticeDetailId = noticeDetailId;
 	}
 
 	public String getContent() {
@@ -30,6 +30,8 @@ public class NoticeDetail {
 
 	@Override
 	public String toString() {
-		return "NoticeDetail [noticeDetail=" + noticeDetail + ", content=" + content + "]";
+		return "NoticeDetail [noticeDetailId=" + noticeDetailId + ", content=" + content + "]";
 	}
+
+
 }

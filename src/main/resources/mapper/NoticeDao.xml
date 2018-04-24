@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.NoticeDao">
+
+	<!-- 插入通知对象 -->
+	<insert id="insertNotice">
+		INSERT INTO notice(class_id, user_id, course_id, date, notice_detail)
+		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{noticeDetail});
+	</insert>
+	
+	<!-- 插入具体通知对象 -->
+	<insert id="insertNoticeDetail">
+		INSERT INTO notice_detail(notice_detail, content) VALUES(#{noticeDetail},#{content});
+	</insert>
+	
+	<!-- 修改通知对象 -->
+	<update id="updateNoticeByQuizId">
+		UPDATE notice SET class_id = #{classId}, user_id = #{userId}, course_id = #{courseId},
+		date = #{date}, notice_detail = #{noticeDetail} WHERE quiz_id = #{quizId};
+	</update>
+	
+	<!-- 修改通知对象 -->
+	<update id="updateNoticeByClassId">
+		UPDATE notice SET class_id = #{classId}, user_id = #{userId}, course_id = #{courseId},
+		date = #{date}, notice_detail = #{noticeDetail} WHERE class_id = #{classId};
+	</update>
+	
+	<!-- 修改具体通知对象 -->
+	<update id="updateContentByNoticeDetail">
+		UPDATE notice_detail SET content = #{content} WHERE notice_detail = #{noticeDetail};
+	</update>
+	
+	<select id="getNoticeByQuizId" resultType="entity.Notice">
+		SELECT quiz_id, class_id, user_id, course_id, date, notice_detail FROM notice 
+		WHERE quiz_id = #{quizId};
+	</select>
+	
+	<select id="getNoticeDetailByNoticeDetailId" resultType="entity.NoticeDetail">
+		SELECT notice_detail_id, content FROM notice_detail WHERE notice_detail_id = #{noticeDetailId};
+	</select>
+	
+
+</mapper>
