@@ -28,7 +28,8 @@
 		SELECT	sign_id, class_id,  user_id, course_id, date, status, reason 
 		FROM sign;
 	</select>
-
+	
+	<!--  -->
 
 
 </mapper>
