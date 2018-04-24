@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import service.AccountService;
 public class LoginController {
 	
 	@Resource(name="accountServiceImpl")
-	AccountService accountService;
+	private AccountService accountService;
 	
 	@ResponseBody
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
