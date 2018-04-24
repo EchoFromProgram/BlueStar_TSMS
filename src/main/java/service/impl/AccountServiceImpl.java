@@ -3,13 +3,12 @@ package service.impl;
 import dao.AccountDao;
 import dto.AccountDto;
 import entity.User;
-import enums.CreateAccountStatus;
-import enums.LoginStatus;
+import enums.impl.CreateAccountStatus;
+import enums.impl.LoginStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.AccountService;
 
-import java.rmi.server.ObjID;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +40,7 @@ public class AccountServiceImpl implements AccountService
         // 如果前台给过来的用户名是空的，返回错误提示
         if (user == null || user.getUserName() == null || "".equals(user.getUserName()))
         {
-            return new AccountDto<String, LoginStatus>(LoginStatus.WRONG_USERNAME.getInfo(), LoginStatus.WRONG_USERNAME);
+            return new AccountDto<String>(LoginStatus.WRONG_USERNAME.getInfo(), LoginStatus.WRONG_USERNAME);
         }
 
         // 从数据库中查出这个账号的密码
@@ -50,13 +49,13 @@ public class AccountServiceImpl implements AccountService
         // 用户名不存在！
         if (u == null)
         {
-            return new AccountDto<String, LoginStatus>("用户名不存在！", LoginStatus.WRONG_USERNAME);
+            return new AccountDto<String>("用户名不存在！", LoginStatus.WRONG_USERNAME);
         }
 
         // 判断前台登陆用户输入的密码和后台数据的密码是否一致
         if (!u.getPassword().equals(user.getPassword()))
         {
-            return new AccountDto<String, LoginStatus>(LoginStatus.WRONG_PASSWORD.getInfo(), LoginStatus.WRONG_PASSWORD);
+            return new AccountDto<String>(LoginStatus.WRONG_PASSWORD.getInfo(), LoginStatus.WRONG_PASSWORD);
         }
 
         // 登陆成功，将要携带的信息带给前台
@@ -64,7 +63,7 @@ public class AccountServiceImpl implements AccountService
         infos.put("user", u);
         infos.put("HisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
 
-        return new AccountDto<Map, LoginStatus>(infos, LoginStatus.SUCCESS);
+        return new AccountDto<Map>(infos, LoginStatus.SUCCESS);
     }
 
     /**
@@ -92,9 +91,18 @@ public class AccountServiceImpl implements AccountService
         // 如果前台传了一个空对象过来，创建失败
         if (user == null)
         {
-            // TODO 方法未完成
-            return new AccountDto<String, CreateAccountStatus>(CreateAccountStatus.USER_IS_NULL.getInfo(), CreateAccountStatus.USER_IS_NULL);
+            return new AccountDto<String>(CreateAccountStatus.USER_IS_NULL.getInfo(), CreateAccountStatus.USER_IS_NULL);
         }
+
+        // 如果这个用户的账号或密码为空，返回提示
+        if (user.getUserName() == null || "".equals(user.getUserName())
+                || user.getPassword() == null || "".equals(user.getPassword()))
+        {
+            return new AccountDto<String>(CreateAccountStatus.CORE_INFO_IS_NULL.getInfo(), CreateAccountStatus.CORE_INFO_IS_NULL);
+        }
+
+        //
+
         return null;
     }
 }
