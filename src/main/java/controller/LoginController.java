@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.AccountDto;
 import entity.User;
-import enums.LoginStatus;
 import service.AccountService;
 
 @Controller
@@ -28,12 +27,12 @@ public class LoginController {
 	{
 		System.out.println(user);
 		AccountDto accountDto = accountService.login(user);
-		if(((LoginStatus)accountDto.getStatus()).getCode() == 0)
+		if(accountDto.getStatus().getCode() == 0)
 		{
 			System.out.println("-----------------");
 			
 			session.setAttribute("user", ((Map)accountDto.getData()).get("user"));
-			session.setAttribute("hisPower", ((Map)accountDto.getData()).get("hisPowers"));
+			session.setAttribute("hisPowers", ((Map)accountDto.getData()).get("hisPowers"));
 		}
 		return accountDto;
 	}
@@ -56,9 +55,9 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "getSessionHisPower.do", produces = {"application/json;charset=UTF8"})
+	@RequestMapping(path = "getSessionHisPowers.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionHisPower(HttpSession session) {
 		// TODO html访问session， 
-		return session.getAttribute("user");
+		return session.getAttribute("hisPowers");
 	}
 }
