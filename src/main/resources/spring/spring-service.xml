@@ -18,4 +18,5 @@
 		
 	<!-- 扫描 service 包下的注解，包含子包 -->
 	<context:component-scan base-package="service" />
-</beans>	
+	<!--<context:component-scan base-package="listener" />-->
+</beans>
