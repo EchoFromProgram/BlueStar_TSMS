@@ -30,7 +30,7 @@ public interface AccountService
      * @param username 用于验证的账号
      * @return true 账号存在，false 账号不存在
      */
-    public boolean checkUserNameIfValidated(String username);
+    public boolean userNameExisted(String username);
 
     /**
      * 创建一个用户，由前台传过来一个新用户

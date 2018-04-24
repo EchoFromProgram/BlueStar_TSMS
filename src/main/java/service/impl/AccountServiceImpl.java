@@ -75,7 +75,7 @@ public class AccountServiceImpl implements AccountService
      * @param username 用于验证的账号
      * @return true 账号存在，false 账号不存在
      */
-    public boolean checkUserNameIfValidated(String username)
+    public boolean userNameExisted(String username)
     {
         return accountDao.userNameIsExit(username) > 0;
     }
@@ -91,18 +91,42 @@ public class AccountServiceImpl implements AccountService
         // 如果前台传了一个空对象过来，创建失败
         if (user == null)
         {
-            return new AccountDto<String>(CreateAccountStatus.USER_IS_NULL.getInfo(), CreateAccountStatus.USER_IS_NULL);
+            return new AccountDto<String>(CreateAccountStatus.USER_IS_NULL.getInfo(),
+                    CreateAccountStatus.USER_IS_NULL);
         }
 
         // 如果这个用户的账号或密码为空，返回提示
         if (user.getUserName() == null || "".equals(user.getUserName())
                 || user.getPassword() == null || "".equals(user.getPassword()))
         {
-            return new AccountDto<String>(CreateAccountStatus.CORE_INFO_IS_NULL.getInfo(), CreateAccountStatus.CORE_INFO_IS_NULL);
+            return new AccountDto<String>(CreateAccountStatus.CORE_INFO_IS_NULL.getInfo(),
+                    CreateAccountStatus.CORE_INFO_IS_NULL);
         }
 
-        //
+        // 如果这个用户的其他信息为空，返回提示
+        if (user.getName() == null || "".equals(user.getName())
+                || user.getRoleId() == null || user.getTypeId() == null)
+        {
+            return new AccountDto<String>(CreateAccountStatus.INFO_IS_NOT_COMPLETED.getInfo(),
+                    CreateAccountStatus.INFO_IS_NOT_COMPLETED);
+        }
 
-        return null;
+        // 当所有信息都填完整了，就进行数据库查询，看看这个用户是否存在
+        if (userNameExisted(user.getUserName()))
+        {
+            return new AccountDto<String>(CreateAccountStatus.USERNAME_EXISTED.getInfo(),
+                    CreateAccountStatus.USERNAME_EXISTED);
+        }
+
+        int affect = accountDao.createAccount(user);
+        if (affect > 0) // 创建成功！
+        {
+            return new AccountDto<String>(CreateAccountStatus.SUCCESS.getInfo(),
+                    CreateAccountStatus.SUCCESS);
+        }
+
+        // 没有新增成功！未知错误！
+        return new AccountDto<String>(CreateAccountStatus.UNKNOWN_ERROR.getInfo(),
+                CreateAccountStatus.UNKNOWN_ERROR);
     }
 }

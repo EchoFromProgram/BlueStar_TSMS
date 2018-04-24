@@ -34,4 +34,19 @@ public class AccountServiceTest
 
         System.out.println(accountDto);
     }
+
+    @Test
+    public void testcreateAccount()
+    {
+        User user = new User();
+        user.setUserName("Fish");
+        user.setPassword("666");
+        user.setName("叶子");
+        user.setRoleId(1);
+        user.setTypeId(1);
+
+        AccountDto accountDto = accountService.createAccount(user);
+
+        System.out.println(accountDto);
+    }
 }

@@ -7,7 +7,7 @@ package entity;
 public class User {
 
 	//id
-	private int userId;
+	private Integer userId;
 	
 	//用户名
 	private String userName;
@@ -19,67 +19,81 @@ public class User {
 	private String name;
 	
 	//角色id
-	private int roleId;
+	private Integer roleId;
 	
 	//信息id
-	private int infoId;
+	private Integer infoId;
 	
 	//用户类型
-	private int typeId;
+	private Integer typeId;
 
-	public int getUserId() {
+	public Integer getUserId()
+	{
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId)
+	{
 		this.userId = userId;
 	}
 
-	public String getUserName() {
+	public String getUserName()
+	{
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(String userName)
+	{
 		this.userName = userName;
 	}
 
-	public String getPassword() {
+	public String getPassword()
+	{
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public int getRoleId() {
+	public Integer getRoleId()
+	{
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(Integer roleId)
+	{
 		this.roleId = roleId;
 	}
 
-	public int getInfoId() {
+	public Integer getInfoId()
+	{
 		return infoId;
 	}
 
-	public void setInfoId(int infoId) {
+	public void setInfoId(Integer infoId)
+	{
 		this.infoId = infoId;
 	}
 
-	public int getTypeId() {
+	public Integer getTypeId()
+	{
 		return typeId;
 	}
 
-	public void setTypeId(int typeId) {
+	public void setTypeId(Integer typeId)
+	{
 		this.typeId = typeId;
 	}
 
