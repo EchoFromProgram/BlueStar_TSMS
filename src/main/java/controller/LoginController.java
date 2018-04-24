@@ -47,6 +47,11 @@ public class LoginController {
 		return "Login";
 	}
 	
+	@RequestMapping(path = "sign_admin.do", produces = {"application/json;charset=UTF8"})
+	public String signAdmin() {
+		return "sign_admin";
+	}
+	
 	@ResponseBody
 	@RequestMapping(path = "getSessionUser.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionUser(HttpSession session) {
