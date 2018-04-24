@@ -25,6 +25,12 @@ public class AccountDto<T, E>
     public AccountDto()
     {}
 
+    public AccountDto(E status)
+    {
+        this.status = status;
+        // TODO 抽象状态
+    }
+
     public AccountDto(T data, E status)
     {
         this.data = data;

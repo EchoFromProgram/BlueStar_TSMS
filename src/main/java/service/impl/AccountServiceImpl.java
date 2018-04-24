@@ -3,6 +3,7 @@ package service.impl;
 import dao.AccountDao;
 import dto.AccountDto;
 import entity.User;
+import enums.CreateAccountStatus;
 import enums.LoginStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,5 +79,22 @@ public class AccountServiceImpl implements AccountService
     public boolean checkUserNameIfValidated(String username)
     {
         return accountDao.userNameIsExit(username) > 0;
+    }
+
+    /**
+     * 创建一个用户，由前台传过来一个新用户
+     *
+     * @param user 前台传过来的用户
+     * @return 返回创建的信息状态
+     */
+    public AccountDto createAccount(User user)
+    {
+        // 如果前台传了一个空对象过来，创建失败
+        if (user == null)
+        {
+            // TODO 方法未完成
+            return new AccountDto<String, CreateAccountStatus>(CreateAccountStatus.USER_IS_NULL.getInfo(), CreateAccountStatus.USER_IS_NULL);
+        }
+        return null;
     }
 }
