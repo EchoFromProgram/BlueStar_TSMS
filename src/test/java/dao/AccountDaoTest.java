@@ -83,9 +83,9 @@ public class AccountDaoTest {
 	}
 	
 	@Test
-	public void testGetClassIdsByInfoId() {
-		List<Integer> list = accountDao.getClassIdsByInfoId(1);
-		System.out.println(list);
+	public void testGetClassIdByInfoId() {
+		int num = accountDao.getClassIdByInfoId(1);
+		System.out.println(num);
 	}
 	
 	@Test
@@ -98,6 +98,12 @@ public class AccountDaoTest {
 	public void testGetClassesIdsByClassId() {
 		Clazz class1 = accountDao.getClassByClassId(2);
 		System.out.println(class1);
+	}
+	
+	@Test
+	public void testGetClassIdsByStaffId() {
+		List<Integer> list = accountDao.getClassIdsByStaffId(1);
+		System.out.println(list);
 	}
 
 }

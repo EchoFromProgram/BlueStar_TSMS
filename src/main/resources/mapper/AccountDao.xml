@@ -72,7 +72,7 @@
 	</select>
 	
 	<!-- 根据客户的信息id查询班级id -->
-	<select id="getClassIdsByInfoId" resultType="int">
+	<select id="getClassIdByInfoId" resultType="int">
 		SELECT class_id FROM customer WHERE info_id = #{infoId};
 	</select>
 	
@@ -84,6 +84,10 @@
 	<!-- 根据课程id得到课程 -->
 	<select id="getCoursesByCourseId" resultType="entity.Course">
 		SELECT c.course_id, c.course  FROM course c WHERE course_id = #{courseId};
+	</select>
+	
+	<select id="getClassIdsByStaffId" resultType="int">
+		SELECT class_id FROM staff_class WHERE staff_id = #{staffId};
 	</select>
 	
 </mapper>

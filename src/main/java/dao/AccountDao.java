@@ -80,12 +80,20 @@ public interface AccountDao
     /**
      * 通过客户的信息id得到对应的班级
      * @param infoId 信息id
-     * @return 返回客户所属班级的集合
+     * @return 返回客户所属班级
      */
-    public List<Integer> getClassIdsByInfoId(Integer infoId);
+    public Integer getClassIdByInfoId(Integer infoId);
     
     /**
-     * 通过班级id得到对应的班级
+     * 通过员工id的信息id对应的班级
+     * @param staffId 员工id，即信息id
+     * @return 
+     */
+    public List<Integer> getClassIdsByStaffId(Integer staffId);
+    
+    
+    /**
+     * 通过班级id得到对应的班
      * @param classId 班级id
      * @return 课程id集合
      */
@@ -97,5 +105,7 @@ public interface AccountDao
      * @return 课程集合
      */
     public Course getCoursesByCourseId(Integer courseId);
+    
+    
     
 }
