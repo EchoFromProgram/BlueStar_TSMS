@@ -7,7 +7,7 @@ package entity;
 public class NoticeDetail {
 	
 	// 通知详情id
-	private int noticeDetailId;
+	private Integer noticeDetailId;
 	
 	// 详细内容
 	private String content;
@@ -16,7 +16,7 @@ public class NoticeDetail {
 		return noticeDetailId;
 	}
 
-	public void setNoticeDetailId(int noticeDetailId) {
+	public void setNoticeDetailId(Integer noticeDetailId) {
 		this.noticeDetailId = noticeDetailId;
 	}
 

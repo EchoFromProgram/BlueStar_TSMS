@@ -7,19 +7,19 @@ package entity;
 public class Clazz {
 	
 	// 班级id
-	private int classId;
+	private Integer classId;
 	
 	// 班级名
 	private String className;
 	
 	// 课程id 
-	private int courseId;
+	private Integer courseId;
 
-	public int getClassId() {
+	public Integer getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Integer classId) {
 		this.classId = classId;
 	}
 
@@ -31,11 +31,11 @@ public class Clazz {
 		this.className = className;
 	}
 
-	public int getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 

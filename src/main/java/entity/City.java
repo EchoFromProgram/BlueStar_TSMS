@@ -7,27 +7,27 @@ package entity;
 public class City {
 	
 	// 城市id
-	private int cityId;
+	private Integer cityId;
 	
 	// 省份id
-	private int provinceId;
+	private Integer provinceId;
 	
 	// 城市名
 	private String city;
 
-	public int getCityId() {
+	public Integer getCityId() {
 		return cityId;
 	}
 
-	public void setCityId(int cityId) {
+	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
 
-	public int getProvinceId() {
+	public Integer getProvinceId() {
 		return provinceId;
 	}
 
-	public void setProvinceId(int provinceId) {
+	public void setProvinceId(Integer provinceId) {
 		this.provinceId = provinceId;
 	}
 

@@ -7,35 +7,35 @@ package entity;
 public class StaffClass {
 	
 	//id
-	private int staffClassId;
+	private Integer staffClassId;
 	
 	//员工id
-	private int staffId;
+	private Integer staffId;
 	
 	//班级id
-	private int classId;
+	private Integer classId;
 
-	public int getStaffClassId() {
+	public Integer getStaffClassId() {
 		return staffClassId;
 	}
 
-	public void setStaffClassId(int staffClassId) {
+	public void setStaffClassId(Integer staffClassId) {
 		this.staffClassId = staffClassId;
 	}
 
-	public int getStaffId() {
+	public Integer getStaffId() {
 		return staffId;
 	}
 
-	public void setStaffId(int staffId) {
+	public void setStaffId(Integer staffId) {
 		this.staffId = staffId;
 	}
 
-	public int getClassId() {
+	public Integer getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Integer classId) {
 		this.classId = classId;
 	}
 

@@ -7,16 +7,16 @@ package entity;
 public class Power {
 	
 	// 权限id
-	private int powerId;
+	private Integer powerId;
 	
 	// 权限
 	private String power;
 
-	public int getPowerId() {
+	public Integer getPowerId() {
 		return powerId;
 	}
 
-	public void setPowerId(int powerId) {
+	public void setPowerId(Integer powerId) {
 		this.powerId = powerId;
 	}
 

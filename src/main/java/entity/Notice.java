@@ -10,24 +10,24 @@ import java.util.Date;
 public class Notice {
 	
 	// 角色id
-	private int quizId;
+	private Integer quizId;
 	
 	// 班级id
-	private int classId;
+	private Integer classId;
 	
 	// 用户id
-	private int userId;
+	private Integer userId;
 	
 	// 课程id
-	private int courseId;
+	private Integer courseId;
 	
 	// 日期
 	private Date date;
 	
 	// 通知详情id
-	private int noticeDetail;
+	private Integer noticeDetail;
 
-	public int getQuizId() {
+	public Integer getQuizId() {
 		return quizId;
 	}
 
@@ -35,27 +35,27 @@ public class Notice {
 		this.quizId = quizId;
 	}
 
-	public int getClassId() {
+	public Integer getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Integer classId) {
 		this.classId = classId;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public int getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 
@@ -67,11 +67,11 @@ public class Notice {
 		this.date = date;
 	}
 
-	public int getNoticeDetail() {
+	public Integer getNoticeDetail() {
 		return noticeDetail;
 	}
 
-	public void setNoticeDetail(int noticeDetail) {
+	public void setNoticeDetail(Integer noticeDetail) {
 		this.noticeDetail = noticeDetail;
 	}
 

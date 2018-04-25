@@ -10,22 +10,22 @@ import java.util.Date;
 public class Quiz {
 	
 	// 问卷id
-	private int quizId;
+	private Integer quizId;
 	
 	// 班级id
-	private int classId;
+	private Integer classId;
 	
 	// 用户id
-	private int userId;
+	private Integer userId;
 	
 	// 课程id
-	private int courseId;
+	private Integer courseId;
 	
 	// 日期
 	private Date date;
 	
 	// 问卷内容 
-	private  int quizDetail;
+	private  Integer quizDetail;
 	
 	// 填写内容
 	private String fill;
@@ -34,7 +34,7 @@ public class Quiz {
 		return quizId;
 	}
 
-	public void setQuizId(int quizId) {
+	public void setQuizId(Integer quizId) {
 		this.quizId = quizId;
 	}
 
@@ -42,7 +42,7 @@ public class Quiz {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Integer classId) {
 		this.classId = classId;
 	}
 
@@ -50,7 +50,7 @@ public class Quiz {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -58,7 +58,7 @@ public class Quiz {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 
@@ -74,7 +74,7 @@ public class Quiz {
 		return quizDetail;
 	}
 
-	public void setQuizDetail(int quizDetail) {
+	public void setQuizDetail(Integer quizDetail) {
 		this.quizDetail = quizDetail;
 	}
 

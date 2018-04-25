@@ -7,16 +7,16 @@ package entity;
 public class Course {
 	
 	// 课程id
-	private int courseId;
+	private Integer courseId;
 	
 	// 课程名
 	private String course;
 
-	public int getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 

@@ -7,7 +7,7 @@ package entity;
 public class Customer {
 	
 	// id
-	private int infoId;
+	private Integer infoId;
 	
 	// 身份证
 	private String identityNum;
@@ -28,13 +28,13 @@ public class Customer {
 	private String email;
 	
 	// 班级id
-	private int classId;
+	private Integer classId;
 
-	public int getInfoId() {
+	public Integer getInfoId() {
 		return infoId;
 	}
 
-	public void setInfoId(int infoId) {
+	public void setInfoId(Integer infoId) {
 		this.infoId = infoId;
 	}
 
@@ -86,11 +86,11 @@ public class Customer {
 		this.email = email;
 	}
 
-	public int getClassId() {
+	public Integer getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Integer classId) {
 		this.classId = classId;
 	}
 

@@ -10,31 +10,31 @@ import java.util.Date;
 public class Sign {
 
 	//签到id
-	private int signId;
+	private Integer signId;
 		
 	//班级id
-	private int classId;
+	private Integer classId;
 		
 	//用户id
-	private int userId;
+	private Integer userId;
 		
 	//课程id
-	private int courseId;
+	private Integer courseId;
 		
 	//日期
 	private Date date;
 	
 	//签到状态
-	private int status;
+	private Integer status;
 	
 	//迟到原因
 	private String reason;
 
-	public int getSignId() {
+	public Integer getSignId() {
 		return signId;
 	}
 
-	public void setSignId(int signId) {
+	public void setSignId(Integer signId) {
 		this.signId = signId;
 	}
 
@@ -42,7 +42,7 @@ public class Sign {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Integer classId) {
 		this.classId = classId;
 	}
 
@@ -50,7 +50,7 @@ public class Sign {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -58,7 +58,7 @@ public class Sign {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 
@@ -74,7 +74,7 @@ public class Sign {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

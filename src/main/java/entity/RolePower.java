@@ -10,27 +10,27 @@ import java.util.List;
 public class RolePower {
 	
 	//角色权限id
-	private int rolePowerId;
+	private Integer rolePowerId;
 	
 	//角色id
-	private int roleId;
+	private Integer roleId;
 	
 	//一组权限id
 	private List<Integer> powerId;
 
-	public int getRolePowerId() {
+	public Integer getRolePowerId() {
 		return rolePowerId;
 	}
 
-	public void setRolePowerId(int rolePowerId) {
+	public void setRolePowerId(Integer rolePowerId) {
 		this.rolePowerId = rolePowerId;
 	}
 
-	public int getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 

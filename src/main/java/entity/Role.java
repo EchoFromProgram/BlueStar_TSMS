@@ -7,16 +7,16 @@ package entity;
 public class Role {
 	
 	//角色id
-	private int roleId;
+	private Integer roleId;
 	
 	//角色
 	private String role;
 
-	public int getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 

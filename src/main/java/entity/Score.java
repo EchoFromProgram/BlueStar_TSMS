@@ -10,32 +10,32 @@ import java.util.Date;
 public class Score {
 	
 	//成绩id
-	private int quizId;
+	private Integer quizId;
 	
 	//班级id
-	private int classId;
+	private Integer classId;
 	
 	//用户id
-	private int userId;
+	private Integer userId;
 	
 	//课程id
-	private int courseId;
+	private Integer courseId;
 	
 	//日期
 	private Date date;
 	
 	//分数
-	private int score;
+	private Integer score;
 
-	public int getQuizId() {
+	public Integer getQuizId() {
 		return quizId;
 	}
 
-	public void setQuizId(int quizId) {
+	public void setQuizId(Integer quizId) {
 		this.quizId = quizId;
 	}
 
-	public int getClassId() {
+	public Integer getClassId() {
 		return classId;
 	}
 
@@ -43,19 +43,19 @@ public class Score {
 		this.classId = classId;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public int getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 
@@ -71,7 +71,7 @@ public class Score {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 

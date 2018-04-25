@@ -7,27 +7,27 @@ package entity;
 public class School {
 	
 	//学校id
-	private int schoolId;
+	private Integer schoolId;
 	
 	//城市id
-	private int cityId;
+	private Integer cityId;
 	
 	//学校名
 	private String school;
 
-	public int getSchoolId() {
+	public Integer getSchoolId() {
 		return schoolId;
 	}
 
-	public void setSchoolId(int schoolId) {
+	public void setSchoolId(Integer schoolId) {
 		this.schoolId = schoolId;
 	}
 
-	public int getCityId() {
+	public Integer getCityId() {
 		return cityId;
 	}
 
-	public void setCityId(int cityId) {
+	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
 

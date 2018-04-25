@@ -7,7 +7,7 @@ package entity;
 public class Staff {
 	
 	//id
-	private int tId;
+	private Integer tId;
 	
 	//身份证
 	private String identityNum;
@@ -24,7 +24,7 @@ public class Staff {
 	//邮箱
 	private String email;
 
-	public int gettId() {
+	public Integer gettId() {
 		return tId;
 	}
 

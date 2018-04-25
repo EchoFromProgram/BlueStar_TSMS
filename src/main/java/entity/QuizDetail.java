@@ -7,16 +7,16 @@ package entity;
 public class QuizDetail {
 	
 	// 问卷id
-	private int quizDetail;
+	private Integer quizDetail;
 	
 	// 问题
 	private String question;
 
-	public int getQuizDetail() {
+	public Integer getQuizDetail() {
 		return quizDetail;
 	}
 
-	public void setQuizDetail(int quizDetail) {
+	public void setQuizDetail(Integer quizDetail) {
 		this.quizDetail = quizDetail;
 	}
 

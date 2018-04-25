@@ -7,16 +7,16 @@ package entity;
 public class Province {
 	
 	// 省份id
-	private int provinceId;
+	private Integer provinceId;
 	
 	// 省份
 	private String province;
 
-	public int getProvinceId() {
+	public Integer getProvinceId() {
 		return provinceId;
 	}
 
-	public void setProvinceId(int provinceId) {
+	public void setProvinceId(Integer provinceId) {
 		this.provinceId = provinceId;
 	}
 
