@@ -129,4 +129,10 @@ public class AccountServiceImpl implements AccountService
         return new AccountDto<String>(CreateAccountStatus.UNKNOWN_ERROR.getInfo(),
                 CreateAccountStatus.UNKNOWN_ERROR);
     }
+
+    @Override
+    public void sign()
+    {
+        // TODO 未完成
+    }
 }

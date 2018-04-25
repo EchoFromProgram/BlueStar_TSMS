@@ -39,4 +39,6 @@ public interface AccountService
      * @return 返回创建的信息状态
      * */
     public AccountDto createAccount(User user);
+
+    public /* TODO 返回值未定 */ void sign(/* TODO 参数未定*/);
 }
