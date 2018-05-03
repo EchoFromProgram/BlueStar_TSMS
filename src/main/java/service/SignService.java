@@ -3,6 +3,7 @@ package service;
 import dto.AccountDto;
 import entity.Clazz;
 import entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  *
  * @author Fish
  * */
+@Service
 public interface SignService
 {
     /**
@@ -39,4 +41,35 @@ public interface SignService
      * @return 返回签到情况
      */
     public AccountDto sign(User user, Clazz clazz, String reason);
+
+    /**
+     * 根据班级信息获取签到信息
+     *
+     * @param clazz 指定的班级
+     * @return 返回指定的签到信息
+     * */
+    public AccountDto getClassSigns(Clazz clazz);
+
+    /**
+     * 获取指定班级的老师的签到信息
+     *
+     * @param clazz 指定班级
+     * @return 返回指定班级的老师签到信息
+     * */
+    public AccountDto getTeacherSignsByClass(Clazz clazz);
+
+    /**
+     * 获取指定班级的学生的签到信息
+     *
+     * @param clazz 指定班级
+     * @return 返回指定班级的学生的签到信息
+     * */
+    public AccountDto getStudentSignsByClass(Clazz clazz);
+
+    /**
+     * 获取整个签到表的信息
+     *
+     * @return 返回整个签到表
+     * */
+    public AccountDto getSigns();
 }

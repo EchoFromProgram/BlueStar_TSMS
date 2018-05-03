@@ -9,7 +9,7 @@ import enums.Statusable;
  * */
 public enum SignStatus implements Statusable
 {
-    SUCCESS(0, "签到成功！"),
+    SUCCESS(0, "执行成功！"),
     WRONG_CODE(-1, "验证码错误！"),
     TOO_LATE(-2, "你迟到了！请填写原因！"),
     TOO_EARLY(-3, "签到还未开放！"),

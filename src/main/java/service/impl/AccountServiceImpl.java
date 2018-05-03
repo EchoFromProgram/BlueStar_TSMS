@@ -1,13 +1,10 @@
 package service.impl;
 
 import dao.AccountDao;
-import dao.SignDao;
 import dto.AccountDto;
 import entity.*;
-import enums.TYPE;
 import enums.impl.CreateAccountStatus;
 import enums.impl.LoginStatus;
-import enums.impl.SignStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.AccountService;

@@ -1,5 +1,6 @@
 package service.impl;
 
+import constant.ROLE;
 import dao.AccountDao;
 import dao.SignDao;
 import dto.AccountDto;
@@ -124,5 +125,73 @@ public class SignServiceImpl implements SignService
         signDao.insertIntoSign(sign);
 
         return null;
+    }
+
+    /**
+     * 根据班级信息获取签到信息
+     *
+     * @param clazz 指定的班级
+     * @return 返回指定的签到信息
+     */
+    @Override
+    public AccountDto getClassSigns(Clazz clazz)
+    {
+        if (clazz == null || clazz.getClassId() == null)
+        {
+            return new AccountDto<String>(SignStatus.WRONG_CLASS.getInfo(),
+                    SignStatus.WRONG_CLASS);
+        }
+
+        return new AccountDto<List<Sign>>(signDao.getSignsByClassId(clazz.getClassId()),
+                SignStatus.SUCCESS);
+    }
+
+    /**
+     * 获取指定班级的老师的签到信息
+     *
+     * @param clazz 指定班级
+     * @return 返回指定班级的老师签到信息
+     */
+    @Override
+    public AccountDto getTeacherSignsByClass(Clazz clazz)
+    {
+        if (clazz == null || clazz.getClassId() == null)
+        {
+            return new AccountDto<String>(SignStatus.WRONG_CLASS.getInfo(),
+                    SignStatus.WRONG_CLASS);
+        }
+
+        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), ROLE.TEACHER),
+                SignStatus.SUCCESS);
+    }
+
+    /**
+     * 获取指定班级的学生的签到信息
+     *
+     * @param clazz 指定班级
+     * @return 返回指定班级的学生的签到信息
+     */
+    @Override
+    public AccountDto getStudentSignsByClass(Clazz clazz)
+    {
+        if (clazz == null || clazz.getClassId() == null)
+        {
+            return new AccountDto<String>(SignStatus.WRONG_CLASS.getInfo(),
+                    SignStatus.WRONG_CLASS);
+        }
+
+        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), ROLE.STUDENT),
+                SignStatus.SUCCESS);
+    }
+
+    /**
+     * 获取整个签到表的信息
+     *
+     * @return 返回整个签到表
+     */
+    @Override
+    public AccountDto getSigns()
+    {
+        return new AccountDto<List<Sign>>(signDao.getAllSigns(), SignStatus.SUCCESS);
     }
 }
