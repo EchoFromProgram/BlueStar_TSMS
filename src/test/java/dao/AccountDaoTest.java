@@ -95,6 +95,8 @@ public class AccountDaoTest {
 	public void testGetClassesIdsByClassId() {
 		Clazz class1 = accountDao.getClassByClassId(2);
 		System.out.println(class1);
+		Clazz class2 = accountDao.getClassByClassId(2);
+		
 	}
 	
 	@Test

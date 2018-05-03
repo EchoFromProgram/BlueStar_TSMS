@@ -4,22 +4,27 @@
 
 <mapper namespace="dao.ScoreDao">
 	<!-- 插入一条成绩 -->
-	<insert id="insertResultIntoScore" >
-		INSERT INTO Score(class_id, user_id, course_id, date, score)
+	<insert id="insertScore" >
+		INSERT INTO score(class_id, user_id, course_id, date, score)
 		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{score});
 	</insert>
 	 
 	<!-- 根据班级id查询整个班级的成绩 -->
 	<select id="getScoresByClassId" resultType="entity.Score">
-		SELECT class_id, user_id, course_id, date, score 
+		SELECT quiz_id, class_id, user_id, course_id, date, score 
 		FROM score WHERE class_id = #{classId};
 	</select>
 	
+	<!-- 查询一个学生的成绩 -->
 	<select id="getScoreByUserId" resultType="entity.Score">
-		SELECT class_id, user_id, course_id, date, score 
+		SELECT quiz_id, class_id, user_id, course_id, date, score 
 		FROM score WHERE user_id = #{userId};
 	</select>
-
+	
+	<!-- 得到所有成绩 -->
+	<select id="getAllScores" resultType="entity.Score">
+		SELECT quiz_id, class_id, user_id, course_id, date, score FROM score;
+	</select>
 
 
 
