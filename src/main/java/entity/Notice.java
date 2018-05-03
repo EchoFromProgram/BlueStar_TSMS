@@ -10,7 +10,7 @@ import java.util.Date;
 public class Notice {
 	
 	// 角色id
-	private Integer quizId;
+	private Integer noticeId;
 	
 	// 班级id
 	private Integer classId;
@@ -25,14 +25,17 @@ public class Notice {
 	private Date date;
 	
 	// 通知详情id
-	private Integer noticeDetail;
+	private Integer noticeDetailId;
+	
+	//具体通知消息
+	private NoticeDetail noticeDetail;
 
-	public Integer getQuizId() {
-		return quizId;
+	public Integer getNoticeId() {
+		return noticeId;
 	}
 
-	public void setQuizId(int quizId) {
-		this.quizId = quizId;
+	public void setNoticeId(Integer noticeId) {
+		this.noticeId = noticeId;
 	}
 
 	public Integer getClassId() {
@@ -67,18 +70,30 @@ public class Notice {
 		this.date = date;
 	}
 
-	public Integer getNoticeDetail() {
+	public Integer getNoticeDetailId() {
+		return noticeDetailId;
+	}
+
+	public void setNoticeDetailId(Integer noticeDetailId) {
+		this.noticeDetailId = noticeDetailId;
+	}
+
+	public NoticeDetail getNoticeDetail() {
 		return noticeDetail;
 	}
 
-	public void setNoticeDetail(Integer noticeDetail) {
+	public void setNoticeDetail(NoticeDetail noticeDetail) {
 		this.noticeDetail = noticeDetail;
 	}
 
 	@Override
 	public String toString() {
-		return "Notice [quizId=" + quizId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
-				+ ", date=" + date + ", noticeDetail=" + noticeDetail + "]";
+		return "Notice [noticeId=" + noticeId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
+				+ ", date=" + date + ", noticeDetailId=" + noticeDetailId + ", noticeDetail=" + noticeDetail + "]";
 	}
+
+	
+
+	
 	
 }

@@ -32,7 +32,7 @@ public interface ScoreDao {
 	
 	/**
 	 * 得到所有成绩，用于管理员查看所有学员成绩
-	 * @return
+	 * @return 所有成绩的集合
 	 */
 	public List<Score> getAllScores(); 
 	
