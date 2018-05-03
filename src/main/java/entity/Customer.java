@@ -4,7 +4,7 @@ package entity;
  * @author happyChicken
  *
  */
-public class Customer {
+public class Customer  {
 	
 	// id
 	private Integer infoId;

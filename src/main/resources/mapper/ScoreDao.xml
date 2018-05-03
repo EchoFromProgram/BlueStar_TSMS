@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.ScoreDao">
+	<!-- 插入一条成绩 -->
+	<insert id="insertResultIntoScore" >
+		INSERT INTO Score(class_id, user_id, course_id, date, score)
+		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{score});
+	</insert>
+	 
+	<!-- 根据班级id查询整个班级的成绩 -->
+	<select id="getScoresByClassId" resultType="entity.Score">
+		SELECT class_id, user_id, course_id, date, score 
+		FROM score WHERE class_id = #{classId};
+	</select>
+	
+	<select id="getScoreByUserId" resultType="entity.Score">
+		SELECT class_id, user_id, course_id, date, score 
+		FROM score WHERE user_id = #{userId};
+	</select>
+
+
+
+
+
+
+
+
+</mapper>

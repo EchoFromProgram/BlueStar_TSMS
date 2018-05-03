@@ -11,13 +11,14 @@
 	
 	<!-- 根据用户名得到密码，角色id，姓名 -->
 	<select id="getUserByUserName" resultType="entity.User">
-		SELECT username, password, name, role_id, info_id, type_id FROM user WHERE username = #{username};
+		SELECT u.user_id, u.username, u.password, u.name, u.role_id, u.info_id, u.type_id
+		FROM user u  WHERE u.username = #{username};
 	</select>
 
 	<!-- 创建一个新账户,插入到用户表中 -->
 	<insert id="createAccount">
 		INSERT INTO user(username, password, name, role_id, info_id, type_id)
-		VALUES(#{userName}, #{password}, #{name}, #{roleId}, #{infoId}, #{typeId})
+		VALUES(#{userName}, #{password}, #{name}, #{roleId}, #{infoId}, #{typeId});
 	</insert>
 	
 	<!-- 设置员工信息 -->
@@ -71,10 +72,7 @@
 		SELECT power_id, power FROM power;
 	</select>
 	
-	<!-- 根据客户的信息id查询班级id -->
-	<select id="getClassIdByInfoId" resultType="int">
-		SELECT class_id FROM customer WHERE info_id = #{infoId};
-	</select>
+
 	
 	<!-- 通过班级id得到班级 -->
 	<select id="getClassByClassId" resultType="entity.Clazz">
@@ -86,8 +84,9 @@
 		SELECT c.course_id, c.course  FROM course c WHERE course_id = #{courseId};
 	</select>
 	
-	<select id="getClassIdsByStaffId" resultType="int">
-		SELECT class_id FROM staff_class WHERE staff_id = #{staffId};
+	<!-- 得到班级 -->
+	<select id="getClassIdsByUserId" resultType="int">
+		SELECT class_id FROM user_class WHERE user_id= #{user_id};
 	</select>
 	
 </mapper>

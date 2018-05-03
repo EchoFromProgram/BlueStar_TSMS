@@ -6,8 +6,6 @@ package entity;
  */
 public class Clazz {
 	
-	// 班级id
-	private Integer classId;
 	
 	// 班级名
 	private String className;
@@ -15,14 +13,7 @@ public class Clazz {
 	// 课程id 
 	private Integer courseId;
 
-	public Integer getClassId() {
-		return classId;
-	}
-
-	public void setClassId(Integer classId) {
-		this.classId = classId;
-	}
-
+	
 	public String getClassName() {
 		return className;
 	}
@@ -41,7 +32,7 @@ public class Clazz {
 
 	@Override
 	public String toString() {
-		return "Class [classId=" + classId + ", className=" + className + ", courseId=" + courseId + "]";
+		return "Class [className=" + className + ", courseId=" + courseId + "]";
 	}
 	
 }

@@ -28,7 +28,7 @@ public class Staff {
 		return tId;
 	}
 
-	public void settId(int tId) {
+	public void settId(Integer tId) {
 		this.tId = tId;
 	}
 
@@ -77,4 +77,6 @@ public class Staff {
 		return "Staff [tId=" + tId + ", identityNum=" + identityNum + ", resume=" + resume + ", qq=" + qq
 				+ ", telephone=" + telephone + ", email=" + email + "]";
 	}
+
+	
 }

@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import javax.jws.soap.SOAPBinding.Use;
+
 import entity.Clazz;
 import entity.Course;
 import entity.Customer;
@@ -77,25 +79,19 @@ public interface AccountDao
      */
     public List<Power> getPowers();
     
-    /**
-     * 通过客户的信息id得到对应的班级
-     * @param infoId 信息id
-     * @return 返回客户所属班级
-     */
-    public Integer getClassIdByInfoId(Integer infoId);
     
     /**
-     * 通过员工id的信息id对应的班级
+     * 通过用户id得到班级id
      * @param staffId 员工id，即信息id
-     * @return 
+     * @return 班级id集合
      */
-    public List<Integer> getClassIdsByStaffId(Integer staffId);
+    public List<Integer> getClassIdsByUserId(Integer userId);
     
     
     /**
-     * 通过班级id得到对应的班
+     * 通过班级id得到对应的班级
      * @param classId 班级id
-     * @return 课程id集合
+     * @return 班级对象
      */
     public Clazz getClassByClassId(Integer classId);
     

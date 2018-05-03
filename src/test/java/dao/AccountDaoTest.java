@@ -31,7 +31,8 @@ public class AccountDaoTest {
 
 	@Test
 	public void testGetUserByUserName() {
-		
+		User user = accountDao.getUserByUserName("h123");
+		System.out.println(user);
 	}
 
 	@Test
@@ -82,11 +83,7 @@ public class AccountDaoTest {
 		System.out.println(customer);
 	}
 	
-	@Test
-	public void testGetClassIdByInfoId() {
-		int num = accountDao.getClassIdByInfoId(1);
-		System.out.println(num);
-	}
+
 	
 	@Test
 	public void testGetCoursesByCourseId() {
@@ -102,7 +99,7 @@ public class AccountDaoTest {
 	
 	@Test
 	public void testGetClassIdsByStaffId() {
-		List<Integer> list = accountDao.getClassIdsByStaffId(1);
+		List<Integer> list = accountDao.getClassIdsByUserId(1);
 		System.out.println(list);
 	}
 

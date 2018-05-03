@@ -1,4 +1,7 @@
 package entity;
+
+import java.util.List;
+
 /**
  * 用户类，对应user表
  * @author happyChicken
@@ -26,81 +29,78 @@ public class User {
 	
 	//用户类型
 	private Integer typeId;
+	
+	//用户所属班级
+	private List<Integer> classIds;
 
-	public Integer getUserId()
-	{
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId)
-	{
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public String getUserName()
-	{
+	public String getUserName() {
 		return userName;
 	}
 
-	public void setUserName(String userName)
-	{
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public String getPassword()
-	{
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password)
-	{
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Integer getRoleId()
-	{
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Integer roleId)
-	{
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 
-	public Integer getInfoId()
-	{
+	public Integer getInfoId() {
 		return infoId;
 	}
 
-	public void setInfoId(Integer infoId)
-	{
+	public void setInfoId(Integer infoId) {
 		this.infoId = infoId;
 	}
 
-	public Integer getTypeId()
-	{
+	public Integer getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(Integer typeId)
-	{
+	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
 	}
+
+
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", name=" + name
-				+ ", roleId=" + roleId + ", infoId=" + infoId + ", typeId=" + typeId + "]";
+				+ ", roleId=" + roleId + ", infoId=" + infoId + ", typeId=" + typeId + ", customer=" +" ]";
 	}
+	
+	
+
+
+
+	
 	
 }
