@@ -2,13 +2,15 @@ package dto;
 
 import enums.Statusable;
 
+import java.io.Serializable;
+
 /**
  * 用于账号登陆的传输信息类
  * T 是被携带数据的类型
  *
  * @author Fish
  * */
-public class AccountDto<T>
+public class AccountDto<T> implements Serializable
 {
     /**
      * 传输的主要数据
