@@ -7,6 +7,7 @@ import dto.AccountDto;
 import entity.Clazz;
 import entity.Sign;
 import entity.User;
+import enums.impl.CreateAccountStatus;
 import enums.impl.SignStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -193,5 +194,25 @@ public class SignServiceImpl implements SignService
     public AccountDto getSigns()
     {
         return new AccountDto<List<Sign>>(signDao.getAllSigns(), SignStatus.SUCCESS);
+    }
+
+    /**
+     * 获取这个用户的所有签到信息
+     *
+     * @param user 要被查询的用户
+     * @return 返回这个用户的签到信息
+     */
+    @Override
+    public AccountDto getSignsByUser(User user)
+    {
+        // 先判断用户是否可用
+        if (user == null || user.getUserId() == null)
+        {
+            return new AccountDto<String>(CreateAccountStatus.USER_IS_NULL.getInfo(),
+                    CreateAccountStatus.USER_IS_NULL);
+        }
+
+        return new AccountDto<List<Sign>>(signDao.getSignsByUserId(user.getUserId()),
+                SignStatus.SUCCESS);
     }
 }

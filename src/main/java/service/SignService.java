@@ -72,4 +72,12 @@ public interface SignService
      * @return 返回整个签到表
      * */
     public AccountDto getSigns();
+
+    /**
+     * 获取这个用户的所有签到信息
+     *
+     * @param user 要被查询的用户
+     * @return 返回这个用户的签到信息
+     * */
+    public AccountDto getSignsByUser(User user);
 }
