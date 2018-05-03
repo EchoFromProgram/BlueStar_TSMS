@@ -49,13 +49,4 @@ public class AccountServiceTest
 
         System.out.println(accountDto);
     }
-
-    @Test
-    public void testGetSignCode()
-    {
-        for (int i = 0; i < 20; i++)
-        {
-            System.out.println(accountService.getSignCode());
-        }
-    }
 }
