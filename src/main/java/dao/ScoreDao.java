@@ -12,11 +12,11 @@ import entity.Score;
 public interface ScoreDao {
 	
 	/**
-	 * 插入一条成绩
+	 * 插入一条成绩        
 	 * @param socre 成绩类
 	 * @return 影响的行数，如果是1则插入成功 
 	 */ 
-	public Integer insertScore(Score score); 
+	public Integer insertScore(Score score);    
 	
 	/**
 	 * 根据班级id得到该班级的成绩

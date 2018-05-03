@@ -28,7 +28,7 @@ public interface SignDao {
 	public List<Sign> getSignsByUserId(Integer userId);
 	
 	/**
-	 * 根据班级id和角色id，查询某班级学生的签到情况
+	 * 根据班级id和角色id 根据班级id得到老师或学生的签到情况
 	 * @param classId 班级id
 	 * @param roleId  角色id
 	 * @return 班级学生签到集合
@@ -42,5 +42,11 @@ public interface SignDao {
 	 */
 	public List<Sign> getAllSigns();
 	
+	/**
+	 * 根据班级id得到老师和学生的签到情况
+	 * @param classId 班级id
+	 * @return 签到集合
+	 */
+	public List<Sign> getSignsByClassId(Integer classId);
 	
 }

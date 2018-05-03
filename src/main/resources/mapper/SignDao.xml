@@ -16,7 +16,7 @@
 		FROM sign WHERE user_id = #{userId};
 	</select>
 	
-	<!-- 根据班级id查询签到情况 -->
+	<!-- 根据班级id查询学生签到情况 -->
 	<select id="getSignsByClassIdAndRoleId" resultType="entity.Sign">
 		SELECT	s.sign_id, s.class_id,  s.user_id, s.course_id, s.date, s.status, s.reason
 		FROM sign s inner join user u on s.user_id = u.user_id
@@ -29,7 +29,10 @@
 		FROM sign;
 	</select>
 	
-	<!--  -->
-
-
+	<!-- 根据班级id得到老师和学生的签到情况 -->
+	<select id="getSignsByClassId" resultType="entity.Sign">
+		SELECT	sign_id, class_id,  user_id, course_id, date, status, reason 
+		FROM sign WHERE class_id = #{classId};
+	</select>
+	
 </mapper>

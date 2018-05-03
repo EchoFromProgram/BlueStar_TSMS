@@ -37,7 +37,7 @@ public class SignDaoTest {
 	}
 
 	@Test
-	public void testGetSignsByClassId() {
+	public void testGetSignsByClassIdAndRoleId() {
 		List<Sign> list = signDao.getSignsByClassIdAndRoleId(1, 1);
 		System.out.println(list);
 	}
@@ -47,5 +47,10 @@ public class SignDaoTest {
 		List<Sign> list = signDao.getAllSigns();
 		System.out.println(list);
 	}
-
+	
+	@Test
+	public void testGetSignsByClassId() {
+		List<Sign> list = signDao.getSignsByClassId(1);
+		System.out.println(list);
+	}
 }
