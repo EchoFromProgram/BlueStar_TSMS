@@ -5,8 +5,7 @@ package entity;
  *
  */
 public class Clazz {
-	
-	
+
 	// 班级名
 	private String className;
 	
