@@ -4,42 +4,51 @@
 
 <mapper namespace="dao.NoticeDao">
 
-	<!-- 插入通知对象 -->
-	<insert id="insertNotice">
-		INSERT INTO notice(class_id, user_id, course_id, date, notice_detail)
-		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{noticeDetail});
+	<!-- 插入一条具体通知，并返回自增主键 -->
+	<insert id="insertNoticeDetail" useGeneratedKeys="true" keyProperty="noticeDetailId">
+		INSERT INTO notice_detail(content) VALUES(#{content});
 	</insert>
 	
-	<!-- 插入具体通知对象 -->
-	<insert id="insertNoticeDetail">
-		INSERT INTO notice_detail(notice_detail, content) VALUES(#{noticeDetail},#{content});
+	<!-- 插入一条通知，并返回自增主键 -->
+	<insert id="insertNotice" useGeneratedKeys="true" keyProperty="noticeId">
+		INSERT INTO notice(class_id, user_id, course_id, date, notice_detail_id) 
+		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{noticeDetailId});
 	</insert>
 	
-	<!-- 修改通知对象 -->
-	<update id="updateNoticeByQuizId">
-		UPDATE notice SET class_id = #{classId}, user_id = #{userId}, course_id = #{courseId},
-		date = #{date}, notice_detail = #{noticeDetail} WHERE quiz_id = #{quizId};
+	<!-- 通 -->
+	<update id="updateNoticeByClassIdAndNoticeDetailId">
+		UPDATE notice
+		<set>
+		  <if test="classId != null">class_Id= #{classId},</if>
+		  <if test="userId != null">user_id = #{userId},</if>
+		  <if test="courseId != null">course_id = #{courseId},</if>
+		  <if test="date != null">date = #{date},</if>
+		  <if test="noticeDetailId != null">notice_detail_id = #{noticeDetailId},</if>
+ 		</set>
+ 		WHERE class_id = #{classId} AND notice_detail_id = #{noticeDetailId};
 	</update>
 	
-	<!-- 修改通知对象 -->
-	<update id="updateNoticeByClassId">
-		UPDATE notice SET class_id = #{classId}, user_id = #{userId}, course_id = #{courseId},
-		date = #{date}, notice_detail = #{noticeDetail} WHERE class_id = #{classId};
+	<!-- 通过具体通知id更新具体通知 -->
+	<update id="updateNoticeDetailByNoticeDetailId">
+		UPDATE notice_detail
+		<set>
+		  <if test="content != null">content= #{content},</if>
+ 		</set>
+ 		WHERE notice_detail_id = #{noticeDetailId};
 	</update>
 	
-	<!-- 修改具体通知对象 -->
-	<update id="updateContentByNoticeDetail">
-		UPDATE notice_detail SET content = #{content} WHERE notice_detail = #{noticeDetail};
-	</update>
-	
-	<select id="getNoticeByQuizId" resultType="entity.Notice">
-		SELECT quiz_id, class_id, user_id, course_id, date, notice_detail FROM notice 
-		WHERE quiz_id = #{quizId};
+	<select id="getNoticesByClassId" resultType="entity.Notice">
+		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
+		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content"
+		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
+		WHERE n.class_id = #{classId}; 
 	</select>
 	
-	<select id="getNoticeDetailByNoticeDetailId" resultType="entity.NoticeDetail">
-		SELECT notice_detail_id, content FROM notice_detail WHERE notice_detail_id = #{noticeDetailId};
+	<select id="getNoticesByUserId" resultType="entity.Notice">
+		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
+		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content"
+		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
+		WHERE n.user_id = #{userId}; 
 	</select>
-	
 
 </mapper>

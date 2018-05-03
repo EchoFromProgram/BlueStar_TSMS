@@ -1,7 +1,11 @@
 package dao;
 
+import java.util.List;
+
 import entity.Notice;
 import entity.NoticeDetail;
+import entity.User;
+import net.sf.jsqlparser.statement.insert.Insert;
 
 /**
  * 该方法用于通知
@@ -11,53 +15,44 @@ import entity.NoticeDetail;
 public interface NoticeDao {
 	
 	/**
-	 * 增加通知对象
-	 * @param notice 通知对象
+	 * 插入具体的签到信息
+	 * @param noticeDetail 具体签到类
+	 * @return 影响的行数，如果是1则插入成功
+	 */
+	public Integer insertNoticeDetail(NoticeDetail noticeDetail);
+	
+	/**
+	 * 插入签到信息
+	 * @param notice 签到类
 	 * @return 影响的行数，如果是1则插入成功
 	 */
 	public Integer insertNotice(Notice notice);
 	
 	/**
-	 * 增加具体通知内容
-	 * @param noticeDetail 具体通知内容对象
-	 * @return 影响的行数
-	 */
-	public Integer insertNoticeDetail(NoticeDetail noticeDetail);
-	
-	/**
-	 * 根据通知id修改通知对象
+	 * 更新通知
 	 * @param notice 通知对象
-	 * @return 影响的行数，如果是1则修改成功
+	 * @return 影响的行数，如果是1则插入成功
 	 */
-	public Integer updateNoticeByQuizId(Notice notice);
+	public Integer updateNoticeByClassIdAndNoticeDetailId(Notice notice);
 	
 	/**
-	 * 根据班级id修改通知对象
-	 * @param notice 通知对象
-	 * @return 影响的行数，如果是1则修改成功
+	 * 更新具体签到信息
+	 * @param noticeDetailId 具体通知id
+	 * @return	影响的行数，如果是1则修改成功
 	 */
-	public Integer updateNoticeByClassId(Notice notice);
-	
+	public Integer updateNoticeDetailByNoticeDetailId(NoticeDetail noticeDetail);
 	
 	/**
-	 * 通过notice_detail（id）修改通知内容
-	 * @param NoticeDetail
-	 * @return
+	 * 通过班级id查询通知信息(里面包含了具体通知信息)
+	 * @param classId 班级id
+	 * @return 通知信息集合
 	 */
-	public Integer updateContentByNoticeDetail(NoticeDetail noticeDetail);
+	public List<Notice> getNoticesByClassId(Integer classId);
 	
 	/**
-	 * 通过通知id得到通知对象
-	 * @param quizId
-	 * @return
+	 * 通过用户id查询通知信息(里面包含了具体通知信息)
+	 * @param userId 用户id
+	 * @return 通知信息集合
 	 */
-	public Notice getNoticeByQuizId(Integer quizId);
-	
-	/**
-	 * 通过具体通知的id得到具体通知对象
-	 * @param noticeDetail
-	 * @return
-	 */
-	public NoticeDetail getNoticeDetailByNoticeDetailId(Integer noticeDetailId);
-	
+	public List<Notice> getNoticesByUserId(Integer userId);
 }
