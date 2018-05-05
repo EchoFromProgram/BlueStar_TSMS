@@ -1,6 +1,7 @@
 package service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import constant.Page;
 import dao.AccountDao;
 import dto.AccountDto;
@@ -146,6 +147,6 @@ public class AccountServiceImpl implements AccountService
         }
 
         // 这里如果 users 的元素个数为 0 也算成功，只能说没有成员
-        return new AccountDto<List<User>>(users, Common.SUCCESS);
+        return new AccountDto<PageInfo<User>>(PageUtil.pageInfo(users), Common.SUCCESS);
     }
 }

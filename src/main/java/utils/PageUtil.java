@@ -1,7 +1,10 @@
 package utils;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import constant.Page;
+
+import java.util.List;
 
 /**
  * 分页常用工具
@@ -18,5 +21,15 @@ public class PageUtil
     public static void toPage(Integer pn)
     {
         PageHelper.startPage(pn, Page.ONE_PAGE_SIZE);
+    }
+
+    /**
+     * 返回 pageInfo 对象，包含分页的信息
+     *
+     * @param objs 要被分页的集合
+     * */
+    public static <T> PageInfo<T> pageInfo(List<T> objs)
+    {
+        return new PageInfo<T>(objs, Page.SHOW_PAGES);
     }
 }
