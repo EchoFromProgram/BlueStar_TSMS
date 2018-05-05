@@ -54,7 +54,7 @@ public class AccountDaoTest {
 		Customer customer = new Customer();
 		customer.setEmail("1133");
 		customer.setInfoId(1);
-		customer.setClassId(1);
+		
 		accountDao.settingCustomerInfo(customer);
 	}
 	

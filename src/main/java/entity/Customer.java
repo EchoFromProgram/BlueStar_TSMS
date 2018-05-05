@@ -26,9 +26,7 @@ public class Customer  {
 	
 	// 邮箱
 	private String email;
-	
-	// 班级id
-	private Integer classId;
+
 
 	public Integer getInfoId() {
 		return infoId;
@@ -86,19 +84,14 @@ public class Customer  {
 		this.email = email;
 	}
 
-	public Integer getClassId() {
-		return classId;
-	}
-
-	public void setClassId(Integer classId) {
-		this.classId = classId;
-	}
-
 	@Override
 	public String toString() {
 		return "Customer [infoId=" + infoId + ", identityNum=" + identityNum + ", school=" + school + ", gradeMajor="
-				+ gradeMajor + ", qq=" + qq + ", telephone=" + telephone + ", email=" + email + ", classId=" + classId
-				+ "]";
+				+ gradeMajor + ", qq=" + qq + ", telephone=" + telephone + ", email=" + email + "]";
 	}
+
+	
+
+
 	
 }
