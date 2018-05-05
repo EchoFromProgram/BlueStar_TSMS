@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="BULUSTAR-index">
+    <meta name="author" content="Mackyhuang">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>教师通知</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <link href="./css/mycss.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- 顶端导航栏 -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="huge">蓝星苑</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    &nbsp;
+                    <span class="" id="username">Mackyhuang</span>
+                    <span class="">，欢迎您</span></a></li>
+                <li><a href="staff_info.html">个人资料</a></li>
+                <li><a href="#">注销</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="dropdown" style="display: inline-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span id="current_select">请选择</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照日期</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照课程</a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" placeholder="您想根据什么来查">
+                <input type="submit" class="form-control btn" value="搜索">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!-- 舞台 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- 左侧导航栏 -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="nav nav-sidebar">
+                <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
+            </div>
+            <ul class="nav nav-sidebar">
+                <li><a href="index.do">首页</a></li>
+                <li><a href="sign_student.do">签到-学生</a></li>
+                <li><a href="sign_teacher.do">签到-教师</a></li>
+                <li><a href="sign_admin.do">签到-管理员</a></li>
+
+                <li><a href="quiz_student.do">问卷-学生</a></li>
+                <li><a href="quiz_teacher.do">问卷-教师</a></li>
+                <li><a href="quiz_admin.do">问卷-管理员</a></li>
+
+                <li><a href="notice_student.do">通知-学生</a></li>
+                <li class="active"><a href="#">通知-教师</a></li>
+                <li><a href="notice_admin.do">通知-管理员</a></li>
+
+                <li><a href="score_student.do">成绩-学生</a></li>
+                <li><a href="score_teacher.do">成绩-教师</a></li>
+                <li><a href="score_admin.do">成绩-管理员</a></li>
+
+                <li><a href="user_manage.do">用户管理</a></li>
+                <li><a href="role_manage.do">角色管理</a></li>
+            </ul>
+        </div>
+
+        <!-- 右侧模块 -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">通知</h1>
+
+            <div class="span12" id="jump-menu">
+                <div class="tabbable" id="tabs-user">
+                    <div class="nav nav-tabs">
+                        <!-- 标签1 -->
+                        <div class="active">
+                            <a href="#panel-notice-1" data-toggle="tab" class="col-xs-6 col-sm-6 placeholders" id="show-notice" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
+                                <h4>查看当前的通知</h4>
+                                <span class="text-muted">显示当前您和管理员发布的通知</span>
+                            </a>
+                        </div>
+                        <!-- 标签2 -->
+                        <div>
+                            <a href="#panel-notice-2" data-toggle="tab" class="col-xs-6 col-sm-6 placeholders" id="update-notice" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
+                                <h4>发布通知</h4>
+                                <span class="text-muted">告诉您学生们一些消息</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 标签1对应的模块 -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-notice-1">
+                            <h2 class="sub-header">通知列表</h2>
+                            <div class="col-sm-12 col-md-12">
+                                <!-- 手风琴通知导航 -->
+                                <div class="accordion" id="accordion-notice">
+                                    <!-- 第一则通知 -->
+                                    <div class="accordion-group">
+                                        <h3 class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-1">关于五月一号劳动节课程问题</a>
+                                            <!-- 通知删除模块 -->
+                                            <button id="modal-notice-delete-a-1" href="#modal-notice-delete-1" role="button" class="btn btn-danger pull-right" data-toggle="modal">
+                                                删除
+                                            </button>
+                                            <div class="modal fade" id="modal-notice-delete-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            <h4 class="modal-title " id="myModalLabel-1">
+                                                                确定要删除这个通知吗？
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-danger">删除</button>
+                                                            <button class="btn btn-warning">取消</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 通知修改模块 -->
+                                            <button id="modal-pub-1" href="#modal-container-pub-1" role="button" data-toggle="modal" class="btn btn-info pull-right">
+                                                修改
+                                            </button>
+                                            <div class="modal fade" id="modal-container-pub-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            <h4 class="modal-title " id="myModalLabel1-1">
+                                                                请在下面修改通知内容
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                                <div class="form-group" id="notice-update-1">
+                                                                    <label for="notcie-detail-update-1" class="sr-only">内容</label>
+                                                                    <textarea id="notcie-detail-update-1" class="form-control" placeholder="请输入通知具体内容" required=""></textarea>
+                                                                    <span class="help-block" id="update-notice-help-1"></span>
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-danger">修改</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h3>
+
+                                        <div id="accordion-element-notice-1" class="accordion-body collapse">
+                                            <h4 class="accordion-inner">
+                                                由于五一劳动节和课程相冲突，经过蓝星苑商定，决定推迟课程延课到五一假期回来之后的第一个周六早上九点钟
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="accordion-group">
+                                        <h3 class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-2">关于八月十五中秋节课程问题</a>
+                                            <!-- 通知删除模块 -->
+                                            <button id="modal-notice-delete-a-2" href="#modal-notice-delete-2" role="button" class="btn btn-danger pull-right" data-toggle="modal">
+                                                删除
+                                            </button>
+                                            <div class="modal fade" id="modal-notice-delete-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            <h4 class="modal-title " id="myModalLabel-2">
+                                                                确定要删除这个通知吗？
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-danger">删除</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 通知修改模块 -->
+                                            <button id="modal-pub-2" href="#modal-container-pub-2" role="button" data-toggle="modal" class="btn btn-info pull-right">
+                                                修改
+                                            </button>
+                                            <div class="modal fade" id="modal-container-pub-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            <h4 class="modal-title " id="myModalLabel1-2">
+                                                                请在下面修改通知内容
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group" id="notice-update-2">
+                                                                <label for="notcie-detail-update-2" class="sr-only">内容</label>
+                                                                <textarea id="notcie-detail-update-2" class="form-control" placeholder="请输入通知具体内容" required=""></textarea>
+                                                                <span class="help-block" id="update-notice-help-2"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-danger">修改</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h3>
+
+                                        <div id="accordion-element-notice-2" class="accordion-body collapse">
+                                            <h4 class="accordion-inner">
+                                                中秋节老师需要回家团圆，你们也需要回去过节，所以课程推迟到下节课
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- 标签2对应的模块 -->
+                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-notice-2">
+
+                            <h2 class="sub-header">发布通知</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group" id="notice-title">
+                                    <label for="notcie-title-input" class="sr-only ">标题</label>
+                                    <input type="text" id="notcie-title-input" class="form-control" placeholder="请输入通知的标题" required="" autofocus="">
+                                    <span class="help-block" id="update-title-help"></span>
+                                </div>
+
+                                <div class="form-group" id="notice-detail">
+                                    <label for="notcie-detail-input" class="sr-only">内容</label>
+                                    <textarea id="notcie-detail-input" class="form-control" placeholder="请输入通知具体内容" required=""></textarea>
+                                    <span class="help-block" id="update-detail-help"></span>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" id="submit-change">发布</button>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/holder.min.js"></script>
+<script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="./js/login.js"></script>
+<script src="./js/getSession.js"></script>
+</body>
+</html>

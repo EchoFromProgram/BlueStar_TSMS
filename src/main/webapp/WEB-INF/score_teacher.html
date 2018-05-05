@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="BULUSTAR-index">
+    <meta name="author" content="Mackyhuang">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>教师发布成绩</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <link href="./css/mycss.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- 顶部导航栏 -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="huge">蓝星苑</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    &nbsp;
+                    <span class="" id="username">Mackyhuang</span>
+                    <span class="">，欢迎您</span></a></li>
+                <li><a href="staff_info.html">个人资料</a></li>
+                <li><a href="#">注销</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="dropdown" style="display: inline-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span id="current_select">请选择</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照学生姓名</a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" placeholder="您想根据什么来查">
+                <input type="submit" class="form-control btn" value="搜索">
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- 舞台 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- 左侧导航栏 -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="nav nav-sidebar">
+                <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
+            </div>
+            <ul class="nav nav-sidebar">
+                <li><a href="index.do">首页</a></li>
+                <li><a href="sign_student.do">签到-学生</a></li>
+                <li><a href="sign_teacher.do">签到-教师</a></li>
+                <li><a href="sign_admin.do">签到-管理员</a></li>
+
+                <li><a href="quiz_student.do">问卷-学生</a></li>
+                <li><a href="quiz_teacher.do">问卷-教师</a></li>
+                <li><a href="quiz_admin.do">问卷-管理员</a></li>
+
+                <li><a href="notice_student.do">通知-学生</a></li>
+                <li><a href="notice_teacher.do">通知-教师</a></li>
+                <li><a href="notice_admin.do">通知-管理员</a></li>
+
+                <li><a href="score_student.do">成绩-学生</a></li>
+                <li class="active"><a href="#">成绩-教师</a></li>
+                <li><a href="score_admin.do">成绩-管理员</a></li>
+
+                <li><a href="user_manage.do">用户管理</a></li>
+                <li><a href="role_manage.do">角色管理</a></li>
+            </ul>
+        </div>
+
+        <!-- 右侧模块 -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">成绩</h1>
+            <!-- 切换卡 -->
+            <div class="span12" id="jump-menu">
+                <div class="tabbable" id="tabs-user">
+                    <div class="nav nav-tabs">
+                        <!-- 标签1 -->
+                        <div class="active">
+                            <a href="#panel-score-1" data-toggle="tab" class="col-xs-4 col-sm-4 placeholders" id="show-notice" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
+                                <h4>查看所有成绩</h4>
+                                <span class="text-muted">显示当前您和管理员发布的通知</span>
+                            </a>
+                        </div>
+                        <!-- 标签2 -->
+                        <div>
+                            <a href="#panel-score-2" data-toggle="tab" class="col-xs-4 col-sm-4 placeholders" id="update-notice" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
+                                <h4>查看某阶段测试成绩</h4>
+                                <span class="text-muted">三次阶段测试中某次阶段测试</span>
+                            </a>
+                        </div>
+                        <!-- 标签3 -->
+                        <div>
+                            <a href="#panel-score-3" data-toggle="tab" class="col-xs-4 col-sm-4 placeholders" id="add-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
+                                <h4>成绩发布</h4>
+                                <span class="text-muted">将成绩录入展示给学生查看</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 标签1对应的模块 -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-score-1">
+                            <h2 class="sub-header">成绩列表</h2>
+                            <!-- 统计进度条 -->
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4 placeholders">
+                                    <img src="./img/叶子.jpg" width="100px" height="100px">
+                                    <h4>统计情况</h4>
+                                </div>
+                                <br>
+                                <div class="col-sm-6 col-md-8">
+                                    <div class="progress progress-striped active">
+                                        <span>合格人数</span>
+                                        <div class="progress-bar progress-bar-success" style="width:80%">80%</div>
+                                    </div>
+                                    <br>
+                                    <div class="progress progress-striped active">
+                                        <span>不及格人数</span>
+                                        <div class="progress-bar progress-bar-danger" style="width:20%">20%</div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <!-- 成绩列表 -->
+                            <div class="col-sm-12 col-md-12 row-fluid">
+                                <div class="span8">
+                                    <table class="table table-responsive table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                编号
+                                            </th>
+                                            <th>
+                                                姓名
+                                            </th>
+                                            <th>
+                                                科目
+                                            </th>
+                                            <th>
+                                                日期
+                                            </th>
+                                            <th>
+                                                成绩
+                                            </th>
+                                            <th>
+                                                操作
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                Macky
+                                            </td>
+                                            <td>
+                                                java第三阶段实战
+                                            </td>
+                                            <td>
+                                                2018-05-01
+                                            </td>
+                                            <td>
+                                                100
+                                            </td>
+                                            <td>
+                                                <button id="modal-score-delete-b-1" href="#modal-score-delete-1" role="button" class="btn btn-danger pull-right" data-toggle="modal">
+                                                    删除
+                                                </button>
+                                                <div class="modal fade" id="modal-score-delete-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <h4 class="modal-title " id="myModalLabel-delete-score">
+                                                                    确定要删除这个通知吗？
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger">删除</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button id="modal-score-update-b-1" href="#modal-score-update-1" role="button" class="btn btn-primary pull-right" data-toggle="modal">
+                                                    修改
+                                                </button>
+                                                <div class="modal fade" id="modal-score-update-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <form class="form" onsubmit="return ">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <h4 class="modal-title " id="myModalLabel-update-score">
+                                                                    修改这位学生的成绩信息
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group" id="score-update-name-all-1">
+                                                                    <label for="score-update-name-i-all-1" class="sr-only">姓名</label>
+                                                                    <input id="score-update-name-i-all-1" class="form-control" placeholder="原姓名" required=""></input>
+                                                                    <span class="help-block" id="update-score-help-name-all-1"></span>
+                                                                </div>
+                                                                <div class="form-group" id="score-update-date-all-1">
+                                                                    <label for="score-update-date-i-all-1" class="sr-only">日期</label>
+                                                                    <input type="date" id="score-update-date-i-all-1" class="form-control" value="2018-05-01" required=""></input>
+                                                                    <span class="help-block" id="update-score-help-date-all-1"></span>
+                                                                </div>
+                                                                <div class="form-group" id="score-update-num-all-1">
+                                                                    <label for="score-update-num-i-all-1" class="sr-only">分数</label>
+                                                                    <input id="score-update-num-i-all-1" class="form-control" placeholder="原分数" required=""></input>
+                                                                    <span class="help-block" id="update-score-help-num-all-1"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger">修改</button>
+                                                            </div>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="span4">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 标签2对应的模块 -->
+                        <div class="tab-pane" id="panel-score-2">
+                            <h2 class="sub-header">单次测试成绩</h2>
+                            <!-- 统计情况 -->
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4 placeholders">
+                                    <img src="./img/叶子.jpg" width="100px" height="100px">
+                                    <h4>统计情况</h4>
+                                </div>
+                                <br>
+                                <div class="col-sm-6 col-md-8">
+                                    <div class="progress progress-striped active">
+                                        <span>合格人数</span>
+                                        <div class="progress-bar progress-bar-success" style="width:80%">80%</div>
+                                    </div>
+                                    <br>
+                                    <div class="progress progress-striped active">
+                                        <span>不及格人数</span>
+                                        <div class="progress-bar progress-bar-danger" style="width:20%">20%</div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 row-fluid">
+                                <div class="span8">
+                                    <div class="col-md-6">
+                                        <label for="which-stage" class="sr-only">类型</label>
+                                        <select class="form-control" id="which-class">
+                                            <option value ="一班">一班</option>
+                                            <option value ="二班">二班</option>
+                                            <option value ="三班">三班</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="which-stage" class="sr-only">类型</label>
+                                        <select class="form-control" id="which-stage">
+                                            <option value ="第一阶段">第一阶段</option>
+                                            <option value ="第二阶段">第二阶段</option>
+                                            <option value ="第三阶段">第三阶段</option>
+                                        </select>
+                                        <div class="line"></div>
+                                    </div>
+
+                                    <button class="btn btn-primary pull-right" id="submit-which-stage">查询</button>
+                                    <!-- 表格 -->
+                                    <table class="table table-responsive table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                编号
+                                            </th>
+                                            <th>
+                                                姓名
+                                            </th>
+                                            <th>
+                                                科目
+                                            </th>
+                                            <th>
+                                                日期
+                                            </th>
+                                            <th>
+                                                成绩
+                                            </th>
+                                            <th>
+                                                操作
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                Macky
+                                            </td>
+                                            <td>
+                                                java第三阶段实战
+                                            </td>
+                                            <td>
+                                                2018-05-01
+                                            </td>
+                                            <td>
+                                                99
+                                            </td>
+                                            <td>
+                                                <button id="modal-score-delete-sta-1" href="#modal-score-delete-s-1" role="button" class="btn btn-danger pull-right" data-toggle="modal">
+                                                    删除
+                                                </button>
+                                                <div class="modal fade" id="modal-score-delete-s-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <h4 class="modal-title " id="myModalLabel-2">
+                                                                    确定要删除这个通知吗？
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger">删除</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button id="modal-score-update-sta-1" href="#modal-score-update-s-1" role="button" class="btn btn-primary pull-right" data-toggle="modal">
+                                                    修改
+                                                </button>
+                                                <div class="modal fade" id="modal-score-update-s-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <form class="form" onsubmit="return ">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <h4 class="modal-title " id="myModalLabel-update-score-1">
+                                                                    修改这位学生的成绩信息
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group" id="score-update-name-s-1">
+                                                                    <label for="score-update-name-i-s-1" class="sr-only">姓名</label>
+                                                                    <input id="score-update-name-i-s-1" class="form-control" placeholder="原姓名" required=""></input>
+                                                                    <span class="help-block" id="update-score-help-name-s-1"></span>
+                                                                </div>
+                                                                <div class="form-group" id="score-update-date-s-1">
+                                                                    <label for="score-update-date-i-s-1" class="sr-only">日期</label>
+                                                                    <input type="date" id="score-update-date-i-s-1" class="form-control" value="2018-05-01" required=""></input>
+                                                                    <span class="help-block" id="update-score-help-date-s-1"></span>
+                                                                </div>
+                                                                <div class="form-group" id="score-update-num-s-1">
+                                                                    <label for="score-update-num-i-s-1" class="sr-only">分数</label>
+                                                                    <input id="score-update-num-i-s-1" class="form-control" placeholder="原分数" required=""></input>
+                                                                    <span class="help-block" id="update-score-help-num-s-1"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger">修改</button>
+                                                            </div>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="span4">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- 标签3对应的模块 -->
+                        <div class="tab-pane col-sm-12" id="panel-score-3">
+                            <!-- 发布成绩 -->
+                            <h2 class="sub-header">新增用户</h2>
+                            <div class="col-md-4">
+                                <label for="which-stage" class="sr-only">类型</label>
+                                <select class="form-control" id="which-class-update">
+                                    <option value ="一班">一班</option>
+                                    <option value ="二班">二班</option>
+                                    <option value ="三班">三班</option>
+                                </select>
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="which-stage" class="sr-only">类型</label>
+                                <select class="form-control" id="which-stage-update">
+                                    <option value ="第一阶段">第一阶段</option>
+                                    <option value ="第二阶段">第二阶段</option>
+                                    <option value ="第三阶段">第三阶段</option>
+                                </select>
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="which-date-update" class="sr-only">日期</label>
+                                <input id="which-date-update" class="form-control" type="date" value="2018-05-01">
+                                <div class="line"></div>
+                            </div>
+
+                            <form class="form" onsubmit="return ">
+                                <table class="table table-responsive table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            姓名
+                                        </th>
+                                        <th>
+                                            成绩
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            Macky
+                                        </td>
+                                        <td>
+                                            <input class="form-control" placeholder="学生成绩分数">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-lg btn-primary btn-block" id="score-create">发布</button>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/holder.min.js"></script>
+<script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="./js/login.js"></script>
+<script src="./js/getSession.js"></script>
+</body>
+</html>

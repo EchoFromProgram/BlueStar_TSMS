@@ -9,21 +9,16 @@
     <meta name="author" content="Mackyhuang">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>签到管理</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="../css/dashboard.css" rel="stylesheet">
-    <link href="../css/mycss.css" rel="stylesheet">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <link href="./css/mycss.css" rel="stylesheet">
 </head>
 
 <body>
-
+<!-- 顶部导航栏 -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -33,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">蓝星苑</a>
+            <a class="navbar-brand" href="#" id="huge">蓝星苑</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -42,7 +37,7 @@
                     &nbsp;
                     <span class="" id="username">Mackyhuang</span>
                     <span class="">，欢迎您</span></a></li>
-                <li><a href="#">个人资料</a></li>
+                <li><a href="staff_info.html">个人资料</a></li>
                 <li><a href="#">注销</a></li>
                 <li><a href="#">帮助</a></li>
             </ul>
@@ -65,33 +60,34 @@
         </div>
     </div>
 </nav>
-
+<!-- 舞台 -->
 <div class="container-fluid">
     <div class="row">
+        <!-- 左侧导航栏 -->
         <div class="col-sm-3 col-md-2 sidebar">
             <div class="nav nav-sidebar">
                 <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
             </div>
             <ul class="nav nav-sidebar">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="sign_student.html">签到-学生</a></li>
-                <li><a href="sign_teacher.html">签到-教师</a></li>
+                <li><a href="index.do">首页</a></li>
+                <li><a href="sign_student.do">签到-学生</a></li>
+                <li><a href="sign_teacher.do">签到-教师</a></li>
                 <li class="active"><a href="#">签到-管理员</a></li>
 
-                <li><a href="#">问卷-学生</a></li>
-                <li><a href="#">问卷-教师</a></li>
-                <li><a href="#">问卷-管理员</a></li>
+                <li><a href="quiz_student.do">问卷-学生</a></li>
+                <li><a href="quiz_teacher.do">问卷-教师</a></li>
+                <li><a href="quiz_admin.do">问卷-管理员</a></li>
 
-                <li><a href="#">通知-学生</a></li>
-                <li><a href="#">通知-教师</a></li>
-                <li><a href="#">通知-管理员</a></li>
+                <li><a href="notice_student.do">通知-学生</a></li>
+                <li><a href="notice_teacher.do">通知-教师</a></li>
+                <li><a href="notice_admin.do">通知-管理员</a></li>
 
-                <li><a href="#">成绩-学生</a></li>
-                <li><a href="#">成绩-教师</a></li>
-                <li><a href="#">成绩-管理员</a></li>
+                <li><a href="score_student.do">成绩-学生</a></li>
+                <li><a href="score_teacher.do">成绩-教师</a></li>
+                <li><a href="score_admin.do">成绩-管理员</a></li>
 
-                <li><a href="#">用户管理</a></li>
-                <li><a href="#">角色管理</a></li>
+                <li><a href="user_manage.do">用户管理</a></li>
+                <li><a href="role_manage.do">角色管理</a></li>
             </ul>
         </div>
 
@@ -101,7 +97,7 @@
 
             <div class="row placeholders" id="sign-button">
                 <div class="col-xs-12 col-sm-11 placeholder">
-                    <img src="../img/叶子.jpg" width="200" height="200" class="img-responsive" alt="查看签到情况">
+                    <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="查看签到情况">
                     <h4>查看签到情况</h4>
                     <span class="text-muted">这儿可以看到详细的</span>
                 </div>
@@ -109,25 +105,50 @@
 
             <h2 class="sub-header">签到情况</h2>
             <div class="row">
+            <!-- 统计情况进度条 -->
             <div class="col-sm-6 col-md-4 placeholders">
-                <img src="../img/叶子.jpg" width="100px" height="100px">
+                <img src="./img/叶子.jpg" width="100px" height="100px">
                 <h4>统计情况</h4>
             </div>
             <div class="col-sm-6 col-md-8">
                 <div class="progress progress-striped active">
+                    <span>签到人数</span>
                     <div class="progress-bar progress-bar-success" style="width:80%">80%</div>
                 </div>
                 <br>
                 <div class="progress progress-striped active">
+                    <span>迟到人数</span>
                     <div class="progress-bar progress-bar-warning" style="width:15%">15%</div>
                 </div>
                 <br>
                 <div class="progress progress-striped active">
+                    <span>旷课人数</span>
                     <div class="progress-bar progress-bar-danger" style="width:5%">5%</div>
                 </div>
                 <br>
             </div>
+                <div class="col-md-6">
+                    <label for="which-stage" class="sr-only">类型</label>
+                    <select class="form-control" id="which-class">
+                        <option value ="一班">一班</option>
+                        <option value ="二班">二班</option>
+                        <option value ="三班">三班</option>
+                    </select>
+                </div>
+                <div class="line"></div>
+                <div class="col-md-6">
+                    <label for="which-stage" class="sr-only">类型</label>
+                    <select class="form-control" id="which-stage">
+                        <option value ="第一节课">第一节课</option>
+                        <option value ="第二节课">第二节课</option>
+                        <option value ="第三节课">第三节课</option>
+                    </select>
+                    <div class="line"></div>
+                </div>
+
+                <button class="btn btn-primary pull-right" id="submit-which-stage">查询</button>
             </div>
+            <!-- 表格 -->
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -161,18 +182,16 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="../js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
-<script src="../js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="../js/holder.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../js/ie10-viewport-bug-workaround.js"></script>
 
-<script src="../js/login.js"></script>
-<script src="../js/getSession.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/holder.min.js"></script>
+<script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="./js/login.js"></script>
+<script src="./js/getSession.js"></script>
+
+
 </body>
 </html>

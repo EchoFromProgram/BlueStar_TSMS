@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="BULUSTAR-index">
+    <meta name="author" content="Mackyhuang">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>学生问卷</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <link href="./css/mycss.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- 顶端导航栏 -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="huge">蓝星苑</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    &nbsp;
+                    <span class="" id="username">Mackyhuang</span>
+                    <span class="">，欢迎您</span></a></li>
+                <li><a href="customer_info.html">个人资料</a></li>
+                <li><a href="#">注销</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 舞台 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- 左侧导航栏 -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="nav nav-sidebar">
+                <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
+            </div>
+            <ul class="nav nav-sidebar">
+                <li><a href="index.do">首页</a></li>
+                <li><a href="sign_student.do">签到-学生</a></li>
+                <li><a href="sign_teacher.do">签到-教师</a></li>
+                <li><a href="sign_admin.do">签到-管理员</a></li>
+
+                <li class="active"><a href="#">问卷-学生</a></li>
+                <li><a href="quiz_teacher.do">问卷-教师</a></li>
+                <li><a href="quiz_admin.do">问卷-管理员</a></li>
+
+                <li><a href="notice_student.do">通知-学生</a></li>
+                <li><a href="notice_teacher.do">通知-教师</a></li>
+                <li><a href="notice_admin.do">通知-管理员</a></li>
+
+                <li><a href="score_student.do">成绩-学生</a></li>
+                <li><a href="score_teacher.do">成绩-教师</a></li>
+                <li><a href="score_admin.do">成绩-管理员</a></li>
+
+                <li><a href="user_manage.do">用户管理</a></li>
+                <li><a href="role_manage.do">角色管理</a></li>
+            </ul>
+        </div>
+
+        <!-- 右侧模块 -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">通知</h1>
+
+            <div class="span12" id="jump-menu">
+                <div class="tabbable" id="tabs-user">
+                    <div class="nav nav-tabs">
+                        <!-- 标签1 -->
+                        <div class="active">
+                            <a href="#panel-quiz-1" data-toggle="tab" class="col-xs-6 col-sm-6 placeholders" id="show-notice" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
+                                <h4>问卷填写</h4>
+                                <span class="text-muted">给当堂课填写反馈问卷</span>
+                            </a>
+                        </div>
+                        <!-- 标签2 -->
+                        <div>
+                            <a href="#panel-quiz-2" data-toggle="tab" class="col-xs-6 col-sm-6 placeholders" id="update-notice" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
+                                <h4>查看问卷</h4>
+                                <span class="text-muted">查看您填写的问卷</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 标签1对应的模块 -->
+                    <div class="tab-content">
+                        <div class="tab-pane active col-md-8 col-md-offset-2" id="panel-quiz-1">
+                            <h2 class="sub-header">问卷内容</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group">
+                                    <div class="form-control question-title">
+                                        1.对于这节课你觉得有什么需要改进的地方
+                                    </div>
+                                    <textarea placeholder="请填写问卷内容" class="form-control question-detail"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-control question-title">
+                                        2.你对这节课的接受程度如何
+                                    </div>
+                                    <textarea placeholder="请填写问卷内容" class="form-control question-detail"></textarea>
+                                </div>
+                                <button class="btn btn-primary">提交</button>
+                            </form>
+
+                        </div>
+                        <!-- 标签2对应的模块 -->
+                        <div class="tab-pane" id="panel-quiz-2">
+                            <h2 class="sub-header">查看问卷</h2>
+                            <div class="row-fluid">
+                                <div class="quiz-list">
+                                    <a href="#">2018-05-01 面向对象基础课程问卷</a>
+                                </div>
+                                <div class="quiz-list">
+                                    <a href="#">2018-05-01 面向对象基础课程问卷</a>
+                                </div>
+                                <div class="quiz-list">
+                                    <a href="#">2018-05-01 面向对象基础课程问卷</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/holder.min.js"></script>
+<script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="../js/login.js"></script>
+<script src="../js/getSession.js"></script>
+</body>
+</html>

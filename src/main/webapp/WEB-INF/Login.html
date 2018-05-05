@@ -5,20 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="Mackyhuang">
-    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
     <title>登陆界面</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="../css/signin.css" rel="stylesheet">
     <link href="../css/mycss.css" rel="stylesheet">
 
@@ -26,11 +19,12 @@
 
 <body>
 
+<!-- 登陆舞台 -->
 <div class="container">
     <form class="form-signin" style="margin-top: 130px;" onsubmit="return submitData()">
-
+        <!-- 标题 -->
         <h1 class="form-signin-heading" style="margin-bottom: 50px">欢迎来到蓝星苑</h1>
-
+        <!-- 用户名 -->
         <div class="form-group" id="username-div">
         <label for="username" class="sr-only ">用户名</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="请输入您的用户名" required="" autofocus="">
@@ -38,6 +32,8 @@
         </div>
 
         <br>
+
+        <!-- 密码 -->
         <div class="form-group" id="password-div">
         <label for="password" class="sr-only">密码</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="请输入您的密码" required="">
@@ -51,40 +47,12 @@
         <button class="btn btn-lg btn-primary btn-block" id="submit">登录</button>
     </form>
 
-</div> <!-- /container -->
+</div>
 
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../js/jquery.min.js"></script>
 <script src="../js/ie10-viewport-bug-workaround.js"></script>
 <script src="../js/login.js"></script>
 
-<script>
-	function submitData() {
-	    $.ajax({
-	        type: "POST",
-	        url: "loginCheck.do",
-	        data: {"userName":$("#username").val(), "password":$("#password").val()},
-	        dataType: "json",
-	        success: function(data){
-	            if("SUCCESS" == data.status)
-	            {
-	                window.location.href="index.do";
-	            }
-	            else if("WRONG_PASSWORD" == data.status)
-	            {
-	            	$('#password-help').text(data.data);
-		            $('#password-div').addClass("has-error");
-	            }
-	            else if("WRONG_USERNAME" == data.status)
-	            {
-	            	$('#username-help').text(data.data);
-		            $('#username-div').addClass("has-error");
-	            }
-	        }
-	    });
-	    return false;
-	};
-</script>
 
 </body></html>

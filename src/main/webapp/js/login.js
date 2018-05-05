@@ -26,3 +26,29 @@ $('#password').blur(
         }
     }
 );
+
+function submitData() {
+    $.ajax({
+        type: "POST",
+        url: "loginCheck.do",
+        data: {"userName":$("#username").val(), "password":$("#password").val()},
+        dataType: "json",
+        success: function(data){
+            if("SUCCESS" == data.status)
+            {
+                window.location.href="index.do";
+            }
+            else if("WRONG_PASSWORD" == data.status)
+            {
+            	$('#password-help').text(data.status);
+	            $('#password-div').addClass("has-error");
+            }
+            else if("WRONG_USERNAME" == data.status)
+            {
+            	$('#username-help').text(data.status);
+	            $('#username-div').addClass("has-error");
+            }
+        }
+    });
+    return false;
+};

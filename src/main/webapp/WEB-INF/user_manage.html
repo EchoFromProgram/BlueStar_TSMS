@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="BULUSTAR-index">
+    <meta name="author" content="Mackyhuang">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>用户管理</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <link href="./css/mycss.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- 顶部导航栏 -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="huge">蓝星苑</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    &nbsp;
+                    <span class="" id="username">Mackyhuang</span>
+                    <span class="">，欢迎您</span></a></li>
+                <li><a href="staff_info.html">个人资料</a></li>
+                <li><a href="#">注销</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="dropdown" style="display: inline-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span id="current_select">请选择</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照姓名</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照日期</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照课程</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照班级</a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" placeholder="您想根据什么来查">
+                <input type="submit" class="form-control btn" value="搜索">
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- 舞台 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- 左侧导航栏 -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="nav nav-sidebar">
+                <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
+            </div>
+            <ul class="nav nav-sidebar">
+                <li><a href="index.do">首页</a></li>
+                <li><a href="sign_student.do">签到-学生</a></li>
+                <li><a href="sign_teacher.do">签到-教师</a></li>
+                <li><a href="sign_admin.do">签到-管理员</a></li>
+
+                <li><a href="quiz_student.do">问卷-学生</a></li>
+                <li><a href="quiz_teacher.do">问卷-教师</a></li>
+                <li><a href="quiz_admin.do">问卷-管理员</a></li>
+
+                <li><a href="notice_student.do">通知-学生</a></li>
+                <li><a href="notice_teacher.do">通知-教师</a></li>
+                <li><a href="notice_admin.do">通知-管理员</a></li>
+
+                <li><a href="score_student.do">成绩-学生</a></li>
+                <li><a href="score_teacher.do">成绩-教师</a></li>
+                <li><a href="score_admin.do">成绩-管理员</a></li>
+
+                <li class="active"><a href="#">用户管理</a></li>
+                <li><a href="role_manage.do">角色管理</a></li>
+            </ul>
+        </div>
+
+        <!-- 右侧模块 -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">用户管理</h1>
+
+            <div class="span12" id="jump-menu">
+                <div class="tabbable" id="tabs-user">
+                    <div class="nav nav-tabs">
+                        <!-- 标签1 -->
+                        <div class="active">
+                            <a href="#panel-user-1" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="show-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>查看所有用户</h4>
+                                <span class="text-muted">显示当前系统所有用户信息</span>
+                            </a>
+                        </div>
+                        <!-- 标签2 -->
+                        <div>
+                            <a href="#panel-user-2" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="update-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>修改用户信息</h4>
+                                <span class="text-muted">可修改那些重要信息</span>
+                            </a>
+                        </div>
+                        <!-- 标签3 -->
+                        <div>
+                            <a href="#panel-user-3" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="add-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>新增用户</h4>
+                                <span class="text-muted">为其一些必要信息</span>
+                            </a>
+                        </div>
+                        <!-- 标签4 -->
+                        <div>
+                            <a href="#panel-user-4" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="delete-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>删除用户</h4>
+                                <span class="text-muted">删除指定的用户信息</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 标签1对应的模块 -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-user-1">
+                            <h2 class="sub-header">用户详细</h2>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Header</th>
+                                        <th>Header</th>
+                                        <th>Header</th>
+                                        <th>Header</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1,001</td>
+                                        <td>Lorem</td>
+                                        <td>ipsum</td>
+                                        <td>dolor</td>
+                                        <td>sit</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1,002</td>
+                                        <td>amet</td>
+                                        <td>consectetur</td>
+                                        <td>adipiscing</td>
+                                        <td>elit</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 标签2对应的模块 -->
+                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-2">
+
+                            <h2 class="sub-header">修改用户</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group" id="username-change">
+                                    <label for="update-username" class="sr-only ">用户名</label>
+                                    <input type="text" id="update-username" class="form-control" placeholder="原账号" required="" autofocus="">
+                                    <span class="help-block" id="update-username-help"></span>
+                                </div>
+
+                                <div class="form-group" id="password-change">
+                                    <label for="update-password" class="sr-only">密码</label>
+                                    <input type="text" id="update-password" class="form-control" placeholder="原密码" required="">
+                                    <span class="help-block" id="update-password-help"></span>
+                                </div>
+
+                                <div class="form-group" id="name-change">
+                                    <label for="update-name" class="sr-only">姓名</label>
+                                    <input type="text" id="update-name" class="form-control" placeholder="原姓名" required="">
+                                    <span class="help-block" id="update-name-help"></span>
+                                </div>
+
+                                <div class="form-group" id="role-change">
+                                    <label for="update-role-select" class="sr-only">角色</label>
+                                    <select class="form-control" id="update-role-select">
+                                        <option value ="学生">学生</option>
+                                        <option value ="教师">教师</option>
+                                        <option value ="管理员">管理员</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" id="type-change">
+                                    <label for="update-type-select" class="sr-only">类型</label>
+                                    <select class="form-control" id="update-type-select">
+                                        <option value ="客户">客户</option>
+                                        <option value ="员工">员工</option>
+                                    </select>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" id="submit-change">修改</button>
+                            </form>
+
+                        </div>
+                        <!-- 标签3对应的模块 -->
+                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-3">
+
+                            <h2 class="sub-header">新增用户</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group" id="username-create">
+                                    <label for="insert-username" class="sr-only ">用户名</label>
+                                    <input type="text" id="insert-username" class="form-control" placeholder="为其设置一个账号" required="" autofocus="">
+                                    <span class="help-block" id="insert-username-help"></span>
+                                </div>
+
+                                <div class="form-group" id="password-create">
+                                    <label for="insert-password" class="sr-only">密码</label>
+                                    <input type="text" id="insert-password" class="form-control" placeholder="还需要一个密码" required="">
+                                    <span class="help-block" id="insert-password-help"></span>
+                                </div>
+
+                                <div class="form-group" id="name-create">
+                                    <label for="insert-name" class="sr-only">姓名</label>
+                                    <input type="text" id="insert-name" class="form-control" placeholder="这个账户的拥有者姓名" required="">
+                                    <span class="help-block" id="insert-name-help"></span>
+                                </div>
+
+                                <div class="form-group" id="role-create">
+                                    <label for="insert-role-select" class="sr-only">角色</label>
+                                    <select class="form-control" id="insert-role-select">
+                                        <option value ="学生">学生</option>
+                                        <option value ="教师">教师</option>
+                                        <option value ="管理员">管理员</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" id="type-create">
+                                    <label for="insert-type-select" class="sr-only">类型</label>
+                                    <select class="form-control" id="insert-type-select">
+                                        <option value ="客户">客户</option>
+                                        <option value ="员工">员工</option>
+                                    </select>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" id="submit-create">创建</button>
+                            </form>
+
+                        </div>
+                        <!-- 标签4对应的模块 -->
+                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-4">
+                            <h2 class="sub-header">删除用户</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group" id="user-delete">
+                                    <label for="delete-user-input" class="sr-only">用户名</label>
+                                    <input type="text" id="delete-user-input" class="form-control" placeholder="输入需要删除的用户名" required="">
+                                    <span class="help-block" id="delete-user-help"></span>
+                                </div>
+
+                                <button id="modal-user-delete-a" href="#modal-user-delete" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal">
+                                    删除
+                                </button>
+                                <div class="modal fade" id="modal-user-delete" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title " id="myModalLabel">
+                                                    确定要删除这个用户吗？
+                                                </h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-danger">删除</button>
+                                                <button class="btn btn-warning">取消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="./js/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="./js/login.js"></script>
+<script src="./js/getSession.js"></script>
+</body>
+</html>

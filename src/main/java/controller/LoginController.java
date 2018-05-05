@@ -14,7 +14,6 @@ import entity.User;
 import service.AccountService;
 
 @Controller
-@RequestMapping("login")
 public class LoginController {
 	
 	@Resource(name="accountServiceImpl")
@@ -44,11 +43,6 @@ public class LoginController {
 	@RequestMapping(path = "login.do", produces = {"application/json;charset=UTF8"})
 	public String login() {
 		return "Login";
-	}
-	
-	@RequestMapping(path = "sign_admin.do", produces = {"application/json;charset=UTF8"})
-	public String signAdmin() {
-		return "sign_admin";
 	}
 	
 	@ResponseBody

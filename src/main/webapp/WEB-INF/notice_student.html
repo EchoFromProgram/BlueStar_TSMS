@@ -9,7 +9,7 @@
     <meta name="author" content="Mackyhuang">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>首页</title>
+    <title>学生通知</title>
 
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -37,8 +37,8 @@
                     &nbsp;
                     <span class="" id="username">Mackyhuang</span>
                     <span class="">，欢迎您</span></a></li>
-                <li><a href="">个人资料</a></li>
-                <li><a href="Login.html">注销</a></li>
+                <li><a href="customer_info.html">个人资料</a></li>
+                <li><a href="#">注销</a></li>
                 <li><a href="#">帮助</a></li>
             </ul>
         </div>
@@ -54,7 +54,7 @@
                 <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
             </div>
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">首页</a></li>
+                <li><a href="index.do">首页</a></li>
                 <li><a href="sign_student.do">签到-学生</a></li>
                 <li><a href="sign_teacher.do">签到-教师</a></li>
                 <li><a href="sign_admin.do">签到-管理员</a></li>
@@ -63,7 +63,7 @@
                 <li><a href="quiz_teacher.do">问卷-教师</a></li>
                 <li><a href="quiz_admin.do">问卷-管理员</a></li>
 
-                <li><a href="notice_student.do">通知-学生</a></li>
+                <li class="active"><a href="#">通知-学生</a></li>
                 <li><a href="notice_teacher.do">通知-教师</a></li>
                 <li><a href="notice_admin.do">通知-管理员</a></li>
 
@@ -75,20 +75,36 @@
                 <li><a href="role_manage.do">角色管理</a></li>
             </ul>
         </div>
+
         <!-- 右侧模块 -->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">首页</h1>
-
-            <div class="row placeholders">
-                <div class="col-xs-12 col-sm-11 placeholder">
-                    <img src="./img/叶子.jpg" width="300" height="300" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>蓝星苑</h4>
-                    <span class="text-muted">java程序员梦想开始的地方</span>
-                </div>
-            </div>
-            <div class="row placeholders jumbotron" style="margin-top: 50px">
-                <div class="col-xs-12 col-sm-11 placeholder">
-                    <h1><b>欢迎来到蓝星苑</b></h1>
+            <h1 class="page-header">通知</h1>
+            <div class="col-sm-12 col-md-12">
+                <!-- 手风琴通知导航 -->
+                <div class="accordion" id="accordion-notice">
+                    <!-- 通知1 -->
+                    <div class="accordion-group">
+                        <h3 class="accordion-heading">
+                            <a class="accordion-toggle text-" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-1">关于五月一号劳动节课程问题</a>
+                        </h3>
+                        <div id="accordion-element-notice-1" class="accordion-body collapse">
+                            <h4 class="accordion-inner">
+                                由于五一劳动节和课程相冲突，经过蓝星苑商定，决定推迟课程延课到五一假期回来之后的第一个周六早上九点钟
+                            </h4>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- 通知2 -->
+                    <div class="accordion-group">
+                        <h3 class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-2">关于八月十五中秋节课程问题</a>
+                        </h3>
+                        <div id="accordion-element-notice-2" class="accordion-body collapse">
+                            <h4 class="accordion-inner">
+                                中秋节老师需要回家团圆，你们也需要回去过节，所以课程推迟到下节课
+                            </h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,7 +117,6 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/holder.min.js"></script>
 <script src="./js/ie10-viewport-bug-workaround.js"></script>
-
 <script src="./js/login.js"></script>
 <script src="./js/getSession.js"></script>
 </body>

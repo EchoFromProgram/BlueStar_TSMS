@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="BULUSTAR-index">
+    <meta name="author" content="Mackyhuang">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>角色管理</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <link href="./css/mycss.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- 顶部导航栏 -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="huge">蓝星苑</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    &nbsp;
+                    <span class="" id="username">Mackyhuang</span>
+                    <span class="">，欢迎您</span></a></li>
+                <li><a href="staff_info.html">个人资料</a></li>
+                <li><a href="#">注销</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="dropdown" style="display: inline-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span id="current_select">请选择</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照姓名</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照日期</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照课程</a></li>
+                        <li class="select" role="presentation"><a role="menuitem" tabindex="-1" href="#">按照班级</a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" placeholder="您想根据什么来查">
+                <input type="submit" class="form-control btn" value="搜索">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!-- 舞台 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- 左侧导航栏 -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="nav nav-sidebar">
+                <li class="text-center bord"><a href="#"><strong>功能一览</strong> <span class="sr-only">(current)</span></a></li>
+            </div>
+            <ul class="nav nav-sidebar">
+                <li><a href="index.do">首页</a></li>
+                <li><a href="sign_student.do">签到-学生</a></li>
+                <li><a href="sign_teacher.do">签到-教师</a></li>
+                <li><a href="sign_admin.do">签到-管理员</a></li>
+
+                <li><a href="quiz_student.do">问卷-学生</a></li>
+                <li><a href="quiz_teacher.do">问卷-教师</a></li>
+                <li><a href="quiz_admin.do">问卷-管理员</a></li>
+
+                <li><a href="notice_student.do">通知-学生</a></li>
+                <li><a href="notice_teacher.do">通知-教师</a></li>
+                <li><a href="notice_admin.do">通知-管理员</a></li>
+
+                <li><a href="score_student.do">成绩-学生</a></li>
+                <li><a href="score_teacher.do">成绩-教师</a></li>
+                <li><a href="score_admin.do">成绩-管理员</a></li>
+
+                <li><a href="user_manage.do">用户管理</a></li>
+                <li class="active"><a href="#">角色管理</a></li>
+            </ul>
+        </div>
+
+        <!-- 右侧模块 -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">用户管理</h1>
+
+            <div class="span12" id="jump-menu">
+                <div class="tabbable" id="tabs-user">
+                    <div class="nav nav-tabs">
+                        <!-- 标签1 -->
+                        <div class="active">
+                            <a href="#panel-user-1" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="show-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>查看角色</h4>
+                                <span class="text-muted">查看当前系统拥有的角色</span>
+                            </a>
+                        </div>
+                        <!-- 标签2 -->
+                        <div>
+                            <a href="#panel-user-2" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="update-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>修改角色权限</h4>
+                                <span class="text-muted">对角色的相关权限进行管理</span>
+                            </a>
+                        </div>
+                        <!-- 标签3 -->
+                        <div>
+                            <a href="#panel-user-3" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="add-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>新增角色</h4>
+                                <span class="text-muted">增加一个新的角色</span>
+                            </a>
+                        </div>
+                        <!-- 标签4 -->
+                        <div>
+                            <a href="#panel-user-4" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="delete-user" style='text-decoration:none;'>
+                                <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
+                                <h4>删除角色</h4>
+                                <span class="text-muted">删除指定的角色与权限</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 标签1对应的模块 -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-user-1">
+                            <h2 class="sub-header">用户详细</h2>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Header</th>
+                                        <th>Header</th>
+                                        <th>Header</th>
+                                        <th>Header</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1,001</td>
+                                        <td>Lorem</td>
+                                        <td>ipsum</td>
+                                        <td>dolor</td>
+                                        <td>sit</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1,002</td>
+                                        <td>amet</td>
+                                        <td>consectetur</td>
+                                        <td>adipiscing</td>
+                                        <td>elit</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 标签2对应的模块 -->
+                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-2">
+
+                            <h2 class="sub-header">修改角色</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group" id="rolename-change">
+                                    <label for="insert-rolename" class="sr-only ">用户名</label>
+                                    <input type="text" id="update-rolename" class="form-control" placeholder="原角色名" required="" autofocus="">
+                                    <span class="help-block" id="update-rolename-help"></span>
+                                </div>
+                                <!-- 复选框 -->
+                                <div class="form-group" id="power-update">
+                                    <div id="power-line-role-1">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="1"> 首页
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="2"> 学生签到
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="3"> 教师签到
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="4"> 管理员签到
+                                        </label>
+                                    </div>
+
+                                    <div id="power-line-role-2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="5"> 学生通知
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="6"> 教师通知
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="7"> 管理员通知
+                                        </label>
+                                    </div>
+                                    <div id="power-line-role-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="8"> 学生问卷
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="9"> 教师问卷
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="10"> 管理员问卷
+                                        </label>
+                                    </div>
+                                    <div id="power-line-role-4">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="11"> 学生成绩
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="12"> 教师成绩
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="13"> 管理员成绩
+                                        </label>
+                                    </div>
+                                    <div id="power-line-role-5">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="14"> 用户管理
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="15"> 角色管理
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" id="submit-update-role">修改</button>
+                            </form>
+
+
+                        </div>
+                        <!-- 标签3对应的模块 -->
+                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-3">
+
+                            <h2 class="sub-header">新增角色</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group" id="rolename-create">
+                                    <label for="insert-rolename" class="sr-only ">用户名</label>
+                                    <input type="text" id="insert-rolename" class="form-control" placeholder="给新的角色起个名字把" required="" autofocus="">
+                                    <span class="help-block" id="insert-rolename-help"></span>
+                                </div>
+
+                                <div class="form-group" id="power-create">
+                                    <div id="power-line-1">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="1"> 首页
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="2"> 学生签到
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="3"> 教师签到
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="4"> 管理员签到
+                                        </label>
+                                    </div>
+
+                                    <div id="power-line-2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="5"> 学生通知
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="6"> 教师通知
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="7"> 管理员通知
+                                        </label>
+                                    </div>
+                                    <div id="power-line-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="8"> 学生问卷
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="9"> 教师问卷
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="10"> 管理员问卷
+                                        </label>
+                                    </div>
+                                    <div id="power-line-4">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="11"> 学生成绩
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="12"> 教师成绩
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="13"> 管理员成绩
+                                        </label>
+                                    </div>
+                                    <div id="power-line-5">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="14"> 用户管理
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="power-select" value="15"> 角色管理
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block" id="submit-create-role">创建</button>
+                            </form>
+
+                        </div>
+                        <!-- 标签4对应的模块 -->
+                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-4">
+                            <h2 class="sub-header">删除角色</h2>
+                            <form class="form" onsubmit="return ">
+                                <div class="form-group" id="role-delete">
+                                    <label for="delete-role-input" class="sr-only">角色名</label>
+                                    <input type="text" id="delete-role-input" class="form-control" placeholder="输入需要删除的角色名" required="">
+                                    <span class="help-block" id="delete-user-help"></span>
+                                </div>
+                                <!-- 遮罩窗体确定是否操作 -->
+                                <!-- 触发按钮 -->
+                                <button id="modal-role-delete-a" href="#modal-role-delete" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal">
+                                    删除
+                                </button>
+                                <!-- 被隐藏的模块 -->
+                                <div class="modal fade" id="modal-role-delete" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title " id="myModalLabel">
+                                                    确定要删除这个角色以及权限吗？
+                                                </h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-danger">删除</button>
+                                                <button class="btn btn-warning">取消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="./js/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/holder.min.js"></script>
+<script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="./js/login.js"></script>
+<script src="./js/getSession.js"></script>
+</body>
+</html>
