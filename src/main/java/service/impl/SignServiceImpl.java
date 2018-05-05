@@ -1,6 +1,6 @@
 package service.impl;
 
-import constant.Role;
+import constant.RoleCode;
 import dao.AccountDao;
 import dao.SignDao;
 import dto.AccountDto;
@@ -159,7 +159,7 @@ public class SignServiceImpl implements SignService
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.TEACHER),
+        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), RoleCode.TEACHER),
                 SignStatus.SUCCESS);
     }
 
@@ -177,7 +177,7 @@ public class SignServiceImpl implements SignService
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.STUDENT),
+        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), RoleCode.STUDENT),
                 SignStatus.SUCCESS);
     }
 

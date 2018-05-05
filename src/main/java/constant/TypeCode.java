@@ -5,7 +5,7 @@ package constant;
  *
  * @author Fish
  * */
-public final class Type
+public final class TypeCode
 {
     // 内部员工为 0
     public static final Integer INNER_STAFF = 0;
