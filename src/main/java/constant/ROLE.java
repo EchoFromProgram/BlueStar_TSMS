@@ -5,7 +5,7 @@ package constant;
  *
  * @author Fish
  * */
-public final class ROLE
+public final class Role
 {
     // 老师是 1
     public static final Integer TEACHER = 1;

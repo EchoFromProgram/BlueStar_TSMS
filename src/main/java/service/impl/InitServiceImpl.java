@@ -1,7 +1,9 @@
 package service.impl;
 
 import dao.AccountDao;
+import dto.AccountDto;
 import entity.Power;
+import enums.impl.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.InitService;
@@ -31,7 +33,7 @@ public class InitServiceImpl implements InitService
      *
      * @return 整张权限表，以 Map 封装，key 值为 权限 id，value 值为权限（这里主要是 URL）
      */
-    public Map<Integer, String> getAllPowers()
+    public AccountDto getAllPowers()
     {
         Map<Integer, String> powersMap = new HashMap<>();
         List<Power> powers = accountDao.getPowers();
@@ -45,6 +47,6 @@ public class InitServiceImpl implements InitService
             }
         }
 
-        return powersMap;
+        return new AccountDto<Map<Integer, String>>(powersMap, Common.SUCCESS);
     }
 }

@@ -42,4 +42,12 @@ public interface AccountService
      * @return 返回创建的信息状态
      * */
     public AccountDto createAccount(User user);
+
+    /**
+     * 得到所有的账户信息，主要供管理员使用
+     *
+     * @param pageNumber 获取第几页的数据
+     * @return 返回所有账户的信息
+     */
+    public AccountDto getAllAccounts(Integer pageNumber);
 }

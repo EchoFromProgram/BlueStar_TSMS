@@ -1,12 +1,13 @@
 package service.impl;
 
-import constant.ROLE;
+import constant.Role;
 import dao.AccountDao;
 import dao.SignDao;
 import dto.AccountDto;
 import entity.Clazz;
 import entity.Sign;
 import entity.User;
+import enums.impl.Common;
 import enums.impl.CreateAccountStatus;
 import enums.impl.SignStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,19 +63,19 @@ public class SignServiceImpl implements SignService
      * @return 返回这个用户所属的班级
      */
     @Override
-    public List<Clazz> getClasses(User user)
+    public AccountDto getClasses(User user)
     {
         // 避免空指针
         if (user == null || user.getUserId() == null)
         {
-            return null;
+            return new AccountDto(Common.ERROR);
         }
 
         List<Integer> classIds = accountDao.getClassIdsByUserId(user.getUserId());
         if (classIds == null || classIds.size() == 0)
         {
             // 这个用户没有所属班级
-            return null;
+            return new AccountDto(Common.ERROR);
         }
 
         // 遍历去获取所有班级信息
@@ -84,7 +85,7 @@ public class SignServiceImpl implements SignService
             clazzes.add(accountDao.getClassByClassId(classId));
         }
 
-        return clazzes;
+        return new AccountDto<List<Clazz>>(clazzes, Common.SUCCESS);
     }
 
     /**
@@ -103,16 +104,14 @@ public class SignServiceImpl implements SignService
         // 必须存在这个用户才能进行签到
         if (user == null || user.getUserId() == null)
         {
-            return new AccountDto<String>(SignStatus.ILLEGAL_SIGN.getInfo(),
-                    SignStatus.ILLEGAL_SIGN);
+            return new AccountDto(SignStatus.ILLEGAL_SIGN);
         }
 
         // 判断这个班级是否属于这个用户
-        List<Clazz> classes = this.getClasses(user);
+        List<Clazz> classes = (List<Clazz>) this.getClasses(user).getData();
         if (!classes.contains(clazz))
         {
-            return new AccountDto<String>(SignStatus.WRONG_CLASS.getInfo(),
-                    SignStatus.WRONG_CLASS);
+            return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
         Sign sign = new Sign();
@@ -139,8 +138,7 @@ public class SignServiceImpl implements SignService
     {
         if (clazz == null || clazz.getClassId() == null)
         {
-            return new AccountDto<String>(SignStatus.WRONG_CLASS.getInfo(),
-                    SignStatus.WRONG_CLASS);
+            return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
         return new AccountDto<List<Sign>>(signDao.getSignsByClassId(clazz.getClassId()),
@@ -158,11 +156,10 @@ public class SignServiceImpl implements SignService
     {
         if (clazz == null || clazz.getClassId() == null)
         {
-            return new AccountDto<String>(SignStatus.WRONG_CLASS.getInfo(),
-                    SignStatus.WRONG_CLASS);
+            return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), ROLE.TEACHER),
+        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.TEACHER),
                 SignStatus.SUCCESS);
     }
 
@@ -177,11 +174,10 @@ public class SignServiceImpl implements SignService
     {
         if (clazz == null || clazz.getClassId() == null)
         {
-            return new AccountDto<String>(SignStatus.WRONG_CLASS.getInfo(),
-                    SignStatus.WRONG_CLASS);
+            return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), ROLE.STUDENT),
+        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.STUDENT),
                 SignStatus.SUCCESS);
     }
 
@@ -208,8 +204,7 @@ public class SignServiceImpl implements SignService
         // 先判断用户是否可用
         if (user == null || user.getUserId() == null)
         {
-            return new AccountDto<String>(CreateAccountStatus.USER_IS_NULL.getInfo(),
-                    CreateAccountStatus.USER_IS_NULL);
+            return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 
         return new AccountDto<List<Sign>>(signDao.getSignsByUserId(user.getUserId()),

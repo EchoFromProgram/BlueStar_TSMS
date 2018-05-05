@@ -28,6 +28,11 @@ public class AccountDto<T> implements Serializable
     public AccountDto()
     {}
 
+    public AccountDto(Statusable status)
+    {
+        this.status = status;
+    }
+
     public AccountDto(T data, Statusable status)
     {
         this.data = data;
