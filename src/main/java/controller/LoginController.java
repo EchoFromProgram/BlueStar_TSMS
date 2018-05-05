@@ -25,7 +25,7 @@ public class LoginController {
 	{
 		System.out.println(user);
 		AccountDto accountDto = accountService.login(user);
-		if(accountDto.getStatus().getCode() == 0)
+		if(accountDto.getCode() == 0)
 		{
 			System.out.println("-----------------");
 			

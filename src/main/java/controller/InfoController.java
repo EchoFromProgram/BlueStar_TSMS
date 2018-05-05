@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class InfoController {
 
 	@RequestMapping(path = "customer_info.do", produces = {"application/json;charset=UTF8"})
-	public String signStudent() {
+	public String customerInfo() {
 		return "customer_info";
 	}
 	
 	@RequestMapping(path = "staff_info.do", produces = {"application/json;charset=UTF8"})
-	public String signTeacher() {
+	public String staffInfo() {
 		return "staff_info";
 	}
 }

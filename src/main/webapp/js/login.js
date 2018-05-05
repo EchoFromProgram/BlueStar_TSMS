@@ -34,18 +34,18 @@ function submitData() {
         data: {"userName":$("#username").val(), "password":$("#password").val()},
         dataType: "json",
         success: function(data){
-            if("SUCCESS" == data.status)
+            if(0 == data.code)
             {
                 window.location.href="index.do";
             }
-            else if("WRONG_PASSWORD" == data.status)
+            else if(-2 == data.code)
             {
-            	$('#password-help').text(data.status);
+            	$('#password-help').text(data.info);
 	            $('#password-div').addClass("has-error");
             }
-            else if("WRONG_USERNAME" == data.status)
+            else if(-1 == data.code)
             {
-            	$('#username-help').text(data.status);
+            	$('#username-help').text(data.info);
 	            $('#username-div').addClass("has-error");
             }
         }
