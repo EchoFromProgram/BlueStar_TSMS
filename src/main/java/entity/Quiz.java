@@ -25,10 +25,16 @@ public class Quiz {
 	private Date date;
 	
 	// 问卷内容 
-	private  Integer quizDetail;
+	private  Integer quizDetailId;
 	
-	// 填写内容
-	private String fill;
+	// 填写内容1
+	private String fill1;
+	
+	// 填写内容2
+	private String fill2;
+	
+	//问卷内容
+	private QuizDetail quizDetail;
 
 	public int getQuizId() {
 		return quizId;
@@ -70,27 +76,46 @@ public class Quiz {
 		this.date = date;
 	}
 
-	public int getQuizDetail() {
+	public Integer getQuizDetailId() {
+		return quizDetailId;
+	}
+
+	public void setQuizDetailId(Integer quizDetailId) {
+		this.quizDetailId = quizDetailId;
+	}
+
+	public String getFill1() {
+		return fill1;
+	}
+
+	public void setFill1(String fill1) {
+		this.fill1 = fill1;
+	}
+
+	public String getFill2() {
+		return fill2;
+	}
+
+	public void setFill2(String fill2) {
+		this.fill2 = fill2;
+	}
+
+	public QuizDetail getQuizDetail() {
 		return quizDetail;
 	}
 
-	public void setQuizDetail(Integer quizDetail) {
+	public void setQuizDetail(QuizDetail quizDetail) {
 		this.quizDetail = quizDetail;
-	}
-
-	public String getFill() {
-		return fill;
-	}
-
-	public void setFill(String fill) {
-		this.fill = fill;
 	}
 
 	@Override
 	public String toString() {
 		return "Quiz [quizId=" + quizId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
-				+ ", date=" + date + ", quizDetail=" + quizDetail + ", fill=" + fill + "]";
+				+ ", date=" + date + ", quizDetailId=" + quizDetailId + ", fill1=" + fill1 + ", fill2=" + fill2
+				+ ", quizDetail=" + quizDetail + "]";
 	}
+
+	
 
 	
 	

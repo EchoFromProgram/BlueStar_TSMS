@@ -7,29 +7,45 @@ package entity;
 public class QuizDetail {
 	
 	// 问卷id
-	private Integer quizDetail;
+	private Integer quizDetailId;
 	
-	// 问题
-	private String question;
+	// 问题1
+	private String question1;
+	
+	private String question2;
 
-	public Integer getQuizDetail() {
-		return quizDetail;
+	
+	
+	public String getQuestion1() {
+		return question1;
 	}
 
-	public void setQuizDetail(Integer quizDetail) {
-		this.quizDetail = quizDetail;
+	public void setQuestion1(String question1) {
+		this.question1 = question1;
 	}
 
-	public String getQuestion() {
-		return question;
+	public String getQuestion2() {
+		return question2;
 	}
 
-	public void setQuestion(String question) {
-		this.question = question;
+	public void setQuestion2(String question2) {
+		this.question2 = question2;
+	}
+
+
+	public Integer getQuizDetailId() {
+		return quizDetailId;
+	}
+
+	public void setQuizDetailId(Integer quizDetailId) {
+		this.quizDetailId = quizDetailId;
 	}
 
 	@Override
 	public String toString() {
-		return "QuizDetail [quizDetail=" + quizDetail + ", question=" + question + "]";
+		return "QuizDetail [quizDetailId=" + quizDetailId + ", question1=" + question1 + ", question2=" + question2
+				+ "]";
 	}
+
+	
 }
