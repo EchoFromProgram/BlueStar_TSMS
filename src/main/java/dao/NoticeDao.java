@@ -37,7 +37,7 @@ public interface NoticeDao {
 	
 	/**
 	 * 更新具体签到信息
-	 * @param noticeDetailId 具体通知id
+	 * @param noticeDetail 具体通知id
 	 * @return	影响的行数，如果是1则修改成功
 	 */
 	public Integer updateNoticeDetailByNoticeDetailId(NoticeDetail noticeDetail);
