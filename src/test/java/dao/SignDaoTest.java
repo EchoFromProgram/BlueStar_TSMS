@@ -26,7 +26,7 @@ public class SignDaoTest {
 		sign.setDate(new Date());
 		sign.setStatus(1);
 		sign.setReason("不想来");
-		sign.setUserId(5);
+		sign.setUserId(1);
 		int num = signDao.insertIntoSign(sign);
 	}
 

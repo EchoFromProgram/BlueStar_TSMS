@@ -104,5 +104,12 @@ public class AccountDaoTest {
 		List<Integer> list = accountDao.getClassIdsByUserId(1);
 		System.out.println(list);
 	}
+	
+	@Test
+	public void testGetAllUsers() {
+		List<User> list = accountDao.getAllUsers();
+		System.out.println(list);
+	}
+
 
 }

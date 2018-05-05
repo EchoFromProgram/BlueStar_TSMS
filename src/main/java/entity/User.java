@@ -30,8 +30,7 @@ public class User {
 	//用户类型
 	private Integer typeId;
 	
-	//用户所属班级
-	private List<Integer> classIds;
+	
 
 	public Integer getUserId() {
 		return userId;

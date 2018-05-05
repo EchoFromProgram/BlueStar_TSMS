@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.javassist.scopedpool.ScopedClassPoolRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,16 @@ public class ScoreDaoTest {
 		List<Score> list = scoreDao.getAllScores();
 		System.out.println(list);
 	}
-
+	
+	@Test
+	public void testUpDateScoreByUserIdAndCourseId() {
+		Score score = new Score();
+		score.setCourseId(1);
+		score.setUserId(1);
+		score.setScore(22);
+		int num = scoreDao.updateScoreByUserIdAndCourseId(score);
+		System.out.println(num);
+		System.out.println(score.getScoreId());
+	}
+	
 }

@@ -89,4 +89,9 @@
 		SELECT class_id FROM user_class WHERE user_id= #{user_id};
 	</select>
 	
+	<!-- 得到所有班级 -->
+	<select id="getAllUsers" resultType="entity.User">
+		SELECT user_id, username, password, name, role_id, info_id, type_id FROM user;
+	</select>
+	
 </mapper>

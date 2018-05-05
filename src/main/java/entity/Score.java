@@ -10,7 +10,7 @@ import java.util.Date;
 public class Score {
 	
 	//成绩id
-	private Integer quizId;
+	private Integer scoreId;
 	
 	//班级id
 	private Integer classId;
@@ -27,13 +27,7 @@ public class Score {
 	//分数
 	private Integer score;
 
-	public Integer getQuizId() {
-		return quizId;
-	}
-
-	public void setQuizId(Integer quizId) {
-		this.quizId = quizId;
-	}
+	
 
 	public Integer getClassId() {
 		return classId;
@@ -75,10 +69,24 @@ public class Score {
 		this.score = score;
 	}
 
+	public Integer getScoreId() {
+		return scoreId;
+	}
+
+	public void setScoreId(Integer scoreId) {
+		this.scoreId = scoreId;
+	}
+
+	public void setClassId(Integer classId) {
+		this.classId = classId;
+	}
+
 	@Override
 	public String toString() {
-		return "Score [quizId=" + quizId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
+		return "Score [scoreId=" + scoreId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
 				+ ", date=" + date + ", score=" + score + "]";
 	}
+
+	
 	
 }

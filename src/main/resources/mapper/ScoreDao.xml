@@ -25,11 +25,15 @@
 	<select id="getAllScores" resultType="entity.Score">
 		SELECT quiz_id, class_id, user_id, course_id, date, score FROM score;
 	</select>
-
-
-
-
-
+	
+	<update id="updateScoreByUserIdAndCourseId" >
+		UPDATE score
+		<set>
+		  <if test="date != null">date = #{date},</if>
+		  <if test="score != null">score = #{score},</if>
+ 		</set>
+ 		WHERE user_id = #{userId} AND course_id = #{courseId};
+	</update>
 
 
 </mapper>

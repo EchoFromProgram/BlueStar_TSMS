@@ -102,6 +102,10 @@ public interface AccountDao
      */
     public Course getCoursesByCourseId(Integer courseId);
     
-    
+    /**
+     * 得到所有用户
+     * @return 用户集合
+     */
+    public List<User> getAllUsers();
     
 }

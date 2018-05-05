@@ -36,4 +36,12 @@ public interface ScoreDao {
 	 */
 	public List<Score> getAllScores(); 
 	
+	/**
+	 * 更新成绩
+	 * @param score 成绩对象
+	 * @return 影响的行数，如果是1则更新成功
+	 */
+	public Integer updateScoreByUserIdAndCourseId(Score score); 
+		
+	
 }

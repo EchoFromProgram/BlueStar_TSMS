@@ -15,7 +15,7 @@
 		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{noticeDetailId});
 	</insert>
 	
-	<!-- 通 -->
+	<!-- 通过班级id和具体通知id更新具体通知 -->
 	<update id="updateNoticeByClassIdAndNoticeDetailId">
 		UPDATE notice
 		<set>
