@@ -88,16 +88,11 @@ public class User {
 		this.typeId = typeId;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", name=" + name
-				+ ", roleId=" + roleId + ", infoId=" + infoId + ", typeId=" + typeId + ", customer=" +" ]";
+				+ ", roleId=" + roleId + ", infoId=" + infoId + ", typeId=" + typeId + "]";
 	}
-	
-	
-
 
 
 	

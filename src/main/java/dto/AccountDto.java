@@ -23,20 +23,25 @@ public class AccountDto<T> implements Serializable
      * 登陆状态
      * 这是一个枚举类，包含有登陆的状态码和状态信息
      * */
-    private Statusable status = null;
+    //private Statusable status = null; /* TODO jackson 返回枚举类型会返回字符串，导致无法获取里面的值，目前我想到的就是把枚举转成 map */
+
+    // 代表枚举类里面的属性
+    private int code = 0;
+    private String info = null;
 
     public AccountDto()
     {}
 
     public AccountDto(Statusable status)
     {
-        this.status = status;
+        this(null, status);
     }
 
     public AccountDto(T data, Statusable status)
     {
         this.data = data;
-        this.status = status;
+        this.code = status.getCode();
+        this.info = status.getInfo();
     }
 
     public T getData()
@@ -49,14 +54,25 @@ public class AccountDto<T> implements Serializable
         this.data = data;
     }
 
-    public Statusable getStatus()
+    public int getCode()
     {
-        return status;
+        return code;
     }
 
+    public String getInfo()
+    {
+        return info;
+    }
+
+    /**
+     * 将枚举信息封装到字段中
+     *
+     * @param status 要被封装的枚举
+     * */
     public void setStatus(Statusable status)
     {
-        this.status = status;
+        this.code = status.getCode();
+        this.info = status.getInfo();
     }
 
     @Override
@@ -64,7 +80,8 @@ public class AccountDto<T> implements Serializable
     {
         return "AccountDto{" +
                 "data=" + data +
-                ", status=" + status +
+                ", code=" + code +
+                ", info='" + info + '\'' +
                 '}';
     }
 }
