@@ -11,6 +11,9 @@ public class Power {
 	
 	// 权限
 	private String power;
+	
+	//权限名
+	private String powerName;
 
 	public Integer getPowerId() {
 		return powerId;
@@ -28,9 +31,19 @@ public class Power {
 		this.power = power;
 	}
 
+	public String getPowerName() {
+		return powerName;
+	}
+
+	public void setPowerName(String powerName) {
+		this.powerName = powerName;
+	}
+
 	@Override
 	public String toString() {
-		return "Power [powerId=" + powerId + ", power=" + power + "]";
+		return "Power [powerId=" + powerId + ", power=" + power + ", powerName=" + powerName + "]";
 	}
+
+	
 	
 }
