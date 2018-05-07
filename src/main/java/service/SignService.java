@@ -45,39 +45,44 @@ public interface SignService
     /**
      * 根据班级信息获取签到信息
      *
+     * @param pageNumber 要显示的页数
      * @param clazz 指定的班级
      * @return 返回指定的签到信息
      * */
-    public AccountDto getClassSigns(Clazz clazz);
+    public AccountDto getClassSigns(Integer pageNumber, Clazz clazz);
 
     /**
      * 获取指定班级的老师的签到信息
      *
+     * @param pageNumber 要显示的页数
      * @param clazz 指定班级
      * @return 返回指定班级的老师签到信息
      * */
-    public AccountDto getTeacherSignsByClass(Clazz clazz);
+    public AccountDto getTeacherSignsByClass(Integer pageNumber, Clazz clazz);
 
     /**
      * 获取指定班级的学生的签到信息
      *
+     * @param pageNumber 要显示的页数
      * @param clazz 指定班级
      * @return 返回指定班级的学生的签到信息
      * */
-    public AccountDto getStudentSignsByClass(Clazz clazz);
+    public AccountDto getStudentSignsByClass(Integer pageNumber, Clazz clazz);
 
     /**
      * 获取整个签到表的信息
      *
+     * @param pageNumber 要显示的页数
      * @return 返回整个签到表
      * */
-    public AccountDto getSigns();
+    public AccountDto getSigns(Integer pageNumber);
 
     /**
      * 获取这个用户的所有签到信息
      *
+     * @param pageNumber 要显示的页数
      * @param user 要被查询的用户
      * @return 返回这个用户的签到信息
      * */
-    public AccountDto getSignsByUser(User user);
+    public AccountDto getSignsByUser(Integer pageNumber, User user);
 }
