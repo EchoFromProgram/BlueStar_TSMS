@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.jws.soap.SOAPBinding.Use;
 
+import entity.City;
 import entity.Clazz;
 import entity.Course;
 import entity.Customer;
 import entity.Power;
 import entity.Province;
+import entity.School;
 import entity.Staff;
 import entity.User;
 
@@ -114,5 +116,19 @@ public interface AccountDao
      * @return 省份集合
      */
     public List<Province> getProvinces();
+    
+    /**
+     * 根据省份id得到对应的城市
+     * @param provinceId 省份id
+     * @return 城市集合
+     */
+    public List<City> getCitysByProvinceId(Integer provinceId);
+    
+    /**
+     * 根据城市id得到对应的学校
+     * @param cityId
+     * @return
+     */
+    public List<School> getSchoolsByCityId(Integer cityId);
     
 }

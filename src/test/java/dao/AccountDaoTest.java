@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import entity.City;
 import entity.Clazz;
 import entity.Course;
 import entity.Customer;
 import entity.Power;
+import entity.Province;
+import entity.School;
 import entity.Staff;
 import entity.User;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -108,6 +111,12 @@ public class AccountDaoTest {
 	@Test
 	public void testGetAllUsers() {
 		List<User> list = accountDao.getAllUsers();
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testPro() {
+		List<School> list = accountDao.getSchoolsByCityId(1);
 		System.out.println(list);
 	}
 
