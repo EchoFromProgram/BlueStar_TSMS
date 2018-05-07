@@ -61,7 +61,7 @@ public class AccountDaoTest {
 	@Test
 	public void testGetPowerIdByRoleId() {
 		int roleId = 2;
-		List<Power> list = accountDao.getPowerByRoleId(roleId);
+		List<Integer> list = accountDao.getPowerIdByRoleId(roleId);
 		System.out.println(list);
 	}
 	

@@ -8,6 +8,7 @@ import entity.Clazz;
 import entity.Course;
 import entity.Customer;
 import entity.Power;
+import entity.Province;
 import entity.Staff;
 import entity.User;
 
@@ -71,7 +72,7 @@ public interface AccountDao
      * @param roleId
      * @return 返回一个权限集合
      */
-    public List<Power> getPowerByRoleId(Integer roleId);
+    public List<Integer> getPowerIdByRoleId(Integer roleId);
     
     /**
      * 得到整张权限表
@@ -107,5 +108,11 @@ public interface AccountDao
      * @return 用户集合
      */
     public List<User> getAllUsers();
+    
+    /**
+     * 得到所有的省份
+     * @return 省份集合
+     */
+    public List<Province> getProvinces();
     
 }

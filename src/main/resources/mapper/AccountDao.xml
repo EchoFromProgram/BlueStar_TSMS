@@ -63,14 +63,13 @@
 	
 	
 	<!--根据角色id查询角色权限表，返回一个权限的list -->
-	<select id="getPowerByRoleId" resultType="entity.Power">
-		SELECT p.power_id, p.power_name FROM role_power rp INNER JOIN power p 
-		ON rp.power_id = p.power_id	WHERE role_id = #{roleId};
+	<select id="getPowerIdByRoleId" resultType="int">
+		SELECT power_id FROM role_power WHERE role_id = #{roleId};
 	</select>
 	
 	<!-- 得到整张权限表 -->
 	<select id="getPowers" resultType="entity.Power">
-		SELECT power_id, power FROM power;
+		SELECT power_id, power, power_name FROM power;
 	</select>
 	
 
