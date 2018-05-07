@@ -50,5 +50,11 @@
 		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
 		WHERE n.user_id = #{userId}; 
 	</select>
+	
+	<!-- 联表删除 -->
+	<delete id="deleteNoticeByNoticeDetailId">
+		DELETE n,nd FROM notice n LEFT JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
+		WHERE n.notice_detail_id = #{noticeDetailId};
+	</delete>
 
 </mapper>

@@ -119,6 +119,7 @@ public class AccountDaoTest {
 		List<School> list = accountDao.getSchoolsByCityId(1);
 		System.out.println(list);
 	}
-
+	
+	
 
 }

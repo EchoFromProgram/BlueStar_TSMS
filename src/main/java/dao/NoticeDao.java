@@ -55,4 +55,15 @@ public interface NoticeDao {
 	 * @return 通知信息集合
 	 */
 	public List<Notice> getNoticesByUserId(Integer userId);
+	
+
+	
+	/**
+	 * 删除通知和通知具体信息
+	 * @param noticeDetailId通知id
+	 * @return 影响的行数，如果是1则删除成功
+	 */
+	public Integer deleteNoticeByNoticeDetailId(Integer noticeDetailId);
+	
+	
 }

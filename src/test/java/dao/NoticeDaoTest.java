@@ -71,5 +71,10 @@ public class NoticeDaoTest {
 		List<Notice> list = noticeDao.getNoticesByUserId(1);
 		System.out.println(list);
 	}
-
+	
+	@Test 
+	public void testDel() {
+		int num = noticeDao.deleteNoticeByNoticeDetailId(1);
+		System.out.println(num);
+	}
 }
