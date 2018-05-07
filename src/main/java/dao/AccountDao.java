@@ -71,7 +71,7 @@ public interface AccountDao
      * @param roleId
      * @return 返回一个权限集合
      */
-    public List<Integer> getPowerIdByRoleId(Integer roleId);
+    public List<Power> getPowerByRoleId(Integer roleId);
     
     /**
      * 得到整张权限表
