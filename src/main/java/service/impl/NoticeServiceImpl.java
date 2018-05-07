@@ -32,7 +32,6 @@ public class NoticeServiceImpl implements NoticeService
     @Override
     public AccountDto getNotices(Integer pageNumber)
     {
-        
         return null;
     }
 }
