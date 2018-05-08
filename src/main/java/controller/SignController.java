@@ -38,10 +38,11 @@ public class SignController {
 	
 	@ResponseBody
 	@RequestMapping(path = "init_sign_student.do", produces = {"application/json;charset=UTF8"})
-	public Object initSignStudent(Integer userId) {
+	public Object initSignStudent(Integer page, Integer userId) {
 		User user = new User();
 		user.setUserId(userId);
-		AccountDto<List<Sign>> accountDto = signService.getSignsByUser(user);
+		System.out.println(page + "," + userId);
+		AccountDto<List<Sign>> accountDto = signService.getSignsByUser(page, user);
 		return accountDto.getData();
 	}
 	

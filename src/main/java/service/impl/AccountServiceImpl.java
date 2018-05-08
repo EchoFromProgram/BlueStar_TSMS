@@ -1,6 +1,7 @@
 package service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import constant.Page;
 import dao.AccountDao;
 import dto.AccountDto;
@@ -136,6 +137,11 @@ public class AccountServiceImpl implements AccountService
     @Override
     public AccountDto getAllAccounts(Integer pageNumber)
     {
+        if (pageNumber == null) // 如果参数为空，则返回参数错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
         // pageHelper 中每进行一次分页就要执行一次这个方法
         PageUtil.toPage(pageNumber);
 
@@ -146,6 +152,6 @@ public class AccountServiceImpl implements AccountService
         }
 
         // 这里如果 users 的元素个数为 0 也算成功，只能说没有成员
-        return new AccountDto<List<User>>(users, Common.SUCCESS);
+        return new AccountDto<>(PageUtil.pageInfo(users), Common.SUCCESS);
     }
 }

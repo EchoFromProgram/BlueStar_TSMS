@@ -101,5 +101,23 @@
 <script src="./js/ie10-viewport-bug-workaround.js"></script>
 <script src="./js/login.js"></script>
 <script src="./js/general.js"></script>
+<script src="./js/jquery.cookie.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url:"get_all_notice.do",
+			data:{"page":"1", "userId":$.cookie('userData')},
+			dataType:"json",
+			type:"POST",
+			success:function(data){
+				alert("1");
+				alert(data);
+			},
+			error:function () {
+	            alert("网络错误");
+	        }
+		});
+	});
+</script>
 </body>
 </html>

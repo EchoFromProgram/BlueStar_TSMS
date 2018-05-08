@@ -69,7 +69,7 @@
 	
 	<!-- 得到整张权限表 -->
 	<select id="getPowers" resultType="entity.Power">
-		SELECT power_id, power FROM power;
+		SELECT power_id, power, power_name FROM power;
 	</select>
 	
 
@@ -93,5 +93,21 @@
 	<select id="getAllUsers" resultType="entity.User">
 		SELECT user_id, username, password, name, role_id, info_id, type_id FROM user;
 	</select>
+	
+	<!-- 得到所有省份 -->
+	<select id="getProvinces" resultType="entity.Province">
+		SELECT p.province_id, p.province FROM province p;
+	</select>
+	
+	<!-- 根据省份id得到城市 -->
+	<select id="getCitysByProvinceId" resultType="entity.City">
+		SELECT city_id, city, province_id FROM city WHERE province_id = #{provinceId};	
+	</select>
+	
+	<!-- 根据城市id得到学校 -->
+	<select id="getSchoolsByCityId" resultType="entity.School">
+		SELECT school_id, school, city_id FROM school WHERE city_id = #{cityId};
+	</select>
+	
 	
 </mapper>

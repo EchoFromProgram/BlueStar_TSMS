@@ -13,6 +13,7 @@ import enums.impl.SignStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.SignService;
+import utils.PageUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -130,84 +131,116 @@ public class SignServiceImpl implements SignService
     /**
      * 根据班级信息获取签到信息
      *
+     * @param pageNumber 要显示的页数
      * @param clazz 指定的班级
      * @return 返回指定的签到信息
      */
     @Override
-    public AccountDto getClassSigns(Clazz clazz)
+    public AccountDto getClassSigns(Integer pageNumber, Clazz clazz)
     {
+        if (pageNumber == null) // 判断页数是否为空
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
         if (clazz == null || clazz.getClassId() == null)
         {
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByClassId(clazz.getClassId()),
+        PageUtil.toPage(pageNumber);
+
+        return new AccountDto<>(PageUtil.pageInfo(signDao.getSignsByClassId(clazz.getClassId())),
                 SignStatus.SUCCESS);
     }
 
     /**
      * 获取指定班级的老师的签到信息
      *
+     * @param pageNumber 指定的页数
      * @param clazz 指定班级
      * @return 返回指定班级的老师签到信息
      */
     @Override
-    public AccountDto getTeacherSignsByClass(Clazz clazz)
+    public AccountDto getTeacherSignsByClass(Integer pageNumber, Clazz clazz)
     {
+        if (pageNumber == null) // 判断参数是否正确
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
         if (clazz == null || clazz.getClassId() == null)
         {
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.TEACHER),
+        return new AccountDto<>(PageUtil.pageInfo(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.TEACHER)),
                 SignStatus.SUCCESS);
     }
 
     /**
      * 获取指定班级的学生的签到信息
      *
+     * @param pageNumber 指定的页数
      * @param clazz 指定班级
      * @return 返回指定班级的学生的签到信息
      */
     @Override
-    public AccountDto getStudentSignsByClass(Clazz clazz)
+    public AccountDto getStudentSignsByClass(Integer pageNumber, Clazz clazz)
     {
+        if (pageNumber == null) // 判断参数是否正确
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
         if (clazz == null || clazz.getClassId() == null)
         {
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.STUDENT),
+        return new AccountDto<>(PageUtil.pageInfo(signDao.getSignsByClassIdAndRoleId(clazz.getClassId(), Role.STUDENT)),
                 SignStatus.SUCCESS);
     }
 
     /**
      * 获取整个签到表的信息
      *
+     * @param pageNumber 指定的页数
      * @return 返回整个签到表
      */
     @Override
-    public AccountDto getSigns()
+    public AccountDto getSigns(Integer pageNumber)
     {
-        return new AccountDto<List<Sign>>(signDao.getAllSigns(), SignStatus.SUCCESS);
+        if (pageNumber == null) // 判断参数是否正确
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(signDao.getAllSigns()), SignStatus.SUCCESS);
     }
 
     /**
      * 获取这个用户的所有签到信息
      *
+     * @param pageNumber 指定的页数
      * @param user 要被查询的用户
      * @return 返回这个用户的签到信息
      */
     @Override
-    public AccountDto getSignsByUser(User user)
+    public AccountDto getSignsByUser(Integer pageNumber, User user)
     {
+        if (pageNumber == null) // 判断参数是否正确
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
         // 先判断用户是否可用
         if (user == null || user.getUserId() == null)
         {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 
-        return new AccountDto<List<Sign>>(signDao.getSignsByUserId(user.getUserId()),
+        return new AccountDto<>(PageUtil.pageInfo(signDao.getSignsByUserId(user.getUserId())),
                 SignStatus.SUCCESS);
     }
 }

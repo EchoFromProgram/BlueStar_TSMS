@@ -3,26 +3,25 @@ package enums.impl;
 import enums.Statusable;
 
 /**
- * 常用状态的枚举类
+ * 通知相关枚举类
  *
  * @author Fish
- * */
-public enum Common implements Statusable
+ * created by 2018-05-07
+ */
+public enum NoticeStatus implements Statusable
 {
-    SUCCESS(0, "成功！"),
-    ERROR(-1, "错误！"),
-    WRONG_ARGEMENT(-2, "参数错误！");
+    SUCCESS(0, "发布成功！");
 
-    // 创建状态码
+    // 状态码
     private int code;
 
-    // 创建信息
+    // 返回信息
     private String info = null;
 
-    Common()
+    NoticeStatus()
     {}
 
-    Common(int code, String info)
+    NoticeStatus(int code, String info)
     {
         this.code = code;
         this.info = info;
@@ -48,14 +47,5 @@ public enum Common implements Statusable
     public void setInfo(String info)
     {
         this.info = info;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Common{" +
-                "code=" + code +
-                ", info='" + info + '\'' +
-                '}';
     }
 }
