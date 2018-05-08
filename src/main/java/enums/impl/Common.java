@@ -11,7 +11,8 @@ public enum Common implements Statusable
 {
     SUCCESS(0, "成功！"),
     ERROR(-1, "错误！"),
-    WRONG_ARGEMENT(-2, "参数错误！");
+    WRONG_ARGEMENT(-2, "参数错误！"),
+    GET_IS_NULL(-3 , "得到的数据为空！");
 
     // 创建状态码
     private int code;
