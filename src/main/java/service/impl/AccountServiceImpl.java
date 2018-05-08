@@ -155,9 +155,7 @@ public class AccountServiceImpl implements AccountService
         return new AccountDto<>(PageUtil.pageInfo(users), Common.SUCCESS);
     }
     
-    /**
-     * 根据信息id
-     */
+    
 	@Override
 	public AccountDto getCustomerInfoByInfoId(Integer infoId) {
 		//参数为空异常
@@ -197,7 +195,8 @@ public class AccountServiceImpl implements AccountService
 		
 		return null;
 	}
-
+	
+	
 	@Override
 	public AccountDto updateStaffInfoByInfoId(Staff staff) {
 		// TODO Auto-generated method stub

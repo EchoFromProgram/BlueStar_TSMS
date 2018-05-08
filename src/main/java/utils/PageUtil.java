@@ -29,7 +29,8 @@ public class PageUtil
      * @param objs 要被分页的集合
      * */
     public static <T> PageInfo<T> pageInfo(List<T> objs)
-    {
+    {	
+    	//第一个参数为分页对象，第二个为每次显示的页数
         return new PageInfo<T>(objs, Page.SHOW_PAGES);
     }
 }
