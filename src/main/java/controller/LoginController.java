@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dto.AccountDto;
 import entity.User;
 import service.AccountService;
+import service.InitService;
 
 @Controller
 public class LoginController {
 	
-	@Resource(name="accountServiceImpl")
+	@Resource
 	private AccountService accountService;
+	
+	@Resource
+	private InitService InitService;
 	
 	@ResponseBody
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
@@ -57,5 +61,12 @@ public class LoginController {
 	public Object getSessionHisPower(HttpSession session) {
 		// TODO html访问session， 
 		return session.getAttribute("hisPowers");
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "getPowerTable.do", produces = {"application/json;charset=UTF8"})
+	public Object getPowerTable() {
+		//返回权限表
+		return InitService.getAllPowers().getData();
 	}
 }

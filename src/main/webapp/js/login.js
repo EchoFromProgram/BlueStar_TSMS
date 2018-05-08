@@ -36,6 +36,7 @@ function submitData() {
         success: function(data){
             if(0 == data.code)
             {
+            	$.cookie('userData', data.data.user.userId);
                 window.location.href="index.do";
             }
             else if(-2 == data.code)
@@ -48,6 +49,9 @@ function submitData() {
             	$('#username-help').text(data.info);
 	            $('#username-div').addClass("has-error");
             }
+        },
+        error:function () {
+            alert("网络错误");
         }
     });
     return false;
