@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -57,6 +58,7 @@ public class AccountServiceTest
     
     @Test
     public void testPageInfo() {
-    	
+    	AccountDto<PageInfo<User>> accountDto = accountService.getAllAccounts(88);
+    	System.out.println((accountDto.getData()));
     }
 }
