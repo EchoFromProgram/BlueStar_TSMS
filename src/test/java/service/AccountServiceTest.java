@@ -2,11 +2,17 @@ package service;
 
 import dto.AccountDto;
 import entity.User;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 测试账号业务方法
@@ -48,5 +54,11 @@ public class AccountServiceTest
         AccountDto accountDto = accountService.createAccount(user);
 
         System.out.println(accountDto);
+    }
+    
+    @Test
+    public void testPageInfo() {
+    	AccountDto<PageInfo<User>> accountDto = accountService.getAllAccounts(88);
+    	System.out.println((accountDto.getData()));
     }
 }

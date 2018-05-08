@@ -1,6 +1,9 @@
 package service;
 
 import entity.Clazz;
+import entity.Customer;
+import entity.Staff;
+
 import org.springframework.stereotype.Service;
 
 import dto.AccountDto;
@@ -50,4 +53,52 @@ public interface AccountService
      * @return 返回所有账户的信息
      */
     public AccountDto getAllAccounts(Integer pageNumber);
+    
+    /**
+     * 根据信息id查询客户的信息
+     * @param infoId 信息id
+     * @return 返回客户的信息
+     */
+    public AccountDto getCustomerInfoByInfoId(Integer infoId);
+    
+    /**
+     * 根据信息id得到员工的信息
+     * @param infoId
+     * @return 返回员工信息
+     */
+    public AccountDto getStaffInfoByInfoId(Integer infoId);
+    
+    /**
+     * 根据信息id更新客户信息
+     * @param customer 客户信息
+     * @return 处理信息状态
+     */
+    public AccountDto updateCustomerInfoByInfoId(Customer customer);
+    
+    /**
+     * 根据信息id更新员工信息
+     * @param staff 员工信息
+     * @return 处理信息状态
+     */
+    public AccountDto updateStaffInfoByInfoId(Staff staff);
+    
+    /**
+     * 得到所有的省份
+     * @return 返回省份集合
+     */
+    public AccountDto getAllProvinces();
+    
+    /**
+     * 根据省份id得到所有的城市
+     * @param provinceId 省份id
+     * @return 返回城市集合
+     */
+    public AccountDto getCitysByProvinceId(Integer provinceId);
+    
+    /**
+     * 根据城市id得到所有的学校
+     * @param cityId 城市id
+     * @return 学校集合
+     */
+    public AccountDto getSchoolsByCityId(Integer cityId);
 }

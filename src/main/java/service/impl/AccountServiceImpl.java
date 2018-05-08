@@ -154,4 +154,71 @@ public class AccountServiceImpl implements AccountService
         // 这里如果 users 的元素个数为 0 也算成功，只能说没有成员
         return new AccountDto<>(PageUtil.pageInfo(users), Common.SUCCESS);
     }
+    
+    /**
+     * 根据信息id
+     */
+	@Override
+	public AccountDto getCustomerInfoByInfoId(Integer infoId) {
+		//参数为空异常
+		if(infoId == null) {
+			return new AccountDto<>(Common.WRONG_ARGEMENT);
+		}
+		//根据信息id查询到客户信息
+		Customer customer = accountDao.getCustomerDetailByInfoId(infoId);
+		//得到的客户为空
+		if(customer == null) {
+			return new AccountDto<>(Common.GET_IS_NULL);
+		}
+		return new AccountDto<Customer>(customer,Common.SUCCESS);
+	}
+
+	@Override
+	public AccountDto getStaffInfoByInfoId(Integer infoId) {
+		//参数为空异常
+		if(infoId == null) {
+			return new AccountDto<>(Common.WRONG_ARGEMENT);
+		}
+		//根据信息id查询到客户信息
+		Staff staff = accountDao.getStaffDetailByTid(infoId);
+		//得到的客户为空
+		if(staff == null) {
+			return new AccountDto<>(Common.GET_IS_NULL);
+		}
+		return new AccountDto<Staff>(staff,Common.SUCCESS);
+	}
+
+	@Override
+	public AccountDto updateCustomerInfoByInfoId(Customer customer) {
+		//参数为空异常
+		if(customer == null) {
+			return new AccountDto<>(Common.WRONG_ARGEMENT);
+		}
+		
+		return null;
+	}
+
+	@Override
+	public AccountDto updateStaffInfoByInfoId(Staff staff) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AccountDto getAllProvinces() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AccountDto getCitysByProvinceId(Integer provinceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AccountDto getSchoolsByCityId(Integer cityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

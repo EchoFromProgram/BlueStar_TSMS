@@ -37,6 +37,7 @@
  		WHERE notice_detail_id = #{noticeDetailId};
 	</update>
 	
+	<!-- 根据班级id得到通知 -->
 	<select id="getNoticesByClassId" resultType="entity.Notice">
 		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
 		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content"
@@ -44,6 +45,7 @@
 		WHERE n.class_id = #{classId}; 
 	</select>
 	
+	<!-- 根据用户id得到通知 -->
 	<select id="getNoticesByUserId" resultType="entity.Notice">
 		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
 		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content"

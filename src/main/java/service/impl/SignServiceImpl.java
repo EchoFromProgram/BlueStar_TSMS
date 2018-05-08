@@ -240,6 +240,7 @@ public class SignServiceImpl implements SignService
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 
+        PageUtil.toPage(pageNumber);
         return new AccountDto<>(PageUtil.pageInfo(signDao.getSignsByUserId(user.getUserId())),
                 SignStatus.SUCCESS);
     }
