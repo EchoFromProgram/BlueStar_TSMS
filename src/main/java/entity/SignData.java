@@ -7,7 +7,7 @@ import java.util.Date;
  * @author 王鸿175
  *
  */
-public class SignData extends Sign{
+public class SignData {
 	
 	//日期
 	private Date date;
