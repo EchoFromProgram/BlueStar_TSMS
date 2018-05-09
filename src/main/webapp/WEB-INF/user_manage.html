@@ -117,6 +117,15 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="panel-user-1">
                             <h2 class="sub-header">用户详细</h2>
+                            <div class="row">
+                                <label for="which-stage" class="sr-only">类型</label>
+                                <select class="form-control" id="which-stage">
+                                    <option value ="员工">员工</option>
+                                    <option value ="客户">客户</option>
+                                </select>
+                                <div class="line"></div>
+                                <button class="btn btn-primary pull-right" id="submit-which-stage">查询</button>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>

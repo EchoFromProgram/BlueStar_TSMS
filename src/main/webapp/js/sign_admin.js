@@ -5,7 +5,7 @@ $(function(){
 function to_page(page){
     $.ajax({
         type: "POST",
-        url: "init_sign_student.do",
+        url: "admin_get_signs.do",
         dataType: "json",
         data:{"page":page, "userId":$.cookie('userData')},
         success: function(data){

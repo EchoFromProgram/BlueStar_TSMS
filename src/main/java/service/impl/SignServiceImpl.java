@@ -215,7 +215,7 @@ public class SignServiceImpl implements SignService
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
-
+        PageUtil.toPage(pageNumber);
         return new AccountDto<>(PageUtil.pageInfo(signDao.getAllSigns()), SignStatus.SUCCESS);
     }
 

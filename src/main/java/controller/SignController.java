@@ -41,8 +41,14 @@ public class SignController {
 	public Object initSignStudent(Integer page, Integer userId) {
 		User user = new User();
 		user.setUserId(userId);
-		System.out.println(page + "," + userId);
 		AccountDto<List<Sign>> accountDto = signService.getSignsByUser(page, user);
+		return accountDto.getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "admin_get_signs.do", produces = {"application/json;charset=UTF8"})
+	public Object adminGetSigns(Integer page) {
+		AccountDto<List<Sign>> accountDto = signService.getSigns(page);
 		return accountDto.getData();
 	}
 	

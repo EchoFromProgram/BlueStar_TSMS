@@ -139,47 +139,29 @@
             </div>
             <!-- 表格 -->
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-hover" id="sign-student-table">
                     <thead>
                     <tr>
                         <th>班级</th>
                         <th>姓名</th>
                         <th>课程</th>
                         <th>日期</th>
-                        <th>是否迟到</th>
-                        <th>迟到原因</th>
+                        <th>签到状态</th>
+                        <th>备注</th>
                     </tr>
                     </thead>
-                    <tbody id="sign-student-tr">
+                    <tbody>
                     
                     </tbody>
                 </table>
-                <div class="pager">
-                    <ul>
-                        <li>
-                            <a href="#">上一页</a>
-                        </li>
-                        <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">5</a>
-                        </li>
-                        <li>
-                            <a href="#">下一页</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
+	        <!-- 分页信息 -->
+			<div class="row">
+				<!-- 分页文字 -->
+				<div class="col-md-6" id="page_info_area"></div>
+				<!-- 分页条 -->
+				<div class="col-md-6" id="page_nav_area"></div>		
+			</div>
         </div>
     </div>
 </div>

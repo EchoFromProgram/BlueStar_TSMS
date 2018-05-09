@@ -32,11 +32,11 @@ public class NoticeController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "get_all_notice.do", produces = {"application/json;charset=UTF8"})
+	@RequestMapping(path = "teacher_get_all_notice.do", produces = {"application/json;charset=UTF8"})
 	public Object getAllNotice(Integer page, Integer userId) {
 		User user = new User();
 		user.setUserId(userId);
 		AccountDto accountDto = noticeService.getNotices(page, user);
-		return accountDto;
+		return accountDto.getData();
 	}
 }
