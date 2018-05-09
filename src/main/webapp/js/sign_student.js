@@ -32,9 +32,9 @@ function build_table(data) {
     //jquery遍历,emps为遍历对象，function(index索引,item得到的每一个对象)为回调函数
     $.each(dataList,function(index, item){
         //创建td并朝里面追加内容
-        var classId = $("<td></td>").append(item.classId);
-        var userId = $("<td></td>").append(item.userId);
-        var courseId = $("<td></td>").append("java课程");
+        var classId = $("<td></td>").append(item.className);
+        var userId = $("<td></td>").append(item.name);
+        var courseId = $("<td></td>").append(item.course);
         var date = $("<td></td>").append(dateFormat(new Date(item.date)));
         var status = $("<td></td>");
         if(item.status == 0) {
