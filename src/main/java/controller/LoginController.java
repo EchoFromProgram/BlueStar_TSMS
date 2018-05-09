@@ -3,6 +3,8 @@ package controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,12 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dto.AccountDto;
 import entity.User;
 import service.AccountService;
+import service.InitService;
 
 @Controller
 public class LoginController {
 	
-	@Resource(name="accountServiceImpl")
+	@Resource
 	private AccountService accountService;
+	
+	@Resource
+	private InitService InitService;
 	
 	@ResponseBody
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
@@ -57,5 +63,13 @@ public class LoginController {
 	public Object getSessionHisPower(HttpSession session) {
 		// TODO html访问session， 
 		return session.getAttribute("hisPowers");
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "getPowerTable.do", produces = {"application/json;charset=UTF8"})
+	public Object getPowerTable(HttpSession session) {
+		//返回权限表
+		//TO DO 这里需要直接返回，和上面的hisPower方法合并
+		return session.getServletContext().getAttribute("powerMap");
 	}
 }

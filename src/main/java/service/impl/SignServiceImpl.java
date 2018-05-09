@@ -174,6 +174,7 @@ public class SignServiceImpl implements SignService
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
+        PageUtil.toPage(pageNumber);
         return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByClassIdAndRoleId(clazz.getClassId(), Role.TEACHER)),
                 SignStatus.SUCCESS);
     }
@@ -198,6 +199,7 @@ public class SignServiceImpl implements SignService
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
+        PageUtil.toPage(pageNumber);
         return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByClassIdAndRoleId(clazz.getClassId(), Role.STUDENT)),
                 SignStatus.SUCCESS);
     }
@@ -216,6 +218,7 @@ public class SignServiceImpl implements SignService
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
+        PageUtil.toPage(pageNumber);
         return new AccountDto<>(PageUtil.pageInfo(signDao.getAllSignDatas()), SignStatus.SUCCESS);
     }
 
@@ -239,7 +242,8 @@ public class SignServiceImpl implements SignService
         {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
-
+        
+        PageUtil.toPage(pageNumber);
         return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByUserId(user.getUserId())),
                 SignStatus.SUCCESS);
     }
