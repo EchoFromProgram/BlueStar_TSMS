@@ -35,7 +35,7 @@ function build_table(data) {
     			'<div class="accordion-group">' + 
                 '<h3 class="accordion-heading">' + 
                     '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-'+ item.noticeId +'">'+
-                        item.noticeDetailId +
+                        item.noticeDetail.title +
                     '</a>'+
                     '<div id="accordion-element-notice-'+ item.noticeId +'" class="accordion-body collapse">'+
                         '<h4 class="accordion-inner">'+
@@ -56,7 +56,7 @@ function build_table(data) {
                                     '</h4>'+
                                 '</div>'+
                                 '<div class="modal-footer">'+
-                                    '<button class="btn btn-danger" id="notice-delete-button-'+ item.noticeId +'">删除</button>'+
+                                    '<button class="btn btn-danger" delete-prop="'+ item.noticeId +'">删除</button>'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
@@ -82,7 +82,7 @@ function build_table(data) {
                                     '</div>'+
                                 '</div>'+
                                 '<div class="modal-footer">'+
-                                    '<button class="btn btn-danger" id="notice-update-button-'+ item.noticeId +'">修改</button>'+
+                                    '<button class="btn btn-danger" update-prop="'+ item.noticeId +'">修改</button>'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
@@ -90,6 +90,7 @@ function build_table(data) {
                 '</h3>'+
             '</div>'+'<br>'
     	);
+    	
     })
 }
 
@@ -160,5 +161,6 @@ function buile_page_nav(data) {
 
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
+
 
 

@@ -40,7 +40,7 @@ $('#huge').click(
     }
 );
 
-//获取权限表（以后会用application代替）
+//获取权限表以及设置导航
 var powerTable;
 $(function(){
 	   $.ajax({
@@ -62,15 +62,15 @@ $(function(){
 	     	    	 		if(suffix == powerTable[item]){
 	     	    	 			$("#nav-list").append(
 	     		    	 				'<li class="active"><a href="#">' +
-	     		    	 				powerTable[item]
+	     		    	 				powerTable[item].powerName
 	     		    	 				+ "</a></li>"
 	     		    	 				);
 	     	    	 		}else{
 	     	    	 			$("#nav-list").append(
 	     		    	 				"<li><a href=" + 
-	     		    	 				powerTable[item] + 
+	     		    	 				powerTable[item].power + 
 	     		    	 				">" +
-	     		    	 				powerTable[item]
+	     		    	 				powerTable[item].powerName
 	     		    	 				+ "</a></li>"
 	     		    	 				);
 	     	    	 		}
