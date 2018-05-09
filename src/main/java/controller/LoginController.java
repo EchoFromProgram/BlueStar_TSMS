@@ -3,6 +3,8 @@ package controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -65,8 +67,9 @@ public class LoginController {
 	
 	@ResponseBody
 	@RequestMapping(path = "getPowerTable.do", produces = {"application/json;charset=UTF8"})
-	public Object getPowerTable() {
+	public Object getPowerTable(HttpSession session) {
 		//返回权限表
-		return InitService.getAllPowers().getData();
+		//TO DO 这里需要直接返回，和上面的hisPower方法合并
+		return session.getServletContext().getAttribute("powerMap");
 	}
 }

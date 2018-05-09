@@ -49,6 +49,37 @@ $(function(){
 	       dataType:"json",
 	       success:function (data) {
 	            powerTable = data;
+	          //获取个人权限
+
+	     	   $.ajax({
+	     	       url:"getSessionHisPowers.do",
+	     	       type:"POST",
+	     	       dataType:"json",
+	     	       success:function (data) {
+	     	    	   var path = window.location.pathname;
+	     	    	   var suffix = path.substr(path.lastIndexOf('/') + 1);
+	     	    	 	$.each(data,function(i, item){
+	     	    	 		if(suffix == powerTable[item]){
+	     	    	 			$("#nav-list").append(
+	     		    	 				'<li class="active"><a href="#">' +
+	     		    	 				powerTable[item]
+	     		    	 				+ "</a></li>"
+	     		    	 				);
+	     	    	 		}else{
+	     	    	 			$("#nav-list").append(
+	     		    	 				"<li><a href=" + 
+	     		    	 				powerTable[item] + 
+	     		    	 				">" +
+	     		    	 				powerTable[item]
+	     		    	 				+ "</a></li>"
+	     		    	 				);
+	     	    	 		}
+	     	    	 	});
+	     	       },
+	     	       error:function () {
+	     	           alert("网络错误");
+	     	       }
+	     	   });
 	       },
 	       error:function () {
 	           alert("网络错误");
@@ -56,42 +87,6 @@ $(function(){
 	   });
 	});
 
-//获取个人权限
-$(function(){
-	for(var i = 0; i < 100000000; i++)
-	{
-		i++;
-	}
-	   $.ajax({
-	       url:"getSessionHisPowers.do",
-	       type:"POST",
-	       dataType:"json",
-	       success:function (data) {
-	    	   var path = window.location.pathname;
-	    	   var suffix = path.substr(path.lastIndexOf('/') + 1);
-	    	 	$.each(data,function(i, item){
-	    	 		if(suffix == powerTable[item]){
-	    	 			$("#nav-list").append(
-		    	 				'<li class="active"><a href="#">' +
-		    	 				powerTable[item]
-		    	 				+ "</a></li>"
-		    	 				);
-	    	 		}else{
-	    	 			$("#nav-list").append(
-		    	 				"<li><a href=" + 
-		    	 				powerTable[item] + 
-		    	 				">" +
-		    	 				powerTable[item]
-		    	 				+ "</a></li>"
-		    	 				);
-	    	 		}
-	    	 	});
-	       },
-	       error:function () {
-	           alert("网络错误");
-	       }
-	   });
-	});
 
 //时间格式转换
 function dateFormat(date) {  

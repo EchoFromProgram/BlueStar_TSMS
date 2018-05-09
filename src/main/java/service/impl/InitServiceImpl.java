@@ -35,7 +35,7 @@ public class InitServiceImpl implements InitService
      */
     public AccountDto getAllPowers()
     {
-        Map<Integer, String> powersMap = new HashMap<>();
+        Map<Integer, Power> powersMap = new HashMap<>();
         List<Power> powers = accountDao.getPowers();
 
         if (powers != null)
@@ -43,10 +43,10 @@ public class InitServiceImpl implements InitService
             // 如果成功得到权限表，就将它转成 Map
             for (Power power : powers)
             {
-                powersMap.put(power.getPowerId(), power.getPower());
+                powersMap.put(power.getPowerId(), power);
             }
         }
 
-        return new AccountDto<Map<Integer, String>>(powersMap, Common.SUCCESS);
+        return new AccountDto<Map<Integer, Power>>(powersMap, Common.SUCCESS);
     }
 }

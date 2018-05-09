@@ -37,6 +37,7 @@ function submitData() {
             if(0 == data.code)
             {
             	$.cookie('userData', data.data.user.userId);
+            	$.cookie('hisClasses', data.data.hisClasses);
                 window.location.href="index.do";
             }
             else if(-2 == data.code)
