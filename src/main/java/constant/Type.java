@@ -12,4 +12,6 @@ public final class Type
 
     // 外部人员为 1
     public static final Integer OUTTER_CLIENT = 1;
+    
+
 }

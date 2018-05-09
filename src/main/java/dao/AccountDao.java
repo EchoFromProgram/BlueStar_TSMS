@@ -47,13 +47,13 @@ public interface AccountDao
     * 设置员工信息
     * @param staff 传入一个员工类，用来设置员工信息
     */
-    public void settingStaffInfo(Staff staff);
+    public Integer settingStaffInfo(Staff staff);
 
     /**
      * 设置客户信息
      * @param customer 传入一个客户类，用来设置客户信息
      */
-    public void settingCustomerInfo(Customer customer);
+    public Integer settingCustomerInfo(Customer customer);
     
     /**
      * 查询一个员工的具体信息
