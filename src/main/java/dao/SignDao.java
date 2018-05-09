@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import entity.Sign;
+import entity.SignData;
 
 /**
  * 签到方法
@@ -28,7 +29,7 @@ public interface SignDao {
 	public List<Sign> getSignsByUserId(Integer userId);
 	
 	/**
-	 * 根据班级id和角色id 根据班级id得到老师或学生的签到情况
+	 * 根据班级id和角色id得到老师或学生的签到情况
 	 * @param classId 班级id
 	 * @param roleId  角色id
 	 * @return 班级学生签到集合
@@ -47,6 +48,33 @@ public interface SignDao {
 	 * @param classId 班级id
 	 * @return 签到集合
 	 */
-	public List<Sign> getSignsByClassId(Integer classId);
+	public List<SignData> getSignsByClassId(Integer classId);
 	
+	/**
+     * 得到某个班级某种角色的签到数据
+     * @param classId 班级id
+     * @return 返回班级签到数据
+     */
+    public List<SignData> getSignDatasByClassIdAndRoleId(@Param("classId")Integer classId, 
+			 											 @Param("roleId")Integer  roleId);
+    
+    /**
+     * 得到某个用户的签到数据
+     * @param userId 用户id
+     * @return 返回用户签到数据
+     */
+    public List<SignData> getSignDatasByUserId(Integer userId);
+    
+    /**
+     * 得到某个班级的签到数据
+     * @param classId 班级id
+     * @return 签到数据
+     */
+    public List<SignData> getSignDatasByClassId(Integer classId);
+    
+    /**
+     * 得到全部的签到数据
+     * @return 得到 
+     */
+    public List<SignData> getAllSignDatas();
 }

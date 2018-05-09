@@ -109,21 +109,6 @@
 		SELECT school_id, school, city_id FROM school WHERE city_id = #{cityId}
 	</select>
 	
-	<!-- 得到签到数据 -->
-	<select id="getSignDatasByClassId" resultType="entity.SignData">
-		SELECT u.username,  c.class_name,  cr.course , s.date, s.status, s.reason
-		FROM user u, user_class uc, class c, course cr, sign s WHERE u.user_id = uc.user_id AND uc.class_id = c.class_id AND c.course_id = cr.course_id AND c.classId= #{classId} 
-	</select>
 	
-	<!-- 得到签到数据 -->
-	<select id="getSignDatasByUserId" resultType="entity.SignData">
-		SELECT u.username,  c.class_name,  cr.course , s.date, s.status, s.reason
-		FROM user u, user_class uc, class c, course cr, sign s WHERE u.user_id = uc.user_id AND uc.class_id = c.class_id AND c.course_id = cr.course_id AND u.user_id = #{userId} 
-	</select>
-	
-	<select id="getAllSignDatas" resultType="entity.SignData">
-		SELECT u.username,  c.class_name,  cr.course , s.date, s.status, s.reason
-		FROM user u, user_class uc, class c, course cr, sign s WHERE u.user_id = uc.user_id AND uc.class_id = c.class_id AND c.course_id = cr.course_id
-	</select>
 	
 </mapper>
