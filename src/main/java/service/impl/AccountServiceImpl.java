@@ -1,11 +1,6 @@
 package service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
 import constant.Type;
-import constant.Page;
-import constant.Role;
 import dao.AccountDao;
 import dto.AccountDto;
 import entity.*;
@@ -13,15 +8,12 @@ import enums.impl.Common;
 import enums.impl.CreateAccountStatus;
 import enums.impl.LoginStatus;
 
-import org.apache.tomcat.jdbc.pool.interceptor.ResetAbandonedTimerMBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import service.AccountService;
 import utils.PageUtil;
 
-import java.net.Inet4Address;
 import java.util.*;
 
 /**
@@ -74,6 +66,7 @@ public class AccountServiceImpl implements AccountService
         Map<String, Object> infos = new HashMap<String,Object>();
         infos.put("user", u);
         infos.put("hisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
+        infos.put("hisClasses", accountDao.getClassIdsByUserId(u.getUserId()));
 
         return new AccountDto<Map>(infos, LoginStatus.SUCCESS);
     }

@@ -33,8 +33,8 @@ public class AccountServiceTest
     public void testLogin()
     {
         User user = new User();
-        user.setUserName("1");
-        user.setPassword("23456");
+        user.setUserName("macky");
+        user.setPassword("123");
 
         AccountDto accountDto = accountService.login(user);
 
