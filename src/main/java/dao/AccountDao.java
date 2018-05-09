@@ -11,6 +11,7 @@ import entity.Customer;
 import entity.Power;
 import entity.Province;
 import entity.School;
+import entity.SignData;
 import entity.Staff;
 import entity.User;
 
@@ -47,13 +48,13 @@ public interface AccountDao
     * 设置员工信息
     * @param staff 传入一个员工类，用来设置员工信息
     */
-    public void settingStaffInfo(Staff staff);
+    public Integer settingStaffInfo(Staff staff);
 
     /**
      * 设置客户信息
      * @param customer 传入一个客户类，用来设置客户信息
      */
-    public void settingCustomerInfo(Customer customer);
+    public Integer settingCustomerInfo(Customer customer);
     
     /**
      * 查询一个员工的具体信息
@@ -131,4 +132,23 @@ public interface AccountDao
      */
     public List<School> getSchoolsByCityId(Integer cityId);
     
+    /**
+     * 得到某个班级的签到数据
+     * @param classId 班级id
+     * @return 返回班级签到数据
+     */
+    public List<SignData> getSignDatasByClassId(Integer classId);
+    
+    /**
+     * 得到某个用户的签到数据
+     * @param userId 用户id
+     * @return 返回用户签到数据
+     */
+    public List<SignData> getSignDatasByUserId(Integer userId);
+    
+    /**
+     * 得到全部的签到数据
+     * @return 得到 
+     */
+    public List<SignData> getAllSignDatas();
 }

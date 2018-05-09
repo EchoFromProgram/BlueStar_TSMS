@@ -1,16 +1,16 @@
 package service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import constant.Page;
+import constant.Type;
 import dao.AccountDao;
 import dto.AccountDto;
 import entity.*;
 import enums.impl.Common;
 import enums.impl.CreateAccountStatus;
 import enums.impl.LoginStatus;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import service.AccountService;
 import utils.PageUtil;
 
@@ -66,6 +66,7 @@ public class AccountServiceImpl implements AccountService
         Map<String, Object> infos = new HashMap<String,Object>();
         infos.put("user", u);
         infos.put("hisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
+        infos.put("hisClasses", accountDao.getClassIdsByUserId(u.getUserId()));
 
         return new AccountDto<Map>(infos, LoginStatus.SUCCESS);
     }
@@ -150,74 +151,164 @@ public class AccountServiceImpl implements AccountService
         {
             return new AccountDto(Common.ERROR);
         }
-
+        
         // 这里如果 users 的元素个数为 0 也算成功，只能说没有成员
         return new AccountDto<>(PageUtil.pageInfo(users), Common.SUCCESS);
     }
     
+    /**
+     * 根据信息id得到信息工具类
+     * @param infoId 信息id
+     * @param typeId 类型id
+     * @return 返回处理结果
+     */
+    private AccountDto getCustomerOrStaffByInfoId(Integer infoId, Integer typeId){
+    	//参数为空
+    	if(infoId == null) {
+    		return new AccountDto<>(Common.WRONG_ARGEMENT);
+    	}
+    	if(Type.INNER_STAFF == typeId) {
+			//得到员工信息
+			Staff staff = accountDao.getStaffDetailByTid(infoId);
+			if(staff == null) {
+				return new AccountDto<>(Common.GET_IS_NULL);
+			}
+			return new AccountDto<>(staff,Common.SUCCESS);
+    	}
+    	else if(Type.OUTTER_CLIENT == typeId) {
+			//得到客户信息
+			Customer customer = accountDao.getCustomerDetailByInfoId(infoId);
+			if(customer == null) {
+				return new AccountDto<>(Common.GET_IS_NULL);
+			}
+			return new AccountDto<>(customer,Common.SUCCESS);
+    	}
+    	else {
+			return new AccountDto<>(Common.ERROR);
+		}
+    }
     
-	@Override
-	public AccountDto getCustomerInfoByInfoId(Integer infoId) {
-		//参数为空异常
-		if(infoId == null) {
-			return new AccountDto<>(Common.WRONG_ARGEMENT);
+    /**
+     * 根据信息id更新员工或客户
+     * @param infoId 信息id
+     * @param typeId 类型id
+     * @return 处理结果
+     */
+    private AccountDto updateCustomerOrStaffInfoByInfoId(Object object, Integer typeId) {
+    	//参数为空
+    	if(object == null) {
+    		return new AccountDto<>(Common.WRONG_ARGEMENT);
+    	}
+    	if(Type.INNER_STAFF == typeId) {
+			//更新员工信息
+			int num = accountDao.settingStaffInfo((Staff)object);
+			if(num == 0) {
+				return new AccountDto<>(Common.ERROR);
+			}
+			return new AccountDto<>(Common.SUCCESS);
+    	}
+    	else if(Type.OUTTER_CLIENT == typeId) {
+			//得到客户信息
+			int num = accountDao.settingCustomerInfo((Customer)object);
+			if(num == 0) {
+				return new AccountDto<>(Common.ERROR);
+			}
+			return new AccountDto<>(Common.SUCCESS);
+    	}
+    	else {
+			return new AccountDto<>(Common.ERROR);
 		}
-		//根据信息id查询到客户信息
-		Customer customer = accountDao.getCustomerDetailByInfoId(infoId);
-		//得到的客户为空
-		if(customer == null) {
-			return new AccountDto<>(Common.GET_IS_NULL);
-		}
-		return new AccountDto<Customer>(customer,Common.SUCCESS);
-	}
-
-	@Override
-	public AccountDto getStaffInfoByInfoId(Integer infoId) {
-		//参数为空异常
-		if(infoId == null) {
-			return new AccountDto<>(Common.WRONG_ARGEMENT);
-		}
-		//根据信息id查询到客户信息
-		Staff staff = accountDao.getStaffDetailByTid(infoId);
-		//得到的客户为空
-		if(staff == null) {
-			return new AccountDto<>(Common.GET_IS_NULL);
-		}
-		return new AccountDto<Staff>(staff,Common.SUCCESS);
-	}
-
-	@Override
-	public AccountDto updateCustomerInfoByInfoId(Customer customer) {
-		//参数为空异常
-		if(customer == null) {
-			return new AccountDto<>(Common.WRONG_ARGEMENT);
-		}
-		
-		return null;
-	}
+    }
 	
-	
-	@Override
-	public AccountDto updateStaffInfoByInfoId(Staff staff) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+   /**
+    * 得到员工信息
+    * @param infoId 信息id
+    * @return 处理结果状态
+    */   
+    public AccountDto getStaffInfoByInfoId(Integer infoId) {
+    	return getCustomerOrStaffByInfoId(infoId, Type.INNER_STAFF);
+    }
+    
+    /**
+     * 得到客户信息
+     * @param infoId 信息id
+     * @return 处理结果状态
+     */
+    public AccountDto getCustomerInfoByInfoId(Integer infoId) {
+    	return getCustomerOrStaffByInfoId(infoId, Type.OUTTER_CLIENT);
+    }
+    
+    /**
+     * 根据信息id更新员工信息
+     * @param staff 员工类
+     * @return 处理结果
+     */
+    public AccountDto updateStaffInfoByInfoId(Staff staff) {
+    	return updateCustomerOrStaffInfoByInfoId(staff, Type.INNER_STAFF);
+    }
+    
+    /**
+     * 根据信息id更新客户信息
+     * @param customer 客户类
+     * @return 处理结果
+     */
+    public AccountDto updateCustomerInfoByInfoId(Customer customer) {
+    	return updateCustomerOrStaffInfoByInfoId(customer, Type.OUTTER_CLIENT);
+    }
+    
+	/**
+	 * 得到所有的省份
+	 * @return 返回省份集合
+	 * 
+	 */
 	@Override
 	public AccountDto getAllProvinces() {
-		// TODO Auto-generated method stub
-		return null;
+		//得到所有省份
+		List<Province> provinces = accountDao.getProvinces();
+		//获得为空异常
+		if(provinces == null) {
+			return new AccountDto<>(Common.GET_IS_NULL);
+		}
+		return new AccountDto<>(Common.SUCCESS);
 	}
-
+	
+	/**
+	 * 根据省份id得到对应的所有城市
+	 * @param provinceId 省份id
+	 * @return 返回城市集合
+	 */
 	@Override
 	public AccountDto getCitysByProvinceId(Integer provinceId) {
-		// TODO Auto-generated method stub
-		return null;
+		//参数为空异常
+		if(provinceId == null) {
+			return new AccountDto<>(Common.WRONG_ARGEMENT);
+		}
+		//获得城市
+		List<City> citys = accountDao.getCitysByProvinceId(provinceId);
+		//得到结果为空异常
+		if(citys == null) {
+			return new AccountDto<>(Common.GET_IS_NULL);
+		}
+		return new AccountDto<>(Common.SUCCESS);
 	}
-
+	
+	/**
+	 * 根据城市id得到所有学校
+	 * @param 城市id
+	 * @return 返回城市集合
+	 * 
+	 */
 	@Override
 	public AccountDto getSchoolsByCityId(Integer cityId) {
-		// TODO Auto-generated method stub
-		return null;
+		//获得参数为空异常
+		if(cityId == null) {
+			return new AccountDto<>(Common.WRONG_ARGEMENT);
+		}
+		List<School> schools = accountDao.getSchoolsByCityId(cityId);
+		//得到结果为空异常
+		if(schools == null) {
+			return new AccountDto<>(Common.GET_IS_NULL);
+		}
+		return new AccountDto<>(Common.SUCCESS);
 	}
 }

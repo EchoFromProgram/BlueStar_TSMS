@@ -8,6 +8,12 @@
         <welcome-file>/login.do</welcome-file>
     </welcome-file-list>
 
+    <!-- 告诉 spring，配置文件在哪，由于 ContextLoaderListener 要初始化 application -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/*.xml</param-value>
+    </context-param>
+
     <!-- 配置 springmvc 的转发器 -->
     <servlet>
         <servlet-name>dispatcher</servlet-name>
@@ -29,8 +35,14 @@
     </servlet-mapping>
 
     <!-- 配置监听器 -->
-    <!--<listener>
+    <!-- spring 想使用 WebApplicationContext 就得配置这个监听器 -->
+    <listener>
+        <!-- ContextLoaderListener 要初始化 application 就要知道 spring 配置文件在哪，上面有 context-param -->
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
         <listener-class>listener.InitListener</listener-class>
-    </listener>-->
+    </listener>
 
 </web-app>
