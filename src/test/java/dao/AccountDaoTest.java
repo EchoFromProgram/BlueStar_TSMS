@@ -17,6 +17,7 @@ import entity.Customer;
 import entity.Power;
 import entity.Province;
 import entity.School;
+import entity.SignData;
 import entity.Staff;
 import entity.User;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -120,6 +121,11 @@ public class AccountDaoTest {
 		System.out.println(list);
 	}
 	
+	@Test
+	public void test1() {
+		List<SignData> list =accountDao.getSignDatasByClassId(1);
+		System.out.println(list);
+	}
 	
 
 }
