@@ -20,7 +20,7 @@ public class InitListener implements ServletContextListener
     private InitService initService;
 
     // log4j 记录日志
-    Logger logger = Logger.getLogger(this.getClass());
+    private Logger logger = Logger.getLogger(this.getClass());
 
     @Override
     public void contextDestroyed(ServletContextEvent event)
