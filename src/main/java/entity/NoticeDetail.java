@@ -11,6 +11,8 @@ public class NoticeDetail {
 	
 	// 详细内容
 	private String content;
+	
+	private String title;
 
 	public int getNoticeDetailId() {
 		return noticeDetailId;
@@ -28,10 +30,19 @@ public class NoticeDetail {
 		this.content = content;
 	}
 
-	@Override
-	public String toString() {
-		return "NoticeDetail [noticeDetailId=" + noticeDetailId + ", content=" + content + "]";
+	public String getTitle() {
+		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	@Override
+	public String toString() {
+		return "NoticeDetail [noticeDetailId=" + noticeDetailId + ", content=" + content + ", title=" + title + "]";
+	}
+
+	
 
 }
