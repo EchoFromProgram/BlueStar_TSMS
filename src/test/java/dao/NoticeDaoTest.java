@@ -23,7 +23,8 @@ public class NoticeDaoTest {
 	@Test
 	public void testInsertNoticeDetail() {
 		NoticeDetail noticeDetail = new NoticeDetail();
-		noticeDetail.setContent("放假了");
+		noticeDetail.setContent("放假啦");
+		noticeDetail.setTitle("关于放假");
 		int num = noticeDao.insertNoticeDetail(noticeDetail);
 		System.out.println(noticeDetail.getNoticeDetailId());
 	}
@@ -56,7 +57,8 @@ public class NoticeDaoTest {
 	public void testUpdateNoticeDetailByNoticeDetailId() {
 		NoticeDetail noticeDetail = new NoticeDetail();
 		noticeDetail.setContent("后天上课");
-		noticeDetail.setNoticeDetailId(1);
+		noticeDetail.setTitle("上课通知");
+		noticeDetail.setNoticeDetailId(2);
 		noticeDao.updateNoticeDetailByNoticeDetailId(noticeDetail);
 	}
 
