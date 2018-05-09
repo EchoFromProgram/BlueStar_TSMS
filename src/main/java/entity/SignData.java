@@ -19,7 +19,7 @@ public class SignData {
 	private String reason;
 	
 	//用户姓名
-	private String userName;
+	private String name;
 	
 	//班级名
 	private String className;
@@ -27,13 +27,7 @@ public class SignData {
 	//课程名
 	private String course;
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	
 
 	public String getClassName() {
 		return className;
@@ -75,9 +69,17 @@ public class SignData {
 		this.reason = reason;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
-		return "SignData [date=" + date + ", status=" + status + ", reason=" + reason + ", userName=" + userName
+		return "SignData [date=" + date + ", status=" + status + ", reason=" + reason + ", name=" + name
 				+ ", className=" + className + ", course=" + course + "]";
 	}
 
