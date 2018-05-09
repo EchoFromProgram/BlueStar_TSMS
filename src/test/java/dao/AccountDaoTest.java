@@ -123,8 +123,7 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		List<SignData> list =accountDao.getSignDatasByClassId(1);
-		System.out.println(list);
+		
 	}
 	
 
