@@ -41,6 +41,15 @@ public interface ScoreService
     public AccountDto getScoresByClassId(Integer pageNumber, Integer classId);
 
     /**
+     * 通过阶段查成绩
+     *
+     * @param pageNumber 页数
+     * @param status     阶段
+     * @return 返回成绩信息
+     */
+    public AccountDto getScoreByStatus(Integer pageNumber, Integer status);
+
+    /**
      * 通过班级和阶段查询成绩
      * 这里的阶段要引用 Level 里面的常量
      *
