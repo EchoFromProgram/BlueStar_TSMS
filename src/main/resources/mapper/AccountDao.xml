@@ -109,6 +109,9 @@
 		SELECT school_id, school, city_id FROM school WHERE city_id = #{cityId}
 	</select>
 	
-	
+	<!-- 得到整张课程表 -->
+	<select id="getAllcourses" resultType="entity.Course">
+		SELECT c.course_id, c.course FROM course c;
+	</select>
 	
 </mapper>

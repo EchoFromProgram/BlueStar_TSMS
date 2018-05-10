@@ -128,9 +128,16 @@ public interface AccountDao
     /**
      * 根据城市id得到对应的学校
      * @param cityId
-     * @return
+     * @return 学校集合
      */
     public List<School> getSchoolsByCityId(Integer cityId);
+    
+    
+    /**
+     * 得到整张课程表
+     * @return 课表集合
+     */
+    public List<Course> getAllcourses();
     
   
 }
