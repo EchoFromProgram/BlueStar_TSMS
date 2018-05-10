@@ -2,31 +2,40 @@ package service;
 
 import java.util.List;
 
+import dto.AccountDto;
 import org.apache.ibatis.annotations.Param;
 
 import entity.Score;
 
-public interface ScoreService {
-	
-	/**
-	 * 通过用户id
-	 * @param userId
-	 * @param courseId
-	 * @return
-	 */
-	public List<Score> getScoresByUserIdAndCourseId(@Param("userId")Integer userId,
-													@Param("courseId")Integer courseId);
-	
-	/**
-	 * 得到所有成绩
-	 * @return 成绩集合
-	 */
-	public List<Score> getAllScores();
-	
-	/**
-	 * 新增一条成绩
-	 * @param score
-	 * @return
-	 */
-	public Integer insertScore(Score score);
+/**
+ * 成绩业务类
+ *
+ * @author imp，Fish
+ */
+public interface ScoreService
+{
+    /**
+     * 得到所有成绩
+     *
+     * @param pageNumber 页数
+     * @return 成绩集合
+     */
+    public AccountDto getAllScores(Integer pageNumber);
+
+    /**
+     * 通过用户查询他的成绩
+     *
+     * @param pageNumber 页数
+     * @param userId     用户 id
+     * @return 返回成绩信息
+     */
+    public AccountDto getScoresByUserId(Integer pageNumber, Integer userId);
+
+    /**
+     * 新增一条成绩
+     *
+     * @param score
+     * @return
+     */
+    public AccountDto insertScore(Score score);
 }
