@@ -27,7 +27,7 @@ public interface ScoreDao {
 	 * 根据班级id得到该班级的成绩
 	 * @return 成绩集合
 	 */
-	public List<Score> getScoresByClassId(Integer classId);
+	public List<ScoreData> getScoresByClassId(Integer classId);
 	
 	/**
 	 * 根据userId得到一个学生的成绩 
@@ -70,4 +70,13 @@ public interface ScoreDao {
 	 * @return 成绩数据集合
 	 */
 	List<ScoreData> getAllScoreDatas();
+	
+	/**
+	 * 根据阶段查询成绩
+	 * @param status 阶段
+	 * @return 成绩数据集合
+	 */
+	List<ScoreData> getScoreDatasByStatus(Integer status);
+	
+	
 }

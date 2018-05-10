@@ -35,7 +35,7 @@ public class ScoreDaoTest {
 
 	@Test
 	public void testGetScoresByClassId() {
-		List<Score> list = scoreDao.getScoresByClassId(1);
+		List<ScoreData> list = scoreDao.getScoresByClassId(1);
 		System.out.println(list);
 	}
 
@@ -66,9 +66,8 @@ public class ScoreDaoTest {
 	
 	@Test
 	public void testA() {
-		
-		
-		
+		List<ScoreData> list = scoreDao.getScoreDatasByStatus(1);
+		System.out.println(list);
 	}
 	
 }

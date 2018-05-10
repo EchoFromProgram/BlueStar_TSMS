@@ -31,8 +31,8 @@
 	
 	<!-- 根据班级id得到老师和学生的签到情况 -->
 	<select id="getSignsByClassId" resultType="entity.Sign">
-		SELECT	sign_id, class_id,  user_id, course_id, date, status, reason 
-		FROM sign WHERE class_id = #{classId}
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id = #{classId}
 	</select>
 	
 	<!-- 根据班级id和角色id得到签到数据 -->
