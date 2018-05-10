@@ -18,4 +18,21 @@ public interface NoticeService
      * @return 返回分页之后的通知信息
      * */
     public AccountDto getNotices(Integer pageNumber, User user);
+
+    /**
+     * 学生通过 classId 获取属于他的通知
+     *
+     * @param pageNumber 页数
+     * @param classId    班级 id
+     * @return 返回通知信息
+     */
+    public AccountDto getNotices(Integer pageNumber, Integer classId);
+
+    /**
+     * 管理员得到所有通知
+     *
+     * @param pageNumber 页数
+     * @return 返回通知信息
+     */
+    public AccountDto getNotices(Integer pageNumber);
 }

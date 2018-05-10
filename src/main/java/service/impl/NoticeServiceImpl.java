@@ -47,7 +47,54 @@ public class NoticeServiceImpl implements NoticeService
 
         PageUtil.toPage(pageNumber);
         List<Notice> notices = noticeDao.getNoticesByUserId(user.getUserId());
+        if (notices == null) // 得到的是空数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
+    }
+
+    /**
+     * 学生通过 classId 获取属于他的通知
+     *
+     * @param pageNumber 页数
+     * @param classId 班级 id
+     * @return 返回通知信息
+     */
+    public AccountDto getNotices(Integer pageNumber, Integer classId)
+    {
+        // 如果参数为空，则返回参数错误
+        if (pageNumber == null || classId == null)
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber);
+        List<Notice> notices = noticeDao.getNoticesByClassId(classId);
+        if (notices == null) // 没有得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
+    }
+
+    /**
+     * 管理员得到所有通知
+     *
+     * @param pageNumber 页数
+     * @return 返回通知信息
+     */
+    public AccountDto getNotices(Integer pageNumber)
+    {
+        // 如果参数为空，则返回参数错误
+        if (pageNumber == null)
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        // TODO 管理员获得所有通知
+        return null;
     }
 }
