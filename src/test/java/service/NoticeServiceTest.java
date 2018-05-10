@@ -37,5 +37,8 @@ public class NoticeServiceTest
 
         accountDto = noticeService.getNotices(1, 2);
         System.out.println(accountDto.getData());
+
+        accountDto = noticeService.getNotices(1);
+        System.out.println(accountDto);
     }
 }
