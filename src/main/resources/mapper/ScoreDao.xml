@@ -10,9 +10,9 @@
 	</insert>
 	 
 	<!-- 根据班级id查询整个班级的成绩 -->
-	<select id="getScoresByClassId" resultType="entity.Score">
-		SELECT quiz_id, class_id, user_id, course_id, date, score 
-		FROM score WHERE class_id = #{classId}
+	<select id="getScoresByClassId" resultType="entity.ScoreData">
+		SELECT DISTINCT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.class_id = #{classId}
 	</select>
 	
 	<!-- 查询一个学生的成绩 -->
@@ -26,14 +26,36 @@
 		SELECT quiz_id, class_id, user_id, course_id, date, score FROM score
 	</select>
 	
-	<update id="updateScoreByUserIdAndCourseId" >
+	<update id="updateScoreByUserIdAndClassIdAndStatus" >
 		UPDATE score
 		<set>
 		  <if test="date != null">date = #{date},</if>
 		  <if test="score != null">score = #{score},</if>
  		</set>
- 		WHERE user_id = #{userId} AND course_id = #{courseId}
+ 		WHERE user_id = #{userId} AND class_id = #{classId} AND status = #{status}
 	</update>
-
-
+	
+	<!-- 根据用户id得到成绩数据-->
+	<select id="getScoreDatasByUserId" resultType="entity.ScoreData">
+		SELECT DISTINCT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND u.user_id = #{userId};
+	</select>
+	
+	<!-- 根据班级和阶段得到成绩数据 -->
+	<select id="getScoreDatasByClassIdAndStatus" resultType="entity.ScoreData">
+		SELECT DISTINCT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND c.class_id = #{classId} AND s.status = #{status};
+	</select>
+	
+	<!-- 得到所有成绩数据 -->
+	<select id="getAllScoreDatas" resultType="entity.ScoreData">
+		SELECT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id
+	</select>
+	
+	<select id="getScoreDatasByStatus" resultType="entity.ScoreData">
+		SELECT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.status = #{status}
+	</select>
+	
 </mapper>

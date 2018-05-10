@@ -19,7 +19,7 @@ public class Score {
 	private Integer userId;
 	
 	//课程id
-	private Integer courseId;
+	private Integer status;
 	
 	//日期
 	private Date date;
@@ -45,13 +45,7 @@ public class Score {
 		this.userId = userId;
 	}
 
-	public Integer getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
+	
 
 	public Date getDate() {
 		return date;
@@ -77,16 +71,23 @@ public class Score {
 		this.scoreId = scoreId;
 	}
 
-	public void setClassId(Integer classId) {
-		this.classId = classId;
+	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
-		return "Score [scoreId=" + scoreId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
+		return "Score [scoreId=" + scoreId + ", classId=" + classId + ", userId=" + userId + ", status=" + status
 				+ ", date=" + date + ", score=" + score + "]";
 	}
 
+	
 	
 	
 }

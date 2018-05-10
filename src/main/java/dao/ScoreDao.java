@@ -7,7 +7,12 @@ package dao;
 
 import java.util.List;
 
+import javax.swing.ListModel;
+
+import org.apache.ibatis.annotations.Param;
+
 import entity.Score;
+import entity.ScoreData;
 
 public interface ScoreDao {
 	
@@ -22,7 +27,7 @@ public interface ScoreDao {
 	 * 根据班级id得到该班级的成绩
 	 * @return 成绩集合
 	 */
-	public List<Score> getScoresByClassId(Integer classId);
+	public List<ScoreData> getScoresByClassId(Integer classId);
 	
 	/**
 	 * 根据userId得到一个学生的成绩 
@@ -41,7 +46,37 @@ public interface ScoreDao {
 	 * @param score 成绩对象
 	 * @return 影响的行数，如果是1则更新成功
 	 */
-	public Integer updateScoreByUserIdAndCourseId(Score score); 
-		
+	public Integer updateScoreByUserIdAndClassIdAndStatus(Score score); 
+	
+
+	
+	/**
+	 * 根据用户id得到成绩数据
+	 * @param userId
+	 * @return 成绩数据集合
+	 */
+	List<ScoreData> getScoreDatasByUserId(Integer userId);
+	
+	/**
+	 * 根据班级和阶段得到成绩数据
+	 * @param status
+	 * @return 成绩数据集合
+	 */
+	List<ScoreData> getScoreDatasByClassIdAndStatus(@Param("status")Integer status,
+													@Param("classId")Integer classId);
+	
+	/**
+	 * 得到所有的成绩数据
+	 * @return 成绩数据集合
+	 */
+	List<ScoreData> getAllScoreDatas();
+	
+	/**
+	 * 根据阶段查询成绩
+	 * @param status 阶段
+	 * @return 成绩数据集合
+	 */
+	List<ScoreData> getScoreDatasByStatus(Integer status);
+	
 	
 }

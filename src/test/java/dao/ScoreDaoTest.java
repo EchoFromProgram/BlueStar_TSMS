@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import entity.Score;
+import entity.ScoreData;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class ScoreDaoTest {
@@ -24,7 +25,7 @@ public class ScoreDaoTest {
 	public void testInsertScore() {
 		Score score = new Score();
 		score.setClassId(1);
-		score.setCourseId(2);
+		
 		score.setDate(new Date());
 		score.setScore(50);
 		score.setUserId(1);
@@ -34,7 +35,7 @@ public class ScoreDaoTest {
 
 	@Test
 	public void testGetScoresByClassId() {
-		List<Score> list = scoreDao.getScoresByClassId(1);
+		List<ScoreData> list = scoreDao.getScoresByClassId(1);
 		System.out.println(list);
 	}
 
@@ -53,12 +54,20 @@ public class ScoreDaoTest {
 	@Test
 	public void testUpDateScoreByUserIdAndCourseId() {
 		Score score = new Score();
-		score.setCourseId(1);
+		
 		score.setUserId(1);
-		score.setScore(22);
-		int num = scoreDao.updateScoreByUserIdAndCourseId(score);
+		score.setScore(62);
+		score.setStatus(1);
+		score.setClassId(1);
+		int num = scoreDao.updateScoreByUserIdAndClassIdAndStatus(score);
 		System.out.println(num);
 		System.out.println(score.getScoreId());
+	}
+	
+	@Test
+	public void testA() {
+		List<ScoreData> list = scoreDao.getScoreDatasByStatus(1);
+		System.out.println(list);
 	}
 	
 }

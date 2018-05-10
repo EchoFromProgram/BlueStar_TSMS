@@ -247,4 +247,65 @@ public class SignServiceImpl implements SignService
         return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByUserId(user.getUserId())),
                 SignStatus.SUCCESS);
     }
+
+    /**
+     * 根据课程获得学生的签到情况
+     *
+     * @param pageNumber 指定的页数
+     * @param courseId 课程id
+     * @return 返回这个用户的签到信息
+     */
+	@Override
+	public AccountDto getStudentSignsByCourseId(Integer pageNumber, Integer courseId) {
+	    if (pageNumber == null || courseId == null) // 判断参数是否正确
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        
+        PageUtil.toPage(pageNumber);
+        return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByCourseIdAndRoleId(courseId, Role.STUDENT)),
+                SignStatus.SUCCESS);
+	}
+	
+	 /**
+     * 根据课程获得老师的签到情况
+     *
+     * @param pageNumber 指定的页数
+     * @param courseId 课程id
+     * @return 返回这个用户的签到信息
+     */
+	@Override
+	public AccountDto getTeacherSignsByCourseId(Integer pageNumber, Integer courseId) {
+		 if (pageNumber == null || courseId == null) // 判断参数是否正确
+	     {
+	         return new AccountDto(Common.WRONG_ARGEMENT);
+	     }
+
+	        
+	     PageUtil.toPage(pageNumber);
+	     return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByCourseIdAndRoleId(courseId, Role.TEACHER)),
+	             SignStatus.SUCCESS);
+	}
+	
+	 /**
+     * 根据课程和班级获得签到情况
+     *
+     * @param pageNumber 指定的页数
+     * @param courseId 课程id
+     * @param classId 班级id
+     * @return 返回这个用户的签到信息
+     */
+	@Override
+	public AccountDto getSignsByCouseIdAndClassId(Integer pageNumber, Integer courseId, Integer classId) {
+		 if (pageNumber == null || courseId == null || classId == null) // 判断参数是否正确
+	     {
+	         return new AccountDto(Common.WRONG_ARGEMENT);
+	     }
+
+	        
+	     PageUtil.toPage(pageNumber);
+	     return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByClassIdAndCourseId(classId, courseId)),
+	             SignStatus.SUCCESS);
+	}
 }

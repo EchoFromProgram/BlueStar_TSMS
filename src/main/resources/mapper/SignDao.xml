@@ -31,33 +31,44 @@
 	
 	<!-- 根据班级id得到老师和学生的签到情况 -->
 	<select id="getSignsByClassId" resultType="entity.Sign">
-		SELECT	sign_id, class_id,  user_id, course_id, date, status, reason 
-		FROM sign WHERE class_id = #{classId}
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id = #{classId}
 	</select>
 	
 	<!-- 根据班级id和角色id得到签到数据 -->
 	<select id="getSignDatasByClassIdAndRoleId" resultType="entity.SignData">
-		SELECT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason
-		FROM user u, user_class uc, class c, course cr, sign s WHERE u.user_id = uc.user_id AND uc.class_id = c.class_id AND c.course_id = cr.course_id AND c.class_id= #{classId} 
-		AND u.role_id = #{roleId};
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id = #{classId} AND u.role_id = #{roleId}
 	</select>
 	
 	<!-- 根据用户id得到签到数据 -->
 	<select id="getSignDatasByUserId" resultType="entity.SignData">
-		SELECT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason
-		FROM user u, user_class uc, class c, course cr, sign s WHERE u.user_id = uc.user_id AND uc.class_id = c.class_id AND c.course_id = cr.course_id AND u.user_id = #{userId}
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.user_id = #{userId}
 		
 	</select>
 	
 	<!-- 根据班级id得到签到数据 -->
 	<select id="getSignDatasByClassId" resultType="entity.SignData">
-		SELECT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason
-		FROM user u, user_class uc, class c, course cr, sign s WHERE u.user_id = uc.user_id AND uc.class_id = c.class_id AND c.course_id = cr.course_id AND c.class_id = #{classId}
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id = #{classId}
 	</select>
 	
 	<!-- 得到所有签到情况 -->
 	<select id="getAllSignDatas" resultType="entity.SignData">
-		SELECT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason
-		FROM user u, user_class uc, class c, course cr, sign s WHERE u.user_id = uc.user_id AND uc.class_id = c.class_id AND c.course_id = cr.course_id
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u,  class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id 
+	</select>
+	
+	<!-- 根据课程id得到签到数据 -->
+	<select id="getSignDatasByCourseIdAndRoleId" resultType="entity.SignData">
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.course_id = #{courseId} AND u.role_id = #{roleId}
+	</select>
+	
+	<!-- 根据课程id和班级id得到签到数据 -->
+	<select id="getSignDatasByClassIdAndCourseId" resultType="entity.SignData">
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason 
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id = #{classId} AND s.course_id = #{courseId}
 	</select>
 </mapper>

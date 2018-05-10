@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.mysql.jdbc.SingleByteCharsetConverter;
 
 import entity.Sign;
+import entity.SignData;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class SignDaoTest {
@@ -52,7 +53,8 @@ public class SignDaoTest {
 	
 	@Test
 	public void testGetSignsByClassId() {
-		
+		List<SignData> list = signDao.getSignDatasByCourseIdAndRoleId(1,1);
+		System.out.println(list);
 	
 	}
 	
