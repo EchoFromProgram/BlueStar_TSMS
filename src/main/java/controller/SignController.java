@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dto.AccountDto;
 import entity.Sign;
 import entity.User;
+import service.ClassService;
 import service.SignService;
 
 @Controller
@@ -18,6 +19,9 @@ public class SignController {
 	
 	@Resource
 	private SignService signService;
+	
+	@Resource
+	private ClassService ClassService;
 	
 	@RequestMapping(path = "sign_admin.do", produces = {"application/json;charset=UTF8"})
 	public String signAdmin() {
@@ -57,5 +61,12 @@ public class SignController {
 	public Object getSignCode() {
 		Integer code = signService.getSignCode();
 		return code;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "get_course_by_class.do", produces = {"application/json;charset=UTF8"})
+	public Object getCourseByClass(Integer classId) {
+		AccountDto accountDto = ClassService.getCourseByClassId(classId);
+		return accountDto.getData();
 	}
 }

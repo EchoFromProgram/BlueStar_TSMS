@@ -59,7 +59,7 @@ $(function(){
 	     	    	   var path = window.location.pathname;
 	     	    	   var suffix = path.substr(path.lastIndexOf('/') + 1);
 	     	    	 	$.each(data,function(i, item){
-	     	    	 		if(suffix == powerTable[item]){
+	     	    	 		if(suffix == powerTable[item].power){
 	     	    	 			$("#nav-list").append(
 	     		    	 				'<li class="active"><a href="#">' +
 	     		    	 				powerTable[item].powerName

@@ -37,6 +37,7 @@ public class LoginController {
 			
 			session.setAttribute("user", ((Map)accountDto.getData()).get("user"));
 			session.setAttribute("hisPowers", ((Map)accountDto.getData()).get("hisPowers"));
+			session.setAttribute("hisClasses", ((Map)accountDto.getData()).get("hisClasses"));
 		}
 		return accountDto;
 	}
@@ -66,10 +67,19 @@ public class LoginController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(path = "getSessionHisClasses.do", produces = {"application/json;charset=UTF8"})
+	public Object getSessionHisClasses(HttpSession session) {
+		// TODO html访问session， 
+		return session.getAttribute("hisClasses");
+	}
+	
+	@ResponseBody
 	@RequestMapping(path = "getPowerTable.do", produces = {"application/json;charset=UTF8"})
 	public Object getPowerTable(HttpSession session) {
 		//返回权限表
 		//TO DO 这里需要直接返回，和上面的hisPower方法合并
 		return session.getServletContext().getAttribute("powerMap");
 	}
+	
+	
 }
