@@ -77,7 +77,7 @@ public class ScoreServiceImpl implements ScoreService
         return new AccountDto<>(PageUtil.pageInfo(scores), Common.SUCCESS);
     }
 
-    
+
 
     /**
      * 新增一条成绩
