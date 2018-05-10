@@ -17,4 +17,16 @@ public interface ScoreService {
 	public List<Score> getScoresByUserIdAndCourseId(@Param("userId")Integer userId,
 													@Param("courseId")Integer courseId);
 	
+	/**
+	 * 得到所有成绩
+	 * @return 成绩集合
+	 */
+	public List<Score> getAllScores();
+	
+	/**
+	 * 新增一条成绩
+	 * @param score
+	 * @return
+	 */
+	public Integer insertScore(Score score);
 }
