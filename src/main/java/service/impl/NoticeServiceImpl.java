@@ -6,6 +6,7 @@ import dto.AccountDto;
 import entity.Notice;
 import entity.User;
 import enums.impl.Common;
+import enums.impl.NoticeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.NoticeService;
@@ -94,7 +95,13 @@ public class NoticeServiceImpl implements NoticeService
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-        // TODO 管理员获得所有通知
-        return null;
+        PageUtil.toPage(pageNumber); // 开始分页
+        List<Notice> notices = noticeDao.getAllNotices();
+        if (notices == null)
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
     }
 }

@@ -1,8 +1,6 @@
 package service;
 
-import com.github.pagehelper.PageInfo;
 import dto.AccountDto;
-import entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * 通知业务测试类
+ * 初始化业务测试类
  *
  * @author Fish
  * created by 2018-05-10
@@ -20,25 +18,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:spring/spring-service.xml",
         "classpath:spring/spring-dao.xml"
 })
-public class NoticeServiceTest
+public class InitServiceTest
 {
     @Autowired
-    NoticeService noticeService = null;
+    private InitService initService = null;
 
     @Test
-    public void testGetNotices()
+    public void testGetAllCourses()
     {
-        Integer pn = 1;
-        User user = new User();
-        user.setUserId(2);
-
-        AccountDto accountDto = noticeService.getNotices(pn, user);
+        AccountDto accountDto = initService.getAllCourses();
         System.out.println(accountDto.getData());
-
-        accountDto = noticeService.getNotices(1, 2);
-        System.out.println(accountDto.getData());
-
-        accountDto = noticeService.getNotices(1);
-        System.out.println(accountDto);
     }
 }
