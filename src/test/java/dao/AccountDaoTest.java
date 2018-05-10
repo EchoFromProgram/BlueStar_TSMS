@@ -123,7 +123,8 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		
+		List<Course> list = accountDao.getAllcourses();
+		System.out.println(list);
 	}
 	
 

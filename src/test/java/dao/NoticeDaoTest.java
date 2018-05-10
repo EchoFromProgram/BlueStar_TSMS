@@ -79,4 +79,10 @@ public class NoticeDaoTest {
 		int num = noticeDao.deleteNoticeByNoticeDetailId(1);
 		System.out.println(num);
 	}
+	
+	@Test
+	public void testGetAll() {
+		List<Notice> list = noticeDao.getAllNotices();
+		System.out.println(list);
+	}
 }

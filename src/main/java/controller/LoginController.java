@@ -81,5 +81,10 @@ public class LoginController {
 		return session.getServletContext().getAttribute("powerMap");
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(path = "get_courses.do", produces = {"application/json;charset=UTF8"})
+	public Object getCourses(HttpSession session) {
+		//返回课程表
+		return session.getServletContext().getAttribute("Courses");
+	}
 }

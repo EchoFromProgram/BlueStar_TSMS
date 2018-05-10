@@ -59,5 +59,12 @@
 		DELETE n,nd FROM notice n LEFT JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
 		WHERE n.notice_detail_id = #{noticeDetailId}
 	</delete>
+	
+	<!-- 得到所有的通知 -->
+	<select id="getAllNotices" resultType="entity.Notice">
+		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
+		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title"
+		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
+	</select>
 
 </mapper>

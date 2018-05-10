@@ -2,6 +2,7 @@ package listener;
 
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -17,7 +18,8 @@ import service.InitService;
 public class InitListener implements ServletContextListener
 {
     //@Resource(name="initServiceImpl")
-    private InitService initService;
+    private InitService initService = null;
+    private ServletContext servletContext = null;
 
     // log4j 记录日志
     private Logger logger = Logger.getLogger(this.getClass());
@@ -38,16 +40,30 @@ public class InitListener implements ServletContextListener
         // 这里有个空指针异常是因为没有配置 context-param 和 ContextLoaderListener 导致的
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(event.getServletContext());
         initService = webApplicationContext.getBean(InitService.class);
-        AccountDto accountDto = initService.getAllPowers();
-        if (accountDto.getData() == null)
-        {
-            logger.error("数据加载失败！！！！！！！！");
-            return;
-        }
+        servletContext =  event.getServletContext(); // 准备工作
 
-        // 放进 Context
-        event.getServletContext().setAttribute("powerMap", accountDto.getData());
-        logger.info("权限表数据准备完毕！！！！！！！！！");
+        load(initService.getAllPowers(), "powerMap", "权限表"); // 加载权限表
+        load(initService.getAllCourses(), "Courses", "课程表"); // 加载课程表
     }
 
+    /**
+     * 加载数据
+     *
+     * @param accountDto 数据来源
+     * @param data 数据 key 值
+     * @param dataName 数据提示信息名字
+     */
+    private void load(AccountDto accountDto, String data, String dataName)
+    {
+        if (accountDto.getData() == null)
+        {
+            logger.error(dataName + "加载失败！！！！！！！！");
+        }
+        else
+        {
+            // 放进 Context
+            servletContext.setAttribute(data, accountDto.getData());
+            logger.info(dataName + "数据准备完毕！！！！！！！！！");
+        }
+    }
 }

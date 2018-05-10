@@ -65,5 +65,9 @@ public interface NoticeDao {
 	 */
 	public Integer deleteNoticeByNoticeDetailId(Integer noticeDetailId);
 	
-	
+	/**
+	 * 得到所有的通知
+	 * @return
+	 */
+	public List<Notice> getAllNotices();
 }
