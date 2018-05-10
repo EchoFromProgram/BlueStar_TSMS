@@ -2,12 +2,14 @@ package service.impl;
 
 import dao.AccountDao;
 import dto.AccountDto;
+import entity.Course;
 import entity.Power;
 import enums.impl.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.InitService;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class InitServiceImpl implements InitService
     /**
      * 得到整张权限表
      *
-     * @return 整张权限表，以 Map 封装，key 值为 权限 id，value 值为权限（这里主要是 URL）
+     * @return 整张权限表，以 Map 封装，key 值为权限 id，value 值为权限（这里主要是 URL 和功能名称）
      */
     public AccountDto getAllPowers()
     {
@@ -48,5 +50,36 @@ public class InitServiceImpl implements InitService
         }
 
         return new AccountDto<Map<Integer, Power>>(powersMap, Common.SUCCESS);
+    }
+
+    /**
+     * 得到整张课程表
+     *
+     * @return 整张课程表
+     */
+    public AccountDto getAllCourses()
+    {
+        List<Course> courses = accountDao.getAllcourses();
+        if (courses == null) // 没有获取数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        // 课程排序器
+        courses.sort((o1, o2) ->
+        {
+            if (o1.getCourseId() > o2.getCourseId())
+            {
+                return 1;
+            }
+            else if (o1.getCourseId() < o2.getCourseId())
+            {
+                return -1;
+            }
+
+            return 0;
+        });
+
+        return new AccountDto<List<Course>>(courses, Common.SUCCESS);
     }
 }
