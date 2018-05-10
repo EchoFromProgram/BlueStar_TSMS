@@ -92,7 +92,7 @@ public class ScoreServiceImpl implements ScoreService
         }
 
         PageUtil.toPage(pageNumber);
-        List<Score> scores = scoreDao.getScoresByClassId(classId);
+        List<ScoreData> scores = scoreDao.getScoresByClassId(classId);
         if (scores == null) // 未知错误
         {
             return new AccountDto(Common.GET_IS_NULL);
@@ -116,7 +116,7 @@ public class ScoreServiceImpl implements ScoreService
         }
 
         PageUtil.toPage(pageNumber);
-        List<ScoreData> scores = null; // TODO 调用 dao
+        List<ScoreData> scores = scoreDao.getScoreDatasByStatus(status);
         if (scores == null)
         {
             return new AccountDto(Common.GET_IS_NULL);
