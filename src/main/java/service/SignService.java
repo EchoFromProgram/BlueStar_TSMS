@@ -85,4 +85,30 @@ public interface SignService
      * @return 返回这个用户的签到信息
      * */
     public AccountDto getSignsByUser(Integer pageNumber, User user);
+    
+    /**
+     * 根据课程获取学生签到信息
+     * @param pageNumber 显示的页数
+     * @param courseId 课程id
+     * @return 返回这个用户的签到信息
+     */
+    public AccountDto getStudentSignsByCourseId(Integer pageNumber,Integer courseId);
+    
+    /**
+     * 根据课程获取老师签到信息
+     * @param pageNumber 显示的页数
+     * @param courseId 课程id
+     * @return 返回这个用户的签到信息
+     */
+    public AccountDto getTeacherSignsByCourseId(Integer pageNumber,Integer courseId);
+    
+    /**
+     * 根据班级和课程获得签到信息
+     * @param pageNumber 显示的页数
+     * @param courseId 课程id
+     * @param classId 班级id
+     * @return 返回签到信息
+     */
+    public AccountDto getSignsByCouseIdAndClassId(Integer pageNumber, Integer courseId, Integer classId);
+    
 }

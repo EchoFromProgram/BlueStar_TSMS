@@ -67,8 +67,8 @@ public class ScoreDaoTest {
 	@Test
 	public void testA() {
 		
-		List<ScoreData> list = scoreDao.getScoreDatasByUserId(1);
-		System.out.println(list);
+		
+		
 	}
 	
 }
