@@ -67,7 +67,7 @@ public class AccountServiceImpl implements AccountService
         infos.put("user", u);
         infos.put("hisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
 
-        Integer[] classIds = (Integer[]) (accountDao.getClassIdsByUserId(u.getUserId()).toArray());
+        Integer[] classIds = accountDao.getClassIdsByUserId(u.getUserId()).toArray(new Integer[0]);
         Arrays.sort(classIds); // 给这个列表排序
         List<Clazz> clazzes = new ArrayList<>();
         for (Integer i : classIds) // 通过班级 id 获取班级信息

@@ -76,7 +76,7 @@
 	
 	<!-- 通过班级id得到班级 -->
 	<select id="getClassByClassId" resultType="entity.Clazz">
-		SELECT class_id, classname, course_id FROM class WHERE class_id = #{classId}
+		SELECT class_id, class_name, course_id FROM class WHERE class_id = #{classId}
 	</select>
 	
 	<!-- 根据课程id得到课程 -->
