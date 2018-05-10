@@ -101,7 +101,31 @@ public class ScoreServiceImpl implements ScoreService
         return new AccountDto<>(PageUtil.pageInfo(scores), Common.SUCCESS);
     }
 
+    /**
+     * 通过班级和阶段查询成绩
+     * 这里的阶段要引用 Level 里面的常量
+     *
+     * @param pageNumber 页数
+     * @param status 阶段，目前只有三个
+     * @return 返回成绩信息
+     */
+    public AccountDto getScoresByClassIdAndStatus(Integer pageNumber, Integer status, Integer classId)
+    {
+        // 参数不能为空
+        if (pageNumber == null || status == null || classId == null)
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
 
+        PageUtil.toPage(pageNumber);
+        List<ScoreData> scores = scoreDao.getScoreDatasByClassIdAndStatus(status, classId);
+        if (scores == null) // 数据没有获取到
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(scores), Common.SUCCESS);
+    }
 
     /**
      * 新增一条成绩
