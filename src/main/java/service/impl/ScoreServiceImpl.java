@@ -44,7 +44,7 @@ public class ScoreServiceImpl implements ScoreService
         }
 
         PageUtil.toPage(pageNumber);
-        List<Score> scores = scoreDao.getAllScores();
+        List<ScoreData> scores = scoreDao.getAllScoreDatas();
         if (scores == null) // 数据为空
         {
             return new AccountDto(Common.GET_IS_NULL);
@@ -69,6 +69,30 @@ public class ScoreServiceImpl implements ScoreService
 
         PageUtil.toPage(pageNumber);
         List<ScoreData> scores = scoreDao.getScoreDatasByUserId(userId);
+        if (scores == null) // 未知错误
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(scores), Common.SUCCESS);
+    }
+
+    /**
+     * 通过班级 id 查询班级学生成绩
+     *
+     * @param pageNumber 页数
+     * @param classId 班级 id
+     * @return 返回班级成绩信息
+     */
+    public AccountDto getScoresByClassId(Integer pageNumber, Integer classId)
+    {
+        if (pageNumber == null || classId == null) // 参数不能为空
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber);
+        List<Score> scores = scoreDao.getScoresByClassId(classId);
         if (scores == null) // 未知错误
         {
             return new AccountDto(Common.GET_IS_NULL);

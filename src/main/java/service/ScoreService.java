@@ -32,6 +32,15 @@ public interface ScoreService
     public AccountDto getScoresByUserId(Integer pageNumber, Integer userId);
 
     /**
+     * 通过班级 id 查询班级学生成绩
+     *
+     * @param pageNumber 页数
+     * @param classId    班级 id
+     * @return 返回班级成绩信息
+     */
+    public AccountDto getScoresByClassId(Integer pageNumber, Integer classId);
+
+    /**
      * 新增一条成绩
      *
      * @param score
