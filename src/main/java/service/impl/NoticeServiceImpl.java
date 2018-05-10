@@ -31,7 +31,7 @@ public class NoticeServiceImpl implements NoticeService
     }
 
     /**
-     * 获取通知，这里使用分页，一次显示 Page.ONE_PAGE_NUMBER 页数
+     * 老师获取通知，这里使用分页，一次显示 Page.ONE_PAGE_NUMBER 页数
      *
      * @param pageNumber 显示第几页
      * @return 返回分页之后的通知信息
