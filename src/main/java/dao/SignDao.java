@@ -83,7 +83,8 @@ public interface SignDao {
      * @param courseId 课程id
      * @return 签到数据集合
      */ 
-    public List<SignData> getSignDatasByCourseId(Integer courseId);
+    public List<SignData> getSignDatasByCourseIdAndRoleId(@Param("courseId")Integer courseId,
+    													  @Param("roleId")Integer roleId);
     
     /**
      * 根据课程id和班级id得到签到数据
