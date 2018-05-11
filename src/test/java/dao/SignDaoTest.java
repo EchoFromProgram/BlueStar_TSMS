@@ -53,7 +53,7 @@ public class SignDaoTest {
 	
 	@Test
 	public void testGetSignsByClassId() {
-		List<SignData> list = signDao.getSignDatasByCourseIdAndRoleId(1,1);
+		List<SignData> list = signDao.getSignDatasByCourseIdAndHisClassId(1, 2);
 		System.out.println(list);
 	
 	}

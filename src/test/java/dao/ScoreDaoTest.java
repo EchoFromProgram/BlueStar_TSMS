@@ -66,7 +66,7 @@ public class ScoreDaoTest {
 	
 	@Test
 	public void testA() {
-		List<ScoreData> list = scoreDao.getScoreDatasByStatus(1);
+		List<ScoreData> list = scoreDao.getScoreDatasByStatusAndHisClassId(1, 1);
 		System.out.println(list);
 	}
 	

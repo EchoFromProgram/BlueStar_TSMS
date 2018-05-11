@@ -78,5 +78,19 @@ public interface ScoreDao {
 	 */
 	List<ScoreData> getScoreDatasByStatus(Integer status);
 	
+	/**
+	 * 根据老师所在班级查询班级的成绩
+	 * @param useId 用户id  用户得到所属班级
+	 * @return 成绩数据集合
+	 */
+	List<ScoreData> getScoreDatasByHisClassId(Integer useId);
 	
+	/**
+	 * 根据老师所在班级和课程id查询班级成绩
+	 * @param userId 用户id
+	 * @param courseId 课程id
+	 * @return 成绩数据集合
+	 */
+	List<ScoreData> getScoreDatasByStatusAndHisClassId(@Param("userId")Integer userId,
+														 @Param("status")Integer status );
 }

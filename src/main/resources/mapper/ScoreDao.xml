@@ -53,9 +53,21 @@
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id
 	</select>
 	
+	<!-- 根据阶段查询成绩 -->
 	<select id="getScoreDatasByStatus" resultType="entity.ScoreData">
 		SELECT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.status = #{status}
 	</select>
 	
+	<!-- 根据班级查成绩 -->
+	<select id="getScoreDatasByHisClassId" resultType="entity.ScoreData">
+		SELECT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
+	</select>
+	
+	<!-- 根据课程和班级查成绩-->
+	<select id="getScoreDatasByStatusAndHisClassId" resultType="entity.ScoreData">
+		SELECT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.status = #{status} AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
+	</select>
 </mapper>
