@@ -60,6 +60,25 @@ public interface ScoreService
     public AccountDto getScoresByClassIdAndStatus(Integer pageNumber, Integer status, Integer classId);
 
     /**
+     * 通过 userId 获取成绩
+     *
+     * @param pageNumber 页数
+     * @param userId     用户 id
+     * @return 返回成绩信息
+     */
+    public AccountDto getScoresByHisClassId(Integer pageNumber, Integer userId);
+
+    /**
+     * 通过 userId 和阶段获取成绩
+     *
+     * @param pageNumber 页数
+     * @param userId     用户 id
+     * @param status     阶段
+     * @return 返回成绩信息
+     */
+    public AccountDto getScoresByStatusAndHisClassId(Integer pageNumber, Integer userId, Integer status);
+
+    /**
      * 新增一条成绩
      *
      * @param score

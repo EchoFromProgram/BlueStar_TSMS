@@ -152,10 +152,61 @@ public class ScoreServiceImpl implements ScoreService
     }
 
     /**
-     * 新增一条成绩
+     * 通过 userId 获取成绩
      *
-     * @param score
-     * @return
+     * @param pageNumber 页数
+     * @param userId 用户 id
+     * @return 返回成绩信息
+     */
+    public AccountDto getScoresByHisClassId(Integer pageNumber, Integer userId)
+    {
+        // 参数错误
+        if (pageNumber == null || userId == null)
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber); // 开始分页
+        List<ScoreData> scores = scoreDao.getScoreDatasByHisClassId(userId);
+        if (scores == null) // 没能得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(scores), Common.SUCCESS);
+    }
+
+    /**
+     * 通过 userId 和阶段获取成绩
+     *
+     * @param pageNumber 页数
+     * @param userId 用户 id
+     * @param status 阶段
+     * @return 返回成绩信息
+     */
+    public AccountDto getScoresByStatusAndHisClassId(Integer pageNumber, Integer userId, Integer status)
+    {
+        // 参数错误
+        if (pageNumber == null || userId == null || status == null)
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber); // 开始分页
+        List<ScoreData> scores = scoreDao.getScoreDatasByStatusAndHisClassId(userId, status);
+        if (scores == null) // 没能得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(scores), Common.SUCCESS);
+    }
+
+    /**
+     * 新增一条成绩 TODO
+     *
+     * @param score 分数
+     * @return 新增成绩的信息
      */
     @Override
     public AccountDto insertScore(Score score)
