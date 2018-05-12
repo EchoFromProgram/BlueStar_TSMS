@@ -41,7 +41,10 @@ public class AccountDaoTest {
 
 	@Test
 	public void testCreateAccount() {
-		fail("Not yet implemented");
+		
+		Customer customer = new Customer();
+		accountDao.inserIntoCustomer(customer);
+		System.out.println(customer.getInfoId());
 	}
 
 	@Test

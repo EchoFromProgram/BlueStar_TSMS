@@ -45,12 +45,18 @@ public interface AccountDao
     public Integer insertIntoUser(User user);
     
     /**
-     * 
-     * @param customer
-     * @return
+     * 向客户信息表插入一条客户信息
+     * @param customer 客户
+     * @return 返回影响的行数
      */
     public Integer inserIntoCustomer(Customer customer);
-
+    
+    /**
+     * 向员工信息表插入一条员工信息
+     * @param staff 员工
+     * @return 返回影响的行数
+     */
+    public Integer insertIntoStaff(Staff staff);
    /**
     * 设置员工信息
     * @param staff 传入一个员工类，用来设置员工信息
