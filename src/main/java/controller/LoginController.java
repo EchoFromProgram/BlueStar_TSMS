@@ -73,7 +73,7 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "getPowerTable.do", produces = {"application/json;charset=UTF8"})
+	@RequestMapping(path = "getPowerTable.do")
 	public Object getPowerTable(HttpSession session) {
 		//返回权限表
 		//TO DO 这里需要直接返回，和上面的hisPower方法合并

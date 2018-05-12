@@ -1,3 +1,4 @@
+//载入页面的时候 获取信息
 $(function(){
 	$.ajax({
 		url:"get_staff_info.do",
@@ -13,7 +14,7 @@ $(function(){
 			$("#mail-display").html(data.data.email);
 			
 			$("#info-update-ID-input").val(data.data.identityNum);
-			$("#info-update-intro-input").html(data.data.resume);
+			$("#info-update-intro-input").val(data.data.resume);
 			$("#info-update-qq-input").val(data.data.qq);
 			$("#info-update-qq-tel").val(data.data.telephone);
 			$("#info-update-mail-input").val(data.data.email);
@@ -24,14 +25,16 @@ $(function(){
 	});
 });
 
+//设置信息（这里需要设置同步 async: false,）
 function setStaffInfo(){
 	$.ajax({
 		url:"update_staff_info.do",
 		type:"POST",
+		async: false,
 		data:{
 			"tId":$.cookie("infoId"),
 			"identityNum":$("#info-update-ID-input").val(),
-			"resume":$("#info-update-intro-input").html(),
+			"resume":$("#info-update-intro-input").val(),
 			"qq":$("#info-update-qq-input").val(),
 			"telephone":$("#info-update-qq-tel").val(),
 			"email":$("#info-update-mail-input").val()

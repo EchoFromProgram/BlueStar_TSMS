@@ -6,6 +6,7 @@ import dao.SignDao;
 import dto.AccountDto;
 import entity.Clazz;
 import entity.Sign;
+import entity.SignData;
 import entity.User;
 import enums.impl.Common;
 import enums.impl.CreateAccountStatus;
@@ -308,4 +309,54 @@ public class SignServiceImpl implements SignService
 	     return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByClassIdAndCourseId(classId, courseId)),
 	             SignStatus.SUCCESS);
 	}
+
+    /**
+     * 通过 userId 获取签到信息
+     *
+     * @param pageNumber 页数
+     * @param userId 用户 id
+     * @return 返回签到信息
+     */
+	public AccountDto getSignsByUserId(Integer pageNumber, Integer userId)
+    {
+        if (userId == null) // 参数错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber);
+        List<SignData> signs = signDao.getSignDatasByUserId(userId);
+        if (signs == null) // 没能得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(signs), Common.SUCCESS);
+    }
+
+    /**
+     * 通过用户 id 和课程 id 查询签到信息
+     *
+     * @param pageNumber 页数
+     * @param userId 用户 id
+     * @param courseId 课程 id
+     * @return 返回签到信息
+     */
+    public AccountDto getSignsByCourseIdAndHisClassId(Integer pageNumber, Integer userId, Integer courseId)
+    {
+        // 参数错误
+        if (pageNumber == null || userId == null || courseId == null)
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber); // 开始分页
+        List<SignData> signs = signDao.getSignDatasByCourseIdAndHisClassId(userId, courseId);
+        if (signs == null) // 没能得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(signs), Common.SUCCESS);
+    }
 }

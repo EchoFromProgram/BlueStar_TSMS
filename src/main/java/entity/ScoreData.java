@@ -8,8 +8,15 @@ package entity;
 import java.sql.Date;
 
 public class ScoreData {
+	
+	//用户编号
+	private Integer userId;
+	
 	//成绩编号
-	public Integer scoreId;
+	private Integer scoreId;
+	
+	//班级id
+	private Integer classId;
 	
 	//班级名
 	private String className;
@@ -74,14 +81,29 @@ public class ScoreData {
 		this.score = score;
 	}
 
+	public Integer getClassId() {
+		return classId;
+	}
+
+	public void setClassId(Integer classId) {
+		this.classId = classId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
-		return "ScoreData [scoreId=" + scoreId + ", className=" + className + ", name=" + name + ", status=" + status
-				+ ", date=" + date + ", score=" + score + "]";
+		return "ScoreData [userId=" + userId + ", scoreId=" + scoreId + ", classId=" + classId + ", className="
+				+ className + ", name=" + name + ", status=" + status + ", date=" + date + ", score=" + score + "]";
 	}
 
 	
-
 
 	
 }

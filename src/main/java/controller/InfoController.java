@@ -36,10 +36,7 @@ public class InfoController {
 	@ResponseBody
 	@RequestMapping(path = "update_staff_info.do", produces = {"application/json;charset=UTF8"})
 	public Object updateStaffInfo(Staff staff) {
-		System.out.println("---------------------------------------------------------");
-		System.out.println(staff);
 		AccountDto accountDto = accountService.updateStaffInfoByInfoId(staff);
-		System.out.println(accountDto);
 		return accountDto;
 	}
 	

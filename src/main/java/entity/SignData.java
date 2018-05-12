@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class SignData {
 	
+	private Integer classId;
 	//日期
 	private Date date;
 		
@@ -77,11 +78,21 @@ public class SignData {
 		this.name = name;
 	}
 
+	public Integer getClassId() {
+		return classId;
+	}
+
+	public void setClassId(Integer classId) {
+		this.classId = classId;
+	}
+
 	@Override
 	public String toString() {
-		return "SignData [date=" + date + ", status=" + status + ", reason=" + reason + ", name=" + name
-				+ ", className=" + className + ", course=" + course + "]";
+		return "SignData [classId=" + classId + ", date=" + date + ", status=" + status + ", reason=" + reason
+				+ ", name=" + name + ", className=" + className + ", course=" + course + "]";
 	}
+
+
 
 
 	

@@ -11,7 +11,7 @@
 	 
 	<!-- 根据班级id查询整个班级的成绩 -->
 	<select id="getScoresByClassId" resultType="entity.ScoreData">
-		SELECT DISTINCT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		SELECT s.user_id, s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.class_id = #{classId}
 	</select>
 	
@@ -37,25 +37,40 @@
 	
 	<!-- 根据用户id得到成绩数据-->
 	<select id="getScoreDatasByUserId" resultType="entity.ScoreData">
-		SELECT DISTINCT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		SELECT  s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND u.user_id = #{userId};
 	</select>
 	
 	<!-- 根据班级和阶段得到成绩数据 -->
 	<select id="getScoreDatasByClassIdAndStatus" resultType="entity.ScoreData">
-		SELECT DISTINCT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		SELECT  s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND c.class_id = #{classId} AND s.status = #{status};
 	</select>
 	
 	<!-- 得到所有成绩数据 -->
 	<select id="getAllScoreDatas" resultType="entity.ScoreData">
-		SELECT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		SELECT s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id
 	</select>
 	
+	<!-- 根据阶段查询成绩 -->
 	<select id="getScoreDatasByStatus" resultType="entity.ScoreData">
-		SELECT s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		SELECT s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.status = #{status}
 	</select>
+	
+	<!-- 根据班级查成绩 -->
+	<select id="getScoreDatasByHisClassId" resultType="entity.ScoreData">
+		SELECT s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
+	</select>
+	
+	<!-- 根据课程和班级查成绩-->
+	<select id="getScoreDatasByStatusAndHisClassId" resultType="entity.ScoreData">
+		SELECT s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.status = #{status} AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
+	</select>
+	
+	
 	
 </mapper>

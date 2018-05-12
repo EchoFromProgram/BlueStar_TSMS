@@ -42,7 +42,14 @@ public interface AccountDao
      * @param user 传入一个用户类，用来创建一个新用户
      * @return 返回影响的行数，如果是1则创建成功
      */
-    public Integer createAccount(User user);
+    public Integer insertIntoUser(User user);
+    
+    /**
+     * 
+     * @param customer
+     * @return
+     */
+    public Integer inserIntoCustomer(Customer customer);
 
    /**
     * 设置员工信息
