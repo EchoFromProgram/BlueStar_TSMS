@@ -16,10 +16,12 @@
 	</select>
 
 	<!-- 创建一个新账户,插入到用户表中 -->
-	<insert id="createAccount">
+	<insert id="insertIntoUser">
 		INSERT INTO user(username, password, name, role_id, info_id, type_id)
 		VALUES(#{userName}, #{password}, #{name}, #{roleId}, #{infoId}, #{typeId})
 	</insert>
+	
+	<insert id=""></insert>
 	
 	<!-- 设置员工信息 -->
 	<update id="settingStaffInfo" >
@@ -57,7 +59,7 @@
 	
 	<!-- 根据信息id查询客户具体信息-->
 	<select id="getCustomerDetailByInfoId" resultType="entity.Customer">
-		SELECT info_id,identity_num, school, qq, telephone, email, class_id
+		SELECT info_id,identity_num, school, qq, telephone, email, class_id, grade_major
 		FROM customer WHERE info_id = #{infoId}
 	</select>
 	
