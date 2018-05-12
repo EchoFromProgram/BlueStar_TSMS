@@ -139,6 +139,7 @@ public class AccountServiceImpl implements AccountService
                 // 外部客户
                 Customer customer = new Customer();
                 accountDao.inserIntoCustomer(customer);
+                System.out.println(customer);
                 user.setInfoId(customer.getInfoId()); // 填充详细信息 id
                 break;
         }
