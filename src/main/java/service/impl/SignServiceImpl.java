@@ -359,4 +359,28 @@ public class SignServiceImpl implements SignService
 
         return new AccountDto<>(PageUtil.pageInfo(signs), Common.SUCCESS);
     }
+
+    /**
+     * 通过课程 id 获取签到信息
+     *
+     * @param pageNumber 页数
+     * @param courseId 课程 id
+     * @return 返回课程信息
+     */
+    public AccountDto getSignsByCourseId(Integer pageNumber, Integer courseId)
+    {
+        if (pageNumber == null || courseId == null) // 参数错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber); // 开始分页
+        List<SignData> signs = signDao.getSignDatasByCourseId(courseId);
+        if (signs == null) // 没有返回数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(signs), Common.SUCCESS);
+    }
 }

@@ -213,4 +213,20 @@ public class ScoreServiceImpl implements ScoreService
     {
         return null;
     }
+
+    /**
+     * 通过 scoreId 更新数据
+     *
+     * @param score 要被更新的数据
+     * @return 返回更新数据
+     */
+    public AccountDto updateScore(Score score)
+    {
+        if (score == null) // 参数错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        return null; // TODO
+    }
 }

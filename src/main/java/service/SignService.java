@@ -129,4 +129,13 @@ public interface SignService
      * @return 返回签到信息
      */
     public AccountDto getSignsByCourseIdAndHisClassId(Integer pageNumber, Integer userId, Integer courseId);
+
+    /**
+     * 通过课程 id 获取签到信息
+     *
+     * @param pageNumber 页数
+     * @param courseId   课程 id
+     * @return 返回课程信息
+     */
+    public AccountDto getSignsByCourseId(Integer pageNumber, Integer courseId);
 }
