@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.AccountDto;
+import entity.Clazz;
 import entity.Sign;
 import entity.User;
 import service.ClassService;
@@ -49,12 +50,6 @@ public class SignController {
 		return accountDto.getData();
 	}
 	
-	@ResponseBody
-	@RequestMapping(path = "admin_get_signs.do", produces = {"application/json;charset=UTF8"})
-	public Object adminGetSigns(Integer page) {
-		AccountDto<List<Sign>> accountDto = signService.getSigns(page);
-		return accountDto.getData();
-	}
 	
 	@ResponseBody
 	@RequestMapping(path = "get_sign_code.do", produces = {"application/json;charset=UTF8"})
@@ -67,6 +62,27 @@ public class SignController {
 	@RequestMapping(path = "get_course_by_class.do", produces = {"application/json;charset=UTF8"})
 	public Object getCourseByClass(Integer classId) {
 		AccountDto accountDto = ClassService.getCourseByClassId(classId);
+		return accountDto.getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "admin_get_signs.do", produces = {"application/json;charset=UTF8"})
+	public Object adminGetSigns(Integer page, Integer userId, Integer classId, Integer courseId) {
+		AccountDto accountDto = null;
+		Clazz clazz = new Clazz();
+		clazz.setClassId(classId);
+		if(classId == 0 && courseId == 0) {
+			accountDto = signService.getSigns(page);
+		}
+		else if (classId != 0 && courseId == 0) {
+			accountDto = signService.getClassSigns(page, clazz);
+		}
+		else if (classId == 0 && courseId != 0) {
+			accountDto = signService.getStudentSignsByCourseId(page, courseId);
+		}
+		else if (classId != 0 && courseId != 0) {
+			accountDto = signService.getSignsByCouseIdAndClassId(page, courseId, classId);
+		}
 		return accountDto.getData();
 	}
 }

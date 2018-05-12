@@ -1,3 +1,4 @@
+//登陆时用户名提示
 $('#username').blur(
     function () {
         if($('#username').val() == "")
@@ -12,6 +13,8 @@ $('#username').blur(
         }
     }
 );
+
+//登陆时密码提示
 $('#password').blur(
     function () {
         if($('#password').val() == "")
@@ -27,6 +30,7 @@ $('#password').blur(
     }
 );
 
+//登陆验证 以及 必要数据的cookie
 function submitData() {
     $.ajax({
         type: "POST",
@@ -37,6 +41,9 @@ function submitData() {
             if(0 == data.code)
             {
             	$.cookie('userData', data.data.user.userId);
+            	$.cookie('infoId', data.data.user.infoId);
+            	$.cookie('typeId', data.data.user.typeId);
+            	$.cookie('name', data.data.user.name);
                 window.location.href="index.do";
             }
             else if(-2 == data.code)

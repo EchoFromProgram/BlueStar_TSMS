@@ -67,7 +67,7 @@
                 <!-- 编辑资料对应的遮罩窗体 -->
                 <div class="modal fade" id="modal-info-update" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <form class="form" onsubmit="return ">
+                        <form class="form" onsubmit="return setCustomerInfo()">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -78,7 +78,7 @@
                                 <div class="modal-body">
                                     <div class="form-group" id="info-update-ID">
                                         <label for="info-update-ID-input">身份证</label>
-                                        <input id="info-update-ID-input" class="form-control" placeholder="原姓名" required=""></input>
+                                        <input id="info-update-ID-input" class="form-control" placeholder="原姓名" ></input>
                                         <span class="help-block" id="info-update-ID-help"></span>
                                     </div>
                                     <div class="form-group" id="info-update-school">
@@ -177,37 +177,37 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">姓名</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">Mackyhuang</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="name-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">身份证</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">35222519**********</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="id-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">学校</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">福建农林大学</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="school-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">年级专业</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">2016级计算机科学与技术</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="grade-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">QQ</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">973******</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="qq-display"></div>
             </div>
             <br>
             <div class="row">
-                <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">电话号码</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">15159******</div>
+                <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">电话</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="tel-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">邮箱</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">973******@qq.com</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="mail-display"></div>
             </div>
         </div>
     </div>
@@ -222,5 +222,8 @@
 
 <script src="./js/login.js"></script>
 <script src="./js/general.js"></script>
+<script src="./js/jquery.cookie.js"></script>
+<script src="./js/customer_info.js"></script>
+
 </body>
 </html>

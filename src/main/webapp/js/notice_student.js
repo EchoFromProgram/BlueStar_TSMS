@@ -1,13 +1,25 @@
+var hisClasses;
 $(function(){
-	to_page(1);
+	$.ajax({
+		url:"getSessionHisClasses.do",
+		type:"POST",
+		dataType:"json",
+		success: function(data){
+			hisClasses = data[0].classId;
+			to_page(1, hisClasses);
+		},
+		error:function () {
+            alert("网络错误");
+        }
+	});
 });
 
-function to_page(page){
+function to_page(page, classId){
     $.ajax({
         type: "POST",
-        url: "init_sign_student.do",
+        url: "student_get_all_notice.do",
         dataType: "json",
-        data:{"page":page, "userId":$.cookie('userData')},
+        data:{"page":page, "classId":classId},
         success: function(data){
             //显示table
             build_table(data);
@@ -27,27 +39,25 @@ function to_page(page){
 //解析显示table
 function build_table(data) {
     //清空
-    $("#sign-student-table tbody").empty();
+    $("#accordion-notice").empty();
     var dataList = data.list;
-    //jquery遍历,emps为遍历对象，function(index索引,item得到的每一个对象)为回调函数
+    //jquery遍历,dataList为遍历对象，function(index索引,item得到的每一个对象)为回调函数
     $.each(dataList,function(index, item){
-        //创建td并朝里面追加内容
-        var classId = $("<td></td>").append(item.className);
-        var userId = $("<td></td>").append(item.name);
-        var courseId = $("<td></td>").append(item.course);
-        var date = $("<td></td>").append(dateFormat(new Date(item.date)));
-        var status = $("<td></td>");
-        if(item.status == 0) {
-            status.append("正常上课")
-        }else if(item.status == 1){
-            status.append("迟到")
-        }else if(item.status == 2){
-            status.append("旷课")
-        }
-        var reason = $("<td></td>").append(item.reason==null?"":item.reason);
-        //向一个tr中添加所有的td
-        $("<tr></tr>").append(classId).append(userId).append(courseId)
-            .append(date).append(status).append(reason).appendTo("#sign-student-table tbody");
+    	$("#accordion-notice").append(
+    			'<div class="accordion-group">' + 
+                '<h3 class="accordion-heading">' + 
+                    '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-'+ item.noticeId +'">'+
+                        item.noticeDetail.title +
+                    '</a>'+
+                    '<div id="accordion-element-notice-'+ item.noticeId +'" class="accordion-body collapse">'+
+                        '<h4 class="accordion-inner">'+
+                            item.noticeDetail.content +
+                        '</h4>'+
+                    '</div>'+
+                '</h3>'+
+            '</div>'+'<br>'
+    	);
+    	
     })
 }
 
@@ -64,7 +74,7 @@ function buile_page_info(data) {
 function buile_page_nav(data) {
     $("#page_nav_area").empty();
     var ul = $("<ul></ul>").addClass("pagination");
-    var firstPageLi = $("<li></li>").append($("<a></a>").append("首页"));
+    var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
     var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
     //如果没有前一页，首页和前一页无法点击
     if(data.hasPreviousPage == false){
@@ -73,17 +83,17 @@ function buile_page_nav(data) {
     }else{
         //跳转到首页
         firstPageLi.click(function () {
-            to_page(1);
+            to_page(1, hisClasses);
         })
         //上一页
         prePageLi.click(function () {
-            to_page(data.pageNum - 1);
+            to_page(data.pageNum - 1, hisClasses);
         })
     }
 
 
     var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
-    var lastPageLi = $("<li></li>").append($("<a></a>").append("末页"));
+    var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
     //如果没有下一页，末页和下一页无法点击
     if(data.hasNextPage== false){
         nextPageLi.addClass("disabled");
@@ -91,11 +101,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到末页
         lastPageLi.click(function () {
-            to_page(data.pages);
+            to_page(data.pages, hisClasses);
         })
         //下一页
         nextPageLi.click(function () {
-            to_page(data.pageNum + 1);
+            to_page(data.pageNum + 1, hisClasses);
         })
     }
 
@@ -109,7 +119,7 @@ function buile_page_nav(data) {
             numLi.addClass("active")
         }
         numLi.click(function() {
-            to_page(item);
+            to_page(item, hisClasses);
         });
         ul.append(numLi);
     })
@@ -118,5 +128,6 @@ function buile_page_nav(data) {
 
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
+
 
 

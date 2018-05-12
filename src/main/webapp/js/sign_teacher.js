@@ -19,6 +19,7 @@ $(function(){
 		$.ajax({
 			url:"get_courses.do",
 			type:"POST",
+			dataType:"json",
 			success: function(data){
 				Courses = data;
 				
@@ -40,6 +41,7 @@ $(function(){
 	$.ajax({
 		url:"getSessionHisClasses.do",
 		type:"POST",
+		dataType:"json",
 		success: function(data){
 			$("#which-class").empty();
 			$("#which-class").append('<option value="0">全部班级</option>');
@@ -58,6 +60,22 @@ $(function(){
 	});
 });
 
+//根据班级获取课程
+function getCourseByClass(classId){
+	$.ajax({
+		url:"get_course_by_class.do",
+		type:"POST",
+		dataType:"json",
+		data:{"classId":classId},
+		success: function(data){
+			$("#which-stage").val(data.courseId);
+		},
+		error:function () {
+            alert("网络错误");
+        }
+	});
+}
+
 //载入页面默认显示所有签到信息
 function getAllSign(){
 	$.ajax({
@@ -74,20 +92,6 @@ function getAllSign(){
 	});
 };
 
-//根据班级获取课程
-function getCourseByClass(classId){
-	$.ajax({
-		url:"get_course_by_class.do",
-		type:"POST",
-		data:{"classId":classId},
-		success: function(data){
-			$("#which-stage").val(data.courseId);
-		},
-		error:function () {
-            alert("网络错误");
-        }
-	});
-}
 
 //点击查询按钮获取相应的签到信息
 $("#submit-which-need").click(function(){

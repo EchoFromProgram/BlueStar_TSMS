@@ -29,7 +29,6 @@ public class LoginController {
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
 	public Object loginCheck(User user, HttpSession session)
 	{
-		System.out.println(user);
 		AccountDto accountDto = accountService.login(user);
 		if(accountDto.getCode() == 0)
 		{

@@ -67,12 +67,12 @@
                 <!-- 编辑资料对应的遮罩窗体 -->
                 <div class="modal fade" id="modal-info-update" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <form class="form" onsubmit="return ">
+                        <form class="form" onsubmit="return setStaffInfo()">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h4 class="modal-title " id="myModalLabel-update-score">
-                                        编辑您的资料信息
+                                        		编辑您的资料信息
                                     </h4>
                                 </div>
                                 <div class="modal-body">
@@ -112,32 +112,32 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">姓名</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">Mackyhuang</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="name-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">身份证</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">35222519**********</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="id-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">工作履历</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">brbrbrbrbrbrbr</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="resume-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">QQ</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">973******</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="qq-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">电话号码</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">15159******</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="tel-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">邮箱</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">973******@qq.com</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="mail-display"></div>
             </div>
         </div>
     </div>
@@ -152,6 +152,7 @@
 
 <script src="./js/login.js"></script>
 <script src="./js/general.js"></script>
-
+<script src="./js/jquery.cookie.js"></script>
+<script src="./js/staff_info.js"></script>
 </body>
 </html>
