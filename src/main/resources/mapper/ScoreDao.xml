@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.ScoreDao">
-	<!-- 插入一条成绩 -->
+	<!-- 批量插入成绩 -->
 	<insert id="insertScore" >
 		INSERT INTO score(class_id, user_id, course_id, date, score)
 		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{score})
@@ -11,7 +11,7 @@
 	 
 	<!-- 根据班级id查询整个班级的成绩 -->
 	<select id="getScoresByClassId" resultType="entity.ScoreData">
-		SELECT s.user_id, s.score_id, s.status, s.score, s.date, u.name, c.class_name FROM score s,user u, class c 
+		SELECT s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.class_id = #{classId}
 	</select>
 	
@@ -26,14 +26,20 @@
 		SELECT quiz_id, class_id, user_id, course_id, date, score FROM score
 	</select>
 	
-	<update id="updateScoreByUserIdAndClassIdAndStatus" >
+	<!-- 根据成绩id更新成绩 -->
+	<update id="updateScoreByScoreId" >
 		UPDATE score
 		<set>
 		  <if test="date != null">date = #{date},</if>
 		  <if test="score != null">score = #{score},</if>
  		</set>
- 		WHERE user_id = #{userId} AND class_id = #{classId} AND status = #{status}
+ 		WHERE score_id = #{scoreId}
 	</update>
+	
+	<!-- 根据成绩id删除成绩 -->
+	<delete id="deleteScoreByScoreId">
+		DELETE FROM score WHERE score_id = #{scoreId}
+	</delete>
 	
 	<!-- 根据用户id得到成绩数据-->
 	<select id="getScoreDatasByUserId" resultType="entity.ScoreData">
@@ -70,6 +76,7 @@
 		SELECT s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.status = #{status} AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
 	</select>
+	
 	
 	
 	

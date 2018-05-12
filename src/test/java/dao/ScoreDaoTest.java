@@ -66,8 +66,8 @@ public class ScoreDaoTest {
 	
 	@Test
 	public void testA() {
-		List<ScoreData> list = scoreDao.getScoreDatasByStatusAndHisClassId(1, 2);
-		System.out.println(list);
+		
+		scoreDao.deleteScoreByScoreId(4);
 	}
 	
 }
