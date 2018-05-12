@@ -15,13 +15,23 @@
 		FROM user u  WHERE u.username = #{username}
 	</select>
 
-	<!-- 创建一个新账户,插入到用户表中 -->
+	<!-- 创建一个新用户,插入到用户表中 -->
 	<insert id="insertIntoUser">
 		INSERT INTO user(username, password, name, role_id, info_id, type_id)
 		VALUES(#{userName}, #{password}, #{name}, #{roleId}, #{infoId}, #{typeId})
 	</insert>
 	
-	<insert id=""></insert>
+	<!-- 插入一条员工信息 -->
+	<insert id="insertIntoStaff"  useGeneratedKeys="true" keyProperty="tId">
+		INSERT INTO staff(identity_num, resume, qq, telephone, email)
+		VALUES(#{identityNum}, #{resume}, #{qq}, #{telephone}, #{email})
+	</insert>
+	
+	<!-- 插入一条客户信息 -->
+	<insert id="inserIntoCustomer" useGeneratedKeys="true" keyProperty="infoId">
+		INSERT INTO customer(identity_num, school, grade_major, qq, telephone, email)
+		VALUES(#{identityNum}, #{school}, #{gradeMajor}, #{qq}, #{telephone}, #{email})
+	</insert>
 	
 	<!-- 设置员工信息 -->
 	<update id="settingStaffInfo" >
@@ -60,7 +70,7 @@
 	<!-- 根据信息id查询客户具体信息-->
 	<select id="getCustomerDetailByInfoId" resultType="entity.Customer">
 		SELECT info_id,identity_num, school, qq, telephone, email, class_id, grade_major
-		FROM customer WHERE info_id = #{infoId}
+		FROM customer WHERE info_id = #{infoId} 
 	</select>
 	
 	

@@ -127,7 +127,24 @@ public class AccountServiceImpl implements AccountService
             return new AccountDto(CreateAccountStatus.USERNAME_EXISTED);
         }
 
-        int affect = accountDao.createAccount(user);
+        switch (user.getTypeId())
+        {
+            case Type.INNER_STAFF:
+                // 内部员工
+                Staff staff = new Staff();
+                accountDao.insertIntoStaff(staff);
+                user.setInfoId(staff.gettId()); // 填充详细信息 id
+                break;
+            case Type.OUTTER_CLIENT:
+                // 外部客户
+                Customer customer = new Customer();
+                accountDao.inserIntoCustomer(customer);
+                System.out.println(customer);
+                user.setInfoId(customer.getInfoId()); // 填充详细信息 id
+                break;
+        }
+
+        int affect = accountDao.insertIntoUser(user);
         if (affect > 0) // 创建成功！
         {
             return new AccountDto(CreateAccountStatus.SUCCESS);

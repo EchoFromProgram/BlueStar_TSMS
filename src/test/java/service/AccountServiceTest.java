@@ -42,12 +42,12 @@ public class AccountServiceTest
     }
 
     @Test
-    public void testcreateAccount()
+    public void testCreateAccount()
     {
         User user = new User();
-        user.setUserName("Fish");
-        user.setPassword("666");
-        user.setName("叶子");
+        user.setUserName("Goddess");
+        user.setPassword("696969");
+        user.setName("啦啦啦，卖报的小画家");
         user.setRoleId(1);
         user.setTypeId(1);
 
