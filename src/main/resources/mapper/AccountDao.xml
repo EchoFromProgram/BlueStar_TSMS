@@ -29,8 +29,8 @@
 	
 	<!-- 插入一条客户信息 -->
 	<insert id="inserIntoCustomer" useGeneratedKeys="true" keyProperty="infoId">
-		INSERT INTO customer(identity_num, school, grade_major, qq, telephone, email)
-		VALUES(#{identityNum}, #{school}, #{gradeMajor}, #{qq}, #{telephone}, #{email})
+		INSERT INTO customer(identity_num, school, grade_major, qq, telephone, email, city, province)
+		VALUES(#{identityNum}, #{school}, #{gradeMajor}, #{qq}, #{telephone}, #{email}, #{city}, #{province})
 	</insert>
 	
 	<!-- 设置员工信息 -->
@@ -56,7 +56,8 @@
 		  <if test="telephone != null">telephone = #{telephone},</if>
 		  <if test="email != null">email = #{email},</if>
 		  <if test="qq != null">qq = #{qq}</if>
-		  <if test="classId != null">class_id = #{classId},</if>
+		  <if test="city != null">city = #{city},</if>
+		  <if test="province != null">province = #{province},</if>
  		</set>
  		WHERE info_id = #{infoId}
 	</update>
@@ -69,7 +70,7 @@
 	
 	<!-- 根据信息id查询客户具体信息-->
 	<select id="getCustomerDetailByInfoId" resultType="entity.Customer">
-		SELECT info_id,identity_num, school, qq, telephone, email, class_id, grade_major
+		SELECT info_id,identity_num, school, qq, telephone, email, city, province, grade_major
 		FROM customer WHERE info_id = #{infoId} 
 	</select>
 	
@@ -83,8 +84,6 @@
 	<select id="getPowers" resultType="entity.Power">
 		SELECT power_id, power, power_name FROM power
 	</select>
-	
-
 	
 	<!-- 通过班级id得到班级 -->
 	<select id="getClassByClassId" resultType="entity.Clazz">
