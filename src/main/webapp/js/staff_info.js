@@ -1,5 +1,9 @@
 //载入页面的时候 获取信息
 $(function(){
+	loadInfo();
+});
+
+function loadInfo(){
 	$.ajax({
 		url:"get_staff_info.do",
 		data:{"infoId":$.cookie("infoId")},
@@ -23,7 +27,7 @@ $(function(){
             alert("网络错误");
         }
 	});
-});
+}
 
 //设置信息（这里需要设置同步 async: false,）
 function setStaffInfo(){
@@ -41,10 +45,11 @@ function setStaffInfo(){
 			},
 		success: function(data){
 			alert(data.info);
+			loadInfo();
 		},
 		error:function () {
             alert("网络错误");
         }
 	});
-
+	return false;
 };

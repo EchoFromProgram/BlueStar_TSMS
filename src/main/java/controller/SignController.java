@@ -85,4 +85,25 @@ public class SignController {
 		}
 		return accountDto.getData();
 	}
+	
+	@ResponseBody
+	@RequestMapping(path = "teacher_get_signs.do", produces = {"application/json;charset=UTF8"})
+	public Object teacherGetSigns(Integer page, Integer userId, Integer classId, Integer courseId) {
+		AccountDto accountDto = null;
+		Clazz clazz = new Clazz();
+		clazz.setClassId(classId);
+		if(classId == 0 && courseId == 0) {
+			accountDto = signService.getSignsByUserId(page, userId);
+		}
+		else if (classId != 0 && courseId == 0) {
+			accountDto = signService.getStudentSignsByClass(page, clazz);
+		}
+		else if (classId == 0 && courseId != 0) {
+			accountDto = signService.getSignsByCourseIdAndHisClassId(page, userId, courseId);
+		}
+		else if (classId != 0 && courseId != 0) {
+			accountDto = signService.getSignsByCouseIdAndClassId(page, courseId, classId);
+		}
+		return accountDto.getData();
+	}
 }

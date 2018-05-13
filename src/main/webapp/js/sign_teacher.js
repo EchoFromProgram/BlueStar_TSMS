@@ -13,6 +13,123 @@ $("#modal-pub").click(function(){
 		});
 });
 
+function to_page(page, classId, courseId){
+    $.ajax({
+        type: "POST",
+        url: "teacher_get_signs.do",
+        dataType: "json",
+        data:{"page":page, "userId":$.cookie('userData'), "classId":classId, "courseId":courseId},
+        success: function(data){
+            //显示table
+            build_table(data);
+
+            //显示分页文字
+            buile_page_info(data);
+
+            //显示分页条
+            buile_page_nav(data);
+        },
+        error:function () {
+            alert("网络错误");
+        }
+    });
+};
+
+//解析显示table
+function build_table(data) {
+    //清空
+    $("#sign-student-table tbody").empty();
+    var dataList = data.list;
+    //jquery遍历,emps为遍历对象，function(index索引,item得到的每一个对象)为回调函数
+    $.each(dataList,function(index, item){
+        //创建td并朝里面追加内容
+        var classId = $("<td></td>").append(item.className);
+        var userId = $("<td></td>").append(item.name);
+        var courseId = $("<td></td>").append("java课程");
+        var date = $("<td></td>").append(dateFormat(new Date(item.date)));
+        var status = $("<td></td>");
+        if(item.status == 0) {
+            status.append("正常上课")
+        }else if(item.status == 1){
+            status.append("迟到")
+        }else if(item.status == 2){
+            status.append("旷课")
+        }
+        var reason = $("<td></td>").append(item.reason==null?"":item.reason);
+        //向一个tr中添加所有的td
+        $("<tr></tr>").append(classId).append(userId).append(courseId)
+            .append(date).append(status).append(reason).appendTo("#sign-student-table tbody");
+    })
+}
+
+//解析显示分页文字
+function buile_page_info(data) {
+    $("#page_info_area").empty();
+    $("#page_info_area").append("当前第"+ data.pageNum +"页,总"+data.pages+
+        "页,共"+data.total +"条记录");
+    totalRecord = data.total ;
+    currentPage = data.pageNum;
+}
+
+//解析显示分页条
+function buile_page_nav(data) {
+    $("#page_nav_area").empty();
+    var ul = $("<ul></ul>").addClass("pagination");
+    var firstPageLi = $("<li></li>").append($("<a></a>").append("首页"));
+    var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
+    //如果没有前一页，首页和前一页无法点击
+    if(data.hasPreviousPage == false){
+        firstPageLi.addClass("disabled");
+        prePageLi.addClass("disabled");
+    }else{
+        //跳转到首页
+        firstPageLi.click(function () {
+            to_page(1, $("#which-class").val(), $("#which-stage").val());
+        })
+        //上一页
+        prePageLi.click(function () {
+            to_page(data.pageNum - 1, $("#which-class").val(), $("#which-stage").val());
+        })
+    }
+
+
+    var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
+    var lastPageLi = $("<li></li>").append($("<a></a>").append("末页"));
+    //如果没有下一页，末页和下一页无法点击
+    if(data.hasNextPage== false){
+        nextPageLi.addClass("disabled");
+        lastPageLi.addClass("disabled");
+    }else{
+        //跳转到末页
+        lastPageLi.click(function () {
+            to_page(data.pages, $("#which-class").val(), $("#which-stage").val());
+        })
+        //下一页
+        nextPageLi.click(function () {
+            to_page(data.pageNum + 1, $("#which-class").val(), $("#which-stage").val());
+        })
+    }
+
+    //添加首页和下一页按钮
+    ul.append(firstPageLi).append(prePageLi);
+    //遍历分页条
+    var navPageNums = data.navigatepageNums;//里面为1,2,3,4,5 ..
+    $.each(navPageNums,function(index,item){
+        var numLi =$("<li></li>").append($("<a></a>").append(item));
+        if(data.pageNum == item){
+            numLi.addClass("active")
+        }
+        numLi.click(function() {
+            to_page(item, $("#which-class").val(), $("#which-stage").val());
+        });
+        ul.append(numLi);
+    })
+    //添加下一页和末页按钮
+    ul.append(nextPageLi).append(lastPageLi);
+
+    var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
+}
+
 var Courses;
 //获取课程列表
 $(function(){
@@ -41,7 +158,6 @@ $(function(){
 	$.ajax({
 		url:"getSessionHisClasses.do",
 		type:"POST",
-		dataType:"json",
 		success: function(data){
 			$("#which-class").empty();
 			$("#which-class").append('<option value="0">全部班级</option>');
@@ -55,8 +171,8 @@ $(function(){
 	        });
 		},
 		error:function () {
-            alert("网络错误");
-        }
+          alert("网络错误");
+      }
 	});
 });
 
@@ -65,7 +181,6 @@ function getCourseByClass(classId){
 	$.ajax({
 		url:"get_course_by_class.do",
 		type:"POST",
-		dataType:"json",
 		data:{"classId":classId},
 		success: function(data){
 			$("#which-stage").val(data.courseId);
@@ -76,27 +191,21 @@ function getCourseByClass(classId){
 	});
 }
 
-//载入页面默认显示所有签到信息
-function getAllSign(){
-	$.ajax({
-		url:"",
-		type:"POST",
-		data:{"classId":$("#which-class").val(), "stageId":$("#which-stage").val()},
-		dataType:"json",
-		success: function(data){
-			console.log(data);
-		},
-		error:function () {
-            alert("网络错误");
-        }
-	});
+//显示签到信息的总函数
+function teacherGetSign(page, classId, courseId){
+	to_page(page, classId, courseId);
 };
-
 
 //点击查询按钮获取相应的签到信息
 $("#submit-which-need").click(function(){
-	alert($("#which-stage").val());
-	alert($("#which-class").val());
+	teacherGetSign(1, $("#which-class").val(), $("#which-stage").val());
 });
+
+//页面载入的时候获取全部签到信息
+$(function(){
+	teacherGetSign(1, 0, 0);
+})
+
+
 
 	

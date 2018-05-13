@@ -1,7 +1,7 @@
 //个人资料转跳url设置
 $(function(){
 	$('#username').html($.cookie("name"));
-	if($.cookie("typeId") == 1){
+	if($.cookie("typeId") == 0){
 		$('#index_info').attr('href', "staff_info.do");
 	}
 	else{
