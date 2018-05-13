@@ -1,6 +1,7 @@
 package service;
 
 import dto.AccountDto;
+import entity.SignData;
 import entity.User;
 
 import java.util.List;
@@ -28,6 +29,9 @@ public class AccountServiceTest
 {
     @Autowired
     private AccountService accountService = null;
+
+    @Autowired
+    private SignService signService = null;
 
     @Test
     public void testLogin()
@@ -60,5 +64,12 @@ public class AccountServiceTest
     public void testPageInfo() {
     	AccountDto<PageInfo<User>> accountDto = accountService.getAllAccounts(88);
     	System.out.println((accountDto.getData()));
+    }
+
+    @Test
+    public void testGetSignsByClassId()
+    {
+        AccountDto<PageInfo<SignData>> signs = signService.getSignsByUserId(1, 2);
+        System.out.println(signs);
     }
 }

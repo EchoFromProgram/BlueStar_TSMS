@@ -40,7 +40,7 @@ public interface SignService
      *               如果是迟到或者旷课就必须填写
      * @return 返回签到情况
      */
-    public AccountDto sign(User user, Clazz clazz, String reason);
+    public AccountDto sign(User user, Integer inputCode, Integer realCode, Clazz clazz, String reason);
 
     /**
      * 根据班级信息获取签到信息
