@@ -53,9 +53,9 @@ public class SignDaoTest {
 	
 	@Test
 	public void testGetSignsByClassId() {
-		List<SignData> list = signDao.getSignDatasByCourseIdAndHisClassId(1, 2);
+		List<SignData> list = signDao.getSignDatasByCourseId(1);
 		System.out.println(list);
-	
+		
 	}
 	
 	

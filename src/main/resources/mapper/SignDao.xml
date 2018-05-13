@@ -41,11 +41,16 @@
 		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id = #{classId} AND u.role_id = #{roleId}
 	</select>
 	
+	<!-- 根据课程查询签到数据 -->
+	<select id="getSignDatasByCourseId" resultType="entity.SignData">
+		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason, s.class_id
+		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.course_id = #{courseId}
+	</select>
+	
 	<!-- 根据用户id得到签到数据 -->
 	<select id="getSignDatasByUserId" resultType="entity.SignData">
 		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason, s.class_id
 		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.user_id = #{userId}
-		
 	</select>
 	
 	<!-- 根据班级id得到签到数据 -->

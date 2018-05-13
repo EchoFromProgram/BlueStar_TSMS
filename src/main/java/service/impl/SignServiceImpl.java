@@ -101,12 +101,17 @@ public class SignServiceImpl implements SignService
      * @return 返回签到情况
      */
     @Override
-    public AccountDto sign(User user, Clazz clazz, String reason)
+    public AccountDto sign(User user, Integer inputCode, Integer realCode, Clazz clazz, String reason)
     {
         // 必须存在这个用户才能进行签到
         if (user == null || user.getUserId() == null)
         {
             return new AccountDto(SignStatus.ILLEGAL_SIGN);
+        }
+
+        if (!realCode.equals(inputCode)) // 判断签到码是否正确
+        {
+            return new AccountDto(SignStatus.WRONG_CODE);
         }
 
         // 判断这个班级是否属于这个用户
@@ -120,13 +125,36 @@ public class SignServiceImpl implements SignService
         sign.setUserId(user.getUserId());
         sign.setClassId(clazz.getClassId());
         sign.setCourseId(clazz.getCourseId());
-        sign.setDate(new Date());
+
+        Date now = new Date();
+        sign.setDate(now);
         sign.setReason(reason);
-        /* TODO 课程时间未定 */
+        // 暂定早上 8：30 - 9：10 签到，下午 13：00 到 13：40 签到
+        int hours = now.getHours();
+        int minutes = now.getMinutes();
+        AccountDto accountDto = null;
+        if ((hours <= 8 && minutes < 30) || (hours == 12) || (hours >= 16)) // 签到未开放
+        {
+            return new AccountDto(SignStatus.TOO_EARLY);
+        }
+        else if ((hours <= 9 && minutes <= 10) || (hours == 13 && minutes <= 40)) // 正常签到
+        {
+            sign.setStatus(SignStatus.SUCCESS.getCode());
+            sign.setReason("正常签到！");
+            accountDto = new AccountDto(SignStatus.SUCCESS);
+        }
+        else if ((hours <= 10 && minutes <= 10) || (hours <= 14 && minutes <= 40)) // 10：10 和 14：40 迟到
+        {
+            if (sign.getReason() == null || "".equals(sign.getReason())) // 迟到但是没有填写原因
+            {
+                return new AccountDto(SignStatus.TOO_LATE);
+            }
+            // TODO 签到还是没有完成。。。
+        }
 
         signDao.insertIntoSign(sign);
 
-        return null;
+        return accountDto;
     }
 
     /**
@@ -311,7 +339,7 @@ public class SignServiceImpl implements SignService
 	}
 
     /**
-     * 通过 userId 获取签到信息
+     * 老师通过 userId 获取他的班级的签到信息
      *
      * @param pageNumber 页数
      * @param userId 用户 id
@@ -325,7 +353,7 @@ public class SignServiceImpl implements SignService
         }
 
         PageUtil.toPage(pageNumber);
-        List<SignData> signs = signDao.getSignDatasByUserId(userId);
+        List<SignData> signs = signDao.getSignDatasByHisClassId(userId);
         if (signs == null) // 没能得到数据
         {
             return new AccountDto(Common.GET_IS_NULL);
@@ -353,6 +381,30 @@ public class SignServiceImpl implements SignService
         PageUtil.toPage(pageNumber); // 开始分页
         List<SignData> signs = signDao.getSignDatasByCourseIdAndHisClassId(userId, courseId);
         if (signs == null) // 没能得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(signs), Common.SUCCESS);
+    }
+
+    /**
+     * 通过课程 id 获取签到信息
+     *
+     * @param pageNumber 页数
+     * @param courseId 课程 id
+     * @return 返回课程信息
+     */
+    public AccountDto getSignsByCourseId(Integer pageNumber, Integer courseId)
+    {
+        if (pageNumber == null || courseId == null) // 参数错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber); // 开始分页
+        List<SignData> signs = signDao.getSignDatasByCourseId(courseId);
+        if (signs == null) // 没有返回数据
         {
             return new AccountDto(Common.GET_IS_NULL);
         }

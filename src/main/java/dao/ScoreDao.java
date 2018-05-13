@@ -7,6 +7,7 @@ package dao;
 
 import java.util.List;
 
+import javax.net.ssl.SSLEngineResult.Status;
 import javax.swing.ListModel;
 
 import org.apache.ibatis.annotations.Param;
@@ -63,7 +64,7 @@ public interface ScoreDao {
 	 * @return 成绩数据集合
 	 */
 	public List<ScoreData> getScoreDatasByClassIdAndStatus(@Param("status")Integer status,
-													@Param("classId")Integer classId);
+														   @Param("classId")Integer classId);
 	
 	/**
 	 * 得到所有的成绩数据
@@ -95,16 +96,18 @@ public interface ScoreDao {
 														 	  @Param("status")Integer status);
 	
 	/**
-	 * 根据用户id更新成绩
-	 * @param userId 用户id
+	 * 根据成绩id更新成绩
+	 * @param score 成绩
 	 * @return
 	 */
-	public Integer updateScoreByUserId(Integer userId);
+	public Integer updateScoreByScoreId(Score score);
 	
 	/**
-	 * 根据用户id删除成绩
-	 * @param userId
+	 * 根据成绩id删除成绩
+	 * @param scoreId 成绩id
 	 * @return
 	 */
-	public Integer deleteScoreByUserId(Integer userId);
+	public Integer deleteScoreByScoreId(Integer scoreId);
+	
+																			
 }

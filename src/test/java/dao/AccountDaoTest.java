@@ -61,7 +61,7 @@ public class AccountDaoTest {
 		Customer customer = new Customer();
 		customer.setEmail("1133");
 		customer.setInfoId(1);
-		
+		customer.setCity("福州");
 		accountDao.settingCustomerInfo(customer);
 	}
 	

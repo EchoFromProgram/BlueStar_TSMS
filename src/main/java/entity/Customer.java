@@ -27,6 +27,11 @@ public class Customer  {
 	// 邮箱
 	private String email;
 
+	//城市
+	private String city;
+	
+	//省份
+	private String province;
 
 	public Integer getInfoId() {
 		return infoId;
@@ -84,11 +89,30 @@ public class Customer  {
 		this.email = email;
 	}
 
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [infoId=" + infoId + ", identityNum=" + identityNum + ", school=" + school + ", gradeMajor="
-				+ gradeMajor + ", qq=" + qq + ", telephone=" + telephone + ", email=" + email + "]";
+				+ gradeMajor + ", qq=" + qq + ", telephone=" + telephone + ", email=" + email + ", city=" + city
+				+ ", province=" + province + "]";
 	}
+
+	
 
 	
 
