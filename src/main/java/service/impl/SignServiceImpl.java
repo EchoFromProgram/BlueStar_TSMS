@@ -311,7 +311,7 @@ public class SignServiceImpl implements SignService
 	}
 
     /**
-     * 通过 userId 获取签到信息
+     * 老师通过 userId 获取他的班级的签到信息
      *
      * @param pageNumber 页数
      * @param userId 用户 id
@@ -325,7 +325,7 @@ public class SignServiceImpl implements SignService
         }
 
         PageUtil.toPage(pageNumber);
-        List<SignData> signs = signDao.getSignDatasByUserId(userId);
+        List<SignData> signs = signDao.getSignDatasByHisClassId(userId);
         if (signs == null) // 没能得到数据
         {
             return new AccountDto(Common.GET_IS_NULL);
