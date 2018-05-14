@@ -1,22 +1,13 @@
 //个人资料转跳url设置
 $(function(){
-	$.ajax({
-        type: "POST",
-        url: "getSessionUser.do",
-        dataType: "json",
-        success: function(data){
-			$('#username').html(data.name);
-			if(data.typeId == 1){
-				$('#index_info').attr('href', "staff_info.do");
-			}
-			else{
-				$('#index_info').attr('href', "customer_info.do");
-			}
-        },
-        error:function () {
-            alert("网络错误");
-        }
-    });
+	$('#username').html($.cookie("name"));
+	if($.cookie("typeId") == 0){
+		$('#index_info').attr('href', "staff_info.do");
+	}
+	else{
+		$('#index_info').attr('href', "customer_info.do");
+	}
+
 });
 
 //搜索框样式
@@ -59,7 +50,7 @@ $(function(){
 	     	    	   var path = window.location.pathname;
 	     	    	   var suffix = path.substr(path.lastIndexOf('/') + 1);
 	     	    	 	$.each(data,function(i, item){
-	     	    	 		if(suffix == powerTable[item]){
+	     	    	 		if(suffix == powerTable[item].power){
 	     	    	 			$("#nav-list").append(
 	     		    	 				'<li class="active"><a href="#">' +
 	     		    	 				powerTable[item].powerName

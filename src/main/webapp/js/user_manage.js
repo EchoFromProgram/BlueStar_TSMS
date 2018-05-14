@@ -1,13 +1,34 @@
-$(function(){
-	to_page(1);
-});
+function insert_user(){
+	$.ajax({
+	    url:"insert_user.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{
+	    		"userName":$("#insert-username").val(),
+	    		"password":$("#insert-password").val(),
+	    		"name":$("#insert-name").val(),
+	    		"roleId":$("#insert-role-select").val(),
+	    		"typeId":$("#insert-type-select").val()
+	    	},
+	    success: function(data){
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
 
-function to_page(page){
+	return false;
+}
+
+
+
+function to_page(page, typeId){
     $.ajax({
         type: "POST",
-        url: "init_sign_student.do",
+        url: "get_all_accounts.do",
         dataType: "json",
-        data:{"page":page, "userId":$.cookie('userData')},
+        data:{"page":page, "typeId":typeId},
         success: function(data){
             //显示table
             build_table(data);
@@ -27,27 +48,26 @@ function to_page(page){
 //解析显示table
 function build_table(data) {
     //清空
-    $("#sign-student-table tbody").empty();
+    $("#user-table tbody").empty();
     var dataList = data.list;
     //jquery遍历,emps为遍历对象，function(index索引,item得到的每一个对象)为回调函数
     $.each(dataList,function(index, item){
         //创建td并朝里面追加内容
-        var classId = $("<td></td>").append(item.className);
-        var userId = $("<td></td>").append(item.name);
-        var courseId = $("<td></td>").append(item.course);
-        var date = $("<td></td>").append(dateFormat(new Date(item.date)));
-        var status = $("<td></td>");
-        if(item.status == 0) {
-            status.append("正常上课")
-        }else if(item.status == 1){
-            status.append("迟到")
-        }else if(item.status == 2){
-            status.append("旷课")
+        var name = $("<td></td>").append(item.name);
+        var userName = $("<td></td>").append(item.userName);
+        var password = $("<td></td>").append(item.password);
+        var role = $("<td></td>");
+        if(item.roleId == 1) {
+        	role.append("教师")
+        }else if(item.roleId == 2){
+        	role.append("学生")
+        }else if(item.roleId == 3){
+        	role.append("管理员")
         }
-        var reason = $("<td></td>").append(item.reason==null?"":item.reason);
+        var type = $("<td></td>").append(item.typeId==0?"员工":"客户");
         //向一个tr中添加所有的td
-        $("<tr></tr>").append(classId).append(userId).append(courseId)
-            .append(date).append(status).append(reason).appendTo("#sign-student-table tbody");
+        $("<tr></tr>").append(name).append(userName).append(password)
+            .append(role).append(type).appendTo("#user-table tbody");
     })
 }
 
@@ -73,11 +93,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到首页
         firstPageLi.click(function () {
-            to_page(1);
+            to_page(1, $("#which-stage").val());
         })
         //上一页
         prePageLi.click(function () {
-            to_page(data.pageNum - 1);
+            to_page(data.pageNum - 1, $("#which-stage").val());
         })
     }
 
@@ -91,11 +111,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到末页
         lastPageLi.click(function () {
-            to_page(data.pages);
+            to_page(data.pages, $("#which-stage").val());
         })
         //下一页
         nextPageLi.click(function () {
-            to_page(data.pageNum + 1);
+            to_page(data.pageNum + 1, $("#which-stage").val());
         })
     }
 
@@ -109,7 +129,7 @@ function buile_page_nav(data) {
             numLi.addClass("active")
         }
         numLi.click(function() {
-            to_page(item);
+            to_page(item, $("#which-stage").val());
         });
         ul.append(numLi);
     })
@@ -118,5 +138,23 @@ function buile_page_nav(data) {
 
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
+
+
+
+//显示签到信息的总函数
+function getAllUser(page, typeId){
+	to_page(page, typeId);
+};
+
+//点击查询按钮获取相应的签到信息
+$("#submit-which-stage").click(function(){
+	getAllUser(1,  $("#which-stage").val());
+});
+
+$(function(){
+	getAllUser(1, -1);
+});
+
+
 
 

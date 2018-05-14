@@ -1,13 +1,24 @@
-$(function(){
-	to_page(1);
+//获取签到密码
+$("#modal-pub").click(function(){
+		$.ajax({
+			url:"get_sign_code.do",
+			type:"POST",
+			success: function(data){
+				console.log(data);
+				$("#sign-code-display").html(data);
+			},
+			error:function () {
+	            alert("网络错误");
+	        }
+		});
 });
 
-function to_page(page){
+function to_page(page, classId, courseId){
     $.ajax({
         type: "POST",
-        url: "init_sign_student.do",
+        url: "teacher_get_signs.do",
         dataType: "json",
-        data:{"page":page, "userId":$.cookie('userData')},
+        data:{"page":page, "userId":$.cookie('userData'), "classId":classId, "courseId":courseId},
         success: function(data){
             //显示table
             build_table(data);
@@ -34,7 +45,7 @@ function build_table(data) {
         //创建td并朝里面追加内容
         var classId = $("<td></td>").append(item.className);
         var userId = $("<td></td>").append(item.name);
-        var courseId = $("<td></td>").append(item.course);
+        var courseId = $("<td></td>").append("java课程");
         var date = $("<td></td>").append(dateFormat(new Date(item.date)));
         var status = $("<td></td>");
         if(item.status == 0) {
@@ -73,11 +84,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到首页
         firstPageLi.click(function () {
-            to_page(1);
+            to_page(1, $("#which-class").val(), $("#which-stage").val());
         })
         //上一页
         prePageLi.click(function () {
-            to_page(data.pageNum - 1);
+            to_page(data.pageNum - 1, $("#which-class").val(), $("#which-stage").val());
         })
     }
 
@@ -91,11 +102,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到末页
         lastPageLi.click(function () {
-            to_page(data.pages);
+            to_page(data.pages, $("#which-class").val(), $("#which-stage").val());
         })
         //下一页
         nextPageLi.click(function () {
-            to_page(data.pageNum + 1);
+            to_page(data.pageNum + 1, $("#which-class").val(), $("#which-stage").val());
         })
     }
 
@@ -109,7 +120,7 @@ function buile_page_nav(data) {
             numLi.addClass("active")
         }
         numLi.click(function() {
-            to_page(item);
+            to_page(item, $("#which-class").val(), $("#which-stage").val());
         });
         ul.append(numLi);
     })
@@ -119,4 +130,82 @@ function buile_page_nav(data) {
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
 
+var Courses;
+//获取课程列表
+$(function(){
+		$.ajax({
+			url:"get_courses.do",
+			type:"POST",
+			dataType:"json",
+			success: function(data){
+				Courses = data;
+				
+				$("#which-stage").append('<option value="0">全部课程</option>');
+				$.each(Courses,function(index, item){
+				    var option = $("<option></option>").append(item.course);
+				    option.attr("value", item.courseId);
+				    option.appendTo("#which-stage");
+				});
+			},
+			error:function () {
+	            alert("网络错误");
+	        }
+		});
+});
+	
+//获取班级列表
+$(function(){
+	$.ajax({
+		url:"getSessionHisClasses.do",
+		type:"POST",
+		success: function(data){
+			$("#which-class").empty();
+			$("#which-class").append('<option value="0">全部班级</option>');
+		    $.each(data,function(index, item){
+		        var option = $("<option></option>").append(item.className);
+		        option.attr("value", item.classId);
+		        option.appendTo("#which-class");
+		    });
+		    $("#which-class").change(function(){
+	        	getCourseByClass(this.value)
+	        });
+		},
+		error:function () {
+          alert("网络错误");
+      }
+	});
+});
 
+//根据班级获取课程
+function getCourseByClass(classId){
+	$.ajax({
+		url:"get_course_by_class.do",
+		type:"POST",
+		data:{"classId":classId},
+		success: function(data){
+			$("#which-stage").val(data.courseId);
+		},
+		error:function () {
+            alert("网络错误");
+        }
+	});
+}
+
+//显示签到信息的总函数
+function teacherGetSign(page, classId, courseId){
+	to_page(page, classId, courseId);
+};
+
+//点击查询按钮获取相应的签到信息
+$("#submit-which-need").click(function(){
+	teacherGetSign(1, $("#which-class").val(), $("#which-stage").val());
+});
+
+//页面载入的时候获取全部签到信息
+$(function(){
+	teacherGetSign(1, 0, 0);
+})
+
+
+
+	

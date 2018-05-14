@@ -43,6 +43,7 @@ public interface NoticeService
      * @param notice 需要先插入一条具体通知，然后再插入通知类
      * @return 处理结果
      */
+    
     public AccountDto insertNoticeAndNoticeDetail(NoticeDetail noticeDetail, Notice notice);
     
     /**

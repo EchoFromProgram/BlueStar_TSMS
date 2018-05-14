@@ -67,7 +67,7 @@
                 <!-- 编辑资料对应的遮罩窗体 -->
                 <div class="modal fade" id="modal-info-update" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <form class="form" onsubmit="return ">
+                        <form class="form" onsubmit="return setCustomerInfo()">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -78,70 +78,20 @@
                                 <div class="modal-body">
                                     <div class="form-group" id="info-update-ID">
                                         <label for="info-update-ID-input">身份证</label>
-                                        <input id="info-update-ID-input" class="form-control" placeholder="原姓名" required=""></input>
+                                        <input id="info-update-ID-input" class="form-control" placeholder="原姓名" ></input>
                                         <span class="help-block" id="info-update-ID-help"></span>
                                     </div>
                                     <div class="form-group" id="info-update-school">
                                         <label for="info-update-class-input">学校</label>
                                         <div class="moco-control-input profile-address" id="info-update-class-input">
                                             <select id="province-select" class="moco-form-control" hidefocus="true">
-                                                <option value="0">省</option>
-                                                <option value="1">北京</option>
-                                                <option value="2">天津</option>
-                                                <option value="3">河北</option>
-                                                <option value="4">山西</option>
-                                                <option value="5">内蒙古</option>
-                                                <option value="6">辽宁</option>
-                                                <option value="7">吉林</option>
-                                                <option value="8">黑龙江</option>
-                                                <option value="9">上海</option>
-                                                <option value="10">江苏</option>
-                                                <option value="11">浙江</option>
-                                                <option value="12">安徽</option>
-                                                <option value="13" selected="selected">福建</option>
-                                                <option value="14">江西</option>
-                                                <option value="15">山东</option>
-                                                <option value="16">河南</option>
-                                                <option value="17">湖北</option>
-                                                <option value="18">湖南</option>
-                                                <option value="19">广东</option>
-                                                <option value="20">海南</option>
-                                                <option value="21">广西</option>
-                                                <option value="22">甘肃</option>
-                                                <option value="23">陕西</option>
-                                                <option value="24">新疆</option>
-                                                <option value="25">青海</option>
-                                                <option value="26">宁夏</option>
-                                                <option value="27">重庆</option>
-                                                <option value="28">四川</option>
-                                                <option value="29">贵州</option>
-                                                <option value="30">云南</option>
-                                                <option value="31">西藏</option>
-                                                <option value="32">台湾</option>
-                                                <option value="33">澳门</option>
-                                                <option value="34">香港</option>
-                                                <option value="100">其他</option>
+                                                
                                             </select>
                                             <select class="moco-form-control" id="city-select" hidefocus="true">
-                                                <option value="0">市</option>
-                                                <option value="104" selected="selected">福州市</option>
-                                                <option value="105">厦门市</option>
-                                                <option value="106">宁德市</option>
-                                                <option value="107">莆田市</option>
-                                                <option value="108">泉州市</option>
-                                                <option value="109">漳州市</option>
-                                                <option value="110">龙岩市</option>
-                                                <option value="111">三明市</option>
-                                                <option value="112">南平市</option>
+                                            	<option value='' disabled selected style='display:none;'>请选择城市</option>  
                                             </select>
-                                            <select class="moco-form-control mr0" id="school-select" hidefocus="true">
-                                                <option value="0">学校</option>
-                                                <option value="987">福州大学</option>
-                                                <option value="988" selected="selected">福建农林大学</option>
-                                                <option value="989">福建师范大学</option>
-                                                <option value="990">福建医科大学</option>
-                                                <option value="991">福建中医药大学</option>
-                                                <option value="992">闽江学院</option>
+                                            <select class="moco-form-control" id="school-select" hidefocus="true">
+                                                <option value='' disabled selected style='display:none;'>请选择学校</option>  
                                             </select>
                                             <div class="rlf-tip-wrap errorHint color-red"></div>
                                         </div>
@@ -177,37 +127,37 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">姓名</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">Mackyhuang</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="name-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">身份证</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">35222519**********</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="id-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">学校</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">福建农林大学</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="school-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">年级专业</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">2016级计算机科学与技术</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="grade-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">QQ</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">973******</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="qq-display"></div>
             </div>
             <br>
             <div class="row">
-                <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">电话号码</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">15159******</div>
+                <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">电话</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="tel-display"></div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-1 col-md-offset-2 text-center info-label">邮箱</div>
-                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail">973******@qq.com</div>
+                <div class="col-xs-9 col-md-5 col-md-offset-1 text-center info-detail" id="mail-display"></div>
             </div>
         </div>
     </div>
@@ -222,5 +172,8 @@
 
 <script src="./js/login.js"></script>
 <script src="./js/general.js"></script>
+<script src="./js/jquery.cookie.js"></script>
+<script src="./js/customer_info.js"></script>
+
 </body>
 </html>

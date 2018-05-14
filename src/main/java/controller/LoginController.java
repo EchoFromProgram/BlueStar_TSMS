@@ -29,7 +29,6 @@ public class LoginController {
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
 	public Object loginCheck(User user, HttpSession session)
 	{
-		System.out.println(user);
 		AccountDto accountDto = accountService.login(user);
 		if(accountDto.getCode() == 0)
 		{
@@ -37,6 +36,7 @@ public class LoginController {
 			
 			session.setAttribute("user", ((Map)accountDto.getData()).get("user"));
 			session.setAttribute("hisPowers", ((Map)accountDto.getData()).get("hisPowers"));
+			session.setAttribute("hisClasses", ((Map)accountDto.getData()).get("hisClasses"));
 		}
 		return accountDto;
 	}
@@ -66,10 +66,24 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "getPowerTable.do", produces = {"application/json;charset=UTF8"})
+	@RequestMapping(path = "getSessionHisClasses.do", produces = {"application/json;charset=UTF8"})
+	public Object getSessionHisClasses(HttpSession session) {
+		// TODO html访问session， 
+		return session.getAttribute("hisClasses");
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "getPowerTable.do")
 	public Object getPowerTable(HttpSession session) {
 		//返回权限表
 		//TO DO 这里需要直接返回，和上面的hisPower方法合并
 		return session.getServletContext().getAttribute("powerMap");
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "get_courses.do", produces = {"application/json;charset=UTF8"})
+	public Object getCourses(HttpSession session) {
+		//返回课程表
+		return session.getServletContext().getAttribute("Courses");
 	}
 }
