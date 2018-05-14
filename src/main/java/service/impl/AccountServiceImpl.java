@@ -48,7 +48,7 @@ public class AccountServiceImpl implements AccountService
         }
 
         // 从数据库中查出这个账号的密码
-        User u = accountDao.getUserByUserName(user.getUserName());
+        Map u = accountDao.getUserByUserName(user.getUserName());
 
         // 用户名不存在！
         if (u == null)
@@ -57,7 +57,7 @@ public class AccountServiceImpl implements AccountService
         }
 
         // 判断前台登陆用户输入的密码和后台数据的密码是否一致
-        if (!u.getPassword().equals(user.getPassword()))
+        if (!u.get("password").equals(user.getPassword()))
         {
             return new AccountDto(LoginStatus.WRONG_PASSWORD);
         }
@@ -65,9 +65,9 @@ public class AccountServiceImpl implements AccountService
         // 登陆成功，将要携带的信息带给前台
         Map<String, Object> infos = new HashMap<String, Object>();
         infos.put("user", u);
-        infos.put("hisPowers", accountDao.getPowerIdByRoleId(u.getRoleId()));
+        infos.put("hisPowers", accountDao.getPowerIdByRoleId((Integer) u.get("roleId")));
 
-        Integer[] classIds = accountDao.getClassIdsByUserId(u.getUserId()).toArray(new Integer[0]);
+        Integer[] classIds = accountDao.getClassIdsByUserId((Integer) u.get("userId")).toArray(new Integer[0]);
         Arrays.sort(classIds); // 给这个列表排序
         List<Clazz> clazzes = new ArrayList<>();
         for (Integer i : classIds) // 通过班级 id 获取班级信息
@@ -172,6 +172,32 @@ public class AccountServiceImpl implements AccountService
         PageUtil.toPage(pageNumber);
 
         List<User> users = accountDao.getAllUsers();
+        if (users == null) // 如果为空，说明没有获取到数据，有可能是系统错误
+        {
+            return new AccountDto(Common.ERROR);
+        }
+
+        // 这里如果 users 的元素个数为 0 也算成功，只能说没有成员
+        return new AccountDto<>(PageUtil.pageInfo(users), Common.SUCCESS);
+    }
+
+    /**
+     * 通过 roleId 获取用户信息，目前主要是内部和外部
+     *
+     * @param pageNumber 页数
+     * @param typeId 用户类型
+     * @return 返回用户信息
+     */
+    public AccountDto getAccounts(Integer pageNumber, Integer typeId)
+    {
+        if (pageNumber == null || typeId == null) // 如果参数为空，则返回参数错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        // pageHelper 中每进行一次分页就要执行一次这个方法
+        PageUtil.toPage(pageNumber);
+        List<Map<String, Object>> users = accountDao.getUsersByTypeId(typeId);
         if (users == null) // 如果为空，说明没有获取到数据，有可能是系统错误
         {
             return new AccountDto(Common.ERROR);
