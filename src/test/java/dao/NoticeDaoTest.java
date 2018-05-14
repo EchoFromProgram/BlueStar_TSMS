@@ -82,7 +82,10 @@ public class NoticeDaoTest {
 	
 	@Test
 	public void testGetAll() {
-		List<Notice> list = noticeDao.getAllNotices();
-		System.out.println(list);
+		NoticeDetail noticeDetail = new NoticeDetail();
+		noticeDetail.setContent("爱情");
+		noticeDetail.setTitle("因为");
+		noticeDao.insertNoticeDetail(noticeDetail);
+		System.out.println(noticeDetail.getNoticeDetailId());
 	}
 }

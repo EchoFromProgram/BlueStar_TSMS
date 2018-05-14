@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import dao.NoticeDao;
 import dto.AccountDto;
 import entity.Notice;
+import entity.NoticeDetail;
 import entity.User;
 import enums.impl.Common;
 import enums.impl.NoticeStatus;
@@ -104,4 +105,22 @@ public class NoticeServiceImpl implements NoticeService
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
     }
+
+	@Override
+	public AccountDto insertNoticeAndNoticeDetail(NoticeDetail noticeDetail, Notice notice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AccountDto updateNoticeDetailByNoticeDetailId(NoticeDetail noticeDetail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AccountDto deleteNoticeDetailAndNotice(Integer noticeDetailId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

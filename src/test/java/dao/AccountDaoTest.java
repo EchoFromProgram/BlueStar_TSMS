@@ -3,6 +3,7 @@ package dao;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -126,7 +127,7 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		List<Course> list = accountDao.getAllcourses();
+		List<Map<String, Object>> list =  accountDao.getUsersByTypeId(1);
 		System.out.println(list);
 	}
 	

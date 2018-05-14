@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.jws.soap.SOAPBinding.Use;
 
@@ -126,6 +127,13 @@ public interface AccountDao
     public List<User> getAllUsers();
     
     /**
+     * 通过用户类型获得用户
+     * @param typeId 用户类型id
+     * @return 用户集合
+     */
+    public List<Map<String, Object>> getUsersByTypeId(Integer typeId);
+    
+    /**
      * 得到所有的省份
      * @return 省份集合
      */
@@ -151,6 +159,7 @@ public interface AccountDao
      * @return 课表集合
      */
     public List<Course> getAllcourses();
+    
     
   
 }
