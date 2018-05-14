@@ -1,4 +1,5 @@
 $(function(){
+	getProvince();
 	$.ajax({
 		url:"get_customer_info.do",
 		data:{"infoId":$.cookie("infoId")},
@@ -12,32 +13,42 @@ $(function(){
 			$("#qq-display").html(data.data.qq);
 			$("#tel-display").html(data.data.telephone);
 			$("#mail-display").html(data.data.email);
-			
 			$("#info-update-ID-input").val(data.data.identityNum);
-			$("#school-select").val(data.data.school);
-			$("#info-update-class").val(data.data.gradeMajor);
-			$("#info-update-qq").val(data.data.qq);
-			$("#info-update-tel").val(data.data.telephone);
-			$("#info-update-mail").val(data.data.email);
+			//$("#province-select").val(data.data.province);
+			//$("#city-select").val(data.data.city);
+			//$("#school-select").val(data.data.school);
+			$("#info-update-grade-input").val(data.data.gradeMajor);
+			$("#info-update-qq-input").val(data.data.qq);
+			$("#info-update-tel-input").val(data.data.telephone);
+			$("#info-update-mail-input").val(data.data.email);
+			$('#province-select option').filter(function(){return $(this).text()==data.data.province}).attr("selected",true);
+			getCity();
+			$('#city-select option').filter(function(){return $(this).text()==data.data.city}).attr("selected",true);
+			getSchool();
+			$('#school-select option').filter(function(){return $(this).text()==data.data.school}).attr("selected",true);
 		},
 		error:function () {
             alert("网络错误");
         }
 	});
 });
+//$("#select_id option[value='广州市']").attr("selected", true);
+
 
 function setCustomerInfo(){
 	$.ajax({
-		url:"update_staff_info.do",
+		url:"update_customer_info.do",
 		type:"POST",
 		data:{
 			"infoId":$.cookie("infoId"),
 			"identityNum":$("#info-update-ID-input").val(),
-			"school":$("#school-select").html(),
-			"gradeMajor":$("#info-update-class").val(),
-			"qq":$("#info-update-qq").val(),
-			"telephone":$("#info-update-tel").val(),
-			"email":$("#info-update-mail").val()
+			"province":$("#province-select").find("option:selected").text(),
+			"city":$("#city-select").find("option:selected").text(),
+			"school":$("#school-select").find("option:selected").text(),
+			"gradeMajor":$("#info-update-grade-input").val(),
+			"qq":$("#info-update-qq-input").val(),
+			"telephone":$("#info-update-tel-input").val(),
+			"email":$("#info-update-mail-input").val()
 			},
 		success: function(data){
 			alert(data.info);
@@ -50,73 +61,83 @@ function setCustomerInfo(){
 };
 
 //获取省份
-$("#modal-info-update-a").click(
-	function(){
-		$.ajax({
-			url:"http://119.29.166.254:9090/api/provinces",
-			type:"POST",
-			dataType:"json",
-			success: function(data){
-				$("#province-select").empty();
-				$("#province-select").append("<option value='' disabled selected style='display:none;'>请选择省份</option>  ");
-			    $.each(data,function(index, item){
-			    	var option = $("<option></option>").append(item.name);
-					option.attr("value", item.id);
-					option.appendTo("#province-select");
-			    });
-			},
-			error:function () {
-			    alert("网络错误");
-			}
-		});
-});
+function getProvince(){
+    $.ajax({
+        url:"http://119.29.166.254:9090/api/provinces",
+        type:"POST",
+        dataType:"json",
+        async : false,
+        success: function(data){
+            $("#province-select").empty();
+            $("#province-select").append("<option value='' disabled selected style='display:none;'>请选择省份</option>  ");
+            $.each(data,function(index, item){
+                var option = $("<option></option>").append(item.name);
+                option.attr("value", item.id);
+                option.appendTo("#province-select");
+            });
+        },
+        error:function () {
+            alert("网络错误");
+        }
+    });
+}
+
 
 //获取市
+function getCity(){
+    $.ajax({
+        url:"http://119.29.166.254:9090/api/province/getCitiesByProvinceId",
+        type:"POST",
+        dataType:"json",
+        async : false,
+        data:{"id":$("#province-select").val()},
+        success: function(data){
+            $("#city-select").empty();
+            $("#city-select").append("<option value='' disabled selected style='display:none;'>请选择城市</option>");
+            $.each(data,function(index, item){
+                var option = $("<option></option>").append(item);
+                option.appendTo("#city-select");
+            });
+        },
+        error:function () {
+            alert("网络错误");
+        }
+    });
+}
 $("#province-select").change(
-		function(){
-			$.ajax({
-			    url:"http://119.29.166.254:9090/api/province/getCitiesByProvinceId",
-			    type:"POST",
-			    dataType:"json",
-			    data:{"id":$("#province-select").val()},
-			    success: function(data){
-			    	$("#city-select").empty();
-			    	$("#city-select").append("<option value='' disabled selected style='display:none;'>请选择城市</option>");
-				    $.each(data,function(index, item){
-				    	var option = $("<option></option>").append(item);
-						option.appendTo("#city-select");
-				    });
-			    },
-			    error:function () {
-			        alert("网络错误");
-			    }
-			});
-	});
+    getCity
+);
+
 
 //获取学校
+function getSchool(){
+  $.ajax({
+      url:"http://119.29.166.254:9090/api/university/getUniversityByCityName",
+      type:"POST",
+      dataType:"json",
+      async : false,
+      data:{"name":$("#city-select").val()},
+      success: function(data){
+          $("#school-select").empty();
+          $("#school-select").append("<option value='' disabled selected style='display:none;'>请选择学校</option>");
+          $.each(data,function(index, item){
+              var option = $("<option></option>").append(item.name);
+              option.attr("value", item.id);
+              option.appendTo("#school-select");
+          });
+      },
+      error:function () {
+          alert("网络错误");
+      }
+  });
+}
 $("#city-select").change(
-		function(){
-			$.ajax({
-			    url:"http://119.29.166.254:9090/api/university/getUniversityByCityName",
-			    type:"POST",
-			    dataType:"json",
-			    data:{"name":$("#city-select").val()},
-			    success: function(data){
-			    	$("#school-select").empty();
-			    	$("#school-select").append("<option value='' disabled selected style='display:none;'>请选择学校</option>");
-				    $.each(data,function(index, item){
-				    	var option = $("<option></option>").append(item.name);
-				    	option.attr("value", item.id);
-						option.appendTo("#school-select");
-				    });
-			    },
-			    error:function () {
-			        alert("网络错误");
-			    }
-			});
-	});
+  getSchool
+);
 
-
+$("#update-customer-info").click(
+	setCustomerInfo
+);
 
 
 

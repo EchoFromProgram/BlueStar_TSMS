@@ -55,7 +55,7 @@
 		  <if test="gradeMajor != null">grade_major = #{gradeMajor},</if>
 		  <if test="telephone != null">telephone = #{telephone},</if>
 		  <if test="email != null">email = #{email},</if>
-		  <if test="qq != null">qq = #{qq}</if>
+		  <if test="qq != null">qq = #{qq},</if>
 		  <if test="city != null">city = #{city},</if>
 		  <if test="province != null">province = #{province},</if>
  		</set>
