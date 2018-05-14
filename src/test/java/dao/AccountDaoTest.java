@@ -36,7 +36,7 @@ public class AccountDaoTest {
 
 	@Test
 	public void testGetUserByUserName() {
-		User user = accountDao.getUserByUserName("h123");
+		Map<String, Object> user = accountDao.getUserByUserName("Fish");
 		System.out.println(user);
 	}
 

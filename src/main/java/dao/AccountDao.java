@@ -36,7 +36,7 @@ public interface AccountDao
      * @param username 登录时传入的用户名
      * @return 返回一个用户（user）对象
      */
-    public User getUserByUserName(String username);
+    public Map<String, Object> getUserByUserName(String username);
 
     /**
      * 创建一个新用户
