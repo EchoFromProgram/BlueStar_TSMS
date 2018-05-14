@@ -53,6 +53,15 @@ public interface AccountService
      * @return 返回所有账户的信息
      */
     public AccountDto getAllAccounts(Integer pageNumber);
+
+    /**
+     * 通过 roleId 获取用户信息，目前主要是内部和外部
+     *
+     * @param pageNumber 页数
+     * @param typeId     用户类型
+     * @return 返回用户信息
+     */
+    public AccountDto getAccounts(Integer pageNumber, Integer typeId);
     
     /**
      * 根据信息id查询客户的信息
