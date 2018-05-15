@@ -27,4 +27,12 @@ public class QuizServiceTest
     {
         System.out.println(quizService.getQuizsByUser(1, 1, null));
     }
+
+    @Test
+    public void testGetQuizsByClassAndCourse()
+    {
+        Integer classId = null;
+        Integer courseId = null;
+        System.out.println(quizService.getQuizsByClassAndCourse(1, classId, courseId));
+    }
 }

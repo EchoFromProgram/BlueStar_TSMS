@@ -4,8 +4,12 @@
 
 <!-- 问卷 dao -->
 <mapper namespace="dao.NewQuizDao">
+    <sql id="quiz_columns">
+        `quiz_id`, `class_id`, `user_id`, `course_id`, `date`, `quiz_detail_id`
+    </sql>
+
     <select id="getQuizByUserIdOrCourseId" resultType="entity.Quiz">
-        SELECT `quiz_id`, `class_id`, `user_id`, `course_id`, `date`, `quiz_detail_id`
+        SELECT <include refid="quiz_columns" />
         FROM quiz
         <where>
             <if test="1">
@@ -27,5 +31,18 @@
         SELECT quiz_answer
         FROM quiz_answer
         WHERE quiz_id = #{quizId}
+    </select>
+
+    <select id="getQuizByClassIdOrCourseId" resultType="entity.Quiz">
+        SELECT <include refid="quiz_columns" />
+        FROM quiz
+        <where>
+            <if test="classId != null">
+                class_id = #{classId}
+            </if>
+            <if test="courseId != null">
+                AND course_id = #{courseId}
+            </if>
+        </where>
     </select>
 </mapper>
