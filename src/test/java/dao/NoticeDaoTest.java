@@ -88,4 +88,10 @@ public class NoticeDaoTest {
 		noticeDao.insertNoticeDetail(noticeDetail);
 		System.out.println(noticeDetail.getNoticeDetailId());
 	}
+	
+	@Test
+	public void getbyDetailId() {
+		
+		
+	}
 }

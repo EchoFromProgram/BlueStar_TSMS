@@ -1,7 +1,11 @@
 package service;
 
 import com.github.pagehelper.PageInfo;
+
+import dao.NoticeDao;
 import dto.AccountDto;
+import entity.Notice;
+import entity.NoticeDetail;
 import entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,5 +44,12 @@ public class NoticeServiceTest
 
         accountDto = noticeService.getNotices(1);
         System.out.println(accountDto);
+    }
+    
+    @Test
+    public void testAll()
+    {
+    	
+		noticeService.deleteNoticeDetailAndNotice(8);
     }
 }

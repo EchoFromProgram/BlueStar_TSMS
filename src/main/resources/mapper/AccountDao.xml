@@ -128,7 +128,7 @@
 	
 	<!-- 得到整张课程表 -->
 	<select id="getAllcourses" resultType="entity.Course">
-		SELECT c.course_id, c.course FROM course c;
+		SELECT c.course_id, c.course FROM course c
 	</select>
 	
 </mapper>

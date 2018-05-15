@@ -39,12 +39,20 @@ public interface NoticeService
     public AccountDto getNotices(Integer pageNumber);
     
     /**
-     * 新增一条通知和具体通知信息
+     * 管理员得到整张具体通知表
+     * @param pageNumber 分页
+     * @return 返回具体通知信息
+     */
+    public AccountDto getAllNoticeDetails(Integer pageNumber);
+    
+    
+    /**
+     * 新增一条通知
      * @param notice 需要先插入一条具体通知，然后再插入通知类
      * @return 处理结果
      */
     
-    public AccountDto insertNoticeAndNoticeDetail(NoticeDetail noticeDetail, Notice notice);
+    public AccountDto insertNotice(Notice notice,NoticeDetail noticeDetail);
     
     /**
      * 更新具体通知
@@ -60,4 +68,10 @@ public interface NoticeService
      */
     public AccountDto deleteNoticeDetailAndNotice(Integer noticeDetailId);
     
+    /**
+     * 根据具体通知id得到具体通知
+     * @param noticeDetailId 具体通知id
+     * @return 处理结果
+     */
+    public AccountDto getNoticeDetail(Integer noticeDetailId);
 }

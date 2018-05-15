@@ -44,13 +44,13 @@
 	<!-- 根据用户id得到成绩数据-->
 	<select id="getScoreDatasByUserId" resultType="entity.ScoreData">
 		SELECT  s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
-		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND u.user_id = #{userId};
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND u.user_id = #{userId}
 	</select>
 	
 	<!-- 根据班级和阶段得到成绩数据 -->
 	<select id="getScoreDatasByClassIdAndStatus" resultType="entity.ScoreData">
 		SELECT  s.user_id, s.score_id, s.status, s.score, s.class_id, s.date, u.name, c.class_name FROM score s,user u, class c 
-		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND c.class_id = #{classId} AND s.status = #{status};
+		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND c.class_id = #{classId} AND s.status = #{status}
 	</select>
 	
 	<!-- 得到所有成绩数据 -->
