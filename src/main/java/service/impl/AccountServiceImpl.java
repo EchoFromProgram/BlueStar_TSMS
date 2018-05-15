@@ -65,9 +65,9 @@ public class AccountServiceImpl implements AccountService
         // 登陆成功，将要携带的信息带给前台
         Map<String, Object> infos = new HashMap<String, Object>();
         infos.put("user", u);
-        infos.put("hisPowers", accountDao.getPowerIdByRoleId((Integer) u.get("roleId")));
+        infos.put("hisPowers", accountDao.getPowerIdByRoleId((Integer) u.get("role_id")));
 
-        Integer[] classIds = accountDao.getClassIdsByUserId((Integer) u.get("userId")).toArray(new Integer[0]);
+        Integer[] classIds = accountDao.getClassIdsByUserId((Integer) u.get("user_id")).toArray(new Integer[0]);
         Arrays.sort(classIds); // 给这个列表排序
         List<Clazz> clazzes = new ArrayList<>();
         for (Integer i : classIds) // 通过班级 id 获取班级信息
