@@ -31,7 +31,7 @@ public class Quiz
     private List<String> answers = null;
 
     //问卷内容
-    private QuizDetail quizDetail;
+    private Integer quizDetailId;
 
     public int getQuizId()
     {
@@ -103,14 +103,14 @@ public class Quiz
         this.answers = answers;
     }
 
-    public QuizDetail getQuizDetail()
+    public Integer getQuizDetailId()
     {
-        return quizDetail;
+        return quizDetailId;
     }
 
-    public void setQuizDetail(QuizDetail quizDetail)
+    public void setQuizDetailId(Integer quizDetailId)
     {
-        this.quizDetail = quizDetail;
+        this.quizDetailId = quizDetailId;
     }
 
     @Override
@@ -124,7 +124,7 @@ public class Quiz
                 ", date=" + date +
                 ", questions=" + questions +
                 ", answers=" + answers +
-                ", quizDetail=" + quizDetail +
+                ", quizDetailId=" + quizDetailId +
                 '}';
     }
 }

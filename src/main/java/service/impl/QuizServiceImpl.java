@@ -15,7 +15,7 @@ import service.QuizService;
 @Service
 public class QuizServiceImpl implements QuizService
 {
-    private NewQuizDao quizDao = null;
+    private static NewQuizDao quizDao = null;
 
     @Autowired
     public void setQuizDao(NewQuizDao quizDao)

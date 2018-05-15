@@ -1,5 +1,10 @@
 package dao;
 
+import entity.Quiz;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
 /**
  * 问卷 dao 方法
  *
@@ -8,5 +13,5 @@ package dao;
  */
 public interface NewQuizDao
 {
-
+    public List<Quiz> getQuizByUserIdOrCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
 }

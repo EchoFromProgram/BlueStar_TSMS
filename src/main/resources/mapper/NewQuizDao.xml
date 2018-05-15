@@ -4,6 +4,14 @@
 
 <!-- 问卷 dao -->
 <mapper namespace="dao.NewQuizDao">
-
+    <select id="getQuizByUserIdOrCourseId" resultType="entity.Quiz">
+        SELECT `quiz_id`, `class_id`, `user_id`, `course_id`, `date`, `quiz_detail_id`
+        FROM quiz WHERE user_id = #{userId}
+        <set> <!-- 如果有 courseId，就加上 -->
+            <if test="#{courseId} != null">
+                AND course_id = #{courseId}
+            </if>
+        </set>
+    </select>
 
 </mapper>

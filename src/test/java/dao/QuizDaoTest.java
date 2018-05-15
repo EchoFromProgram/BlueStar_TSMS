@@ -26,8 +26,6 @@ public class QuizDaoTest {
 		quiz.setCourseId(1);
 		quiz.setClassId(1);
 		quiz.setDate(new Date());
-		quiz.setFill1("老师讲的很好");
-		quiz.setFill2("还可以");
 		quiz.setQuizDetailId(1);
 		quiz.setUserId(1);
 		quizDao.insertQuiz(quiz);
