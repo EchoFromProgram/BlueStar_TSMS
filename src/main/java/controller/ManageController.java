@@ -42,6 +42,9 @@ public class ManageController {
 		if (typeId == -1) {
 			accountDto = accountService.getAllAccounts(page);
 		}
+		else {
+			accountDto = accountService.getAccounts(page, typeId);
+		}
 		return accountDto.getData();
 	}
 }
