@@ -4,6 +4,7 @@ import entity.Quiz;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 问卷 dao 方法
@@ -14,4 +15,8 @@ import java.util.List;
 public interface NewQuizDao
 {
     public List<Quiz> getQuizByUserIdOrCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+
+    public List<String> getQuestionsByQuizDetailId(@Param("quizDetailId") Integer quizDetailId);
+
+    public List<String> getAnswersByQuizId(@Param("quizId") Integer quizId);
 }

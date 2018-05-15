@@ -5,7 +5,7 @@
 <!-- 问卷 dao -->
 <mapper namespace="dao.NewQuizDao">
     <select id="getQuizByUserIdOrCourseId" resultType="entity.Quiz">
-        SELECT quiz_id, class_id, user_id, course_id, date, quiz_detail_id
+        SELECT `quiz_id`, `class_id`, `user_id`, `course_id`, `date`, `quiz_detail_id`
         FROM quiz
         <where>
             <if test="1">
@@ -17,4 +17,15 @@
         </where>
     </select>
 
+    <select id="getQuestionsByQuizDetailId" resultType="string">
+        SELECT question
+        FROM quiz_question
+        WHERE quiz_detail_id = #{quizDetailId}
+    </select>
+
+    <select id="getAnswersByQuizId" resultType="string">
+        SELECT quiz_answer
+        FROM quiz_answer
+        WHERE quiz_id = #{quizId}
+    </select>
 </mapper>

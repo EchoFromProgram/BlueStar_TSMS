@@ -38,8 +38,24 @@ public class QuizServiceImpl implements QuizService
      */
     public AccountDto getQuizsByUser(Integer pageNumber, Integer userId, Integer courseId)
     {
+        if (userId == null) // 参数为空错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
         PageUtil.toPage(pageNumber);
         List<Quiz> quizzes = quizDao.getQuizByUserIdOrCourseId(1, courseId);
+        if (quizzes == null) // 没有得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        for (Quiz quiz : quizzes) // 将问题和答案都找出来
+        {
+            quiz.setQuestions(quizDao.getQuestionsByQuizDetailId(quiz.getQuizDetailId()));
+            quiz.setAnswers(quizDao.getAnswersByQuizId(quiz.getQuizId()));
+        }
+
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }
 }
