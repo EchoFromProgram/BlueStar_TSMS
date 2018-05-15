@@ -2,9 +2,17 @@ package service.impl;
 
 import dao.NewQuizDao;
 import dto.AccountDto;
+import entity.Quiz;
+import entity.QuizDetail;
+import enums.impl.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.QuizService;
+import utils.PageUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 问卷业务实现类
@@ -28,10 +36,91 @@ public class QuizServiceImpl implements QuizService
      *
      * @param pageNumber 页数
      * @param userId 用户 id
+     * @param courseId 课程 id，如果不用可以传入 null
      * @return 返回这个用户填写过的问卷
      */
-    public AccountDto getQuizsByUser(Integer pageNumber, Integer userId)
+    public AccountDto getQuizsByUser(Integer pageNumber, Integer userId, Integer courseId)
     {
-        return null;
+        if (pageNumber == null || userId == null) // 参数为空错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber);
+        List<Quiz> quizzes = quizDao.getQuizByUserIdOrCourseId(1, courseId);
+        if (quizzes == null) // 没有得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        for (Quiz quiz : quizzes) // 将问题和答案都找出来
+        {
+            quiz.setQuestions(quizDao.getQuestionsByQuizDetailId(quiz.getQuizDetailId()));
+            quiz.setAnswers(quizDao.getAnswersByQuizId(quiz.getQuizId()));
+        }
+
+        return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
+    }
+
+    /**
+     * 通过 classId 来获取班级问卷
+     * 传入 classId == null 就获取所有班级的，也就是管理员的权限
+     * 传入 courseId == null 就获取所有课程的
+     *
+     * @param pageNumber 页数
+     * @param classId 班级 id
+     * @param courseId 课程 id
+     * @return 返回这个班级的所有问卷
+     */
+    public AccountDto getQuizsByClassAndCourse(Integer pageNumber, Integer classId, Integer courseId)
+    {
+        if (pageNumber == null) // 参数错误
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        PageUtil.toPage(pageNumber);
+        List<Quiz> quizzes = quizDao.getQuizByClassIdOrCourseId(classId, courseId);
+        if (quizzes == null) // 没有得到数据
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        for (Quiz quiz : quizzes) // 将问题和答案都找出来
+        {
+            quiz.setQuestions(quizDao.getQuestionsByQuizDetailId(quiz.getQuizDetailId()));
+            quiz.setAnswers(quizDao.getAnswersByQuizId(quiz.getQuizId()));
+
+            System.out.println(quiz);
+        }
+        return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
+    }
+
+    /**
+     * 学生得到问卷问题
+     *
+     * @return 返回问卷问题
+     */
+    public AccountDto getQuiz()
+    {
+        // 得到问卷
+        List<Map<String, Object>> quizes = quizDao.getQuiz();
+        if (quizes == null)
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        QuizDetail quizDetail = new QuizDetail();
+        quizDetail.setQuizDetailId((Integer) quizes.get(0).get("quiz_detail_id"));
+        quizDetail.setUsed(!"0".equals(quizes.get(0).get("is_used")));
+
+        List<String> questions = new ArrayList<>();
+        for (Map<String, Object> map : quizes)
+        {
+            questions.add((String) map.get("question"));
+        }
+        quizDetail.setQuestions(questions);
+
+        return new AccountDto<>(quizDetail, Common.SUCCESS);
     }
 }

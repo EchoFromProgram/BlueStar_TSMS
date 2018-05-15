@@ -1,51 +1,60 @@
 package entity;
+
+import java.util.List;
+
 /**
  * 详细问卷内容，对应quiz_detail表
- * @author happyChicken
  *
+ * @author happyChicken
  */
-public class QuizDetail {
-	
-	// 问卷id
-	private Integer quizDetailId;
-	
-	// 问题1
-	private String question1;
-	
-	private String question2;
+public class QuizDetail
+{
+    // 问卷id
+    private Integer quizDetailId;
 
-	
-	
-	public String getQuestion1() {
-		return question1;
-	}
+    // 是否被使用
+    private boolean isUsed = false;
 
-	public void setQuestion1(String question1) {
-		this.question1 = question1;
-	}
+    // 问题
+    private List<String> questions = null;
 
-	public String getQuestion2() {
-		return question2;
-	}
+    public Integer getQuizDetailId()
+    {
+        return quizDetailId;
+    }
 
-	public void setQuestion2(String question2) {
-		this.question2 = question2;
-	}
+    public void setQuizDetailId(Integer quizDetailId)
+    {
+        this.quizDetailId = quizDetailId;
+    }
 
+    public boolean isUsed()
+    {
+        return isUsed;
+    }
 
-	public Integer getQuizDetailId() {
-		return quizDetailId;
-	}
+    public void setUsed(boolean used)
+    {
+        isUsed = used;
+    }
 
-	public void setQuizDetailId(Integer quizDetailId) {
-		this.quizDetailId = quizDetailId;
-	}
+    public List<String> getQuestions()
+    {
+        return questions;
+    }
 
-	@Override
-	public String toString() {
-		return "QuizDetail [quizDetailId=" + quizDetailId + ", question1=" + question1 + ", question2=" + question2
-				+ "]";
-	}
+    public void setQuestions(List<String> questions)
+    {
+        this.questions = questions;
+    }
 
-	
+    @Override
+    public String toString()
+    {
+        return "QuizDetail{" +
+                "quizDetailId=" + quizDetailId +
+                ", isUsed=" + isUsed +
+                ", questions=" + questions +
+                '}';
+    }
 }

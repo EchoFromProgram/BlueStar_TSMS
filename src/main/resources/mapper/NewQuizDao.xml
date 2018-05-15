@@ -4,14 +4,63 @@
 
 <!-- 问卷 dao -->
 <mapper namespace="dao.NewQuizDao">
+    <sql id="quiz_columns">
+        `quiz_id`, `class_id`, `user_id`, `course_id`, `date`, `quiz_detail_id`
+    </sql>
+
+    <sql id="quiz_detail">
+        SELECT
+            qd.quiz_detail_id,
+            qd.is_used,
+            qq.question
+        FROM quiz_detail qd INNER JOIN quiz_question qq ON qd.quiz_detail_id = qq.quiz_detail_id
+    </sql>
+
     <select id="getQuizByUserIdOrCourseId" resultType="entity.Quiz">
-        SELECT `quiz_id`, `class_id`, `user_id`, `course_id`, `date`, `quiz_detail_id`
-        FROM quiz WHERE user_id = #{userId}
-        <set> <!-- 如果有 courseId，就加上 -->
-            <if test="#{courseId} != null">
+        SELECT <include refid="quiz_columns" />
+        FROM quiz
+        <where>
+            <if test="1">
+                user_id = #{userId}
+            </if>
+            <if test="courseId != null"><!-- 如果有 courseId，就加上 -->
                 AND course_id = #{courseId}
             </if>
-        </set>
+        </where>
     </select>
 
+    <select id="getQuestionsByQuizDetailId" resultType="string">
+        SELECT question
+        FROM quiz_question
+        WHERE quiz_detail_id = #{quizDetailId}
+    </select>
+
+    <select id="getAnswersByQuizId" resultType="string">
+        SELECT quiz_answer
+        FROM quiz_answer
+        WHERE quiz_id = #{quizId}
+    </select>
+
+    <select id="getQuizByClassIdOrCourseId" resultType="entity.Quiz">
+        SELECT <include refid="quiz_columns" />
+        FROM quiz
+        <where>
+            1 = 1
+            <if test="classId != null">
+                AND class_id = #{classId}
+            </if>
+            <if test="courseId != null">
+                AND course_id = #{courseId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getQuizs" resultType="java.util.Map">
+        <include refid="quiz_detail" />
+    </select>
+
+    <select id="getQuiz" resultType="java.util.Map">
+        <include refid="quiz_detail"/>
+        WHERE qd.is_used = 1;
+    </select>
 </mapper>
