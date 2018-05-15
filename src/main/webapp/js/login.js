@@ -40,9 +40,9 @@ function submitData() {
         success: function(data){
             if(0 == data.code)
             {
-            	$.cookie('userData', data.data.user.userId);
-            	$.cookie('infoId', data.data.user.infoId);
-            	$.cookie('typeId', data.data.user.typeId);
+            	$.cookie('userData', data.data.user.user_id);
+            	$.cookie('infoId', data.data.user.info_id);
+            	$.cookie('typeId', data.data.user.type_id);
             	$.cookie('name', data.data.user.name);
                 window.location.href="index.do";
             }
