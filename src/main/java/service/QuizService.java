@@ -32,4 +32,11 @@ public interface QuizService
      * @return 返回这个班级的所有问卷
      */
     public AccountDto getQuizsByClassAndCourse(Integer pageNumber, Integer classId, Integer courseId);
+
+    /**
+     * 学生得到问卷问题
+     *
+     * @return 返回问卷问题
+     */
+    public AccountDto getQuiz();
 }

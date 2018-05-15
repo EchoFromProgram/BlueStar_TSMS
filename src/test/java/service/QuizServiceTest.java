@@ -35,4 +35,10 @@ public class QuizServiceTest
         Integer courseId = null;
         System.out.println(quizService.getQuizsByClassAndCourse(1, classId, courseId));
     }
+
+    @Test
+    public void testGetQuiz()
+    {
+        System.out.println(quizService.getQuiz());
+    }
 }

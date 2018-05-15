@@ -3,13 +3,16 @@ package service.impl;
 import dao.NewQuizDao;
 import dto.AccountDto;
 import entity.Quiz;
+import entity.QuizDetail;
 import enums.impl.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.QuizService;
 import utils.PageUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 问卷业务实现类
@@ -93,9 +96,31 @@ public class QuizServiceImpl implements QuizService
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }
 
-    public AccountDto getQuiz(Integer role)
+    /**
+     * 学生得到问卷问题
+     *
+     * @return 返回问卷问题
+     */
+    public AccountDto getQuiz()
     {
+        // 得到问卷
+        List<Map<String, Object>> quizes = quizDao.getQuiz();
+        if (quizes == null)
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
 
-        return null;
+        QuizDetail quizDetail = new QuizDetail();
+        quizDetail.setQuizDetailId((Integer) quizes.get(0).get("quiz_detail_id"));
+        quizDetail.setUsed(!"0".equals(quizes.get(0).get("is_used")));
+
+        List<String> questions = new ArrayList<>();
+        for (Map<String, Object> map : quizes)
+        {
+            questions.add((String) map.get("question"));
+        }
+        quizDetail.setQuestions(questions);
+
+        return new AccountDto<>(quizDetail, Common.SUCCESS);
     }
 }
