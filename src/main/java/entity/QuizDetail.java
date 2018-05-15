@@ -9,22 +9,14 @@ import java.util.List;
  */
 public class QuizDetail
 {
-
     // 问卷id
     private Integer quizDetailId;
 
-    // 问题1
+    // 是否被使用
+    private boolean isUsed = false;
+
+    // 问题
     private List<String> questions = null;
-
-    public List<String> getQuestions()
-    {
-        return questions;
-    }
-
-    public void setQuestions(List<String> questions)
-    {
-        this.questions = questions;
-    }
 
     public Integer getQuizDetailId()
     {
@@ -36,11 +28,32 @@ public class QuizDetail
         this.quizDetailId = quizDetailId;
     }
 
+    public boolean isUsed()
+    {
+        return isUsed;
+    }
+
+    public void setUsed(boolean used)
+    {
+        isUsed = used;
+    }
+
+    public List<String> getQuestions()
+    {
+        return questions;
+    }
+
+    public void setQuestions(List<String> questions)
+    {
+        this.questions = questions;
+    }
+
     @Override
     public String toString()
     {
         return "QuizDetail{" +
                 "quizDetailId=" + quizDetailId +
+                ", isUsed=" + isUsed +
                 ", questions=" + questions +
                 '}';
     }

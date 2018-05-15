@@ -95,7 +95,7 @@ public class QuizServiceImpl implements QuizService
 
     public AccountDto getQuiz(Integer role)
     {
-        
+
         return null;
     }
 }
