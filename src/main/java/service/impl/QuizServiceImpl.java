@@ -92,4 +92,10 @@ public class QuizServiceImpl implements QuizService
         }
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }
+
+    public AccountDto getQuiz(Integer role)
+    {
+        
+        return null;
+    }
 }
