@@ -43,7 +43,12 @@
 		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
 		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title"
 		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
-		WHERE n.class_id = #{classId}
+		WHERE n.class_id = #{classId} OR n.class_id = 0
+	</select>
+	
+	<!-- 根据具体通知id得到具体通知 -->
+	<select id="getNoticeDetailByNoticeDetailId" resultType="entity.NoticeDetail">
+		SELECT notice_detail_id, content, title FROM notice_detail WHERE notice_detail_id = #{noticeDetailId}
 	</select>
 	
 	<!-- 根据用户id得到通知 -->
@@ -66,5 +71,12 @@
 		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title"
 		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
 	</select>
+	
+	<!-- 得到所有的具体通知 -->
+	<select id="getAllNoticeDetails" resultType="entity.NoticeDetail">
+		SELECT notice_detail_id, content, title FROM notice_detail 
+	</select>
+	
+	
 
 </mapper>

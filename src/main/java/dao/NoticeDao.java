@@ -56,7 +56,12 @@ public interface NoticeDao {
 	 */
 	public List<Notice> getNoticesByUserId(Integer userId);
 	
-
+	/**
+	 * 根据具体通知id得到具体通知内容
+	 * @param noticeDetailId 具体通知id
+	 * @return 一则具体通知
+	 */
+	public NoticeDetail getNoticeDetailByNoticeDetailId(Integer noticeDetailId);
 	
 	/**
 	 * 删除通知和通知具体信息
@@ -67,7 +72,13 @@ public interface NoticeDao {
 	
 	/**
 	 * 得到所有的通知
-	 * @return
+	 * @return 通知集合
 	 */
 	public List<Notice> getAllNotices();
+	
+	/**
+	 * 得到所有的具体通知
+	 * @return 具体通知集合
+	 */
+	public List<NoticeDetail> getAllNoticeDetails();
 }
