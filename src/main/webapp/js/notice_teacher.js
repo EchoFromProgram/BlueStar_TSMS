@@ -170,6 +170,7 @@ function delete_notice(){
 	    data:{"noticeId":$(this).attr("delete-prop")},
 	    success: function(data){
 	        alert(data.info);
+	        window.location.reload();
 	    },
 	    error:function () {
 	        alert("网络错误");

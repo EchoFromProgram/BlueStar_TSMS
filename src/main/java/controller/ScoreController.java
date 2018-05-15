@@ -41,6 +41,6 @@ public class ScoreController {
 	@RequestMapping(path = "student_get_score.do", produces = {"application/json;charset=UTF8"})
 	public Object studentGetScore(Integer page, Integer userId) {
 		AccountDto accountDto = scoreService.getScoresByUserId(page, userId);
-		return accountDto;
+		return accountDto.getData();
 	}
 }
