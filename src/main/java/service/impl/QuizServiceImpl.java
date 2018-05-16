@@ -105,8 +105,6 @@ public class QuizServiceImpl implements QuizService
         {
             quiz.setQuestions(quizDao.getQuestionsByQuizDetailId(quiz.getQuizDetailId()));
             quiz.setAnswers(quizDao.getAnswersByQuizId(quiz.getQuizId()));
-
-            System.out.println(quiz);
         }
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }
@@ -185,7 +183,7 @@ public class QuizServiceImpl implements QuizService
      * @param quiz 填写的问卷
      * @return 返回是否填写成功
      */
-    public AccountDto writeQuiz(Quiz quiz) // TODO 需要加入事务管理
+    public AccountDto writeQuiz(Quiz quiz)
     {
         if (quiz == null || quiz.getUserId() == null
                 || quiz.getClassId() == null || quiz.getCourseId() == null)
@@ -196,7 +194,7 @@ public class QuizServiceImpl implements QuizService
 
         quiz.setDate(new Date()); // 填写时间
         int affect = quizDao.insertQuiz(quiz); // 可以获得 quiz_id
-        if (affect >= 0) // 由于未知错误，插入失败
+        if (affect <= 0) // 由于未知错误，插入失败
         {
             return new AccountDto(Common.ERROR);
         }
@@ -220,7 +218,7 @@ public class QuizServiceImpl implements QuizService
      * @param quizDetail 要发布的问卷
      * @return 返回是否发布成功
      */
-    public AccountDto publishQuiz(QuizDetail quizDetail) // TODO 需要加入事务管理
+    public AccountDto publishQuiz(QuizDetail quizDetail)
     {
         if (quizDetail == null || quizDetail.getQuestions() == null)
         {
