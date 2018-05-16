@@ -16,7 +16,7 @@ public class QuizDetail
     private boolean isUsed = false;
 
     // 问题
-    private List<String> questions = null;
+    private List<QuizQuestion> questions = null;
 
     public Integer getQuizDetailId()
     {
@@ -38,12 +38,12 @@ public class QuizDetail
         isUsed = used;
     }
 
-    public List<String> getQuestions()
+    public List<QuizQuestion> getQuestions()
     {
         return questions;
     }
 
-    public void setQuestions(List<String> questions)
+    public void setQuestions(List<QuizQuestion> questions)
     {
         this.questions = questions;
     }

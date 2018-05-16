@@ -33,7 +33,7 @@ public class Quiz
     //问卷内容
     private Integer quizDetailId;
 
-    public int getQuizId()
+    public Integer getQuizId()
     {
         return quizId;
     }
@@ -43,7 +43,7 @@ public class Quiz
         this.quizId = quizId;
     }
 
-    public int getClassId()
+    public Integer getClassId()
     {
         return classId;
     }
@@ -53,7 +53,7 @@ public class Quiz
         this.classId = classId;
     }
 
-    public int getUserId()
+    public Integer getUserId()
     {
         return userId;
     }
@@ -63,7 +63,7 @@ public class Quiz
         this.userId = userId;
     }
 
-    public int getCourseId()
+    public Integer getCourseId()
     {
         return courseId;
     }

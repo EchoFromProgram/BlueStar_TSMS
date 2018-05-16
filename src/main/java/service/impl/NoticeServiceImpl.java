@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import service.NoticeService;
 import utils.PageUtil;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -160,6 +161,8 @@ public class NoticeServiceImpl implements NoticeService
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
+        //发布时间
+        noticeDetail.setDate(new Date());
         int num = noticeDao.insertNoticeDetail(noticeDetail);
         //如果不是1，则插入失败
         if(num != 1) 

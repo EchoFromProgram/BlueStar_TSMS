@@ -6,13 +6,13 @@
 
 	<!-- 插入一条具体通知，并返回自增主键 -->
 	<insert id="insertNoticeDetail" useGeneratedKeys="true" keyProperty="noticeDetailId">
-		INSERT INTO notice_detail(content,title) VALUES(#{content},#{title})
+		INSERT INTO notice_detail(content,title,date) VALUES(#{content},#{title},#{date})
 	</insert>
 	
 	<!-- 插入一条通知，并返回自增主键 -->
 	<insert id="insertNotice" useGeneratedKeys="true" keyProperty="noticeId">
-		INSERT INTO notice(class_id, user_id, course_id, date, notice_detail_id) 
-		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{noticeDetailId})
+		INSERT INTO notice(class_id, user_id, notice_detail_id) 
+		VALUES(#{classId}, #{userId}, #{noticeDetailId})
 	</insert>
 	
 	<!-- 通过班级id和具体通知id更新具体通知 -->
@@ -21,8 +21,6 @@
 		<set>
 		  <if test="classId != null">class_Id= #{classId},</if>
 		  <if test="userId != null">user_id = #{userId},</if>
-		  <if test="courseId != null">course_id = #{courseId},</if>
-		  <if test="date != null">date = #{date},</if>
 		  <if test="noticeDetailId != null">notice_detail_id = #{noticeDetailId},</if>
  		</set>
  		WHERE class_id = #{classId} AND notice_detail_id = #{noticeDetailId}
@@ -40,21 +38,21 @@
 	
 	<!-- 根据班级id得到通知 -->
 	<select id="getNoticesByClassId" resultType="entity.Notice">
-		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
-		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title"
+		SELECT n.notice_id, n.class_id, n.user_id, n.notice_detail_id,
+		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title", nd.date "noticeDetail.date"
 		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
 		WHERE n.class_id = #{classId} OR n.class_id = 0
 	</select>
 	
 	<!-- 根据具体通知id得到具体通知 -->
 	<select id="getNoticeDetailByNoticeDetailId" resultType="entity.NoticeDetail">
-		SELECT notice_detail_id, content, title FROM notice_detail WHERE notice_detail_id = #{noticeDetailId}
+		SELECT notice_detail_id, content, title, date FROM notice_detail WHERE notice_detail_id = #{noticeDetailId}
 	</select>
 	
 	<!-- 根据用户id得到通知 -->
 	<select id="getNoticesByUserId" resultType="entity.Notice">
-		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
-		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title"
+		SELECT n.notice_id, n.class_id, n.user_id, n.notice_detail_id,
+		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title", nd.date "noticeDetail.date"
 		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
 		WHERE n.user_id = #{userId}
 	</select>
@@ -67,14 +65,14 @@
 	
 	<!-- 得到所有的通知 -->
 	<select id="getAllNotices" resultType="entity.Notice">
-		SELECT n.notice_id, n.class_id, n.user_id, n.course_id, n.date, n.notice_detail_id,
-		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title"
+		SELECT n.notice_id, n.class_id, n.user_id, n.notice_detail_id,
+		nd.notice_detail_id as "noticeDetail.noticeDetailId" ,nd.content as "noticeDetail.content", nd.title "noticeDetail.title", nd.date "noticeDetail.date"
 		FROM notice n INNER JOIN notice_detail nd ON n.notice_detail_id = nd.notice_detail_id
 	</select>
 	
 	<!-- 得到所有的具体通知 -->
 	<select id="getAllNoticeDetails" resultType="entity.NoticeDetail">
-		SELECT notice_detail_id, content, title FROM notice_detail 
+		SELECT notice_detail_id, content, title, date FROM notice_detail 
 	</select>
 	
 	

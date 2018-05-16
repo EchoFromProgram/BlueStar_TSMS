@@ -1,6 +1,8 @@
 package service;
 
 import dto.AccountDto;
+import entity.Quiz;
+import entity.QuizDetail;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,4 +41,42 @@ public interface QuizService
      * @return 返回问卷问题
      */
     public AccountDto getQuiz();
+
+    /**
+     * 管理员获得所有问卷
+     *
+     * @param pageNumber 页数
+     * @return 返回所有问卷, QuizDetail
+     */
+    public AccountDto getQuizes(Integer pageNumber);
+
+    /**
+     * 老师通过 userId 可以查到他的班级的学生的问卷
+     * userId 必须传
+     * 如果 courseId == null，就是课程
+     *
+     * @param pageNumber 页数
+     * @param userId     用户 id
+     * @param courseId   课程 id
+     * @return 返回问卷信息
+     */
+    public AccountDto getQuizByClassIdAndCourseId(Integer pageNumber, Integer userId, Integer courseId);
+
+    /**
+     * 填写问卷
+     * 需要给 quiz 传入 userId, classId, courseId 和 answers
+     *
+     * @param quiz 填写的问卷
+     * @return 返回是否填写成功
+     */
+    public AccountDto writeQuiz(Quiz quiz);
+
+    /**
+     * 发布问卷调查
+     * 必须传入 questions
+     *
+     * @param quizDetail 要发布的问卷
+     * @return 返回是否发布成功
+     */
+    public AccountDto publishQuiz(QuizDetail quizDetail);
 }

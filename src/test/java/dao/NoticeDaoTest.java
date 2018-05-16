@@ -23,8 +23,9 @@ public class NoticeDaoTest {
 	@Test
 	public void testInsertNoticeDetail() {
 		NoticeDetail noticeDetail = new NoticeDetail();
-		noticeDetail.setContent("放假啦");
-		noticeDetail.setTitle("关于放假");
+		noticeDetail.setContent("放假啦啦啦啦啦");
+		noticeDetail.setTitle("关于放假啦啦啦啦");
+		noticeDetail.setDate(new Date());
 		int num = noticeDao.insertNoticeDetail(noticeDetail);
 		System.out.println(noticeDetail.getNoticeDetailId());
 	}
@@ -32,8 +33,6 @@ public class NoticeDaoTest {
 	@Test
 	public void testInsertNotice() {
 		Notice notice = new Notice();
-		notice.setCourseId(1);
-		notice.setDate(new Date());
 		notice.setNoticeDetailId(1);
 		notice.setUserId(1);
 		notice.setClassId(1);
@@ -45,8 +44,6 @@ public class NoticeDaoTest {
 	public void testUpdateNoticeByClassIdAndNoticeDetailId() {
 		//问题，userId对应多条记录
 		Notice notice = new Notice();
-		notice.setCourseId(3);
-		notice.setDate(new Date());
 		notice.setNoticeDetailId(1);
 		notice.setUserId(1);
 		notice.setClassId(2);
@@ -56,7 +53,7 @@ public class NoticeDaoTest {
 	@Test
 	public void testUpdateNoticeDetailByNoticeDetailId() {
 		NoticeDetail noticeDetail = new NoticeDetail();
-		noticeDetail.setContent("后天上课");
+		noticeDetail.setContent("后天上课噢");
 		noticeDetail.setTitle("上课通知");
 		noticeDetail.setNoticeDetailId(2);
 		noticeDao.updateNoticeDetailByNoticeDetailId(noticeDetail);
@@ -91,7 +88,8 @@ public class NoticeDaoTest {
 	
 	@Test
 	public void getbyDetailId() {
-		
+		List<NoticeDetail> list = noticeDao.getAllNoticeDetails();
+		System.out.println(list);
 		
 	}
 }
