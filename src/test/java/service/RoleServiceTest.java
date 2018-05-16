@@ -29,19 +29,15 @@ public class RoleServiceTest {
 	
 	@Test
 	public void test() {
-////		Role role = new Role();
-////		role.setRole("测试");
+//		Role role = new Role();
+//		role.setRole("3333");
 //		List<Integer> list = new ArrayList<>();
-//		list.add(5);
-//		list.add(6);
-//		List<PowerId> powerIds = ListUtil.integers2Powers(list);
+//		list.add(4);
+//		list.add(8);
 //		RolePower rolePower = new RolePower();
-//		rolePower.setPowerIds(powerIds);
-////		roleService.insertRole(role, rolePower);
-//		rolePower.setRoleId(6);
-//		roleService.updateRole(rolePower);
-		
-		roleService.deleteRole(6);
+//		rolePower.setPowerIds(list);
+//		roleService.insertRole(role, rolePower);
+	
 		
 	}
 
