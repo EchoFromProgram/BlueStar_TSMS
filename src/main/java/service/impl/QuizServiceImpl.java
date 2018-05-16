@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import service.QuizService;
 import utils.PageUtil;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -166,12 +165,13 @@ public class QuizServiceImpl implements QuizService
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-        PageUtil.toPage(pageNumber);
-        List<Quiz> quizzes = null; //quizDao.getQuizByHisClassIdOrCourseId(userId, courseId);
+        //PageUtil.toPage(pageNumber);
+        List<Map<String, Object>> quizzes = quizDao.getQuizByHisClassIdOrCourseId(userId, courseId);
         if (quizzes == null) // 没有得到数据
         {
             return new AccountDto(Common.GET_IS_NULL);
         }
+        System.out.println(quizzes);
 
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }
@@ -196,6 +196,7 @@ public class QuizServiceImpl implements QuizService
         int affect = quizDao.insertQuiz(quiz); // 可以获得 quiz_id
         if (affect <= 0) // 由于未知错误，插入失败
         {
+            logger.warn("insertQuiz...err...");
             return new AccountDto(Common.ERROR);
         }
 
@@ -230,6 +231,7 @@ public class QuizServiceImpl implements QuizService
         int affect = quizDao.insertQuizDetail(quizDetail);
         if (affect <= 0) // 内部错误
         {
+            logger.warn("insertQuizDetail...err...");
             return new AccountDto(Common.ERROR);
         }
 

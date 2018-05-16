@@ -73,7 +73,23 @@
     </select>
 
     <select id="getQuizByHisClassIdOrCourseId" resultType="java.util.Map">
-        /* TODO sql 语句还没写 */
+        SELECT
+            q.quiz_id,
+            q.date,
+            q.quiz_detail_id,
+            c.class_name,
+            cr.course,
+            u.username
+        FROM quiz q, class c, course cr, `user` u
+        WHERE q.class_id IN (SELECT uc.class_id
+                             FROM user_class uc
+        <where>
+            uc.user_id = #{userId})
+            <if test="courseId != null">
+                AND q.course_id = #{courseId}
+            </if>
+        </where>
+              AND q.class_id = c.class_id AND q.course_id = cr.course_id AND q.user_id = u.user_id
     </select>
 
     <insert id="insertQuiz" useGeneratedKeys="true" keyProperty="quizId">
