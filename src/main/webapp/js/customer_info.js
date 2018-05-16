@@ -1,4 +1,5 @@
 $(function(){
+	//获取省
 	getProvince();
 	$.ajax({
 		url:"get_customer_info.do",
@@ -14,17 +15,17 @@ $(function(){
 			$("#tel-display").html(data.data.telephone);
 			$("#mail-display").html(data.data.email);
 			$("#info-update-ID-input").val(data.data.identityNum);
-			//$("#province-select").val(data.data.province);
-			//$("#city-select").val(data.data.city);
-			//$("#school-select").val(data.data.school);
 			$("#info-update-grade-input").val(data.data.gradeMajor);
 			$("#info-update-qq-input").val(data.data.qq);
 			$("#info-update-tel-input").val(data.data.telephone);
 			$("#info-update-mail-input").val(data.data.email);
+			//给已经选择的省selected
 			$('#province-select option').filter(function(){return $(this).text()==data.data.province}).attr("selected",true);
 			getCity();
+			//给已经选择的城市selected
 			$('#city-select option').filter(function(){return $(this).text()==data.data.city}).attr("selected",true);
 			getSchool();
+			//给已经选择的学校selected
 			$('#school-select option').filter(function(){return $(this).text()==data.data.school}).attr("selected",true);
 		},
 		error:function () {
@@ -32,13 +33,13 @@ $(function(){
         }
 	});
 });
-//$("#select_id option[value='广州市']").attr("selected", true);
 
 
 function setCustomerInfo(){
 	$.ajax({
 		url:"update_customer_info.do",
 		type:"POST",
+		async : false,
 		data:{
 			"infoId":$.cookie("infoId"),
 			"identityNum":$("#info-update-ID-input").val(),
@@ -131,13 +132,8 @@ function getSchool(){
       }
   });
 }
-$("#city-select").change(
-  getSchool
-);
+$("#city-select").change(getSchool);
 
-$("#update-customer-info").click(
-	setCustomerInfo
-);
 
 
 

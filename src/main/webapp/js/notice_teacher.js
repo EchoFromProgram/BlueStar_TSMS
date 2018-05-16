@@ -37,16 +37,16 @@ function build_table(data) {
                     '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-'+ item.noticeId +'">'+
                         item.noticeDetail.title +
                     '</a>'+
-                    '<div id="accordion-element-notice-'+ item.noticeId +'" class="accordion-body collapse">'+
+                    '<div id="accordion-element-notice-'+ item.noticeDetailId +'" class="accordion-body collapse">'+
                         '<h4 class="accordion-inner">'+
                             item.noticeDetail.content +
                         '</h4>'+
                     '</div>'+
                     '<!-- 通知删除模块 -->'+
-                    '<button href="#modal-notice-delete-'+ item.noticeId +'" role="button" class="btn btn-danger pull-right" data-toggle="modal">'+
+                    '<button href="#modal-notice-delete-'+ item.noticeDetailId +'" role="button" class="btn btn-danger pull-right" data-toggle="modal">'+
                         '删除'+
                     '</button>'+
-                    '<div class="modal fade" id="modal-notice-delete-'+ item.noticeId +'" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+                    '<div class="modal fade" id="modal-notice-delete-'+ item.noticeDetailId +'" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
                         '<div class="modal-dialog">'+
                             '<div class="modal-content">'+
                                 '<div class="modal-header">'+
@@ -56,16 +56,16 @@ function build_table(data) {
                                     '</h4>'+
                                 '</div>'+
                                 '<div class="modal-footer">'+
-                                    '<button class="btn btn-danger" delete-prop="'+ item.noticeId +'">删除</button>'+
+                                    '<button class="btn btn-danger delete-table-button" delete-prop="'+ item.noticeDetailId +'">删除</button>'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
                     '</div>'+
                     '<!-- 通知修改模块 -->'+
-                    '<button href="#modal-container-pub-'+ item.noticeId +'" role="button" data-toggle="modal" class="btn btn-info pull-right">'+
+                    '<button href="#modal-container-pub-'+ item.noticeDetailId +'" role="button" data-toggle="modal" class="btn btn-info pull-right">'+
                         '修改'+
                     '</button>'+
-                    '<div class="modal fade" id="modal-container-pub-'+ item.noticeId +'" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+                    '<div class="modal fade" id="modal-container-pub-'+ item.noticeDetailId +'" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
                         '<div class="modal-dialog">'+
                             '<div class="modal-content">'+
                                 '<div class="modal-header">'+
@@ -82,7 +82,7 @@ function build_table(data) {
                                     '</div>'+
                                 '</div>'+
                                 '<div class="modal-footer">'+
-                                    '<button class="btn btn-danger" update-prop="'+ item.noticeId +'">修改</button>'+
+                                    '<button class="btn btn-danger update-table-button" update-prop="'+ item.noticeDetailId +'">修改</button>'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
@@ -90,8 +90,8 @@ function build_table(data) {
                 '</h3>'+
             '</div>'+'<br>'
     	);
-    	
     })
+    $(".delete-table-button").click(delete_notice);
 }
 
 //解析显示分页文字
@@ -160,6 +160,22 @@ function buile_page_nav(data) {
     ul.append(nextPageLi).append(lastPageLi);
 
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
+}
+
+function delete_notice(){
+	$.ajax({
+	    url:"delete_notice.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"noticeId":$(this).attr("delete-prop")},
+	    success: function(data){
+	        alert(data.info);
+	        window.location.reload();
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
 }
 
 

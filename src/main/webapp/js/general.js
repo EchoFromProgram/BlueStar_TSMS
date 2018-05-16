@@ -87,4 +87,13 @@ function dateFormat(date) {
     var d = date.getDate();  
     d = d < 10 ? ('0' + d) : d;  
     return y + '-' + m + '-' + d;  
-}; 
+};
+
+//注销功能
+$("#logout").click(function(){
+	$.cookie('userData', null);
+	$.cookie('infoId', null);
+	$.cookie('typeId', null);
+	$.cookie('name', null);
+    window.location.href="login.do";
+});

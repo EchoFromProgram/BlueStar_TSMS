@@ -38,7 +38,7 @@
                     <span class="" id="username">Mackyhuang</span>
                     <span class="">，欢迎您</span></a></li>
                 <li><a href="customer_info.do">个人资料</a></li>
-                <li><a href="#">注销</a></li>
+                <li><a href="#" id="logout">注销</a></li>
                 <li><a href="#">帮助</a></li>
             </ul>
         </div>
@@ -63,17 +63,20 @@
             <div class="col-sm-12 col-md-12 row-fluid">
                 <div class="span8">
                     <!-- 成绩表格 -->
-                    <table class="table table-responsive table-striped">
+                    <table class="table table-responsive table-striped" id="student-score-table">
                         <thead>
                             <tr>
                                 <th>
-                                    编号
+                                    班级
                                 </th>
                                 <th>
-                                    科目
+                                   姓名
                                 </th>
                                 <th>
                                     日期
+                                </th>
+                                <th>
+                                    阶段
                                 </th>
                                 <th>
                                     成绩
@@ -81,20 +84,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    java第三阶段实战
-                                </td>
-                                <td>
-                                    2018-05-01
-                                </td>
-                                <td>
-                                    100
-                                </td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -114,6 +104,6 @@
 <script src="./js/jquery.cookie.js"></script>
 <script src="./js/login.js"></script>
 <script src="./js/general.js"></script>
-
+<script src="./js/score_student.js"></script>
 </body>
 </html>

@@ -45,7 +45,7 @@ function build_table(data) {
         //创建td并朝里面追加内容
         var classId = $("<td></td>").append(item.className);
         var userId = $("<td></td>").append(item.name);
-        var courseId = $("<td></td>").append("java课程");
+        var courseId = $("<td></td>").append(item.course);
         var date = $("<td></td>").append(dateFormat(new Date(item.date)));
         var status = $("<td></td>");
         if(item.status == 0) {

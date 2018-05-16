@@ -53,4 +53,17 @@ public class NoticeController {
 		AccountDto accountDto = noticeService.getNotices(page);
 		return accountDto.getData();
 	}
+	
+	/**
+	 * 提供给教师和管理员，传相应的通知id然后删除通知
+	 * 
+	 * @param noticeId 
+	 * @return accountDto
+	 */
+	@ResponseBody
+	@RequestMapping(path = "delete_notice.do", produces = {"application/json;charset=UTF8"})
+	public Object deleteNotice(Integer noticeId) {
+		AccountDto accountDto = noticeService.deleteNoticeDetailAndNotice(noticeId);
+		return accountDto;
+	}
 }
