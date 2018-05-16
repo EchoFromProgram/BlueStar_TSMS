@@ -1,6 +1,8 @@
 package dao;
 
+import entity.QuizAnswer;
 import entity.Quiz;
+import entity.QuizDetail;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -22,5 +24,17 @@ public interface NewQuizDao
 
     public List<Quiz> getQuizByClassIdOrCourseId(@Param("classId") Integer classId, @Param("courseId") Integer courseId);
 
-    public List<Map<String, Object>> getQuiz();
+    public QuizDetail getQuiz();
+
+    public List<QuizDetail> getQuizes();
+
+    public List<Map<String, Object>> getQuizByHisClassIdOrCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+
+    public int insertQuiz(Quiz quiz);
+
+    public int insertQuizAnswer(QuizAnswer quizAnswer);
+
+    public int insertQuizDetail(QuizDetail quizDetail);
+
+    public int insertQuizQuestion(QuizDetail quizDetail);
 }

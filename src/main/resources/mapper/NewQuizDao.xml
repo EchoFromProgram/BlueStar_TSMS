@@ -16,6 +16,14 @@
         FROM quiz_detail qd INNER JOIN quiz_question qq ON qd.quiz_detail_id = qq.quiz_detail_id
     </sql>
 
+    <resultMap id="quiz_detail_map" type="entity.QuizDetail">
+        <id property="quizDetailId" column="quiz_detail_id" />
+        <result property="isUsed" column="is_used" />
+        <collection property="questions" ofType="entity.QuizQuestion">
+            <result property="question" column="question" />
+        </collection>
+    </resultMap>
+
     <select id="getQuizByUserIdOrCourseId" resultType="entity.Quiz">
         SELECT <include refid="quiz_columns" />
         FROM quiz
@@ -55,12 +63,42 @@
         </where>
     </select>
 
-    <select id="getQuizs" resultType="java.util.Map">
+    <select id="getQuizes" resultMap="quiz_detail_map">
         <include refid="quiz_detail" />
     </select>
 
-    <select id="getQuiz" resultType="java.util.Map">
+    <select id="getQuiz" resultMap="quiz_detail_map">
         <include refid="quiz_detail"/>
         WHERE qd.is_used = 1;
     </select>
+
+    <select id="getQuizByHisClassIdOrCourseId" resultType="java.util.Map">
+        /* TODO sql 语句还没写 */
+    </select>
+
+    <insert id="insertQuiz" useGeneratedKeys="true" keyProperty="quizId">
+        INSERT INTO quiz(class_id, user_id, course_id, date, quiz_detail_id)
+        VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{quizDetailId})
+    </insert>
+
+    <insert id="insertQuizAnswer">
+        INSERT INTO quiz_answer(quiz_answer, quiz_id)
+        VALUES
+        <foreach collection="quizAnswer.answers" item="quizAnswer" separator=",">
+            (#{quizAnswer}, #{quizId})
+        </foreach>
+    </insert>
+
+    <insert id="insertQuizDetail" useGeneratedKeys="true" keyProperty="quizDetailId">
+        INSERT INTO quiz_detail(quiz_create_date, quiz_update_date)
+        VALUES(NOW(), NOW())
+    </insert>
+
+    <insert id="insertQuizQuestion">
+        INSERT INTO quiz_question(quiz_question., quiz_detail_id)
+        VALUES
+        <foreach collection="quizDetail.questions" item="question" separator=",">
+            (#{question}, #{quizDetailId})
+        </foreach>
+    </insert>
 </mapper>
