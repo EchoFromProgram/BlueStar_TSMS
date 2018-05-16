@@ -69,7 +69,7 @@ public interface QuizService
      * @param quiz 填写的问卷
      * @return 返回是否填写成功
      */
-    public AccountDto writeQuiz(Quiz quiz) throws Exception;
+    public AccountDto writeQuiz(Quiz quiz);
 
     /**
      * 发布问卷调查

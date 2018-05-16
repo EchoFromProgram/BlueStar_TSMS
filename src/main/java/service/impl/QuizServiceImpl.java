@@ -185,7 +185,7 @@ public class QuizServiceImpl implements QuizService
      * @param quiz 填写的问卷
      * @return 返回是否填写成功
      */
-    public AccountDto writeQuiz(Quiz quiz) throws Exception // TODO 需要加入事务管理
+    public AccountDto writeQuiz(Quiz quiz) // TODO 需要加入事务管理
     {
         if (quiz == null || quiz.getUserId() == null
                 || quiz.getClassId() == null || quiz.getCourseId() == null)
