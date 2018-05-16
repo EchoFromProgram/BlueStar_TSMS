@@ -8,7 +8,17 @@ package entity;
  */
 public class QuizQuestion
 {
+    // 问题本身
     private String question = null;
+
+    public QuizQuestion()
+    {
+    }
+
+    public QuizQuestion(String question)
+    {
+        this.question = question;
+    }
 
     public String getQuestion()
     {

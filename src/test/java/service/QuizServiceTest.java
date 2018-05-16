@@ -3,6 +3,8 @@ package service;
 import com.github.pagehelper.PageInfo;
 import dto.AccountDto;
 import entity.Quiz;
+import entity.QuizDetail;
+import entity.QuizQuestion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +78,19 @@ public class QuizServiceTest
         quiz.setAnswers(answers);
 
         System.out.println(quizService.writeQuiz(quiz));
+    }
+
+    @Test
+    public void testPublishQuiz()
+    {
+        List<QuizQuestion> questions = new ArrayList<>();
+        questions.add(new QuizQuestion("您觉得还有什么上升空间？"));
+        questions.add(new QuizQuestion("中国的国土面积多大？"));
+        questions.add(new QuizQuestion("下课之后想干嘛？"));
+
+        QuizDetail quizDetail = new QuizDetail();
+        quizDetail.setQuestions(questions);
+
+        System.out.println(quizService.publishQuiz(quizDetail));
     }
 }

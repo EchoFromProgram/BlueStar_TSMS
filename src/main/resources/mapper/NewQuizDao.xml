@@ -90,15 +90,15 @@
     </insert>
 
     <insert id="insertQuizDetail" useGeneratedKeys="true" keyProperty="quizDetailId">
-        INSERT INTO quiz_detail(quiz_create_date, quiz_update_date)
-        VALUES(NOW(), NOW())
+        INSERT INTO quiz_detail(quiz_create_date, quiz_update_date, is_used)
+        VALUES(NOW(), NOW(), #{isUsed})
     </insert>
 
     <insert id="insertQuizQuestion">
-        INSERT INTO quiz_question(quiz_question., quiz_detail_id)
+        INSERT INTO quiz_question(question, quiz_detail_id)
         VALUES
-        <foreach collection="quizDetail.questions" item="question" separator=",">
-            (#{question}, #{quizDetailId})
+        <foreach collection="questions" item="question" separator=",">
+            (#{question.question}, #{quizDetailId})
         </foreach>
     </insert>
 </mapper>

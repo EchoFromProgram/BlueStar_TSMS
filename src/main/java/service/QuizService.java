@@ -2,6 +2,7 @@ package service;
 
 import dto.AccountDto;
 import entity.Quiz;
+import entity.QuizDetail;
 import org.springframework.stereotype.Service;
 
 /**
@@ -69,4 +70,13 @@ public interface QuizService
      * @return 返回是否填写成功
      */
     public AccountDto writeQuiz(Quiz quiz);
+
+    /**
+     * 发布问卷调查
+     * 必须传入 questions
+     *
+     * @param quizDetail 要发布的问卷
+     * @return 返回是否发布成功
+     */
+    public AccountDto publishQuiz(QuizDetail quizDetail);
 }
