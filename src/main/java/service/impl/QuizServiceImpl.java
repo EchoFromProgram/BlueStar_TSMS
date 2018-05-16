@@ -6,8 +6,12 @@ import entity.QuizAnswer;
 import entity.Quiz;
 import entity.QuizDetail;
 import enums.impl.Common;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import service.QuizService;
 import utils.PageUtil;
 
@@ -23,8 +27,17 @@ import java.util.Map;
  * created by 2018-05-15 15:10
  */
 @Service
+/*
+ * @Transactional中的的属性 propagation :事务的传播行为 isolation :事务的隔离级别 readOnly :只读
+ *                     rollbackFor :发生哪些异常回滚 noRollbackFor :发生哪些异常不回滚
+ *                     rollbackForClassName 根据异常类名回滚
+ */
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
 public class QuizServiceImpl implements QuizService
 {
+    // 记录日志
+    Logger logger = Logger.getLogger(this.getClass());
+
     private static NewQuizDao quizDao = null;
 
     @Autowired
@@ -172,7 +185,7 @@ public class QuizServiceImpl implements QuizService
      * @param quiz 填写的问卷
      * @return 返回是否填写成功
      */
-    public AccountDto writeQuiz(Quiz quiz) // TODO 需要加入事务管理
+    public AccountDto writeQuiz(Quiz quiz) throws Exception // TODO 需要加入事务管理
     {
         if (quiz == null || quiz.getUserId() == null
                 || quiz.getClassId() == null || quiz.getCourseId() == null)
@@ -183,7 +196,7 @@ public class QuizServiceImpl implements QuizService
 
         quiz.setDate(new Date()); // 填写时间
         int affect = quizDao.insertQuiz(quiz); // 可以获得 quiz_id
-        if (affect <= 0) // 由于未知错误，插入失败
+        if (affect >= 0) // 由于未知错误，插入失败
         {
             return new AccountDto(Common.ERROR);
         }
