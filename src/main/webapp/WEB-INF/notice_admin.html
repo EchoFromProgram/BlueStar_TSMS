@@ -121,7 +121,15 @@
                         <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-notice-2">
 
                             <h2 class="sub-header">发布通知</h2>
-                            <form class="form" onsubmit="return ">
+                            <form class="form" onsubmit="return addNotice()">
+                            	<div>
+                                    <label for="which-class" class="sr-only">类型</label>
+                                    <select class="form-control" id="which-class">
+                                    
+                                    </select>
+                                    <div class="line"></div>
+                                </div>
+                            
                                 <div class="form-group" id="notice-title">
                                     <label for="notcie-title-input" class="sr-only ">标题</label>
                                     <input type="text" id="notcie-title-input" class="form-control" placeholder="请输入通知的标题" required="" autofocus="">

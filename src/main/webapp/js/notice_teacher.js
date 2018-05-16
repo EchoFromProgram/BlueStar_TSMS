@@ -34,7 +34,7 @@ function build_table(data) {
     	$("#accordion-notice").append(
     			'<div class="accordion-group">' + 
                 '<h3 class="accordion-heading">' + 
-                    '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-'+ item.noticeId +'">'+
+                    '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-'+ item.noticeDetailId +'">'+
                         item.noticeDetail.title +
                     '</a>'+
                     '<div id="accordion-element-notice-'+ item.noticeDetailId +'" class="accordion-body collapse">'+
@@ -62,7 +62,7 @@ function build_table(data) {
                         '</div>'+
                     '</div>'+
                     '<!-- 通知修改模块 -->'+
-                    '<button href="#modal-container-pub-'+ item.noticeDetailId +'" role="button" data-toggle="modal" class="btn btn-info pull-right">'+
+                    '<button href="#modal-container-pub-'+ item.noticeDetailId +'" pre-prop="'+ item.noticeDetailId +'" data-toggle="modal" class="btn btn-info pull-right pre-update-button" >'+
                         '修改'+
                     '</button>'+
                     '<div class="modal fade" id="modal-container-pub-'+ item.noticeDetailId +'" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
@@ -75,9 +75,14 @@ function build_table(data) {
                                     '</h4>'+
                                 '</div>'+
                                 '<div class="modal-body">'+
+                                	'<div class="form-group">'+
+                                		'<label class="sr-only">标题</label>'+
+                                		'<textarea id="notcie-detail-update-title-'+ item.noticeDetailId +'" class="form-control" placeholder="请输入通知标题" required=""></textarea>'+
+                                		'<span class="help-block" id="update-notice-help-title-1"></span>'+
+                                	'</div>'+
                                     '<div class="form-group">'+
-                                        '<label for="notcie-detail-update-1" class="sr-only">内容</label>'+
-                                        '<textarea id="notcie-detail-update-1" class="form-control" placeholder="请输入通知具体内容" required=""></textarea>'+
+                                        '<label class="sr-only">内容</label>'+
+                                        '<textarea id="notcie-detail-update-'+ item.noticeDetailId +'" class="form-control" placeholder="请输入通知具体内容" required=""></textarea>'+
                                         '<span class="help-block" id="update-notice-help-1"></span>'+
                                     '</div>'+
                                 '</div>'+
@@ -92,6 +97,9 @@ function build_table(data) {
     	);
     })
     $(".delete-table-button").click(delete_notice);
+    $(".pre-update-button").click(get_notice_by_detailId);
+    $(".update-table-button").click(update_notice);
+    
 }
 
 //解析显示分页文字
@@ -162,6 +170,7 @@ function buile_page_nav(data) {
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
 
+//删除通知
 function delete_notice(){
 	$.ajax({
 	    url:"delete_notice.do",
@@ -178,5 +187,88 @@ function delete_notice(){
 	});
 }
 
+//点击修改后，将后台数据展示在前台，以便后面的修改
+function get_notice_by_detailId(){
+	var titleId = 'notcie-detail-update-title-'+ $(this).attr("pre-prop") +'';
+	var contentId = 'notcie-detail-update-'+ $(this).attr("pre-prop") +'';
+	$.ajax({
+	    url:"get_one_notice.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"noticeId":$(this).attr("pre-prop")},
+	    success: function(data){
+	        $("#" + titleId).val(data.data.title);
+	        $("#" + contentId).val(data.data.content);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}
+
+//获取班级列表
+$(function(){
+	$.ajax({
+		url:"getSessionHisClasses.do",
+		type:"POST",
+		success: function(data){
+			$("#which-class").empty();
+			$("#which-class").append('<option value="0">全部班级</option>');
+		    $.each(data,function(index, item){
+		        var option = $("<option></option>").append(item.className);
+		        option.attr("value", item.classId);
+		        option.appendTo("#which-class");
+		    });
+		    $("#which-class").change(function(){
+	        	getCourseByClass(this.value)
+	        });
+		},
+		error:function () {
+          alert("网络错误");
+      }
+	});
+});
+
+//更新通知
+function update_notice(){
+	var titleId = 'notcie-detail-update-title-'+ $(this).attr("update-prop") +'';
+	var contentId = 'notcie-detail-update-'+ $(this).attr("update-prop") +'';
+	$.ajax({
+	    url:"update_notice.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"noticeDetailId":$(this).attr("update-prop"), "content": $("#" + contentId).val(), "title":$("#" + titleId).val()},
+	    success: function(data){
+	        alert(data.info);
+	        window.location.reload();
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}
+
+//添加一条通知
+function addNotice(){
+	$.ajax({
+	    url:"add_notice.do",
+	    type:"POST",
+	    dataType:"json",
+	    async: false,
+	    data:{
+	    	"classId":$("#which-class").val(),
+	    	"userId":$.cookie('userData'), 
+	    	"title":$("#notcie-title-input").val(),
+	    	"content":$("#notcie-detail-input").val()
+	    	},
+	    success: function(data){
+	        alert(data.info);
+	        window.location.reload();
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}
 
 
