@@ -167,7 +167,7 @@ public class QuizServiceImpl implements QuizService
 
     /**
      * 填写问卷
-     * 需要给 quiz 传入 userId, classId, courseId 和 answers
+     * 需要给 quiz 传入 userId, classId, courseId, quizDetailId和 answers
      *
      * @param quiz 填写的问卷
      * @return 返回是否填写成功

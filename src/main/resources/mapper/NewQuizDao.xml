@@ -84,8 +84,8 @@
     <insert id="insertQuizAnswer">
         INSERT INTO quiz_answer(quiz_answer, quiz_id)
         VALUES
-        <foreach collection="quizAnswer.answers" item="quizAnswer" separator=",">
-            (#{quizAnswer}, #{quizId})
+        <foreach collection="answers" item="answer" separator=",">
+            (#{answer}, #{quizId})
         </foreach>
     </insert>
 
