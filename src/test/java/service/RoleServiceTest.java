@@ -1,4 +1,4 @@
-package dao;
+package service;
 
 import static org.junit.Assert.*;
 
@@ -11,31 +11,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+
+import dao.RoleDao;
+import dto.AccountDto;
 import entity.PowerId;
 import entity.Role;
 import entity.RolePower;
-import entity.RolePowerName;
 import utils.ListUtil;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/spring-dao.xml"})
-public class RoleDaoTest {
+@ContextConfiguration({
+        "classpath:spring/spring-dao.xml",
+        "classpath:spring/spring-service.xml"
+})
+public class RoleServiceTest {
 	@Autowired
-	private RoleDao roleDao;
+	private RoleService roleService;
+	
 	@Test
 	public void test() {
+////		Role role = new Role();
+////		role.setRole("测试");
 //		List<Integer> list = new ArrayList<>();
-//		list.add(1);
-//		list.add(2);
+//		list.add(5);
+//		list.add(6);
 //		List<PowerId> powerIds = ListUtil.integers2Powers(list);
 //		RolePower rolePower = new RolePower();
 //		rolePower.setPowerIds(powerIds);
-//		rolePower.setRoleId(4);
-//		roleDao.insertRolePower(rolePower);
-//		Role role = new Role();
-//		role.setRole("老师");
-//		roleDao.insertRole(role);
-//		System.out.println(role.getRoleId());
-		roleDao.deleteRole(4);
+////		roleService.insertRole(role, rolePower);
+//		rolePower.setRoleId(6);
+//		roleService.updateRole(rolePower);
+		
+		roleService.deleteRole(6);
+		
 	}
 
 }

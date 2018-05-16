@@ -10,6 +10,8 @@ import enums.impl.Common;
 import enums.impl.NoticeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import service.NoticeService;
 import utils.PageUtil;
 
@@ -155,6 +157,7 @@ public class NoticeServiceImpl implements NoticeService
 	 * @return 插入结果
 	 */
 	@Override
+	@Transactional
 	public AccountDto insertNotice(Notice notice, NoticeDetail noticeDetail) {
 		 // 如果参数为空，则返回参数错误
         if (notice == null || noticeDetail == null)

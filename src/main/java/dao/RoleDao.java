@@ -16,7 +16,7 @@ import entity.RolePowerName;
 public interface RoleDao {
 	
 	/**
-	 * 得到角色名已经所拥有的权限名
+	 * 得到角色名以及所拥有的权限名
 	 * @return
 	 */
 	public List<Role> getRolesPowerName();
@@ -37,14 +37,15 @@ public interface RoleDao {
 	
 	/**
 	 * 插入一个角色，新增一个角色第一步，需要返回roleId
-	 * @param role
+	 * @param role 角色类
 	 * @return 影响行数
 	 */
 	public Integer insertRole(Role role);
 	
 	/**
 	 * 联表删除一个角色以及对应的权限
+	 * @param roleId 角色id
 	 * @return 影响行数
 	 */
-	public Integer deleteRole();
+	public Integer deleteRole(Integer roleId);
 }
