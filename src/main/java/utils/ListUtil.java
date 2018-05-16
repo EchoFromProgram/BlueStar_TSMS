@@ -12,7 +12,7 @@ import java.util.List;
  * @author Fish
  * created by 2018-05-16 20:15
  */
-public class LLstUtil
+public class ListUtil
 {
     /**
      * 将一堆的 String 转成一堆的 QuizQuestion
@@ -31,14 +31,19 @@ public class LLstUtil
         return quizQuestions;
     }
     
-    public static List<PowerId> integers2Powers(List<String> list)
+    /**
+     * 讲int-> powerIds
+     * @param list int集合
+     * @return powerIds集合
+     */
+    public static List<PowerId> integers2Powers(List<Integer> list)
     {
-        List<QuizQuestion> quizQuestions = new ArrayList<>();
-        for (String s : list)
+        List<PowerId> powerIds = new ArrayList<>();
+        for (Integer i : list)
         {
-            quizQuestions.add(new QuizQuestion(s));
+            powerIds.add(new PowerId(i));
         }
 
-        return quizQuestions;
+        return powerIds;
     }
 }
