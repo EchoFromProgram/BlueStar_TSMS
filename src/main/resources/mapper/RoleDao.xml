@@ -20,9 +20,17 @@
         </collection>
 	</resultMap>
 
+	<!-- 根据角色id删除权限 -->
+	<delete id="deleteRolePowerByRoleId">
+		DELETE FROM role_power WHERE role_id = #{roleId}
+	</delete>
 
-
-
+	<insert id="insertRolePower">
+		INSERT INTO role_power(role_id, power_id) VALUES
+		<foreach collection="powerIds" item="powerId" separator=",">
+			(#{roleId}, #{powerId.powerId})
+		</foreach>
+	</insert>
 
 
 
