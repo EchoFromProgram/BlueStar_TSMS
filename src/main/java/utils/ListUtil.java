@@ -31,19 +31,19 @@ public class ListUtil
         return quizQuestions;
     }
     
-    /**
-     * 讲int-> powerIds
-     * @param list int集合
-     * @return powerIds集合
-     */
-    public static List<PowerId> integers2Powers(List<Integer> list)
-    {
-        List<PowerId> powerIds = new ArrayList<>();
-        for (Integer i : list)
-        {
-            powerIds.add(new PowerId(i));
-        }
-
-        return powerIds;
-    }
+//    /**
+//     * 讲int-> powerIds
+//     * @param list int集合
+//     * @return powerIds集合
+//     */
+//    public static List<PowerId> integers2Powers(List<Integer> list)
+//    {
+//        List<PowerId> powerIds = new ArrayList<>();
+//        for (Integer i : list)
+//        {
+//            powerIds.add(new PowerId(i));
+//        }
+//
+//        return powerIds;
+//    }
 }
