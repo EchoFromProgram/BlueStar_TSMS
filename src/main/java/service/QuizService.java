@@ -42,6 +42,14 @@ public interface QuizService
     public AccountDto getQuiz();
 
     /**
+     * 管理员获得所有问卷
+     *
+     * @param pageNumber 页数
+     * @return 返回所有问卷, QuizDetail
+     */
+    public AccountDto getQuizes(Integer pageNumber);
+
+    /**
      * 老师通过 userId 可以查到他的班级的学生的问卷
      * userId 必须传
      * 如果 courseId == null，就是课程
