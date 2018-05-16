@@ -41,4 +41,10 @@ public class QuizServiceTest
     {
         System.out.println(quizService.getQuiz());
     }
+
+    @Test
+    public void testGetQuizes()
+    {
+        System.out.println(quizService.getQuizes(1));
+    }
 }
