@@ -18,11 +18,6 @@ public class Notice {
 	// 用户id
 	private Integer userId;
 	
-	// 课程id
-	private Integer courseId;
-	
-	// 日期
-	private Date date;
 	
 	// 通知详情id
 	private Integer noticeDetailId;
@@ -54,21 +49,6 @@ public class Notice {
 		this.userId = userId;
 	}
 
-	public Integer getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
 
 	public Integer getNoticeDetailId() {
 		return noticeDetailId;
@@ -88,10 +68,11 @@ public class Notice {
 
 	@Override
 	public String toString() {
-		return "Notice [noticeId=" + noticeId + ", classId=" + classId + ", userId=" + userId + ", courseId=" + courseId
-				+ ", date=" + date + ", noticeDetailId=" + noticeDetailId + ", noticeDetail=" + noticeDetail + "]";
+		return "Notice [noticeId=" + noticeId + ", classId=" + classId + ", userId=" + userId + ", noticeDetailId="
+				+ noticeDetailId + ", noticeDetail=" + noticeDetail + "]";
 	}
 
+	
 	
 
 	
