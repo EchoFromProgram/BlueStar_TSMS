@@ -5,12 +5,16 @@ import dto.AccountDto;
 import entity.Score;
 import entity.ScoreData;
 import enums.impl.Common;
+import enums.impl.ScoreStatus;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.ScoreService;
 import utils.PageUtil;
 
 import java.util.List;
+
+import javax.print.attribute.standard.RequestingUserName;
 
 /**
  * 成绩业务实现类
@@ -202,18 +206,7 @@ public class ScoreServiceImpl implements ScoreService
         return new AccountDto<>(PageUtil.pageInfo(scores), Common.SUCCESS);
     }
 
-    /**
-     * 新增一条成绩 TODO
-     *
-     * @param score 分数
-     * @return 新增成绩的信息
-     */
-    @Override
-    public AccountDto insertScore(Score score)
-    {
-        return null;
-    }
-
+  
     /**
      * 通过 scoreId 更新数据
      *
@@ -226,7 +219,45 @@ public class ScoreServiceImpl implements ScoreService
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
-
-        return null; // TODO
+        int num = scoreDao.updateScoreByScoreId(score);
+        if(num <= 0 ) 
+        {
+        	return new AccountDto(ScoreStatus.UPDATE_ERROR);
+        }
+        return new AccountDto(Common.SUCCESS);
     }
+    
+    /**
+     * 批量插入成绩
+     * @param scores 成绩对象集合
+     * @return 插入结果
+     */
+	@Override
+	public AccountDto insertScores(List<Score> scores) {
+		if(scores == null || scores.size() == 0) {
+			return new AccountDto(Common.WRONG_ARGEMENT);
+		}
+		int num = scoreDao.insertScores(scores);
+		if(num <= 0) {
+			return new AccountDto(ScoreStatus.INSERT_ERROR);
+		}
+		return new AccountDto(Common.SUCCESS);
+	}
+	
+	 /**
+     * 删除成绩
+     * @param scoreId 成绩id
+     * @return 删除结果
+     */
+	@Override
+	public AccountDto deleteScore(Integer scoreId) {
+		if(scoreId == null) {
+			return new AccountDto(Common.WRONG_ARGEMENT);
+		}
+		int num = scoreDao.deleteScoreByScoreId(scoreId);
+		if(num <= 0) {
+			return new AccountDto(ScoreStatus.DELTE_ERROR);
+		}
+		return new AccountDto(Common.SUCCESS);
+	}
 }

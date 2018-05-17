@@ -79,10 +79,26 @@ public interface ScoreService
     public AccountDto getScoresByStatusAndHisClassId(Integer pageNumber, Integer userId, Integer status);
 
     /**
-     * 新增一条成绩
-     *
+     * 批量插入成绩
+     * @param scores
+     * @return
+     */
+    public AccountDto insertScores(List<Score> scores);
+    
+    /**
+     * 更新成绩
      * @param score
      * @return
      */
-    public AccountDto insertScore(Score score);
+    public AccountDto updateScore(Score score);
+    
+    /**
+     * 删除成绩
+     * @param scoreId
+     * @return
+     */
+    public AccountDto deleteScore(Integer scoreId);
+    
+    
+    
 }

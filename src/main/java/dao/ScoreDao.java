@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Param;
 
 import entity.Score;
 import entity.ScoreData;
+import entity.User;
 
 public interface ScoreDao {
 	
@@ -109,5 +110,19 @@ public interface ScoreDao {
 	 */
 	public Integer deleteScoreByScoreId(Integer scoreId);
 	
-																			
+	/**
+	 * 根据班级id得到用户
+	 * @param classId 班级id
+	 * @return 用户集合
+	 */
+	public List<User> getUsersByClassId(Integer classId);
+	
+	/**
+	 * 批量插入成绩
+	 * @param scores 成绩集合
+	 * @return 
+	 */
+	public Integer insertScores(@Param("scores")List<Score> scores);
+			
+	
 }

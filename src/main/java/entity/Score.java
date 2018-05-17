@@ -9,9 +9,24 @@ import java.util.Date;
 
 public class Score {
 	
+	public Score(Integer classId, Integer userId, Integer status, Date date, Integer score) {
+		super();
+		this.classId = classId;
+		this.userId = userId;
+		this.status = status;
+		this.date = date;
+		this.score = score;
+	}
+
+	public Score() {
+		super();
+	}
+	
 	//成绩id
 	private Integer scoreId;
 	
+	
+
 	//班级id
 	private Integer classId;
 	
