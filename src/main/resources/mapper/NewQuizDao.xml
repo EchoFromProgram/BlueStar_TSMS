@@ -35,6 +35,7 @@
                 AND course_id = #{courseId}
             </if>
         </where>
+        ORDER BY `date` DESC
     </select>
 
     <select id="getQuestionsByQuizDetailId" resultType="string">
@@ -61,10 +62,12 @@
                 AND course_id = #{courseId}
             </if>
         </where>
+        ORDER BY `date` DESC
     </select>
 
     <select id="getQuizes" resultMap="quiz_detail_map">
         <include refid="quiz_detail" />
+        ORDER BY qd.quiz_create_date DESC
     </select>
 
     <select id="getQuiz" resultMap="quiz_detail_map">
@@ -73,7 +76,25 @@
     </select>
 
     <select id="getQuizByHisClassIdOrCourseId" resultType="java.util.Map">
-        /* TODO sql 语句还没写 */
+        SELECT
+            q.quiz_id,
+            q.user_id,
+            q.date,
+            q.quiz_detail_id,
+            c.class_name,
+            cr.course,
+            u.username
+        FROM quiz q, class c, course cr, `user` u
+        WHERE q.class_id IN (SELECT uc.class_id
+                             FROM user_class uc
+        <where>
+            uc.user_id = #{userId})
+            <if test="courseId != null">
+                AND q.course_id = #{courseId}
+            </if>
+        </where>
+              AND q.class_id = c.class_id AND q.course_id = cr.course_id AND q.user_id = u.user_id
+        ORDER BY q.date DESC
     </select>
 
     <insert id="insertQuiz" useGeneratedKeys="true" keyProperty="quizId">

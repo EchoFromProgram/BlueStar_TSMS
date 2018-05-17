@@ -10,6 +10,8 @@ import enums.impl.Common;
 import enums.impl.NoticeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import service.NoticeService;
 import utils.PageUtil;
 
@@ -52,7 +54,7 @@ public class NoticeServiceImpl implements NoticeService
         List<Notice> notices = noticeDao.getNoticesByUserId(user.getUserId());
         if (notices == null) // 得到的是空数据
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
@@ -77,7 +79,7 @@ public class NoticeServiceImpl implements NoticeService
         List<Notice> notices = noticeDao.getNoticesByClassId(classId);
         if (notices == null) // 没有得到数据
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
@@ -101,7 +103,7 @@ public class NoticeServiceImpl implements NoticeService
         List<Notice> notices = noticeDao.getAllNotices();
         if (notices == null)
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
@@ -155,6 +157,7 @@ public class NoticeServiceImpl implements NoticeService
 	 * @return 插入结果
 	 */
 	@Override
+	@Transactional
 	public AccountDto insertNotice(Notice notice, NoticeDetail noticeDetail) {
 		 // 如果参数为空，则返回参数错误
         if (notice == null || noticeDetail == null)
@@ -195,7 +198,7 @@ public class NoticeServiceImpl implements NoticeService
         NoticeDetail noticeDetail = noticeDao.getNoticeDetailByNoticeDetailId(noticeDetailId);
         if (noticeDetail == null) // 没有得到数据
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(noticeDetail, Common.SUCCESS);
@@ -217,7 +220,7 @@ public class NoticeServiceImpl implements NoticeService
         List<NoticeDetail> noticeDetails = noticeDao.getAllNoticeDetails();
         if (noticeDetails == null)
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(noticeDetails), Common.SUCCESS);

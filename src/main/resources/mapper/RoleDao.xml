@@ -20,13 +20,29 @@
         </collection>
 	</resultMap>
 
+	<!-- 根据角色id删除权限 -->
+	<delete id="deleteRolePowerByRoleId">
+		DELETE FROM role_power WHERE role_id = #{roleId}
+	</delete>
 
-
-
-
-
-
-
+	<!-- 插入一个角色拥有的权限id -->
+	<insert id="insertRolePower">
+		INSERT INTO role_power(role_id, power_id) VALUES
+		<foreach collection="powerIds" item="powerId" separator=",">
+			(#{roleId}, #{powerId})
+		</foreach>
+	</insert>
+	
+	<!-- 创建一个角色 -->
+	<insert id="insertRole" useGeneratedKeys="true" keyProperty="roleId">
+		INSERT INTO role(role) VALUES(#{role})
+	</insert>
+	
+	<!-- 联表删除角色 -->
+	<delete id="deleteRole">
+		DELETE r, rp FROM role r LEFT JOIN role_power rp ON r.role_id = rp.role_id
+		WHERE r.role_id = #{roleId}
+	</delete>
 
 
 </mapper>
