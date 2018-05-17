@@ -57,7 +57,6 @@ public class QuizServiceTest
     @Test
     public void testGetQuizByClassIdAndCourseId()
     {
-        // TODO 待测试
         Integer userId = 1;
         Integer courseId = null;
         System.out.println(quizService.getQuizByClassIdAndCourseId(1, userId, courseId));
