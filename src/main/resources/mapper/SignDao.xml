@@ -89,4 +89,10 @@
 		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
 		AND s.course_id = #{courseId};
 	</select>
+
+	<select id="signIsExisted" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM sign
+		WHERE user_id = #{userId} AND course_id = #{courseId}
+	</select>
 </mapper>

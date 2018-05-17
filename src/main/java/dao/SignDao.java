@@ -117,5 +117,7 @@ public interface SignDao {
      */
     public List<SignData> getSignDatasByCourseIdAndHisClassId(@Param("userId")Integer userId,
 			   												  @Param("courseId")Integer courseId);
+
+    public int signIsExisted(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
    
 }

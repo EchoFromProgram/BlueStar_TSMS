@@ -1,6 +1,7 @@
 package service.impl;
 
 import constant.Role;
+import constant.SignCode;
 import dao.AccountDao;
 import dao.SignDao;
 import dto.AccountDto;
@@ -13,8 +14,10 @@ import enums.impl.CreateAccountStatus;
 import enums.impl.SignStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import service.SignService;
 import utils.PageUtil;
+import utils.SignUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -109,9 +112,23 @@ public class SignServiceImpl implements SignService
             return new AccountDto(SignStatus.ILLEGAL_SIGN);
         }
 
+        Date now = new Date();
+        // 签到还没开放
+        if (!(SignUtil.isSignTime(now) || SignUtil.isClassTime(now)))
+        {
+            return new AccountDto(SignStatus.TOO_EARLY);
+        }
+
+        // 可以正常签到了
         if (!realCode.equals(inputCode)) // 判断签到码是否正确
         {
             return new AccountDto(SignStatus.WRONG_CODE);
+        }
+
+        // 上课时间签到，迟到了不写原因，还想签到？不存在的！
+        if (SignUtil.isClassTime(now) && StringUtils.isEmpty(reason))
+        {
+            return new AccountDto(SignStatus.TOO_LATE);
         }
 
         // 判断这个班级是否属于这个用户
@@ -122,50 +139,36 @@ public class SignServiceImpl implements SignService
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
+        // 重复签到！
+        if (signDao.signIsExisted(user.getUserId(), clazz.getCourseId()) > 0)
+        {
+            return new AccountDto(SignStatus.HAS_SIGNED);
+        }
+
         Sign sign = new Sign();
         sign.setUserId(user.getUserId());
         sign.setClassId(clazz.getClassId());
         sign.setCourseId(clazz.getCourseId());
-
-        Date now = new Date();
-        sign.setDate(now);
         sign.setReason(reason);
-        // 暂定早上 8：30 - 9：10 签到，下午 13：00 到 13：40 签到
-        int hours = now.getHours();
-        int minutes = now.getMinutes();
-        AccountDto accountDto = null;
-        if ((hours <= 8 && minutes < 30) || (hours == 12) || (hours >= 16)) // 签到未开放
+        sign.setDate(now);
+
+        if (SignUtil.isClassTime(now)) // 迟到了
         {
-            return new AccountDto(SignStatus.TOO_EARLY);
+            sign.setStatus(SignCode.LATE);
         }
-        else if ((hours <= 9 && minutes <= 10) || (hours == 13 && minutes <= 40)) // 正常签到
+        else
         {
-            sign.setStatus(SignStatus.SUCCESS.getCode());
-            sign.setReason("正常签到！");
-            accountDto = new AccountDto(SignStatus.SUCCESS);
-        }
-        else if ((hours <= 10 && minutes <= 10) || (hours <= 14 && minutes <= 40)) // 10：10 和 14：40 迟到
-        {
-            if (sign.getReason() == null || "".equals(sign.getReason())) // 迟到但是没有填写原因
-            {
-                return new AccountDto(SignStatus.TOO_LATE);
-            }
-            // TODO 签到还是没有完成。。。
+            sign.setReason(SignStatus.SUCCESS.getInfo());
+            sign.setStatus(SignCode.SUCCESS);
         }
 
-        signDao.insertIntoSign(sign);
+        int affect = signDao.insertIntoSign(sign);
+        if (affect <= 0)
+        {
+            return new AccountDto(Common.ERROR);
+        }
 
-        return accountDto;
-    }
-
-    /**
-     * 判断签到状态，正常签到还是迟到啥的
-     *
-     * @return 返回签到状态信息
-     */
-    private AccountDto checkSignStatus()
-    {
-        return null;
+        return new AccountDto(SignStatus.SUCCESS);
     }
 
     /**
