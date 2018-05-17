@@ -77,7 +77,7 @@ public class NoticeServiceImpl implements NoticeService
 
         PageUtil.toPage(pageNumber);
         List<Notice> notices = noticeDao.getNoticesByClassId(classId);
-        if (notices == null) // 没有得到数据
+        if (notices == null || notices.size() == 0) // 没有得到数据
         {
             return new AccountDto(NoticeStatus.IS_NULL);
         }
@@ -101,7 +101,7 @@ public class NoticeServiceImpl implements NoticeService
 
         PageUtil.toPage(pageNumber); // 开始分页
         List<Notice> notices = noticeDao.getAllNotices();
-        if (notices == null)
+        if (notices == null || notices.size() == 0)
         {
             return new AccountDto(NoticeStatus.IS_NULL);
         }
@@ -196,7 +196,7 @@ public class NoticeServiceImpl implements NoticeService
 
        
         NoticeDetail noticeDetail = noticeDao.getNoticeDetailByNoticeDetailId(noticeDetailId);
-        if (noticeDetail == null) // 没有得到数据
+        if (noticeDetail == null ) // 没有得到数据
         {
             return new AccountDto(NoticeStatus.IS_NULL);
         }
@@ -218,7 +218,7 @@ public class NoticeServiceImpl implements NoticeService
 
         PageUtil.toPage(pageNumber); // 开始分页
         List<NoticeDetail> noticeDetails = noticeDao.getAllNoticeDetails();
-        if (noticeDetails == null)
+        if (noticeDetails == null || noticeDetails.size() == 0)
         {
             return new AccountDto(NoticeStatus.IS_NULL);
         }
