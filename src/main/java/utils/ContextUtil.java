@@ -3,8 +3,6 @@ package utils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContext;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 上下文的工具类，目前只是 ServletContext
