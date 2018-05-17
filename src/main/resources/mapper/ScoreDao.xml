@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.ScoreDao">
-	<!-- 批量插入成绩 -->
+	<!-- 插入成绩 -->
 	<insert id="insertScore" >
 		INSERT INTO score(class_id, user_id, course_id, date, score)
 		VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{score})
@@ -77,7 +77,19 @@
 		WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.status = #{status} AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
 	</select>
 	
+	<!-- 根据班级id得到该班级的用户 -->
+	<select id="getUsersByClassId" resultType="entity.User">
+		SELECT u.name, u.user_id, u.userName, u.password, u.role_id, u.info_id, u.type_id,
+		uc.class_id FROM user u, user_class uc WHERE u.user_id = uc.user_id AND uc.class_id = #{classId}
+	</select>
 	
+	<!-- 批量插入成绩 -->
+	<insert id="insertScores">
+		INSERT INTO score(class_id, user_id,  status, date, score) VALUES
+		<foreach collection="scores" item="score" separator=",">
+			(#{score.classId}, #{score.userId}, #{score.status}, #{score.date}, #{score.score})
+		</foreach>
+	</insert>
 	
 	
 </mapper>

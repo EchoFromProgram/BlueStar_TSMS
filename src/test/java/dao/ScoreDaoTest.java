@@ -3,7 +3,9 @@ package dao;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.javassist.scopedpool.ScopedClassPoolRepository;
 import org.junit.Test;
@@ -14,6 +16,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import entity.Score;
 import entity.ScoreData;
+import entity.User;
+import net.sf.jsqlparser.util.AddAliasesVisitor;
+import utils.ListUtil;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class ScoreDaoTest {
@@ -66,8 +71,11 @@ public class ScoreDaoTest {
 	
 	@Test
 	public void testA() {
-		
-		scoreDao.deleteScoreByScoreId(4);
+		scoreDao.deleteScoreByScoreId(6);
 	}
+	
+	
+	
+	
 	
 }
