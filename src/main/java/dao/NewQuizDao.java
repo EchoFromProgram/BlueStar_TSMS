@@ -18,6 +18,8 @@ public interface NewQuizDao
 {
     public List<Quiz> getQuizByUserIdOrCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
 
+    public Quiz getQuizById(Integer id);
+
     public List<String> getQuestionsByQuizDetailId(@Param("quizDetailId") Integer quizDetailId);
 
     public List<String> getAnswersByQuizId(@Param("quizId") Integer quizId);

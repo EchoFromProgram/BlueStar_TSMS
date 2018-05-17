@@ -77,6 +77,31 @@ public class QuizServiceImpl implements QuizService
     }
 
     /**
+     * 通过 quiz_id 获取具体的问卷和回答
+     *
+     * @param quizId 问卷 id
+     * @return 返回这条数据的详细信息
+     */
+    public AccountDto getQuizById(Integer quizId)
+    {
+        if (quizId == null) // id 必须填
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        Quiz quiz = quizDao.getQuizById(quizId);
+        if (quiz == null)
+        {
+            return new AccountDto(Common.GET_IS_NULL);
+        }
+
+        quiz.setQuestions(quizDao.getQuestionsByQuizDetailId(quiz.getQuizDetailId()));
+        quiz.setAnswers(quizDao.getAnswersByQuizId(quiz.getQuizId()));
+
+        return new AccountDto<>(quiz, Common.SUCCESS);
+    }
+
+    /**
      * 通过 classId 来获取班级问卷
      * 传入 classId == null 就获取所有班级的，也就是管理员的权限
      * 传入 courseId == null 就获取所有课程的

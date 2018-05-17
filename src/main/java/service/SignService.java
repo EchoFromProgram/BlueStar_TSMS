@@ -34,13 +34,13 @@ public interface SignService
      * 签到方法，传入一个对象和验证码
      *
      * @param user   要签到的用户
-     * @param clazz  用户所属班级
+     * @param classId  用户所属班级
      *               如果用户没有班级，那就传入一个 null 即可
      * @param reason * 签到原因，（选填）
      *               如果是迟到或者旷课就必须填写
      * @return 返回签到情况
      */
-    public AccountDto sign(User user, Integer inputCode, Integer realCode, Clazz clazz, String reason);
+    public AccountDto sign(User user, Integer inputCode, Integer realCode, Integer classId, String reason);
 
     /**
      * 根据班级信息获取签到信息

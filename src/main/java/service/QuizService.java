@@ -63,6 +63,14 @@ public interface QuizService
     public AccountDto getQuizByClassIdAndCourseId(Integer pageNumber, Integer userId, Integer courseId);
 
     /**
+     * 通过 quiz_id 获取具体的问卷和回答
+     *
+     * @param quizId 问卷 id
+     * @return 返回这条数据的详细信息
+     */
+    public AccountDto getQuizById(Integer quizId);
+
+    /**
      * 填写问卷
      * 需要给 quiz 传入 userId, classId, courseId 和 answers
      *

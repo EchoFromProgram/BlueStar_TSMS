@@ -91,17 +91,17 @@ public class SignServiceImpl implements SignService
     }
 
     /**
-     * 签到方法，传入一个对象和验证码
+     * 学生签到方法，传入一个对象和验证码
      *
      * @param user   要签到的用户
-     * @param clazz  用户所属班级
+     * @param classId  用户所属班级
      *               如果用户没有班级，那就传入一个 null 即可
      * @param reason * 签到原因，（选填）
      *               如果是迟到或者旷课就必须填写
      * @return 返回签到情况
      */
     @Override
-    public AccountDto sign(User user, Integer inputCode, Integer realCode, Clazz clazz, String reason)
+    public AccountDto sign(User user, Integer inputCode, Integer realCode, Integer classId, String reason)
     {
         // 必须存在这个用户才能进行签到
         if (user == null || user.getUserId() == null)
@@ -116,6 +116,7 @@ public class SignServiceImpl implements SignService
 
         // 判断这个班级是否属于这个用户
         List<Clazz> classes = (List<Clazz>) this.getClasses(user).getData();
+        Clazz clazz = accountDao.getClassByClassId(classId); // 得到这个班级信息
         if (!classes.contains(clazz))
         {
             return new AccountDto(SignStatus.WRONG_CLASS);
@@ -155,6 +156,16 @@ public class SignServiceImpl implements SignService
         signDao.insertIntoSign(sign);
 
         return accountDto;
+    }
+
+    /**
+     * 判断签到状态，正常签到还是迟到啥的
+     *
+     * @return 返回签到状态信息
+     */
+    private AccountDto checkSignStatus()
+    {
+        return null;
     }
 
     /**

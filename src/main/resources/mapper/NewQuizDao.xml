@@ -38,6 +38,12 @@
         ORDER BY `date` DESC
     </select>
 
+    <select id="getQuizById" resultType="entity.Quiz">
+        SELECT <include refid="quiz_columns"/>
+        FROM quiz
+        WHERE quiz_id = #{quizId}
+    </select>
+
     <select id="getQuestionsByQuizDetailId" resultType="string">
         SELECT question
         FROM quiz_question
@@ -78,12 +84,11 @@
     <select id="getQuizByHisClassIdOrCourseId" resultType="java.util.Map">
         SELECT
             q.quiz_id,
-            q.user_id,
             q.date,
             q.quiz_detail_id,
             c.class_name,
             cr.course,
-            u.username
+            u.name
         FROM quiz q, class c, course cr, `user` u
         WHERE q.class_id IN (SELECT uc.class_id
                              FROM user_class uc

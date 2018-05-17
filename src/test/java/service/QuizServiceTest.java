@@ -63,6 +63,12 @@ public class QuizServiceTest
     }
 
     @Test
+    public void testGetQuizById()
+    {
+        System.out.println(quizService.getQuizById(12));
+    }
+
+    @Test
     public void testWriteQuiz()
     {
         Quiz quiz = new Quiz();
