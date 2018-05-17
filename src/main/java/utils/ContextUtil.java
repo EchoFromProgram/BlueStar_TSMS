@@ -10,7 +10,7 @@ import javax.servlet.ServletContext;
  * @author Fish
  * created by 2018-05-17 15:03
  */
-public class ContextUtil
+public final class ContextUtil
 {
     // 上下文对象
     private static ServletContext servletContext = null;
