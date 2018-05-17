@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.AccountDto;
+import entity.Clazz;
 import service.ScoreService;
 
 @Controller
@@ -41,6 +42,46 @@ public class ScoreController {
 	@RequestMapping(path = "student_get_score.do", produces = {"application/json;charset=UTF8"})
 	public Object studentGetScore(Integer page, Integer userId) {
 		AccountDto accountDto = scoreService.getScoresByUserId(page, userId);
+		return accountDto.getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "teacher_get_score.do", produces = {"application/json;charset=UTF8"})
+	public Object teacherGetScore(Integer page, Integer userId, Integer classId, Integer stage) {
+		AccountDto accountDto = null;
+
+		if(classId == 0 && stage == 0) {
+			accountDto = scoreService.getScoresByHisClassId(page, userId);
+		}
+		else if (classId != 0 && stage == 0) {
+			accountDto = scoreService.getScoresByClassId(page, classId);
+		}
+		else if (classId == 0 && stage != 0) {
+			accountDto = scoreService.getScoresByStatusAndHisClassId(page, userId, stage);
+		}
+		else if (classId != 0 && stage != 0) {
+			accountDto = scoreService.getScoresByClassIdAndStatus(page, stage, classId);
+		}
+		return accountDto.getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "admin_get_score.do", produces = {"application/json;charset=UTF8"})
+	public Object adminGetScore(Integer page, Integer classId, Integer stage) {
+		AccountDto accountDto = null;
+
+		if(classId == 0 && stage == 0) {
+			accountDto = scoreService.getAllScores(page);
+		}
+		else if (classId != 0 && stage == 0) {
+			accountDto = scoreService.getScoresByClassId(page, classId);
+		}
+		else if (classId == 0 && stage != 0) {
+			accountDto = scoreService.getScoreByStatus(page, stage);
+		}
+		else if (classId != 0 && stage != 0) {
+			accountDto = scoreService.getScoresByClassIdAndStatus(page, stage, classId);
+		}
 		return accountDto.getData();
 	}
 }
