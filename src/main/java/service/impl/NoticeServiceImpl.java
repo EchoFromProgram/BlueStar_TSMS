@@ -54,7 +54,7 @@ public class NoticeServiceImpl implements NoticeService
         List<Notice> notices = noticeDao.getNoticesByUserId(user.getUserId());
         if (notices == null) // 得到的是空数据
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
@@ -79,7 +79,7 @@ public class NoticeServiceImpl implements NoticeService
         List<Notice> notices = noticeDao.getNoticesByClassId(classId);
         if (notices == null) // 没有得到数据
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
@@ -103,7 +103,7 @@ public class NoticeServiceImpl implements NoticeService
         List<Notice> notices = noticeDao.getAllNotices();
         if (notices == null)
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(notices), Common.SUCCESS);
@@ -198,7 +198,7 @@ public class NoticeServiceImpl implements NoticeService
         NoticeDetail noticeDetail = noticeDao.getNoticeDetailByNoticeDetailId(noticeDetailId);
         if (noticeDetail == null) // 没有得到数据
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(noticeDetail, Common.SUCCESS);
@@ -220,7 +220,7 @@ public class NoticeServiceImpl implements NoticeService
         List<NoticeDetail> noticeDetails = noticeDao.getAllNoticeDetails();
         if (noticeDetails == null)
         {
-            return new AccountDto(Common.GET_IS_NULL);
+            return new AccountDto(NoticeStatus.IS_NULL);
         }
 
         return new AccountDto<>(PageUtil.pageInfo(noticeDetails), Common.SUCCESS);

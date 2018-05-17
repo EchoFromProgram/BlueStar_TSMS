@@ -10,8 +10,11 @@ import enums.Statusable;
  */
 public enum NoticeStatus implements Statusable
 {
-    SUCCESS(0, "发布成功！");
-
+    SUCCESS(0, "发布成功！"),
+	IS_NULL(-1,"暂时还没有通知"),
+	ERROR(-2,"发布失败");
+	
+	
     // 状态码
     private int code;
 
