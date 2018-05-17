@@ -58,7 +58,7 @@ public class QuizServiceTest
     public void testGetQuizByClassIdAndCourseId()
     {
         Integer userId = 1;
-        Integer courseId = null;
+        Integer courseId = 1;
         System.out.println(quizService.getQuizByClassIdAndCourseId(1, userId, courseId));
     }
 

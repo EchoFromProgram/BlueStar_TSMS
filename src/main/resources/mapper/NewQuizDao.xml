@@ -56,19 +56,29 @@
         WHERE quiz_id = #{quizId}
     </select>
 
-    <select id="getQuizByClassIdOrCourseId" resultType="entity.Quiz">
-        SELECT <include refid="quiz_columns" />
-        FROM quiz
+    <select id="getQuizByClassIdOrCourseId" resultType="java.util.Map">
+        SELECT
+        q.quiz_id quizId,
+        q.date,
+        q.quiz_detail_id,
+        c.class_name,
+        cr.course,
+        u.name
+        FROM quiz q, class c, course cr, `user` u
+        WHERE q.class_id IN (SELECT uc.class_id
+        FROM user_class uc
         <where>
             1 = 1
             <if test="classId != null">
-                AND class_id = #{classId}
+                AND uc.class_id = #{classId}
             </if>
+            )
             <if test="courseId != null">
-                AND course_id = #{courseId}
+                AND q.course_id = #{courseId}
             </if>
         </where>
-        ORDER BY `date` DESC
+        AND q.class_id = c.class_id AND q.course_id = cr.course_id AND q.user_id = u.user_id
+        ORDER BY q.date DESC
     </select>
 
     <select id="getQuizes" resultMap="quiz_detail_map">
@@ -83,7 +93,7 @@
 
     <select id="getQuizByHisClassIdOrCourseId" resultType="java.util.Map">
         SELECT
-            q.quiz_id,
+            q.quiz_id quizId,
             q.date,
             q.quiz_detail_id,
             c.class_name,

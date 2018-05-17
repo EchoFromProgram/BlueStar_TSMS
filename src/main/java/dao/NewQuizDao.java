@@ -24,7 +24,7 @@ public interface NewQuizDao
 
     public List<String> getAnswersByQuizId(@Param("quizId") Integer quizId);
 
-    public List<Quiz> getQuizByClassIdOrCourseId(@Param("classId") Integer classId, @Param("courseId") Integer courseId);
+    public List<Map<String, Object>> getQuizByClassIdOrCourseId(@Param("classId") Integer classId, @Param("courseId") Integer courseId);
 
     public QuizDetail getQuiz();
 

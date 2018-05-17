@@ -119,17 +119,12 @@ public class QuizServiceImpl implements QuizService
         }
 
         PageUtil.toPage(pageNumber);
-        List<Quiz> quizzes = quizDao.getQuizByClassIdOrCourseId(classId, courseId);
+        List<Map<String, Object>> quizzes = quizDao.getQuizByClassIdOrCourseId(classId, courseId);
         if (quizzes == null) // 没有得到数据
         {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
-        for (Quiz quiz : quizzes) // 将问题和答案都找出来
-        {
-            quiz.setQuestions(quizDao.getQuestionsByQuizDetailId(quiz.getQuizDetailId()));
-            quiz.setAnswers(quizDao.getAnswersByQuizId(quiz.getQuizId()));
-        }
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }
 
