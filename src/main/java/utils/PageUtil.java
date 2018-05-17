@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Fish
  */
-public class PageUtil
+public final class PageUtil
 {
     /**
      * pageHelper 每进行一次分页就得调用一次这个方法

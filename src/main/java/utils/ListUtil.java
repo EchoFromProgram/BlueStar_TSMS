@@ -12,7 +12,7 @@ import java.util.List;
  * @author Fish
  * created by 2018-05-16 20:15
  */
-public class ListUtil
+public final class ListUtil
 {
     /**
      * 将一堆的 String 转成一堆的 QuizQuestion
