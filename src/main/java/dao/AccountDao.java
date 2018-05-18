@@ -160,6 +160,11 @@ public interface AccountDao
      */
     public List<Course> getAllcourses();
     
-    
+    /**
+     * 根据学生的userId得到他老师的userId
+     * @param userId 学生的userId
+     * @return 
+     */
+    public int getHisTeacherUserId(Integer userId);
   
 }

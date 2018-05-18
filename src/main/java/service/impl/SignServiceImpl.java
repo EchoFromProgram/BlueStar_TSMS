@@ -107,7 +107,7 @@ public class SignServiceImpl implements SignService
     public AccountDto sign(User user, Integer inputCode, Integer realCode, Integer classId, String reason)
     {
         // 必须存在这个用户才能进行签到
-        if (user == null || user.getUserId() == null)
+        if (user == null || user.getUserId() == null || inputCode == null)
         {
             return new AccountDto(SignStatus.ILLEGAL_SIGN);
         }
@@ -120,7 +120,7 @@ public class SignServiceImpl implements SignService
         }
 
         // 可以正常签到了
-        if (!realCode.equals(inputCode)) // 判断签到码是否正确
+        if (realCode == null || !realCode.equals(inputCode)) // 判断签到码是否正确
         {
             return new AccountDto(SignStatus.WRONG_CODE);
         }
@@ -424,5 +424,16 @@ public class SignServiceImpl implements SignService
         }
 
         return new AccountDto<>(PageUtil.pageInfo(signs), Common.SUCCESS);
+    }
+
+    /**
+     * 通过学生 id 得到老师 id
+     *
+     * @param studentId 学生 id
+     * @return 返回老师 id
+     */
+    public Integer getTeacherId(Integer studentId)
+    {
+        return accountDao.getHisTeacherUserId(studentId);
     }
 }

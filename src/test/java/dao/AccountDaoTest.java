@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.mysql.jdbc.jdbc2.optional.SuspendableXAConnection;
+
 import entity.City;
 import entity.Clazz;
 import entity.Course;
@@ -127,8 +129,8 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		List<Map<String, Object>> list =  accountDao.getUsersByTypeId(1);
-		System.out.println(list);
+		int num = accountDao.getHisTeacherUserId(4);
+		System.out.println(num);
 	}
 	
 

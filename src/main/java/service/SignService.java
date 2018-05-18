@@ -138,4 +138,12 @@ public interface SignService
      * @return 返回课程信息
      */
     public AccountDto getSignsByCourseId(Integer pageNumber, Integer courseId);
+
+    /**
+     * 通过学生 id 得到老师 id
+     *
+     * @param studentId 学生 id
+     * @return 返回老师 id
+     */
+    public Integer getTeacherId(Integer studentId);
 }
