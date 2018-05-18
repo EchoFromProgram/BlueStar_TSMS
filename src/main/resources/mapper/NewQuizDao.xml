@@ -143,4 +143,13 @@
             (#{question.question}, #{quizDetailId})
         </foreach>
     </insert>
+
+    <update id="updateUsedQuiz">
+        UPDATE quiz_detail SET is_used = #{isUsed}
+        <where>
+            <if test="id != null">
+                quiz_detail_id = #{id}
+            </if>
+        </where>
+    </update>
 </mapper>

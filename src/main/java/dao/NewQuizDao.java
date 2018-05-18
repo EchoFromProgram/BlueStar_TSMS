@@ -41,4 +41,6 @@ public interface NewQuizDao
     public int insertQuizDetail(QuizDetail quizDetail);
 
     public int insertQuizQuestion(QuizDetail quizDetail);
+
+    public int updateUsedQuiz(@Param("id") Integer quizDetailId, @Param("isUsed") boolean isUsed);
 }

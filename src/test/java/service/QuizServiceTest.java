@@ -88,9 +88,9 @@ public class QuizServiceTest
     public void testPublishQuiz()
     {
         List<QuizQuestion> questions = new ArrayList<>();
-        questions.add(new QuizQuestion("您觉得还有什么上升空间？"));
-        questions.add(new QuizQuestion("中国的国土面积多大？"));
-        questions.add(new QuizQuestion("下课之后想干嘛？"));
+        questions.add(new QuizQuestion("你觉得爱是什么感觉？"));
+        questions.add(new QuizQuestion("经历过痛苦才能成为真正的艺术家，你同意吗？"));
+        questions.add(new QuizQuestion("宇宙有其他生命吗？"));
 
         QuizDetail quizDetail = new QuizDetail();
         quizDetail.setQuestions(questions);

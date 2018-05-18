@@ -283,6 +283,9 @@ public class QuizServiceImpl implements QuizService
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
+        quizDetail.setUsed(true); // 刚发布的默认就是使用的
+        quizDao.updateUsedQuiz(null, false); // 先把所有的 is_used 置 0，然后再插入使用的
+
         // 先在 quiz_detail 表中插入一条数据，得到 quiz_detail_id
         int affect = quizDao.insertQuizDetail(quizDetail);
         if (affect <= 0) // 内部错误
