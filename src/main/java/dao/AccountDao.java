@@ -165,6 +165,6 @@ public interface AccountDao
      * @param userId 学生的userId
      * @return 
      */
-    public Integer getHisTeacherUserId(Integer userId);
+    public int getHisTeacherUserId(Integer userId);
   
 }
