@@ -131,4 +131,9 @@
 		SELECT c.course_id, c.course FROM course c
 	</select>
 	
+	<!-- 根据学生userId得到他老师的userId -->
+	<select id="getHisTeacherUserId" resultType="int">
+		SELECT u.user_id  FROM user u INNER JOIN user_class uc ON u.user_id = uc.user_id
+		WHERE uc.class_id = (SELECT uc.class_id FROM user_class uc WHERE uc.user_id = #{userId}) AND role_id = 1
+	</select>
 </mapper>
