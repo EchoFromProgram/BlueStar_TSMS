@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.AccountDao;
+import dao.NewQuizDao;
 import dto.AccountDto;
 import entity.Course;
 import entity.Power;
@@ -28,6 +29,14 @@ public class InitServiceImpl implements InitService
     public void setAccountDao(AccountDao accountDao)
     {
         this.accountDao = accountDao;
+    }
+
+    private NewQuizDao quizDao = null;
+
+    @Autowired
+    public void setQuizDao(NewQuizDao quizDao)
+    {
+        this.quizDao = quizDao;
     }
 
     /**
@@ -81,5 +90,15 @@ public class InitServiceImpl implements InitService
         });
 
         return new AccountDto<List<Course>>(courses, Common.SUCCESS);
+    }
+
+    /**
+     * 得到现在活跃的问卷
+     *
+     * @return 返回问卷
+     */
+    public AccountDto getQuiz()
+    {
+        return new AccountDto<>(quizDao.getQuiz(), Common.SUCCESS);
     }
 }

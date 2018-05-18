@@ -29,4 +29,10 @@ public class InitServiceTest
         AccountDto accountDto = initService.getAllCourses();
         System.out.println(accountDto.getData());
     }
+
+    @Test
+    public void testGetQuiz()
+    {
+        System.out.println(initService.getQuiz());
+    }
 }

@@ -27,4 +27,11 @@ public interface InitService
      * @return 整张课程表
      */
     public AccountDto getAllCourses();
+
+    /**
+     * 得到现在活跃的问卷
+     *
+     * @return 返回问卷
+     */
+    public AccountDto getQuiz();
 }
