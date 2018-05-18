@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface NewQuizDao
 {
-    public List<Quiz> getQuizByUserIdOrCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+    public List<Map<String, Object>> getQuizByUserIdOrCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
 
     public Quiz getQuizById(Integer id);
 

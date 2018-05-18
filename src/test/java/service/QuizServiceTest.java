@@ -31,7 +31,7 @@ public class QuizServiceTest
     @Test
     public void testGetQuizsByUser()
     {
-        System.out.println(quizService.getQuizsByUser(1, 1, null));
+        System.out.println(quizService.getQuizsByUser(1, 4, 1));
     }
 
     @Test

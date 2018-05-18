@@ -16,6 +16,17 @@
         FROM quiz_detail qd INNER JOIN quiz_question qq ON qd.quiz_detail_id = qq.quiz_detail_id
     </sql>
 
+    <sql id="quiz_core">
+        SELECT
+        q.quiz_id quizId,
+        q.date,
+        q.quiz_detail_id,
+        c.class_name,
+        cr.course,
+        u.name
+        FROM quiz q, class c, course cr, `user` u
+    </sql>
+
     <resultMap id="quiz_detail_map" type="entity.QuizDetail">
         <id property="quizDetailId" column="quiz_detail_id" />
         <result property="isUsed" column="is_used" />
@@ -24,18 +35,23 @@
         </collection>
     </resultMap>
 
-    <select id="getQuizByUserIdOrCourseId" resultType="entity.Quiz">
-        SELECT <include refid="quiz_columns" />
-        FROM quiz
+    <select id="getQuizByUserIdOrCourseId" resultType="java.util.Map">
+        SELECT
+        q.quiz_id quizId,
+        q.date,
+        q.quiz_detail_id,
+        c.class_name,
+        cr.course,
+        u.name
+        FROM quiz q, class c, course cr, `user` u
         <where>
-            <if test="1">
-                user_id = #{userId}
-            </if>
-            <if test="courseId != null"><!-- 如果有 courseId，就加上 -->
-                AND course_id = #{courseId}
+            q.user_id = #{userId}
+            <if test="courseId != null">
+                AND q.course_id = #{courseId}
             </if>
         </where>
-        ORDER BY `date` DESC
+        AND q.class_id = c.class_id AND q.course_id = cr.course_id AND q.user_id = u.user_id
+        ORDER BY q.date DESC
     </select>
 
     <select id="getQuizById" resultType="entity.Quiz">
