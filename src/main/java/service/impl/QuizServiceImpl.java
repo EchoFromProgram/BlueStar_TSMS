@@ -71,13 +71,12 @@ public class QuizServiceImpl implements QuizService
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-        //PageUtil.toPage(pageNumber);
+        PageUtil.toPage(pageNumber);
         List<Map<String, Object>> quizzes = quizDao.getQuizByUserIdOrCourseId(userId, courseId);
         if (quizzes == null) // 没有得到数据
         {
             return new AccountDto(Common.GET_IS_NULL);
         }
-        System.out.println(quizzes);
 
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }

@@ -16,17 +16,6 @@
         FROM quiz_detail qd INNER JOIN quiz_question qq ON qd.quiz_detail_id = qq.quiz_detail_id
     </sql>
 
-    <sql id="quiz_core">
-        SELECT
-        q.quiz_id quizId,
-        q.date,
-        q.quiz_detail_id,
-        c.class_name,
-        cr.course,
-        u.name
-        FROM quiz q, class c, course cr, `user` u
-    </sql>
-
     <resultMap id="quiz_detail_map" type="entity.QuizDetail">
         <id property="quizDetailId" column="quiz_detail_id" />
         <result property="isUsed" column="is_used" />
