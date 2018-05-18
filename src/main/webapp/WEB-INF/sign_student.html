@@ -86,7 +86,7 @@
                     <div class="modal fade" id="modal-student-sign" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form onsubmit="return ">
+                                <form onsubmit="return studentSign()">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h4 class="modal-title " id="myModalLabel">
@@ -98,11 +98,11 @@
                                         <span class="help-block" id="sign-help">口令错误</span>
                                 </div>
                                 <div class="modal-body form-group">
-                                    <input class="form-control" placeholder="由于你迟到了，请输入迟到原因" required="" autofocus=""></input>
+                                    <input class="form-control" id="sign-reason" placeholder="由于你迟到了，请输入迟到原因" autofocus=""></input>
                                     <span class="help-block" id="sign-reason-help">口令错误</span>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary">签到</button>
+                                    <button class="btn btn-primary" id="sign-button-check">签到</button>
                                 </div>
                                 </form>
                             </div>

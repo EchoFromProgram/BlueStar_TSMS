@@ -40,10 +40,10 @@ function submitData() {
         success: function(data){
             if(0 == data.code)
             {
-            	$.cookie('userData', data.data.user.user_id);
-            	$.cookie('infoId', data.data.user.info_id);
-            	$.cookie('typeId', data.data.user.type_id);
-            	$.cookie('name', data.data.user.name);
+//            	$.cookie('userData', data.data.user.user_id);
+//            	$.cookie('infoId', data.data.user.info_id);
+//            	$.cookie('typeId', data.data.user.type_id);
+//            	$.cookie('name', data.data.user.name);
                 window.location.href="index.do";
             }
             else if(-2 == data.code)

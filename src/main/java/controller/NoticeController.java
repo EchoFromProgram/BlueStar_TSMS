@@ -1,16 +1,21 @@
 package controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.AccountDto;
+import entity.Clazz;
 import entity.Notice;
 import entity.NoticeDetail;
 import entity.User;
 import service.NoticeService;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class NoticeController {
@@ -35,17 +40,17 @@ public class NoticeController {
 	
 	@ResponseBody
 	@RequestMapping(path = "teacher_get_all_notice.do", produces = {"application/json;charset=UTF8"})
-	public Object getTeacherAllNotice(Integer page, Integer userId) {
+	public Object getTeacherAllNotice(Integer page, HttpSession session) {
 		User user = new User();
-		user.setUserId(userId);
+		user.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
 		AccountDto accountDto = noticeService.getNotices(page, user);
 		return accountDto.getData();
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "student_get_all_notice.do", produces = {"application/json;charset=UTF8"})
-	public Object getStudentAllNotice(Integer page, Integer classId) {
-		AccountDto accountDto = noticeService.getNotices(page, classId);
+	public Object getStudentAllNotice(Integer page, HttpSession session) {
+		AccountDto accountDto = noticeService.getNotices(page, ((List<Clazz>)session.getAttribute("hisClasses")).get(0).getClassId());
 		return accountDto.getData();
 	}
 	
@@ -85,10 +90,10 @@ public class NoticeController {
 	
 	@ResponseBody
 	@RequestMapping(path = "add_notice.do", produces = {"application/json;charset=UTF8"})
-	public Object addNotice(Integer classId, Integer userId, String title, String content) {
+	public Object addNotice(Integer classId, String title, String content, HttpSession session) {
 		Notice notice = new Notice();
 		notice.setClassId(classId);
-		notice.setUserId(userId);
+		notice.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
 		NoticeDetail noticeDetail = new NoticeDetail();
 		noticeDetail.setTitle(title);
 		noticeDetail.setContent(content);

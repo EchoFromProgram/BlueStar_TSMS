@@ -42,8 +42,9 @@ public class QuizController {
 	
 	@ResponseBody
 	@RequestMapping(path = "teacher_get_quiz.do", produces = {"application/json;charset=UTF8"})
-	public Object teacherGetQuiz(Integer page, Integer userId, Integer classId, Integer courseId) {
+	public Object teacherGetQuiz(Integer page, Integer classId, Integer courseId, HttpSession session) {
 		AccountDto accountDto = null;
+		Integer userId = (Integer)((Map)session.getAttribute("user")).get("user_id");
 		if(classId == 0 && courseId == 0) {
 			accountDto = quizService.getQuizByClassIdAndCourseId(page, userId, null);
 		}else if(classId == 0 && courseId != 0) {
@@ -81,14 +82,14 @@ public class QuizController {
 	
 	@ResponseBody
 	@RequestMapping(path = "student_get_quiz.do", produces = {"application/json;charset=UTF8"})
-	public Object studentGetQuiz(Integer page, Integer userId) {
-		AccountDto accountDto = quizService.getQuizsByUser(page, userId, null);
-		return accountDto.getData();
+	public Object studentGetQuiz(Integer page, HttpSession session) {
+		AccountDto accountDto = quizService.getQuizsByUser(page, (Integer)((Map)session.getAttribute("user")).get("user_id"), null);
+		return accountDto;
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "get_quiz_question.do", produces = {"application/json;charset=UTF8"})
-	public Object getQuizQuestion(Integer page, Integer userId) {
+	public Object getQuizQuestion() {
 		AccountDto accountDto = quizService.getQuiz();
 		return accountDto.getData();
 	}
@@ -96,11 +97,11 @@ public class QuizController {
 	
 	@ResponseBody
 	@RequestMapping(path = "write_quiz.do", produces = {"application/json;charset=UTF8"})
-	public Object writeQuiz(HttpSession session, Integer userId, String[] answers) {
+	public Object writeQuiz(HttpSession session, String[] answers, Integer quizDetailId) {
 		Quiz quiz = new Quiz();
 		quiz.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
 		quiz.setClassId(((List<Clazz>)session.getAttribute("hisClasses")).get(0).getClassId());
-		quiz.setCourseId(1);
+		quiz.setQuizDetailId(quizDetailId);
 		List<String> answerList = Arrays.asList(answers);
 		quiz.setAnswers(answerList);
 		AccountDto accountDto = quizService.writeQuiz(quiz);

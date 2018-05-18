@@ -1,13 +1,22 @@
 //个人资料转跳url设置
 $(function(){
-	$('#username').html($.cookie("name"));
-	if($.cookie("typeId") == 0){
-		$('#index_info').attr('href', "staff_info.do");
-	}
-	else{
-		$('#index_info').attr('href', "customer_info.do");
-	}
-
+	$.ajax({
+	    url:"getSessionUser.do",
+	    type:"POST",
+	    dataType:"json",
+	    success: function(data){
+	    	$('#username').html(data.name);
+	    	if(data.type_id == 0){
+	    		$('#index_info').attr('href', "staff_info.do");
+	    	}
+	    	else{
+	    		$('#index_info').attr('href', "customer_info.do");
+	    	}
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
 });
 
 //搜索框样式

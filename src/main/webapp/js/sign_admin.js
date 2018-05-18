@@ -3,7 +3,7 @@ function to_page(page, classId, courseId){
         type: "POST",
         url: "admin_get_signs.do",
         dataType: "json",
-        data:{"page":page, "userId":$.cookie('userData'), "classId":classId, "courseId":courseId},
+        data:{"page":page, "classId":classId, "courseId":courseId},
         success: function(data){
             //显示table
             build_table(data);

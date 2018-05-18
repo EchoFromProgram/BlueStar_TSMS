@@ -32,7 +32,6 @@ public class LoginController {
 		AccountDto accountDto = accountService.login(user);
 		if(accountDto.getCode() == 0)
 		{
-			System.out.println("-----------------");
 			
 			session.setAttribute("user", ((Map)accountDto.getData()).get("user"));
 			session.setAttribute("hisPowers", ((Map)accountDto.getData()).get("hisPowers"));

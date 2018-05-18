@@ -1,25 +1,13 @@
-var hisClasses;
 $(function(){
-	$.ajax({
-		url:"getSessionHisClasses.do",
-		type:"POST",
-		dataType:"json",
-		success: function(data){
-			hisClasses = data[0].classId;
-			to_page(1, hisClasses);
-		},
-		error:function () {
-            alert("网络错误");
-        }
-	});
+	to_page(1);
 });
 
-function to_page(page, classId){
+function to_page(page){
     $.ajax({
         type: "POST",
         url: "student_get_all_notice.do",
         dataType: "json",
-        data:{"page":page, "classId":classId},
+        data:{"page":page},
         success: function(data){
             //显示table
             build_table(data);
@@ -83,11 +71,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到首页
         firstPageLi.click(function () {
-            to_page(1, hisClasses);
+            to_page(1);
         })
         //上一页
         prePageLi.click(function () {
-            to_page(data.pageNum - 1, hisClasses);
+            to_page(data.pageNum - 1);
         })
     }
 
@@ -101,11 +89,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到末页
         lastPageLi.click(function () {
-            to_page(data.pages, hisClasses);
+            to_page(data.pages);
         })
         //下一页
         nextPageLi.click(function () {
-            to_page(data.pageNum + 1, hisClasses);
+            to_page(data.pageNum + 1);
         })
     }
 
@@ -119,7 +107,7 @@ function buile_page_nav(data) {
             numLi.addClass("active")
         }
         numLi.click(function() {
-            to_page(item, hisClasses);
+            to_page(item);
         });
         ul.append(numLi);
     })

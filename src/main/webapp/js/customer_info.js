@@ -1,13 +1,13 @@
+//预先获取页面中的资料信息
 $(function(){
 	//获取省
 	getProvince();
 	$.ajax({
 		url:"get_customer_info.do",
-		data:{"infoId":$.cookie("infoId")},
 		dataTpye:"json",
 		type:"POST",
 		success: function(data){
-			$("#name-display").html($.cookie("name"));
+			$("#name-display").html($("#username").text());
 			$("#id-display").html(data.data.identityNum);
 			$("#school-display").html(data.data.school);
 			$("#grade-display").html(data.data.gradeMajor);

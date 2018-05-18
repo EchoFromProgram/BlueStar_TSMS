@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +32,8 @@ public class InfoController {
 	
 	@ResponseBody
 	@RequestMapping(path = "get_staff_info.do", produces = {"application/json;charset=UTF8"})
-	public Object getStaffInfo(Integer infoId) {
-		AccountDto accountDto = accountService.getStaffInfoByInfoId(infoId);
+	public Object getStaffInfo(HttpSession session) {
+		AccountDto accountDto = accountService.getStaffInfoByInfoId((Integer)((Map)session.getAttribute("user")).get("info_id"));
 		return accountDto;
 	}
 	
@@ -43,8 +46,8 @@ public class InfoController {
 	
 	@ResponseBody
 	@RequestMapping(path = "get_customer_info.do", produces = {"application/json;charset=UTF8"})
-	public Object getcustomerInfo(Integer infoId) {
-		AccountDto accountDto = accountService.getCustomerInfoByInfoId(infoId);
+	public Object getcustomerInfo(HttpSession session) {
+		AccountDto accountDto = accountService.getCustomerInfoByInfoId((Integer)((Map)session.getAttribute("user")).get("info_id"));
 		return accountDto;
 	}
 	

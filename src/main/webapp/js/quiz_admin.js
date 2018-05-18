@@ -167,17 +167,17 @@ function buile_page_nav(data) {
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
 
-//显示签到信息的总函数
+//显示问卷信息的总函数
 function adminGetSign(page, classId, courseId){
 	to_page(page, classId, courseId);
 };
 
-//点击查询按钮获取相应的签到信息
+//点击查询按钮获取相应的问卷信息
 $("#submit-which-need").click(function(){
 	adminGetSign(1, $("#which-class").val(), $("#which-stage").val());
 });
 
-//页面载入的时候获取全部签到信息
+//页面载入的时候获取全部问卷信息
 $(function(){
 	adminGetSign(1, 0, 0);
 })

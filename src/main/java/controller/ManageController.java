@@ -39,6 +39,7 @@ public class ManageController {
 	@RequestMapping(path = "get_all_accounts.do", produces = {"application/json;charset=UTF8"})
 	public Object getAllAccounts(Integer page, Integer typeId) {
 		AccountDto accountDto = null;
+		System.out.println(typeId);
 		if (typeId == -1) {
 			accountDto = accountService.getAllAccounts(page);
 		}

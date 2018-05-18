@@ -26,7 +26,7 @@ function to_page(page, classId, stage){
         type: "POST",
         url: "teacher_get_score.do",
         dataType: "json",
-        data:{"page":page, "userId":$.cookie('userData'), "classId":classId, "stage":stage},
+        data:{"page":page, "classId":classId, "stage":stage},
         success: function(data){
             //显示table
             build_table(data);

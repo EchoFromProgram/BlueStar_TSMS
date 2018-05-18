@@ -255,7 +255,6 @@ function addNotice(){
 	    async: false,
 	    data:{
 	    	"classId":$("#which-class").val(),
-	    	"userId":$.cookie('userData'), 
 	    	"title":$("#notcie-title-input").val(),
 	    	"content":$("#notcie-detail-input").val()
 	    	},

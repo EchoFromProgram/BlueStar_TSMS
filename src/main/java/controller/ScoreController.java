@@ -1,6 +1,7 @@
 package controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dto.AccountDto;
 import entity.Clazz;
 import service.ScoreService;
+import java.util.Map;
 
 @Controller
 public class ScoreController {
@@ -40,16 +42,16 @@ public class ScoreController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "student_get_score.do", produces = {"application/json;charset=UTF8"})
-	public Object studentGetScore(Integer page, Integer userId) {
-		AccountDto accountDto = scoreService.getScoresByUserId(page, userId);
+	public Object studentGetScore(Integer page, HttpSession session) {
+		AccountDto accountDto = scoreService.getScoresByUserId(page, (Integer)((Map)session.getAttribute("user")).get("user_id"));
 		return accountDto.getData();
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "teacher_get_score.do", produces = {"application/json;charset=UTF8"})
-	public Object teacherGetScore(Integer page, Integer userId, Integer classId, Integer stage) {
+	public Object teacherGetScore(Integer page, Integer classId, Integer stage, HttpSession session) {
 		AccountDto accountDto = null;
-
+		Integer userId = (Integer)((Map)session.getAttribute("user")).get("user_id");
 		if(classId == 0 && stage == 0) {
 			accountDto = scoreService.getScoresByHisClassId(page, userId);
 		}

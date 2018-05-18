@@ -7,7 +7,7 @@ function to_page(page){
         type: "POST",
         url: "init_sign_student.do",
         dataType: "json",
-        data:{"page":page, "userId":$.cookie('userData')},
+        data:{"page":page},
         success: function(data){
             //显示table
             build_table(data);
@@ -119,4 +119,18 @@ function buile_page_nav(data) {
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
 
-
+function studentSign(){
+	$.ajax({
+	    url:"student_sign.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"inputCode":$("#signword").val(), "reason":$("#sign-reason").val()},
+	    success: function(data){
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+	return false;
+};

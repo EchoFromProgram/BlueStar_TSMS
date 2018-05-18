@@ -6,11 +6,10 @@ $(function(){
 function loadInfo(){
 	$.ajax({
 		url:"get_staff_info.do",
-		data:{"infoId":$.cookie("infoId")},
 		dataTpye:"json",
 		type:"POST",
 		success: function(data){
-			$("#name-display").html($.cookie("name"));
+			$("#name-display").html($("#username").text());
 			$("#id-display").html(data.data.identityNum);
 			$("#resume-display").html(data.data.resume);
 			$("#qq-display").html(data.data.qq);

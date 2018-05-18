@@ -3,7 +3,7 @@ $(function(){
 	    url:"student_get_score.do",
 	    type:"POST",
 	    dataType:"json",
-	    data:{"page":1, "userId":$.cookie('userData')},
+	    data:{"page":1},
 	    success: function(data){
 	       $("#student-score-table ")
 			//清空

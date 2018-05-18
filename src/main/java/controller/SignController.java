@@ -1,8 +1,10 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import entity.Sign;
 import entity.User;
 import service.ClassService;
 import service.SignService;
+import utils.ContextUtil;
 
 @Controller
 public class SignController {
@@ -43,9 +46,9 @@ public class SignController {
 	
 	@ResponseBody
 	@RequestMapping(path = "init_sign_student.do", produces = {"application/json;charset=UTF8"})
-	public Object initSignStudent(Integer page, Integer userId) {
+	public Object initSignStudent(Integer page, HttpSession session) {
 		User user = new User();
-		user.setUserId(userId);
+		user.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
 		AccountDto<List<Sign>> accountDto = signService.getSignsByUser(page, user);
 		return accountDto.getData();
 	}
@@ -53,8 +56,9 @@ public class SignController {
 	
 	@ResponseBody
 	@RequestMapping(path = "get_sign_code.do", produces = {"application/json;charset=UTF8"})
-	public Object getSignCode() {
+	public Object getSignCode(HttpSession session) {
 		Integer code = signService.getSignCode();
+		ContextUtil.putSignCode((Integer)((Map)session.getAttribute("user")).get("user_id"), code);
 		return code;
 	}
 	
@@ -67,7 +71,7 @@ public class SignController {
 	
 	@ResponseBody
 	@RequestMapping(path = "admin_get_signs.do", produces = {"application/json;charset=UTF8"})
-	public Object adminGetSigns(Integer page, Integer userId, Integer classId, Integer courseId) {
+	public Object adminGetSigns(Integer page, Integer classId, Integer courseId) {
 		AccountDto accountDto = null;
 		Clazz clazz = new Clazz();
 		clazz.setClassId(classId);
@@ -88,8 +92,9 @@ public class SignController {
 	
 	@ResponseBody
 	@RequestMapping(path = "teacher_get_signs.do", produces = {"application/json;charset=UTF8"})
-	public Object teacherGetSigns(Integer page, Integer userId, Integer classId, Integer courseId) {
+	public Object teacherGetSigns(Integer page, Integer classId, Integer courseId, HttpSession session) {
 		AccountDto accountDto = null;
+		Integer userId = (Integer)((Map)session.getAttribute("user")).get("user_id");
 		Clazz clazz = new Clazz();
 		clazz.setClassId(classId);
 		if(classId == 0 && courseId == 0) {
@@ -105,5 +110,17 @@ public class SignController {
 			accountDto = signService.getSignsByCouseIdAndClassId(page, courseId, classId);
 		}
 		return accountDto.getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "student_sign.do", produces = {"application/json;charset=UTF8"})
+	public Object studentSign(HttpSession session, Integer inputCode, String reason) {
+		Integer realCode = ContextUtil.getSignCode(1);
+		System.out.println(realCode + ",  " + inputCode);
+		Integer classId = ((List<Clazz>)session.getAttribute("hisClasses")).get(0).getClassId();
+		User user = new User();
+		user.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
+		AccountDto accountDto = signService.sign(user, inputCode, realCode, classId, reason);
+		return accountDto;
 	}
 }

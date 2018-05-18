@@ -7,7 +7,7 @@ function to_page(page){
         type: "POST",
         url: "teacher_get_all_notice.do",
         dataType: "json",
-        data:{"page":page, "userId":$.cookie('userData')},
+        data:{"page":page},
         success: function(data){
             //显示table
             build_table(data);
@@ -257,7 +257,6 @@ function addNotice(){
 	    async: false,
 	    data:{
 	    	"classId":$("#which-class").val(),
-	    	"userId":$.cookie('userData'), 
 	    	"title":$("#notcie-title-input").val(),
 	    	"content":$("#notcie-detail-input").val()
 	    	},
