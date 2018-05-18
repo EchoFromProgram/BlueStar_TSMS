@@ -21,6 +21,15 @@ public final class ContextUtil
     // 签到码前缀，防止和其他 key 重复
     private static final String SIGN_CODE_PREFIX = "signCode_";
 
+    // 权限表 key
+    public static final String POWER_MAP = "powerMap";
+
+    // 课程表 key
+    public static final String COURSES = "Courses";
+
+    // 问卷 key
+    public static final String CURRENT_QUIZ = "currentQuiz";
+
     /**
      * 初始化工具类
      *

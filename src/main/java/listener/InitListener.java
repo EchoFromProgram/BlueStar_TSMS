@@ -37,8 +37,8 @@ public class InitListener implements ServletContextListener
         initService = webApplicationContext.getBean(InitService.class);
         ContextUtil.init(event.getServletContext()); // 初始化 ContextUtil
 
-        ContextUtil.load("powerMap", initService.getAllPowers().getData(), "权限表"); // 加载权限表
-        ContextUtil.load("Courses", initService.getAllCourses().getData(), "课程表"); // 加载课程表
-        ContextUtil.load("currentQuiz", initService.getQuiz().getData(), "问卷"); // 加载问卷
+        ContextUtil.load(ContextUtil.POWER_MAP, initService.getAllPowers().getData(), "权限表"); // 加载权限表
+        ContextUtil.load(ContextUtil.COURSES, initService.getAllCourses().getData(), "课程表"); // 加载课程表
+        ContextUtil.load(ContextUtil.CURRENT_QUIZ, initService.getQuiz().getData(), "问卷"); // 加载问卷
     }
 }
