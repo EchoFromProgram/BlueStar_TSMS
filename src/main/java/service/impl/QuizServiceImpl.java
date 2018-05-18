@@ -1,10 +1,13 @@
 package service.impl;
 
+import dao.AccountDao;
 import dao.NewQuizDao;
 import dto.AccountDto;
+import entity.Clazz;
 import entity.QuizAnswer;
 import entity.Quiz;
 import entity.QuizDetail;
+import enums.Statusable;
 import enums.impl.Common;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +38,22 @@ import java.util.Map;
 public class QuizServiceImpl implements QuizService
 {
     // 记录日志
-    Logger logger = Logger.getLogger(this.getClass());
+    private Logger logger = Logger.getLogger(this.getClass());
 
-    private static NewQuizDao quizDao = null;
+    private NewQuizDao quizDao = null;
+
+    private AccountDao accountDao = null;
 
     @Autowired
     public void setQuizDao(NewQuizDao quizDao)
     {
         this.quizDao = quizDao;
+    }
+
+    @Autowired
+    public void setAccountDao(AccountDao accountDao)
+    {
+        this.accountDao = accountDao;
     }
 
     /**
@@ -185,35 +196,59 @@ public class QuizServiceImpl implements QuizService
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-        //PageUtil.toPage(pageNumber);
+        PageUtil.toPage(pageNumber);
         List<Map<String, Object>> quizzes = quizDao.getQuizByHisClassIdOrCourseId(userId, courseId);
         if (quizzes == null) // 没有得到数据
         {
             return new AccountDto(Common.GET_IS_NULL);
         }
-        System.out.println(quizzes);
 
         return new AccountDto<>(PageUtil.pageInfo(quizzes), Common.SUCCESS);
     }
 
     /**
      * 填写问卷
-     * 需要给 quiz 传入 userId, classId, courseId, quizDetailId和 answers
+     * 需要给 quiz 传入 userId, classId, quizDetailId 和 answers
      *
      * @param quiz 填写的问卷
      * @return 返回是否填写成功
      */
     public AccountDto writeQuiz(Quiz quiz)
     {
-        if (quiz == null || quiz.getUserId() == null
-                || quiz.getClassId() == null || quiz.getCourseId() == null)
+        if (quiz == null || quiz.getUserId() == null || quiz.getClassId() == null)
         {
             // 这些参数必须传入
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         quiz.setDate(new Date()); // 填写时间
-        int affect = quizDao.insertQuiz(quiz); // 可以获得 quiz_id
+        Clazz clazz = accountDao.getClassByClassId(quiz.getClassId());
+        if (clazz == null) // 班级信息必须要有，主要是课程
+        {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        quiz.setCourseId(clazz.getCourseId());
+        int affect = quizDao.checkIfWritten(quiz.getUserId(), quiz.getCourseId(), quiz.getQuizDetailId());
+        if (affect > 0) // 重复填写问卷错误
+        {
+            return new AccountDto(new Statusable()
+            {
+                @Override
+                public int getCode()
+                {
+                    return -1;
+                }
+
+                @Override
+                public String getInfo()
+                {
+                    return "这节课，您已经填写过这个问卷了！";
+                }
+            });
+        }
+
+        affect = quizDao.insertQuiz(quiz); // 可以获得 quiz_id
         if (affect <= 0) // 由于未知错误，插入失败
         {
             logger.warn("insertQuiz...err...");
@@ -226,6 +261,7 @@ public class QuizServiceImpl implements QuizService
         affect = quizDao.insertQuizAnswer(quizAnswer);
         if (affect <= 0)
         {
+            logger.warn("insertQuizAnswer...err...");
             return new AccountDto(Common.ERROR);
         }
 

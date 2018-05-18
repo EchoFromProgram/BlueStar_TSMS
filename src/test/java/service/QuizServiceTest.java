@@ -74,7 +74,6 @@ public class QuizServiceTest
         Quiz quiz = new Quiz();
         quiz.setClassId(2);
         quiz.setUserId(4);
-        quiz.setCourseId(2);
         quiz.setQuizDetailId(2);
 
         List<String> answers = new ArrayList<>();

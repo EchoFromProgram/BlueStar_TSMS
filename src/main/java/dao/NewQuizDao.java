@@ -32,6 +32,8 @@ public interface NewQuizDao
 
     public List<Map<String, Object>> getQuizByHisClassIdOrCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
 
+    public int checkIfWritten(@Param("userId") Integer userId, @Param("courseId") Integer courseId, @Param("quizDetailId") Integer quizDetailId);
+
     public int insertQuiz(Quiz quiz);
 
     public int insertQuizAnswer(QuizAnswer quizAnswer);

@@ -112,6 +112,12 @@
         ORDER BY q.date DESC
     </select>
 
+    <select id="checkIfWritten" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM quiz
+        WHERE user_id = #{userId} AND course_id = #{courseId} AND quiz_detail_id = #{quizDetailId}
+    </select>
+
     <insert id="insertQuiz" useGeneratedKeys="true" keyProperty="quizId">
         INSERT INTO quiz(class_id, user_id, course_id, date, quiz_detail_id)
         VALUES(#{classId}, #{userId}, #{courseId}, #{date}, #{quizDetailId})
