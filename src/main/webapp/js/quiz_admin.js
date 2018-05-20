@@ -208,3 +208,41 @@ function getQuizDetail(){
 	    }
 	});
 }
+
+//点击增加问题数量
+$("#add-question-num").click(function () {
+    $("#question-submit-list").append('<div class="row-fluid">'+
+    '<label>问题</label>'+
+    '<input class="form-control question-title question-submit" placeholder="请输入问卷问题，如需添加问题，请点击右侧＋号" required="">'+
+    '</div>');
+});
+//点击减少问题数量
+$("#delete-question-num").click(function () {
+	$("#question-submit-list").children("div:last-child").remove();
+})
+
+//发布问卷
+//填写问卷的提交
+function publictQuiz(){
+	var questions = new Array();
+	$.each($(".question-submit"), function(index, item){
+		questions.push($(item).val());
+	});
+	console.log(questions);
+	$.ajax({
+	    url:"public_quiz.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{
+	    	"questions":questions,
+	    },
+	    traditional: true,
+	    success: function(data){
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+	return false;
+}

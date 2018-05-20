@@ -127,18 +127,18 @@ function studentSign(){
 	    data:{"inputCode":$("#signword").val(), "reason":$("#sign-reason").val()},
 	    success: function(data){
 	    	$('#sign-help').text("");
-            $('#signword').removeClass("has-error");
+            $('#sign-div').removeClass("has-error");
 	    	$('#sign-reason-help').text("");
-            $('#sign-reason').removeClass("has-error");
-	    	
+            $('#sign-reason-div').removeClass("has-error");
+            
 	    	if(0 == data.code){
 	    		alert(data.info);
 	    	}else if(-1 == data.code){
 	    		$("#sign-help").text(data.info);
-	    		$('#signword').addClass("has-error");
+	    		$('#sign-div').addClass("has-error");
 	    	}else if(-2 == data.code){
 	    		$("#sign-reason-help").text(data.info);
-	    		$('#sign-reason').addClass("has-error");
+	    		$('#sign-reason-div').addClass("has-error");
 	    	}else if(-3 == data.code){
 	    		alert(data.info);
 	    	}else if(-4 == data.code){

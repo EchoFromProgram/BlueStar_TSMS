@@ -16,8 +16,10 @@ import com.github.pagehelper.Page;
 import dto.AccountDto;
 import entity.Clazz;
 import entity.Quiz;
+import entity.QuizDetail;
 import entity.User;
 import service.QuizService;
+import utils.ListUtil;
 
 @Controller
 public class QuizController {
@@ -105,6 +107,17 @@ public class QuizController {
 		List<String> answerList = Arrays.asList(answers);
 		quiz.setAnswers(answerList);
 		AccountDto accountDto = quizService.writeQuiz(quiz);
+		return accountDto;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(path = "public_quiz.do", produces = {"application/json;charset=UTF8"})
+	public Object publicQuiz(String[] questions) {
+		List<String> questionList = Arrays.asList(questions);
+		QuizDetail quizDetail = new QuizDetail();
+		quizDetail.setQuestions(ListUtil.strings2QuizQuestions(questionList));
+		AccountDto accountDto = quizService.publishQuiz(quizDetail);
 		return accountDto;
 	}
 }

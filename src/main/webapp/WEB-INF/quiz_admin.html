@@ -78,7 +78,7 @@
                             <a href="#panel-quiz-2" data-toggle="tab" class="col-xs-6 col-sm-6 placeholders" id="update-notice" style='text-decoration:none;'>
                                 <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive center-block" alt="">
                                 <h4>发布问卷</h4>
-                                <span class="text-muted">发布一份新的问卷替换旧的问卷</span>
+                                <span class="text-muted">发布一份新的问卷</span>
                             </a>
                         </div>
                     </div>
@@ -134,16 +134,22 @@
                         </div>
                         <!-- 标签2对应的模块 -->
                         <div class="tab-pane col-md-8 col-md-offset-2" id="panel-quiz-2">
-                            <h2 class="sub-header">修改问卷内容</h2>
-                            <form class="form" onsubmit="return ">
-                                <div class="row-fluid">
-                                    <input class="form-control question-title" value="1.对于这节课你觉得有什么需要改进的地方">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control question-title" value="2.你对这节课的接受程度如何">
+                            <h2 class="sub-header">发布问卷内容</h2>
+                            <form class="form" onsubmit="return publictQuiz()">
+                                <div id="question-submit-list">
+                                    <div class="row-fluid question-div">
+                                        <label>问题</label>
+                                        <input class="form-control question-title question-submit" placeholder="请输入问卷问题，如需添加问题，请点击右侧＋号" required="">
+                                    </div>
                                 </div>
                                 <button class="btn-primary btn">修改</button>
                             </form>
+                            <div id="add-question-num" style="position: fixed;bottom: 80px;right: 80px;z-index: 100; border: 1px solid #e0e1b2; padding: 10px">
+                                <span class="glyphicon glyphicon-plus" style="font-size: 25px;"></span>
+                            </div>
+                            <div id="delete-question-num" style="position: fixed;bottom: 20px;right: 80px;z-index: 100; border: 1px solid #e0e1b2; padding: 10px">
+                                <span class="glyphicon glyphicon-minus" style="font-size: 25px;"></span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ $(function(){
 		url:"getSessionHisClasses.do",
 		type:"POST",
 		success: function(data){
+			//便签1班级获取
 			$("#which-class").empty();
 			$("#which-class").append('<option value="0">全部班级</option>');
 		    $.each(data,function(index, item){
@@ -11,9 +12,13 @@ $(function(){
 		        option.attr("value", item.classId);
 		        option.appendTo("#which-class");
 		    });
-		    $("#which-class").change(function(){
-	        	getCourseByClass(this.value)
-	        });
+		    //便签2班级获取
+		    $("#which-class-need").empty();
+		    $.each(data,function(index, item){
+		        var option = $("<option></option>").append(item.className);
+		        option.attr("value", item.classId);
+		        option.appendTo("#which-class-need");
+		    });
 		},
 		error:function () {
           alert("网络错误");
@@ -102,19 +107,19 @@ function build_table(data) {
     		    '<div class="modal-content">'+
     		    '<div class="modal-header">'+
     		    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-    		    '<h4 class="modal-title " id="myModalLabel-update-score-1">'+
+    		    '<h4 class="modal-title ">'+
     		    '修改这位学生的成绩信息'+
     		    '</h4>'+
     		    '</div>'+
     		    '<div class="modal-body">'+
     		    '<div class="form-group">'+
     		    '<label class="sr-only">姓名</label>'+
-    		    '<input id="score-update-name-i-s-' + item.scoreId + '" class="form-control"  required=""></input>'+
+    		    '<div id="score-update-name-i-s-' + item.scoreId + '" class="placeholders">' + item.name + '</div>'+
     		    '<span class="help-block" id="update-score-help-name-s-1"></span>'+
     		    '</div>'+
     		    '<div class="form-group" id="score-update-num-s-' + item.scoreId + '">'+
     		    '<label class="sr-only">分数</label>'+
-    		    '<input id="score-update-num-i-s-' + item.scoreId + '" class="form-control" required=""></input>'+
+    		    '<input id="score-update-num-i-s-' + item.scoreId + '" class="form-control" required="" value="' + item.score + '"></input>'+
     		    '<span class="help-block" id="update-score-help-num-s-1"></span>'+
     		    '</div>'+
     		    '</div>'+
@@ -128,8 +133,9 @@ function build_table(data) {
     		    '</td>'+
     		    '</tr>'
     		);
-
     })
+    $(".delete-score-button").click(deleteScore);
+    $(".update-score-button").click(updateScore);
 }
 
 //解析显示分页文字
@@ -215,3 +221,63 @@ $("#submit-which-score").click(function(){
 $(function(){
 	teacherGetScore(1, 0, 0);
 })
+
+//更新学生成绩
+function updateScore(){
+	$.ajax({
+		url:"update_score.do",
+		data:{
+			"scoreId":$(this).attr("update-prop"),
+			"socreNum":$("#score-update-num-i-s-" + $(this).attr("update-prop")).val()
+			},
+		dataType:"json",
+		type:"POST",
+		async:false,
+		traditional: true,
+		success: function(data){
+			window.location.reload();
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+	return false;
+}
+
+//删除学生成绩
+function deleteScore(){
+	$.ajax({
+	    url:"delete_score.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"scoreId":$(this).attr("delete-prop")},
+	    success: function(data){
+	    	window.location.reload();
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}
+
+function publicScore(){
+	var answers = new Array();
+	$.each($(".answer-box"), function(index, item){
+		answers.push($(item).val());
+	});
+	console.log(answers);
+	$.ajax({
+	    url:"",
+	    type:"POST",
+	    dataType:"json",
+	    data:{},
+	    success: function(data){
+	        console.log(data);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}

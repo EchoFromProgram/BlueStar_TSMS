@@ -30,7 +30,6 @@ function submitQuiz(){
 	$.each($(".answer-box"), function(index, item){
 		answers.push($(item).val());
 	});
-	console.log(answers);
 	$.ajax({
 	    url:"write_quiz.do",
 	    type:"POST",

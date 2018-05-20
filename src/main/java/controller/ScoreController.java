@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.AccountDto;
 import entity.Clazz;
+import entity.Score;
 import service.ScoreService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -86,4 +91,54 @@ public class ScoreController {
 		}
 		return accountDto.getData();
 	}
+	
+	@ResponseBody
+	@RequestMapping(path = "update_score.do", produces = {"application/json;charset=UTF8"})
+	public Object updateScore(Integer scoreId, Integer socreNum) {
+		Score score = new Score();
+		score.setScore(socreNum);
+		score.setScoreId(scoreId);
+		AccountDto accountDto = scoreService.updateScore(score);
+		return accountDto;
+	}
+	
+	/***
+	 * 根据分数id删除列表中的分数信息
+	 * 
+	 * @param scoreId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path = "delete_score.do", produces = {"application/json;charset=UTF8"})
+	public Object deleteScore(Integer scoreId) {
+		AccountDto accountDto = scoreService.deleteScore(scoreId);
+		return accountDto;
+	}
+	
+	/***
+	 * 
+	 * 
+	 * @param userIds
+	 * @param scoreArr
+	 * @param classId
+	 * @param stage
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path = "public_score.do", produces = {"application/json;charset=UTF8"})
+	public Object publicScore(Integer[] userIds, Integer[] scoreArr, Integer classId, Integer stage) {
+		List<Score> scores = new ArrayList<Score>();
+		Date date = new Date();
+		AccountDto accountDto = scoreService.insertScores(scores);
+		return accountDto;
+	}
+	
+//	@ResponseBody
+//	@RequestMapping(path = "get_users.do", produces = {"application/json;charset=UTF8"})
+//	public Object getUsersByClassId(Integer classId) {
+//		List<Score> scores = new ArrayList<Score>();
+//		Date date = new Date();
+//		AccountDto accountDto
+//		return accountDto;
+//	}
 }
