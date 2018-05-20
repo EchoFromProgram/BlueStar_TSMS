@@ -99,6 +99,12 @@ public interface ScoreService
      */
     public AccountDto deleteScore(Integer scoreId);
     
+    /**
+     * 根据班级id得到该班级的用户
+     * @param classId
+     * @return
+     */
+    public AccountDto getUsersByClassId(Integer classId);
     
     
 }

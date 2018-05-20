@@ -71,7 +71,8 @@ public class ScoreDaoTest {
 	
 	@Test
 	public void testA() {
-		scoreDao.deleteScoreByScoreId(6);
+		
+		
 	}
 	
 	
