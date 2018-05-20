@@ -4,6 +4,7 @@ import dao.ScoreDao;
 import dto.AccountDto;
 import entity.Score;
 import entity.ScoreData;
+import entity.User;
 import enums.impl.Common;
 import enums.impl.ScoreStatus;
 
@@ -259,5 +260,23 @@ public class ScoreServiceImpl implements ScoreService
 			return new AccountDto(ScoreStatus.DELTE_ERROR);
 		}
 		return new AccountDto(Common.SUCCESS);
+	}
+	
+	/**
+	 * 根据班级id得到该班级的用户
+	 * @param classId 班级id
+	 * @return 用户集合
+	 */
+	@Override
+	public AccountDto getUsersByClassId(Integer classId) {
+		if(classId == null) {
+			return new AccountDto(Common.WRONG_ARGEMENT);
+		}
+		List<User> users = scoreDao.getUsersByClassId(classId);
+		if(users == null || users.size() == 0) {
+			return new AccountDto(Common.GET_IS_NULL);
+		}
+		return new AccountDto<List<User>>(users,Common.SUCCESS);
+		
 	}
 }
