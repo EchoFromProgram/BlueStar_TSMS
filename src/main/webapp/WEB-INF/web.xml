@@ -45,4 +45,27 @@
         <listener-class>listener.InitListener</listener-class>
     </listener>
 
+    <!-- 配置过滤器 -->
+    <filter>
+        <filter-name>sessionFilter</filter-name>
+        <filter-class>filter.SessionFilter</filter-class>
+        <init-param>
+            <!-- 登陆 uri -->
+            <param-name>loginUri</param-name>
+            <param-value>login.do</param-value>
+        </init-param>
+        <init-param>
+            <param-name>loginCheckUri</param-name>
+            <param-value>loginCheck.do</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>sessionFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+
 </web-app>
