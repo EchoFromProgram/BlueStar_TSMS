@@ -58,10 +58,5 @@ public class SignDaoTest {
 		
 	}
 	
-	@Test
-	public void test1() {
-		Double num = signDao.getSignSuccessNumberByClass(2);
-		System.out.println(num);
-	}
 	
 }

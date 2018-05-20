@@ -95,22 +95,4 @@
 		FROM sign
 		WHERE user_id = #{userId} AND course_id = #{courseId}
 	</select>
-	
-	<!-- 得到签到成功的百分比 -->
-	<select id="getSignSuccessNumberByClass" resultType="double">
-		SELECT ROUND(T1.success/((T2.total) * (T3.cid)),2)
-    	FROM 
-     	(SELECT COUNT(*) AS success
-         FROM sign WHERE sign.status = 0 AND sign.class_id = #{classId}) T1,
-     	(SELECT COUNT(*) AS total
-       	FROM user u INNER JOIN user_class uc ON u.user_id = uc.user_id 
-       	WHERE u.role_id = 2 AND uc.class_id = #{classId})T2,
-        (SELECT c.course_id cid FROM class c WHERE c.class_id = #{classId})T3
-     </select>
-        
-        <!-- 得到迟到的百分比 -->
-	<select id="getSignLateNumber" resultType="double">
-		
-          
-	</select>
 </mapper>

@@ -119,23 +119,5 @@ public interface SignDao {
 			   												  @Param("courseId")Integer courseId);
 
     public int signIsExisted(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
-    
-    /**
-	 * 得到签到成功百分比
-	 * @param classId 班级id
-	 * @param courseId 课程id
-	 * @return 百分比
-	 */
-	public Double getSignSuccessNumberByClass(Integer classId);
-	
-	public Double getSignSuccessNumberByCourse(Integer courseId);
-	
-	/**
-	 * 得到迟到百分比
-	 * @param classId 班级id
-	 * @param courseId 课程id
-	 * @return 百分比
-	 */
-	public Double getSignLateNumber(@Param("classId")Integer classId, @Param("courseId")Integer courseId);
    
 }

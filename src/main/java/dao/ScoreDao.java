@@ -123,14 +123,6 @@ public interface ScoreDao {
 	 * @return 
 	 */
 	public Integer insertScores(@Param("scores")List<Score> scores);
-	
-	/**
-	 * 得到考试合格百分比
-	 * @param classId 班级id
-	 * @param status 阶段
-	 * @return 百分比
-	 */
-	public Double getPassNumber(@Param("classId")Integer classId, @Param("status")Integer status);
-	
+			
 	
 }
