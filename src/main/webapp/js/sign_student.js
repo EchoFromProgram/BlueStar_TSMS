@@ -126,7 +126,30 @@ function studentSign(){
 	    dataType:"json",
 	    data:{"inputCode":$("#signword").val(), "reason":$("#sign-reason").val()},
 	    success: function(data){
-	        alert(data.info);
+	    	$('#sign-help').text("");
+            $('#signword').removeClass("has-error");
+	    	$('#sign-reason-help').text("");
+            $('#sign-reason').removeClass("has-error");
+	    	
+	    	if(0 == data.code){
+	    		alert(data.info);
+	    	}else if(-1 == data.code){
+	    		$("#sign-help").text(data.info);
+	    		$('#signword').addClass("has-error");
+	    	}else if(-2 == data.code){
+	    		$("#sign-reason-help").text(data.info);
+	    		$('#sign-reason').addClass("has-error");
+	    	}else if(-3 == data.code){
+	    		alert(data.info);
+	    	}else if(-4 == data.code){
+	    		alert(data.info);
+	    	}else if(-5 == data.code){
+	    		alert(data.info);
+	    	}else if(-6 == data.code){
+	    		alert(data.info);
+	    	}else if(-7 == data.code){
+	    		alert(data.info);
+	    	}
 	    },
 	    error:function () {
 	        alert("网络错误");
