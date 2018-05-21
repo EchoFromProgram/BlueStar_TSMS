@@ -179,51 +179,37 @@
                         <div class="tab-pane col-sm-12" id="panel-score-2">
                             <!-- 发布成绩 -->
                             <h2 class="sub-header">发布成绩</h2>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="which-stage" class="sr-only">类型</label>
-                                <select class="form-control" id="which-class-update">
-                                    <option value ="一班">一班</option>
-                                    <option value ="二班">二班</option>
-                                    <option value ="三班">三班</option>
+                                <select class="form-control" id="which-class-need">
+                       
                                 </select>
                                 <div class="line"></div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="which-stage" class="sr-only">类型</label>
-                                <select class="form-control" id="which-stage-update">
-                                    <option value ="第一阶段">第一阶段</option>
-                                    <option value ="第二阶段">第二阶段</option>
-                                    <option value ="第三阶段">第三阶段</option>
+                                <select class="form-control" id="which-stage-need">
+                                    <option value ="1">第一阶段</option>
+                                    <option value ="2">第二阶段</option>
+                                    <option value ="3">第三阶段</option>
                                 </select>
-                                <div class="line"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="which-date-update" class="sr-only">日期</label>
-                                <input id="which-date-update" class="form-control" type="date" value="2018-05-01">
                                 <div class="line"></div>
                             </div>
 
-                            <form class="form" onsubmit="return ">
+                            <form class="form" onsubmit="return publicScore()">
                                 <table class="table table-responsive table-striped">
                                     <thead>
                                     <tr>
                                         <th>
-                                            姓名
+                                            	姓名
                                         </th>
                                         <th>
-                                            成绩
+                                            	成绩
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            Macky
-                                        </td>
-                                        <td>
-                                            <input class="form-control" placeholder="学生成绩分数">
-                                        </td>
-                                    </tr>
+                                    <tbody id="public-score-box">
+                                    
                                     </tbody>
                                 </table>
                                 <button class="btn btn-lg btn-primary btn-block" id="score-create">发布</button>

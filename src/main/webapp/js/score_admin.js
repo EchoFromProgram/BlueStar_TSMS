@@ -4,6 +4,7 @@ $(function(){
 		url:"getSessionHisClasses.do",
 		type:"POST",
 		success: function(data){
+			//便签1班级获取
 			$("#which-class").empty();
 			$("#which-class").append('<option value="0">全部班级</option>');
 		    $.each(data,function(index, item){
@@ -11,6 +12,14 @@ $(function(){
 		        option.attr("value", item.classId);
 		        option.appendTo("#which-class");
 		    });
+		    //便签2班级获取
+		    $("#which-class-need").empty();
+		    $.each(data,function(index, item){
+		        var option = $("<option></option>").append(item.className);
+		        option.attr("value", item.classId);
+		        option.appendTo("#which-class-need");
+		    });
+		    getUsers($("#which-class-need").val());
 		},
 		error:function () {
           alert("网络错误");
@@ -125,8 +134,9 @@ function build_table(data) {
     		    '</td>'+
     		    '</tr>'
     		);
-
     })
+    $(".delete-score-button").click(deleteScore);
+    $(".update-score-button").click(updateScore);
 }
 
 //解析显示分页文字
@@ -212,3 +222,108 @@ $("#submit-which-score").click(function(){
 $(function(){
 	adminGetScore(1, 0, 0);
 })
+
+//更新学生成绩
+function updateScore(){
+	$.ajax({
+		url:"update_score.do",
+		data:{
+			"scoreId":$(this).attr("update-prop"),
+			"socreNum":$("#score-update-num-i-s-" + $(this).attr("update-prop")).val()
+			},
+		dataType:"json",
+		type:"POST",
+		async:false,
+		traditional: true,
+		success: function(data){
+			window.location.reload();
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+	return false;
+}
+
+//删除学生成绩
+function deleteScore(){
+	$.ajax({
+	    url:"delete_score.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"scoreId":$(this).attr("delete-prop")},
+	    success: function(data){
+	    	window.location.reload();
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}
+
+function publicScore(){
+	var names = new Array();
+	$.each($(".td-name"), function(index, item){
+		names.push($(item).attr("user-id-prop"));
+	});
+
+	var scores = new Array();
+	$.each($(".td-score"), function(index, item){
+		scores.push($(item).val());
+	});
+
+	$.ajax({
+	    url:"public_score.do",
+	    type:"POST",
+	    dataType:"json",
+	    traditional: true,
+	    data:{
+	    	"userIds":names,
+	    	"scoreArr":scores,
+	    	"classId":$("#which-class-need").val(),
+	    	"stage":$("#which-stage-need").val()
+	    	},
+	    success: function(data){
+	    	window.location.reload();
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+	return false;
+}
+
+function getUsers(classId){
+		$.ajax({
+	    url:"get_users.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"classId":classId},
+	    success: function(data){
+	    	$("#public-score-box").empty();
+	        $.each(data.data,function(index, item){
+	        	$("#public-score-box").append(
+	        	'<tr>'+
+	        	'<td class="td-name" user-id-prop="' + item.userId + '">'+
+	        		item.name +
+                '</td>'+
+                '<td>'+
+                	'<input class="form-control td-score" placeholder="学生成绩分数" required="">'+
+                '</td>'+
+                '</tr>'
+	        	)
+	        	
+	        });
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}
+
+$("#which-class-need").change(function(){
+	getUsers(this.value);
+});

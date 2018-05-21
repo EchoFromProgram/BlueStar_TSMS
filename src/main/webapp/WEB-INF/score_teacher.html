@@ -188,10 +188,10 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="which-stage" class="sr-only">类型</label>
-                                <select class="form-control" id="which-stage">
-                                    <option value ="第一阶段">第一阶段</option>
-                                    <option value ="第二阶段">第二阶段</option>
-                                    <option value ="第三阶段">第三阶段</option>
+                                <select class="form-control" id="which-stage-need">
+                                    <option value ="1">第一阶段</option>
+                                    <option value ="2">第二阶段</option>
+                                    <option value ="3">第三阶段</option>
                                 </select>
                                 <div class="line"></div>
                             </div>
@@ -208,15 +208,8 @@
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="td-name" user-id-prop="1">
-                                            Macky
-                                        </td>
-                                        <td>
-                                            <input class="form-control td-score" placeholder="学生成绩分数" required="">
-                                        </td>
-                                    </tr>
+                                    <tbody id="public-score-box">
+                                    
                                     </tbody>
                                 </table>
                                 <button class="btn btn-lg btn-primary btn-block" id="score-create">发布</button>

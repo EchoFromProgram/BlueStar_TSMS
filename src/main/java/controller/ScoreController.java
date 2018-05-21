@@ -129,17 +129,26 @@ public class ScoreController {
 	public Object publicScore(Integer[] userIds, Integer[] scoreArr, Integer classId, Integer stage) {
 		List<Score> scores = new ArrayList<Score>();
 		Date date = new Date();
+		for(int i = 0; i < userIds.length; i++) {
+			Score score = new Score();
+			score.setClassId(classId);
+			score.setStatus(stage);
+			score.setUserId(userIds[i]);
+			score.setScore(scoreArr[i]);
+			score.setDate(date);
+			scores.add(score);
+		}
 		AccountDto accountDto = scoreService.insertScores(scores);
 		return accountDto;
 	}
 	
 	
-//	@ResponseBody
-//	@RequestMapping(path = "get_users.do", produces = {"application/json;charset=UTF8"})
-//	public Object getUsersByClassId(Integer classId) {
-//		List<Score> scores = new ArrayList<Score>();
-//		Date date = new Date();
-//		AccountDto accountDto = scoreService.getUsersByClassId(classId);
-//		return accountDto;
-//	}
+	@ResponseBody
+	@RequestMapping(path = "get_users.do", produces = {"application/json;charset=UTF8"})
+	public Object getUsersByClassId(Integer classId) {
+		List<Score> scores = new ArrayList<Score>();
+		Date date = new Date();
+		AccountDto accountDto = scoreService.getUsersByClassId(classId);
+		return accountDto;
+	}
 }
