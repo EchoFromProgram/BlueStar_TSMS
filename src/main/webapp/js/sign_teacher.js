@@ -183,7 +183,11 @@ function getCourseByClass(classId){
 		type:"POST",
 		data:{"classId":classId},
 		success: function(data){
-			$("#which-stage").val(data.courseId);
+			if(classId == 0){
+				$("#which-stage").val(0);
+			}else{
+				$("#which-stage").val(data.courseId);	
+			}
 		},
 		error:function () {
             alert("网络错误");

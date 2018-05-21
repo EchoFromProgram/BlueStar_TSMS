@@ -134,12 +134,12 @@ public class ScoreController {
 	}
 	
 	
-	@ResponseBody
-	@RequestMapping(path = "get_users.do", produces = {"application/json;charset=UTF8"})
-	public Object getUsersByClassId(Integer classId) {
-		List<Score> scores = new ArrayList<Score>();
-		Date date = new Date();
-		AccountDto accountDto = scoreService.getUsersByClassId(classId);
-		return accountDto;
-	}
+//	@ResponseBody
+//	@RequestMapping(path = "get_users.do", produces = {"application/json;charset=UTF8"})
+//	public Object getUsersByClassId(Integer classId) {
+//		List<Score> scores = new ArrayList<Score>();
+//		Date date = new Date();
+//		AccountDto accountDto = scoreService.getUsersByClassId(classId);
+//		return accountDto;
+//	}
 }

@@ -263,21 +263,29 @@ function deleteScore(){
 }
 
 function publicScore(){
-	var answers = new Array();
-	$.each($(".answer-box"), function(index, item){
-		answers.push($(item).val());
+	var names = new Array();
+	$.each($(".td-name"), function(index, item){
+		names.push($(item).attr("user-id-prop"));
 	});
-	console.log(answers);
-	$.ajax({
-	    url:"",
-	    type:"POST",
-	    dataType:"json",
-	    data:{},
-	    success: function(data){
-	        console.log(data);
-	    },
-	    error:function () {
-	        alert("网络错误");
-	    }
+	console.log(names);
+	
+	var scores = new Array();
+	$.each($(".td-score"), function(index, item){
+		scores.push($(item).val());
 	});
+	console.log(scores);
+	
+//	$.ajax({
+//	    url:"",
+//	    type:"POST",
+//	    dataType:"json",
+//	    data:{},
+//	    success: function(data){
+//	        console.log(data);
+//	    },
+//	    error:function () {
+//	        alert("网络错误");
+//	    }
+//	});
+	return false;
 }

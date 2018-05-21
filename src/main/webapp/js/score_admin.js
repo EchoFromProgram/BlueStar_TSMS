@@ -11,9 +11,6 @@ $(function(){
 		        option.attr("value", item.classId);
 		        option.appendTo("#which-class");
 		    });
-		    $("#which-class").change(function(){
-	        	getCourseByClass(this.value)
-	        });
 		},
 		error:function () {
           alert("网络错误");
