@@ -16,10 +16,10 @@ public interface RoleService {
 	
 	/**
 	 * 得到当前所有的角色已经他们的权限
-	 * @param pageNumber 分页
+	 * 
 	 * @return 用户集合
 	 */
-	public AccountDto getRoles(Integer pageNumber);
+	public AccountDto getRoles();
 	
 	/**
 	 * 根据角色id联表删除角色
