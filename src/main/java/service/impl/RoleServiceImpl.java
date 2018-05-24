@@ -23,21 +23,15 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 	
 	@Override
-	public AccountDto getRoles(Integer pageNumber) {
-		 // 如果参数为空，则返回参数错误
-        if (pageNumber == null)
-        {
-            return new AccountDto(Common.WRONG_ARGEMENT);
-        }
-
-        PageUtil.toPage(pageNumber); // 开始分页
+	public AccountDto getRoles() {
+		
         List<Role> roles = roleDao.getRolesPowerName();
         if (roles == null)
         {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
-        return new AccountDto<>(PageUtil.pageInfo(roles), Common.SUCCESS);
+        return new AccountDto<List<Role>>(roles, Common.SUCCESS);
 	}
 
 	@Override

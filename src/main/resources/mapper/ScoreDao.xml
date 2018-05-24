@@ -79,8 +79,7 @@
 	
 	<!-- 根据班级id得到该班级的用户 -->
 	<select id="getUsersByClassId" resultType="entity.User">
-		SELECT u.name, u.user_id, u.userName, u.password, u.role_id, u.info_id, u.type_id,
-		uc.class_id FROM user u, user_class uc WHERE u.user_id = uc.user_id AND uc.class_id = #{classId}
+		SELECT u.name, u.user_id FROM user u, user_class uc WHERE u.user_id = uc.user_id AND uc.class_id = #{classId} AND u.type_id = 1
 	</select>
 	
 	<!-- 批量插入成绩 -->

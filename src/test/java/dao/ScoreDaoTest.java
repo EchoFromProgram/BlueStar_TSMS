@@ -71,7 +71,8 @@ public class ScoreDaoTest {
 	
 	@Test
 	public void testA() {
-		scoreDao.deleteScoreByScoreId(6);
+		List<User> list = scoreDao.getUsersByClassId(2);
+		System.out.println(list);
 	}
 	
 	
