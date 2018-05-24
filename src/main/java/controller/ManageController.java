@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -7,16 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.github.pagehelper.Page;
 
 import dto.AccountDto;
+import entity.Role;
+import entity.RolePower;
 import entity.User;
 import service.AccountService;
+import service.RoleService;
 
 @Controller
 public class ManageController {
 
 	@Resource
 	private AccountService accountService;
+	
+	@Resource
+	private RoleService roleService;
 	
 	@RequestMapping(path = "user_manage.do", produces = {"application/json;charset=UTF8"})
 	public String userManage() {
@@ -47,5 +57,26 @@ public class ManageController {
 			accountDto = accountService.getAccounts(page, typeId);
 		}
 		return accountDto.getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "create_role.do", produces = {"application/json;charset=UTF8"})
+	public Object createRole(String roleName, Integer[] roleIds) {
+		System.out.println(roleName);
+		System.out.println(roleIds);
+		Role role = new Role();
+		RolePower rolePower = new RolePower();
+		role.setRole(roleName);
+		List<Integer> roleArr = Arrays.asList(roleIds);
+		rolePower.setPowerIds(roleArr);
+		AccountDto accountDto = roleService.insertRole(role, rolePower);
+		return accountDto;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "get_all_role.do", produces = {"application/json;charset=UTF8"})
+	public Object getAllRole(Integer page) {
+		AccountDto accountDto = roleService.getRoles(page);
+		return accountDto;
 	}
 }
