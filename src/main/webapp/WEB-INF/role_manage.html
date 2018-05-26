@@ -85,7 +85,7 @@
                     <div class="nav nav-tabs">
                         <!-- 标签1 -->
                         <div class="active">
-                            <a href="#panel-user-1" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="show-user" style='text-decoration:none;'>
+                            <a href="#panel-user-1" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="show-role" style='text-decoration:none;'>
                                 <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
                                 <h4>查看角色</h4>
                                 <span class="text-muted">查看当前系统拥有的角色</span>
@@ -93,7 +93,7 @@
                         </div>
                         <!-- 标签2 -->
                         <div>
-                            <a href="#panel-user-2" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="update-user" style='text-decoration:none;'>
+                            <a href="#panel-user-2" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="update-role" style='text-decoration:none;'>
                                 <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
                                 <h4>修改角色权限</h4>
                                 <span class="text-muted">对角色的相关权限进行管理</span>
@@ -101,7 +101,7 @@
                         </div>
                         <!-- 标签3 -->
                         <div>
-                            <a href="#panel-user-3" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="add-user" style='text-decoration:none;'>
+                            <a href="#panel-user-3" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="add-role" style='text-decoration:none;'>
                                 <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
                                 <h4>新增角色</h4>
                                 <span class="text-muted">增加一个新的角色</span>
@@ -109,7 +109,7 @@
                         </div>
                         <!-- 标签4 -->
                         <div>
-                            <a href="#panel-user-4" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="delete-user" style='text-decoration:none;'>
+                            <a href="#panel-user-4" data-toggle="tab" class="col-xs-3 col-sm-3 placeholder" id="delete-role" style='text-decoration:none;'>
                                 <img src="./img/叶子.jpg" width="200" height="200" class="img-responsive" alt="">
                                 <h4>删除角色</h4>
                                 <span class="text-muted">删除指定的角色与权限</span>
@@ -133,86 +133,21 @@
 				                    </tbody>
 				                </table>
 				            </div>
-					        <!-- 分页信息 -->
-							<div class="row">
-								<!-- 分页文字 -->
-								<div class="col-md-6" id="page_info_area"></div>
-								<!-- 分页条 -->
-								<div class="col-md-6" id="page_nav_area"></div>		
-							</div>
                         </div>
                         <!-- 标签2对应的模块 -->
-                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-2">
+                        <div class="tab-pane col-sm-12" id="panel-user-2">
 
                             <h2 class="sub-header">修改角色</h2>
                             <form class="form" onsubmit="return ">
                                 <div class="form-group" id="rolename-change">
                                     <label for="insert-rolename" class="sr-only ">用户名</label>
-                                    <input type="text" id="update-rolename" class="form-control" placeholder="原角色名" required="" autofocus="">
+                                    <input type="text" id="update-rolename" style="width:200px;" class="form-control center-block" placeholder="请输入需要修改的角色名" required="" autofocus="">
                                     <span class="help-block" id="update-rolename-help"></span>
                                 </div>
-                                <!-- 复选框 -->
-                                <div class="form-group" id="power-update">
-                                    <div id="power-line-role-1">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="1"> 首页
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="2"> 学生签到
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="3"> 教师签到
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="4"> 管理员签到
-                                        </label>
-                                    </div>
-
-                                    <div id="power-line-role-2">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="5"> 学生通知
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="6"> 教师通知
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="7"> 管理员通知
-                                        </label>
-                                    </div>
-                                    <div id="power-line-role-3">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="8"> 学生问卷
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="9"> 教师问卷
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="10"> 管理员问卷
-                                        </label>
-                                    </div>
-                                    <div id="power-line-role-4">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="11"> 学生成绩
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="12"> 教师成绩
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="13"> 管理员成绩
-                                        </label>
-                                    </div>
-                                    <div id="power-line-role-5">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="14"> 用户管理
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="power-select" value="15"> 角色管理
-                                        </label>
-                                    </div>
-
-                                </div>
-
-                                <button class="btn btn-lg btn-primary btn-block" id="submit-update-role">修改</button>
+								<div id="select-box-update">
+								
+								</div>
+                                <button class="btn btn-lg btn-primary btn-block center-block" id="submit-update-role" style="width:200px;">修改</button>
                             </form>
 
 
@@ -226,9 +161,8 @@
 						            <input type="text" id="insert-rolename" style="width:200px;" class="form-control center-block" placeholder="给新的角色起个名字把" required="" autofocus="">
 						            <span class="help-block" id="insert-rolename-help"></span>
 						        </div>
-						        <div class="ue-container" style="margin-bottom: 50px">
-						            <select multiple="multiple" size="10" name="doublebox" class="demo">
-						            </select>
+						        <div id="select-box-add">
+	
 						        </div>
 						        <button class="btn btn-lg btn-primary btn-block center-block" id="submit-create-role" style="width:200px;">创建</button>
 						    </form>
@@ -237,7 +171,7 @@
                         <!-- 标签4对应的模块 -->
                         <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-4">
                             <h2 class="sub-header">删除角色</h2>
-                            <form class="form" onsubmit="return ">
+                            <form class="form" onsubmit="return false">
                                 <div class="form-group" id="role-delete">
                                     <label for="delete-role-input" class="sr-only">角色名</label>
                                     <input type="text" id="delete-role-input" class="form-control" placeholder="输入需要删除的角色名" required="">
@@ -245,22 +179,21 @@
                                 </div>
                                 <!-- 遮罩窗体确定是否操作 -->
                                 <!-- 触发按钮 -->
-                                <button id="modal-role-delete-a" href="#modal-role-delete" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal">
-                                    删除
+                                <button id="modal-role-delete-a" href="#modal-role-delete-block" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" style="margin-top:100px">
+                                    	删除
                                 </button>
                                 <!-- 被隐藏的模块 -->
-                                <div class="modal fade" id="modal-role-delete" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modal-role-delete-block" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                 <h4 class="modal-title " id="myModalLabel">
-                                                    确定要删除这个角色以及权限吗？
+                                                    	确定要删除这个角色以及权限吗？
                                                 </h4>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-danger">删除</button>
-                                                <button class="btn btn-warning">取消</button>
+                                                <button class="btn btn-danger" id="delete-role-button">删除</button>
                                             </div>
                                         </div>
                                     </div>
@@ -283,9 +216,10 @@
 <script src="./js/holder.min.js"></script>
 <script src="./js/ie10-viewport-bug-workaround.js"></script>
 <script src="./js/jquery.cookie.js"></script>
+<script src="./js/role_manage.js"></script>
 <script src="./js/login.js"></script>
 <script src="./js/general.js"></script>
-<script src="./js/role_manage.js"></script>
-<script type="text/javascript" src="./js/doublebox-bootstrap.js"></script>
+
+<script src="./js/doublebox-bootstrap.js"></script>
 </body>
 </html>

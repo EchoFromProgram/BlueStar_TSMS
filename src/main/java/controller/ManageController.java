@@ -75,8 +75,15 @@ public class ManageController {
 	
 	@ResponseBody
 	@RequestMapping(path = "get_all_role.do", produces = {"application/json;charset=UTF8"})
-	public Object getAllRole(Integer page) {
-		AccountDto accountDto = roleService.getRoles(page);
+	public Object getAllRole() {
+		AccountDto accountDto = roleService.getRoles();
+		return accountDto;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "delete_role.do", produces = {"application/json;charset=UTF8"})
+	public Object deleteRole(Integer roleId) {
+		AccountDto accountDto = roleService.deleteRole(roleId);
 		return accountDto;
 	}
 }

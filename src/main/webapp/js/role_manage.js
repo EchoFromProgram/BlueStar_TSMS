@@ -1,34 +1,3 @@
-var demo2;
-//获取权限表以及设置左右选择框
-$(function(){
-    $.ajax({
-        url:"getPowerTable.do",
-        type:"POST",
-        dataType:"json",
-        success:function (data) {
-            console.log(data);
-            var nonSelectPower = new Array();
-            $.each(data, function (index, item) {
-            	nonSelectPower.push(item);
-            })
-            
-            demo2 = $('.demo').doublebox({
-                nonSelectedListLabel: '未被选择权限',
-                selectedListLabel: '已被选择的权限',
-                preserveSelectionOnMove: 'moved',
-                moveOnSelect: false,
-                nonSelectedList:nonSelectPower,
-                selectedList:[],
-                optionValue:"powerId",
-                optionText:"powerName",
-                doubleMove:true,
-            });
-        },
-        error:function () {
-            alert("网络错误");
-        }
-    });
-});
 
 //点击创建来创建角色
 $("#submit-create-role").click(createRole);
@@ -54,7 +23,7 @@ function createRole(){
 	return false;
 }
 
-
+var roleTable;
 function to_page(page){
     $.ajax({
         type: "POST",
@@ -62,15 +31,9 @@ function to_page(page){
         dataType: "json",
         data:{"page":page},
         success: function(data){
-        	console.log(data.data);
+        	roleTable = data.data;
             //显示table
             build_table(data.data);
-
-            //显示分页文字
-            buile_page_info(data.data);
-
-            //显示分页条
-            buile_page_nav(data.data);
         },
         error:function () {
             alert("网络错误");
@@ -82,9 +45,8 @@ function to_page(page){
 function build_table(data) {
     //清空
     $("#role-table tbody").empty();
-    var dataList = data.list;
     //jquery遍历,emps为遍历对象，function(index索引,item得到的每一个对象)为回调函数
-    $.each(dataList,function(index, item){
+    $.each(data,function(index, item){
         //创建td并朝里面追加内容
         var roleName = $("<td></td>").append(item.role);
         var powerName = $("<td></td>");
@@ -97,74 +59,6 @@ function build_table(data) {
     })
 }
 
-//解析显示分页文字
-function buile_page_info(data) {
-    $("#page_info_area").empty();
-    $("#page_info_area").append("当前第"+ data.pageNum +"页,总"+data.pages+
-        "页,共"+data.total +"条记录");
-    totalRecord = data.total ;
-    currentPage = data.pageNum;
-}
-
-//解析显示分页条
-function buile_page_nav(data) {
-    $("#page_nav_area").empty();
-    var ul = $("<ul></ul>").addClass("pagination");
-    var firstPageLi = $("<li></li>").append($("<a></a>").append("首页"));
-    var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
-    //如果没有前一页，首页和前一页无法点击
-    if(data.hasPreviousPage == false){
-        firstPageLi.addClass("disabled");
-        prePageLi.addClass("disabled");
-    }else{
-        //跳转到首页
-        firstPageLi.click(function () {
-            to_page(1);
-        })
-        //上一页
-        prePageLi.click(function () {
-            to_page(data.pageNum - 1);
-        })
-    }
-
-
-    var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
-    var lastPageLi = $("<li></li>").append($("<a></a>").append("末页"));
-    //如果没有下一页，末页和下一页无法点击
-    if(data.hasNextPage== false){
-        nextPageLi.addClass("disabled");
-        lastPageLi.addClass("disabled");
-    }else{
-        //跳转到末页
-        lastPageLi.click(function () {
-            to_page(data.pages);
-        })
-        //下一页
-        nextPageLi.click(function () {
-            to_page(data.pageNum + 1);
-        })
-    }
-
-    //添加首页和下一页按钮
-    ul.append(firstPageLi).append(prePageLi);
-    //遍历分页条
-    var navPageNums = data.navigatepageNums;//里面为1,2,3,4,5 ..
-    $.each(navPageNums,function(index,item){
-        var numLi =$("<li></li>").append($("<a></a>").append(item));
-        if(data.pageNum == item){
-            numLi.addClass("active")
-        }
-        numLi.click(function() {
-            to_page(item);
-        });
-        ul.append(numLi);
-    })
-    //添加下一页和末页按钮
-    ul.append(nextPageLi).append(lastPageLi);
-
-    var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
-}
-
 
 
 //显示签到信息的总函数
@@ -174,4 +68,103 @@ function getAllRole(page){
 
 $(function(){
 	getAllRole(1);
+});
+
+//点击创建角色，在页面添加选择框，并并且删除另一个页面的选择框
+$("#add-role").click(function (){
+	$("#select-box-add").append('<div class="ue-container" style="margin-bottom: 15px">'+
+	    '<select multiple="multiple" size="10" name="doublebox" class="demo">'+
+	    '</select>'+
+		'</div>'
+	);
+	$("#select-box-update").empty();
+	//获取权限表以及设置左右选择框
+	    $.ajax({
+	        url:"getPowerTable.do",
+	        type:"POST",
+	        dataType:"json",
+	        success:function (data) {
+	            var nonSelectPower = new Array();
+	            $.each(data, function (index, item) {
+	            	nonSelectPower.push(item);
+	            })
+	            
+	            var demo2 = $('.demo').doublebox({
+	                nonSelectedListLabel: '未被选择权限',
+	                selectedListLabel: '已被选择的权限',
+	                preserveSelectionOnMove: 'moved',
+	                moveOnSelect: false,
+	                nonSelectedList:nonSelectPower,
+	                selectedList:[],
+	                optionValue:"powerId",
+	                optionText:"powerName",
+	                doubleMove:true,
+	            });
+	        },
+	        error:function () {
+	            alert("网络错误");
+	        }
+	    });
+
+})
+
+//点击修改角色，在页面添加选择框，并并且删除另一个页面的选择框
+$("#update-role").click(function (){
+	$("#select-box-update").append('<div class="ue-container" style="margin-bottom: 15px">'+
+	    '<select multiple="multiple" size="10" name="doublebox" class="demo">'+
+	    '</select>'+
+		'</div>'
+	);
+	$("#select-box-add").empty();
+    var demo1 = $('.demo').doublebox({
+        nonSelectedListLabel: '选择角色',
+        selectedListLabel: '授权用户角色',
+        preserveSelectionOnMove: 'moved',
+        moveOnSelect: false,
+        nonSelectedList:[{"roleId":"1","roleName":"zhangsan"},{"roleId":"2","roleName":"lisi"},{"roleId":"3","roleName":"wangwu"}],
+        selectedList:[{"roleId":"4","roleName":"zhangsan1"},{"roleId":"5","roleName":"lisi1"},{"roleId":"6","roleName":"wangwu1"}],
+        optionValue:"roleId",
+        optionText:"roleName",
+        doubleMove:true,
+    });
+})
+
+
+$("#delete-role-input").mouseleave(function(){
+	var flag = 1;
+	var roleId;
+	inputId = $(this).val();
+	$.each(roleTable, function(index, item){	
+		if(item.role == inputId){
+			roleId = item.roleId;
+			flag = 0;
+			return false;
+		}
+	});
+	if(flag == 1){
+		$("#modal-role-delete-a").attr("disabled", true); 
+		$("#role-delete").addClass("has-error");
+		$("#delete-user-help").text("角色名不存在，请核对后再输入");
+	}else{
+		$("#modal-role-delete-a").removeAttr("disabled");
+		$("#role-delete").removeClass("has-error");
+		$("#delete-user-help").text("");
+		$("#delete-role-button").attr("delete-roleId", roleId);
+	}
+});
+
+$("#delete-role-button").click(function(){
+    $.ajax({
+        type: "POST",
+        url: "get_all_role.do",
+        dataType: "json",
+        data:{"roleId":$(this).attr("delete-roleId")},
+        success: function(data){
+        	window.location.reload();
+        	alert(data.info);
+        },
+        error:function () {
+            alert("删除角色出现错误，请重试");
+        }
+    });
 });
