@@ -156,7 +156,7 @@ $("#delete-role-input").mouseleave(function(){
 $("#delete-role-button").click(function(){
     $.ajax({
         type: "POST",
-        url: "get_all_role.do",
+        url: "delete_role.do",
         dataType: "json",
         data:{"roleId":$(this).attr("delete-roleId")},
         success: function(data){
