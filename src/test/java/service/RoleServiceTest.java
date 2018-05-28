@@ -38,7 +38,7 @@ public class RoleServiceTest {
 //		rolePower.setPowerIds(list);
 //		roleService.insertRole(role, rolePower);
 	
-		
+		AccountDto accountDto = roleService.deleteRole(12);
 	}
 
 }
