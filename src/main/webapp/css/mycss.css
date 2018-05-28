@@ -20,3 +20,12 @@
     padding: 20px;
     margin: 5px;
 }
+
+.ue-container{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 3%;
+    padding: 20px 40px;
+    border: 1px solid #ddd;
+    background: #fff;
+}

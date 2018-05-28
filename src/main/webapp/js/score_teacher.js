@@ -19,6 +19,7 @@ $(function(){
 		        option.attr("value", item.classId);
 		        option.appendTo("#which-class-need");
 		    });
+		    getUsers($("#which-class-need").val());
 		},
 		error:function () {
           alert("网络错误");
@@ -267,25 +268,62 @@ function publicScore(){
 	$.each($(".td-name"), function(index, item){
 		names.push($(item).attr("user-id-prop"));
 	});
-	console.log(names);
-	
+
 	var scores = new Array();
 	$.each($(".td-score"), function(index, item){
 		scores.push($(item).val());
 	});
-	console.log(scores);
-	
-//	$.ajax({
-//	    url:"",
-//	    type:"POST",
-//	    dataType:"json",
-//	    data:{},
-//	    success: function(data){
-//	        console.log(data);
-//	    },
-//	    error:function () {
-//	        alert("网络错误");
-//	    }
-//	});
+
+	$.ajax({
+	    url:"public_score.do",
+	    type:"POST",
+	    dataType:"json",
+	    traditional: true,
+	    data:{
+	    	"userIds":names,
+	    	"scoreArr":scores,
+	    	"classId":$("#which-class-need").val(),
+	    	"stage":$("#which-stage-need").val()
+	    	},
+	    success: function(data){
+	    	window.location.reload();
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
 	return false;
 }
+
+function getUsers(classId){
+		$.ajax({
+	    url:"get_users.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"classId":classId},
+	    success: function(data){
+	    	$("#public-score-box").empty();
+	        $.each(data.data,function(index, item){
+	        	$("#public-score-box").append(
+	        	'<tr>'+
+	        	'<td class="td-name" user-id-prop="' + item.userId + '">'+
+	        		item.name +
+                '</td>'+
+                '<td>'+
+                	'<input class="form-control td-score" placeholder="学生成绩分数" required="">'+
+                '</td>'+
+                '</tr>'
+	        	)
+	        	
+	        });
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+}
+
+$("#which-class-need").change(function(){
+	getUsers(this.value);
+});
