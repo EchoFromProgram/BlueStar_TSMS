@@ -150,25 +150,25 @@
                             <h2 class="sub-header">修改用户</h2>
                             <form class="form" onsubmit="return ">
                                 <div class="form-group" id="username-change">
-                                    <label for="update-username" class="sr-only ">用户名</label>
+                                    <label for="update-username">用户名</label>
                                     <input type="text" id="update-username" class="form-control" placeholder="原账号" required="" autofocus="">
                                     <span class="help-block" id="update-username-help"></span>
                                 </div>
 
                                 <div class="form-group" id="password-change">
-                                    <label for="update-password" class="sr-only">密码</label>
+                                    <label for="update-password">密码</label>
                                     <input type="text" id="update-password" class="form-control" placeholder="原密码" required="">
                                     <span class="help-block" id="update-password-help"></span>
                                 </div>
 
                                 <div class="form-group" id="name-change">
-                                    <label for="update-name" class="sr-only">姓名</label>
+                                    <label for="update-name">姓名</label>
                                     <input type="text" id="update-name" class="form-control" placeholder="原姓名" required="">
                                     <span class="help-block" id="update-name-help"></span>
                                 </div>
 
                                 <div class="form-group" id="role-change">
-                                    <label for="update-role-select" class="sr-only">角色</label>
+                                    <label for="update-role-select">角色</label>
                                     <select class="form-control" id="update-role-select">
                                         <option value ="学生">学生</option>
                                         <option value ="教师">教师</option>
@@ -177,13 +177,24 @@
                                 </div>
 
                                 <div class="form-group" id="type-change">
-                                    <label for="update-type-select" class="sr-only">类型</label>
+                                    <label for="update-type-select">类型</label>
                                     <select class="form-control" id="update-type-select">
                                         <option value ="客户">客户</option>
                                         <option value ="员工">员工</option>
                                     </select>
                                 </div>
-
+                                
+                                <div class="form-group" id="type-change">
+                                    <label for="update-type-select">班级</label>
+                                    <select class="form-control" id="update-type-select">
+                                        <option value ="1">一班</option>
+                                        <option value ="2">二班</option>
+                                    </select>
+                                </div>
+ 								<div id="add-class-on-add" style="position: fixed;bottom: 200px;right: 80px;z-index: 100">
+	                                <label for="update-type-select">点击添加班级</label>
+	                                <span class="glyphicon glyphicon-plus" style="font-size: 25px; border: 1px solid #e0e1b2; padding: 10px"></span>
+	                            </div>
                                 <button class="btn btn-lg btn-primary btn-block" id="submit-change">修改</button>
                             </form>
 
@@ -194,25 +205,25 @@
                             <h2 class="sub-header">新增用户</h2>
                             <form class="form" onsubmit="return insert_user()">
                                 <div class="form-group" id="username-create">
-                                    <label for="insert-username" class="sr-only ">用户名</label>
+                                    <label for="insert-username">用户名</label>
                                     <input type="text" id="insert-username" class="form-control" placeholder="为其设置一个账号">
                                     <span class="help-block" id="insert-username-help"></span>
                                 </div>
 
                                 <div class="form-group" id="password-create">
-                                    <label for="insert-password" class="sr-only">密码</label>
+                                    <label for="insert-password">密码</label>
                                     <input type="text" id="insert-password" class="form-control" placeholder="还需要一个密码">
                                     <span class="help-block" id="insert-password-help"></span>
                                 </div>
 
                                 <div class="form-group" id="name-create">
-                                    <label for="insert-name" class="sr-only">姓名</label>
+                                    <label for="insert-name">姓名</label>
                                     <input type="text" id="insert-name" class="form-control" placeholder="这个账户的拥有者姓名">
                                     <span class="help-block" id="insert-name-help"></span>
                                 </div>
 
                                 <div class="form-group" id="role-create">
-                                    <label for="insert-role-select" class="sr-only">角色</label>
+                                    <label for="insert-role-select">角色</label>
                                     <select class="form-control" id="insert-role-select">
                                         <option value ="1">教师</option>
                                         <option value ="2">学生</option>
@@ -221,13 +232,23 @@
                                 </div>
 
                                 <div class="form-group" id="type-create">
-                                    <label for="insert-type-select" class="sr-only">类型</label>
+                                    <label for="insert-type-select">类型</label>
                                     <select class="form-control" id="insert-type-select">
                                         <option value ="1">客户</option>
                                         <option value ="0">员工</option>
                                     </select>
                                 </div>
-
+                                <div class="form-group" id="type-change">
+                                    <label for="update-type-select">班级</label>
+                                    <select class="form-control" id="update-type-select">
+                                        <option value ="1">一班</option>
+                                        <option value ="2">二班</option>
+                                    </select>
+                                </div>
+								<div id="add-class-on-add" style="position: fixed;bottom: 200px;right: 80px;z-index: 100">
+	                                <label for="update-type-select">点击添加班级</label>
+	                                <span class="glyphicon glyphicon-plus" style="font-size: 25px; border: 1px solid #e0e1b2; padding: 10px"></span>
+	                            </div>
                                 <button class="btn btn-lg btn-primary btn-block" id="submit-create">创建</button>
                             </form>
 
