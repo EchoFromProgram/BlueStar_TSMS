@@ -51,15 +51,15 @@ public class AccountServiceTest
     public void testCreateAccount()
     {
         User user = new User();
-        user.setUserName("woddosdow");
+        user.setUserName("woddowssdow");
         user.setPassword("696969");
         user.setName("ddd");
-        user.setRoleId(2);
-        user.setTypeId(1);
+        user.setRoleId(1);
+        user.setTypeId(0);
         UserClass userClass = new UserClass();
         List<Integer> classIds = new ArrayList<>();
         classIds.add(1);
-        classIds.add(2);
+     
         userClass.setClassIds(classIds);
         AccountDto accountDto = accountService.createAccount(user,userClass);
 
