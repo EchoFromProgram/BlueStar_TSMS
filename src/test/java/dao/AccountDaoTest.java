@@ -131,13 +131,9 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		UserClass userClass = new UserClass();
-		userClass.setUserId(3);
-		List<Integer> classIds = new ArrayList<>();
-		classIds.add(2);
-		classIds.add(3);
-		userClass.setClassIds(classIds);
-		accountDao.insertUserClass(userClass);
+		Clazz clazz = new Clazz();
+		clazz.setClassName("5班");
+		accountDao.insertClass(clazz);
 	}
 	
 	

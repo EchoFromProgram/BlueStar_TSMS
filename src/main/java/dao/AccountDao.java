@@ -174,5 +174,12 @@ public interface AccountDao
      * @return 
      */
     public int getHisTeacherUserId(Integer userId);
+    
+    /**
+     * 新增一个班级 
+     * @param clazz 班级类
+     * @return 影响的行数，如果是1则插入成功
+     */
+    public Integer insertClass(Clazz clazz);
   
 }

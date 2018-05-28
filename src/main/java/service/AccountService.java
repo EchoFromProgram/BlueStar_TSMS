@@ -40,11 +40,11 @@ public interface AccountService
     public boolean userNameExisted(String username);
 
     /**
-     * 创建一个用户，由前台传过来一个新用户
-     *
-     * @param user 前台传过来的用户
-     * @return 返回创建的信息状态
-     * */
+     * 创建一个用户
+     * @param user 用户类
+     * @param userClass 用户班级类
+     * @return 创建结果
+     */
     public AccountDto createAccount(User user, UserClass userClass);
 
     /**
@@ -111,4 +111,11 @@ public interface AccountService
      * @return 学校集合
      */
     public AccountDto getSchoolsByCityId(Integer cityId);
+    
+    /**
+     * 新增一个班级
+     * @param clazz 班级类
+     * @return 插入结果
+     */
+    public AccountDto saveClass(Clazz clazz);
 }

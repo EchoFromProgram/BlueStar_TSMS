@@ -416,6 +416,25 @@ public class AccountServiceImpl implements AccountService
         }
         return new AccountDto<>(Common.SUCCESS);
     }
-
+    
+    /**
+     * 新增班级
+     * @param clazz 班级类
+     * @return 插入结果
+     */
+	@Override
+	public AccountDto saveClass(Clazz clazz) {
+		try {
+			if(clazz == null)
+				return new AccountDto(Common.WRONG_ARGEMENT);
+			int affect = accountDao.insertClass(clazz);
+			if(affect <= 0)
+				return new AccountDto(Common.ERROR);
+		} catch (Exception e) {
+			return new AccountDto(Common.ERROR);
+		}
+		return new AccountDto(Common.SUCCESS);
+	}
+		
 	
 }

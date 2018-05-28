@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,9 +14,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.github.pagehelper.Page;
 
 import dto.AccountDto;
+import entity.Clazz;
 import entity.Role;
 import entity.RolePower;
 import entity.User;
+import entity.UserClass;
 import service.AccountService;
 import service.RoleService;
 
@@ -41,7 +44,8 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(path = "insert_user.do", produces = {"application/json;charset=UTF8"})
 	public Object insertUser(User user) {
-		AccountDto accountDto = accountService.createAccount(user);
+		UserClass userClass = new UserClass();
+		AccountDto accountDto = accountService.createAccount(user, userClass);
 		return accountDto;
 	}
 	
@@ -87,5 +91,14 @@ public class ManageController {
 		return accountDto;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(path = "update_role.do", produces = {"application/json;charset=UTF8"})
+	public Object updateRole(Integer roleId, Integer[] powerIds) {
+		RolePower rolePower = new RolePower();
+		List<Integer> powerIdArray = Arrays.asList(powerIds);
+		rolePower.setRoleId(roleId);
+		rolePower.setPowerIds(powerIdArray);
+		AccountDto accountDto = roleService.updateRole(rolePower);
+		return accountDto;
+	}
 }
