@@ -11,8 +11,9 @@
 	
 	<!-- 根据用户名得到密码，角色id，姓名 -->
 	<select id="getUserByUserName" resultType="java.util.HashMap">
-		SELECT u.user_id, u.username, u.password, u.name, u.role_id, u.info_id, u.type_id, r.role
-		FROM user u, role r  WHERE u.username = #{username} AND r.role_id = u.role_id
+		SELECT u.user_id, u.username, u.password, u.name, u.role_id, u.info_id, u.type_id, r.role, c.class_name
+		FROM user u, role r, user_class uc, class c WHERE u.username = #{username} AND r.role_id = u.role_id AND uc.user_id = u.user_id
+		AND uc.class_id = c.class_id
 	</select>
 	
 	<!-- 根据用户名得到密码，角色id，姓名 -->
@@ -145,7 +146,27 @@
 		WHERE uc.class_id = (SELECT uc.class_id FROM user_class uc WHERE uc.user_id = #{userId}) AND role_id = 1
 	</select>
 	
+	<!-- 插入一个班级 -->
 	<insert id="insertClass">
 		INSERT INTO class(class_name) VALUES(#{className})
 	</insert>
+	
+	<!-- 根据用户id删除用户所在班级 -->
+	<delete id="deleteUserClass">
+		DELETE FROM user_class  WHERE user_id = #{userId}
+	</delete>
+	
+	<!-- 修改用户信息 -->
+	<update id="updateUser">
+		UPDATE user
+		<set>
+		  <if test="userName != null">username = #{userName},</if>
+		  <if test="password != null">password = #{password},</if>
+		  <if test="name != null">name = #{name},</if>
+		  <if test="roleId != null">role_id = #{roleId},</if>
+		  <if test="typeId != null">type_id = #{typeId},</if>
+ 		</set>
+ 		WHERE user_id = #{userId}
+	</update>
+	
 </mapper>

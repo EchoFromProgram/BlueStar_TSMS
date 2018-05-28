@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.aspectj.bridge.MessageWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,9 +132,12 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		Clazz clazz = new Clazz();
-		clazz.setClassName("5班");
-		accountDao.insertClass(clazz);
+		User user = new User();
+		user.setUserId(16);
+		user.setUserName("xxx");
+		user.setPassword("15141");
+		user.setName("你好");
+		accountDao.updateUser(user);
 	}
 	
 	

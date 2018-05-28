@@ -181,5 +181,19 @@ public interface AccountDao
      * @return 影响的行数，如果是1则插入成功
      */
     public Integer insertClass(Clazz clazz);
-  
+    
+    /**
+     * 根据用户id删除用户所在班级，用户更新
+     * @param userId 用户id
+     * @return 删除的行数
+     */
+    public Integer deleteUserClass(Integer userId);
+    
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    public Integer updateUser(User user);
+    
 }

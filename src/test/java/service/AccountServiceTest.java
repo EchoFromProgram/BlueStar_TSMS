@@ -50,20 +50,36 @@ public class AccountServiceTest
     @Test
     public void testCreateAccount()
     {
-        User user = new User();
-        user.setUserName("woddowssdow");
-        user.setPassword("696969");
-        user.setName("ddd");
-        user.setRoleId(1);
-        user.setTypeId(0);
-        UserClass userClass = new UserClass();
-        List<Integer> classIds = new ArrayList<>();
-        classIds.add(1);
-     
-        userClass.setClassIds(classIds);
-        AccountDto accountDto = accountService.createAccount(user,userClass);
-
-        System.out.println(accountDto);
+//        User user = new User();
+//        user.setUserName("xxiaosxxososo");
+//        user.setPassword("696969");
+//        user.setName("dd");
+//        user.setRoleId(1);
+//        user.setTypeId(0);
+//        UserClass userClass = new UserClass();
+//        List<Integer> classIds = new ArrayList<>();
+//        classIds.add(1);
+//        classIds.add(3);
+//        
+//        
+//        userClass.setClassIds(classIds);
+//        AccountDto accountDto = accountService.createAccount(user,userClass);
+//
+//        System.out.println(accountDto);
+    		
+      User user = new User();
+      
+      user.setPassword("696969");
+      user.setName("dd");
+      user.setUserId(21);
+      user.setRoleId(2);
+      UserClass userClass = new UserClass();
+      List<Integer> classIds = new ArrayList<>();
+      classIds.add(3);
+      classIds.add(4);
+      userClass.setClassIds(classIds);
+      AccountDto accountDto = accountService.updateUser(user, userClass);
+      System.out.println(accountDto);
     }
     
     @Test

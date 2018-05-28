@@ -8,15 +8,20 @@ import entity.*;
 import enums.impl.Common;
 import enums.impl.CreateAccountStatus;
 import enums.impl.LoginStatus;
+import enums.impl.UpdateAccountStatus;
 
+import org.aspectj.apache.bcel.generic.ReturnaddressType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.NativeWebRequest;
 
 import service.AccountService;
 import utils.PageUtil;
 
 import java.util.*;
+
+import javax.print.attribute.standard.RequestingUserName;
 
 /**
  * 账号业务实现类
@@ -113,10 +118,14 @@ public class AccountServiceImpl implements AccountService
 
         // 如果这个用户的账号或密码为空，返回提示
         if (user.getUserName() == null || "".equals(user.getUserName() )
-                || user.getPassword() == null || "".equals(user.getPassword()) || userClass.getClassIds()==null
-                || userClass.getClassIds().size() < 0)
+                || user.getPassword() == null || "".equals(user.getPassword()) )
         {
             return new AccountDto(CreateAccountStatus.CORE_INFO_IS_NULL);
+        }
+        
+        //班级为空
+        if( userClass.getClassIds()==null || userClass.getClassIds().size() < 0) {
+        	return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
         }
 
         // 如果这个用户的其他信息为空，返回提示
@@ -152,28 +161,36 @@ public class AccountServiceImpl implements AccountService
         switch (user.getRoleId())
         {
             case Role.STUDENT:
-               if(userClass.getClassIds().size() > 1) {
-            	   return new AccountDto(Common.ERROR);
-               }
+            	if(userClass.getClassIds().size() > 1) {
+            		return new AccountDto(Common.ERROR);
+            	}
+            	affect = accountDao.insertIntoUser(user);
+          	   	if(affect <= 0) 
+          	   	{
+          	   		return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+          	   	}
+          	   	userClass.setUserId(user.getUserId());
+          	   	affect = accountDao.insertUserClass(userClass);
+          	   	if(affect < 0) {
+          	   		return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+          	   	}
             default:
             	 affect = accountDao.insertIntoUser(user);
-            	 if (affect > 0) // 创建成功！
+            	 if (affect <= 0) 
                  {
-                     return new AccountDto(CreateAccountStatus.SUCCESS);
+                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
                  }
                  userClass.setUserId(user.getUserId());
                  affect = accountDao.insertUserClass(userClass);
-                 if (affect > 0) // 创建成功！
-                 {
-                     return new AccountDto(CreateAccountStatus.SUCCESS);
-                 }
+                 if (affect < 0) {
+                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+            	}
                  
         }
-
-      
-        // 没有新增成功！未知错误！
-        return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+        //成功
+        return new AccountDto(CreateAccountStatus.SUCCESS);
     }
+
 
     /**
      * 得到所有的账户信息，主要供管理员使用
@@ -434,6 +451,79 @@ public class AccountServiceImpl implements AccountService
 			return new AccountDto(Common.ERROR);
 		}
 		return new AccountDto(Common.SUCCESS);
+	}
+	
+	/**
+	 * 更新用户
+	 * @param user 用户类
+	 * @param userClass 用户班级类
+	 * @return 更新结果
+	 */
+	@Override
+	public AccountDto updateUser(User user, UserClass userClass) {
+		
+		int affect;
+        // 如果前台传了一个空对象过来，创建失败
+        if (user == null || user.getUserId() == null || userClass == null)
+        {
+            return new AccountDto(CreateAccountStatus.USER_IS_NULL);
+        }
+      
+      
+        //班级为空
+        if( userClass.getClassIds()==null || userClass.getClassIds().size() < 0) {
+        	return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+        }
+       
+        
+        // 当所有信息都填完整了，就进行数据库查询，看看这个用户是否存在
+        if (userNameExisted(user.getUserName()))
+        {
+            return new AccountDto(CreateAccountStatus.USERNAME_EXISTED);
+        }
+        //判断是老师还是学生
+        switch (user.getRoleId())
+        {
+            case Role.STUDENT:
+            	 if(userClass.getClassIds().size() > 1) {
+            	    return new AccountDto(Common.ERROR);
+            	 }
+            	 //删除用户所属班级
+                 affect = accountDao.deleteUserClass(user.getUserId());
+                 if(affect <= 0) {
+                 	return new AccountDto(Common.ERROR);
+                 }
+               	 affect = accountDao.updateUser(user);
+          	   	 if (affect <= 0) // 更新失败
+          	   	 {	
+                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+          	   	 }
+          	   	 userClass.setUserId(user.getUserId());
+          	   	 affect = accountDao.insertUserClass(userClass);
+          	   	 if (affect <= 0) // 插入失败
+          	   	 {
+          	   		 return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+          	   	 }
+            default:
+            	 //删除用户所属班级
+                 affect = accountDao.deleteUserClass(user.getUserId());
+                 if(affect <= 0) {
+                	 return new AccountDto(Common.ERROR);
+                 }
+            	 affect = accountDao.updateUser(user);
+            	 if (affect <= 0) // 更新失败
+                 {
+                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                 }
+                 userClass.setUserId(user.getUserId());
+                 affect = accountDao.insertUserClass(userClass);
+                 if (affect <= 0) // 插入失败
+                 {
+                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                 }
+                 
+       } 
+        return new AccountDto(UpdateAccountStatus.SUCCESS);
 	}
 		
 	
