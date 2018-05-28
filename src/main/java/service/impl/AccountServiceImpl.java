@@ -1,5 +1,6 @@
 package service.impl;
 
+import constant.Role;
 import constant.Type;
 import dao.AccountDao;
 import dto.AccountDto;
@@ -10,6 +11,7 @@ import enums.impl.LoginStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import service.AccountService;
 import utils.PageUtil;
@@ -99,8 +101,10 @@ public class AccountServiceImpl implements AccountService
      * @param user 前台传过来的用户
      * @return 返回创建的信息状态
      */
+    @Transactional
     public AccountDto createAccount(User user , UserClass userClass)
-    {
+    {	
+    	int affect;
         // 如果前台传了一个空对象过来，创建失败
         if (user == null || userClass == null)
         {
@@ -144,13 +148,29 @@ public class AccountServiceImpl implements AccountService
                 user.setInfoId(customer.getInfoId()); // 填充详细信息 id
                 break;
         }
-
-        int affect = accountDao.insertIntoUser(user);
-        if (affect > 0) // 创建成功！
+        
+        switch (user.getRoleId())
         {
-            return new AccountDto(CreateAccountStatus.SUCCESS);
+            case Role.STUDENT:
+               if(userClass.getClassIds().size() > 1) {
+            	   return new AccountDto(Common.ERROR);
+               }
+            default:
+            	 affect = accountDao.insertIntoUser(user);
+            	 if (affect > 0) // 创建成功！
+                 {
+                     return new AccountDto(CreateAccountStatus.SUCCESS);
+                 }
+                 userClass.setUserId(user.getUserId());
+                 affect = accountDao.insertUserClass(userClass);
+                 if (affect > 0) // 创建成功！
+                 {
+                     return new AccountDto(CreateAccountStatus.SUCCESS);
+                 }
+                 
         }
 
+      
         // 没有新增成功！未知错误！
         return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
     }
@@ -396,4 +416,6 @@ public class AccountServiceImpl implements AccountService
         }
         return new AccountDto<>(Common.SUCCESS);
     }
+
+	
 }

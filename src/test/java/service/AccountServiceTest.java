@@ -3,7 +3,9 @@ package service;
 import dto.AccountDto;
 import entity.SignData;
 import entity.User;
+import entity.UserClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -49,13 +51,17 @@ public class AccountServiceTest
     public void testCreateAccount()
     {
         User user = new User();
-        user.setUserName("Goddess");
+        user.setUserName("woddosdow");
         user.setPassword("696969");
-        user.setName("啦啦啦，卖报的小画家");
-        user.setRoleId(1);
+        user.setName("ddd");
+        user.setRoleId(2);
         user.setTypeId(1);
-
-        AccountDto accountDto = accountService.createAccount(user);
+        UserClass userClass = new UserClass();
+        List<Integer> classIds = new ArrayList<>();
+        classIds.add(1);
+        classIds.add(2);
+        userClass.setClassIds(classIds);
+        AccountDto accountDto = accountService.createAccount(user,userClass);
 
         System.out.println(accountDto);
     }
