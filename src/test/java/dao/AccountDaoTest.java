@@ -2,6 +2,7 @@ package dao;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import entity.School;
 import entity.SignData;
 import entity.Staff;
 import entity.User;
+import entity.UserClass;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class AccountDaoTest {
@@ -129,9 +131,15 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		int num = accountDao.getHisTeacherUserId(4);
-		System.out.println(num);
+		UserClass userClass = new UserClass();
+		userClass.setUserId(3);
+		List<Integer> classIds = new ArrayList<>();
+		classIds.add(2);
+		classIds.add(3);
+		userClass.setClassIds(classIds);
+		accountDao.insertUserClass(userClass);
 	}
+	
 	
 
 }

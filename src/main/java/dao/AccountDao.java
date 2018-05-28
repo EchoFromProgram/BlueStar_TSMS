@@ -15,6 +15,7 @@ import entity.School;
 import entity.SignData;
 import entity.Staff;
 import entity.User;
+import entity.UserClass;
 
 /**
  * 该方法用于管理用户
@@ -44,6 +45,13 @@ public interface AccountDao
      * @return 返回影响的行数，如果是1则创建成功
      */
     public Integer insertIntoUser(User user);
+    
+    /**
+     * 插入用户所属班级
+     * @param userClass 用户班级类
+     * @return 影响的行数，如果是1则创建成功
+     */
+    public Integer insertUserClass(UserClass userClass);
     
     /**
      * 向客户信息表插入一条客户信息

@@ -15,6 +15,7 @@ public class Role {
 	//角色
 	private String role;
 	
+	
 	//权限名集合
 	private List<RolePowerName> powerNames;
 
@@ -47,4 +48,8 @@ public class Role {
 	public String toString() {
 		return "Role [roleId=" + roleId + ", role=" + role + ", powerNames=" + powerNames + "]";
 	}
+
+
+
+
 }
