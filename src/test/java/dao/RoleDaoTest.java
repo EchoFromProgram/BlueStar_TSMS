@@ -35,7 +35,10 @@ public class RoleDaoTest {
 //		role.setRole("老师");
 //		roleDao.insertRole(role);
 //		System.out.println(role.getRoleId());
-		roleDao.deleteRole(14);
+		
+		
+		List<Role> list = roleDao.getRolesPowerName();
+		System.out.println(list);
 	}
 
 }

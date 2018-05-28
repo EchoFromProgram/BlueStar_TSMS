@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import dto.AccountDto;
 import entity.User;
+import entity.UserClass;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public interface AccountService
      * @param user 前台传过来的用户
      * @return 返回创建的信息状态
      * */
-    public AccountDto createAccount(User user);
+    public AccountDto createAccount(User user, UserClass userClass);
 
     /**
      * 得到所有的账户信息，主要供管理员使用

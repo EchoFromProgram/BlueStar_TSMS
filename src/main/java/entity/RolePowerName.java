@@ -12,6 +12,7 @@ public class RolePowerName {
 	// 权限名
 	private String powerName;
 	
+	private Integer powerId;
 	
 	public String getPowerName() {
 		return powerName;
@@ -22,8 +23,19 @@ public class RolePowerName {
 		this.powerName = powerName;
 	}
 
+
+	public Integer getPowerId() {
+		return powerId;
+	}
+
+
+	public void setPowerId(Integer powerId) {
+		this.powerId = powerId;
+	}
+
+
 	@Override
 	public String toString() {
-		return "RolePowerName [powerName=" + powerName + "]";
+		return "RolePowerName [powerName=" + powerName + ", powerId=" + powerId + "]";
 	}
 }

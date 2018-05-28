@@ -22,9 +22,17 @@
 	</select>
 
 	<!-- 创建一个新用户,插入到用户表中 -->
-	<insert id="insertIntoUser">
+	<insert id="insertIntoUser" useGeneratedKeys="true" keyProperty="userId">
 		INSERT INTO user(username, password, name, role_id, info_id, type_id)
 		VALUES(#{userName}, #{password}, #{name}, #{roleId}, #{infoId}, #{typeId})
+	</insert>
+	
+	<!-- 插入用户的班级 -->
+	<insert id="insertUserClass">
+		INSERT INTO user_class(user_id, class_id) VALUES
+		<foreach collection="classIds" item="classId" separator=",">
+			(#{userId}, #{classId})
+		</foreach>
 	</insert>
 	
 	<!-- 插入一条员工信息 -->

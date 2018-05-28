@@ -99,17 +99,18 @@ public class AccountServiceImpl implements AccountService
      * @param user 前台传过来的用户
      * @return 返回创建的信息状态
      */
-    public AccountDto createAccount(User user)
+    public AccountDto createAccount(User user , UserClass userClass)
     {
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null)
+        if (user == null || userClass == null)
         {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 
         // 如果这个用户的账号或密码为空，返回提示
-        if (user.getUserName() == null || "".equals(user.getUserName())
-                || user.getPassword() == null || "".equals(user.getPassword()))
+        if (user.getUserName() == null || "".equals(user.getUserName() )
+                || user.getPassword() == null || "".equals(user.getPassword()) || userClass.getClassIds()==null
+                || userClass.getClassIds().size() < 0)
         {
             return new AccountDto(CreateAccountStatus.CORE_INFO_IS_NULL);
         }

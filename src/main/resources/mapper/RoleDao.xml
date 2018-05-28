@@ -17,6 +17,7 @@
 		<result property="role" column="role"/>
 		<collection property="powerNames" ofType="entity.RolePowerName">
             <result property="powerName" column="power_name" javaType="java.lang.String" />
+            <result property="powerId" column="power_id" />
         </collection>
 	</resultMap>
 
