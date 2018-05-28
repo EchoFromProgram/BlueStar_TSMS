@@ -116,20 +116,10 @@ $("#update-role").click(function (){
 		'</div>'
 	);
 	$("#select-box-add").empty();
-    var demo1 = $('.demo').doublebox({
-        nonSelectedListLabel: '选择角色',
-        selectedListLabel: '授权用户角色',
-        preserveSelectionOnMove: 'moved',
-        moveOnSelect: false,
-        nonSelectedList:[{"roleId":"1","roleName":"zhangsan"},{"roleId":"2","roleName":"lisi"},{"roleId":"3","roleName":"wangwu"}],
-        selectedList:[{"roleId":"4","roleName":"zhangsan1"},{"roleId":"5","roleName":"lisi1"},{"roleId":"6","roleName":"wangwu1"}],
-        optionValue:"roleId",
-        optionText:"roleName",
-        doubleMove:true,
-    });
+
 })
 
-
+//输入姓名之后，判定是否存在，如果不存在，就无法点击按钮
 $("#delete-role-input").mouseleave(function(){
 	var flag = 1;
 	var roleId;
@@ -144,15 +134,18 @@ $("#delete-role-input").mouseleave(function(){
 	if(flag == 1){
 		$("#modal-role-delete-a").attr("disabled", true); 
 		$("#role-delete").addClass("has-error");
+		$("#role-delete").removeClass("has-success");
 		$("#delete-user-help").text("角色名不存在，请核对后再输入");
 	}else{
 		$("#modal-role-delete-a").removeAttr("disabled");
 		$("#role-delete").removeClass("has-error");
-		$("#delete-user-help").text("");
+		$("#role-delete").addClass("has-success");
+		$("#delete-user-help").text("角色名输入正确");
 		$("#delete-role-button").attr("delete-roleId", roleId);
 	}
 });
 
+//删除角色
 $("#delete-role-button").click(function(){
     $.ajax({
         type: "POST",
@@ -168,3 +161,45 @@ $("#delete-role-button").click(function(){
         }
     });
 });
+
+$("#update-rolename").mouseleave(function(){
+	var flag = 1;
+	var roleId;
+	var personPower = new Array();
+	inputId = $(this).val();
+	$.each(roleTable, function(index, item){	
+		if(item.role == inputId){
+			roleId = item.roleId;
+			$.each(item.powerNames, function(index, item){
+				personPower.push(item);
+			});
+			console.log(roleTable);
+			flag = 0;
+			return false;
+		}
+	});
+	if(flag == 1){
+		$("#submit-update-role").attr("disabled", true); 
+		$("#rolename-change").addClass("has-error");
+		$("#rolename-change").removeClass("has-success");
+		$("#update-rolename-help").text("角色名不存在，请核对后再输入");
+	}else{
+		$("#submit-update-role").removeAttr("disabled");
+		$("#rolename-change").removeClass("has-error");
+		$("#rolename-change").addClass("has-success");
+		$("#update-rolename-help").text("角色名输入正确，请操作其权限");
+	    var demo1 = $('.demo').doublebox({
+	        nonSelectedListLabel: '选择角色',
+	        selectedListLabel: '授权用户角色',
+	        preserveSelectionOnMove: 'moved',
+	        moveOnSelect: false,
+	        nonSelectedList:[{"roleId":"1","roleName":"zhangsan"},{"roleId":"2","roleName":"lisi"},{"roleId":"3","roleName":"wangwu"}],
+	        selectedList:personPower,
+	        optionValue:"roleId",
+	        optionText:"roleName",
+	        doubleMove:true,
+	    });
+	}
+});
+
+//修改角色
