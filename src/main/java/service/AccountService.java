@@ -60,7 +60,7 @@ public interface AccountService
      *
      * @param pageNumber 页数
      * @param typeId     用户类型
-     * @return 返回用户信息
+     * @return 返回用户信息 
      */
     public AccountDto getAccounts(Integer pageNumber, Integer typeId);
     
