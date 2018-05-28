@@ -72,6 +72,7 @@ $(function(){
 
 //点击创建角色，在页面添加选择框，并并且删除另一个页面的选择框
 $("#add-role").click(function (){
+	$("#select-box-add").empty();
 	$("#select-box-add").append('<div class="ue-container" style="margin-bottom: 15px">'+
 	    '<select multiple="multiple" size="10" name="doublebox" class="demo">'+
 	    '</select>'+
@@ -110,6 +111,7 @@ $("#add-role").click(function (){
 
 //点击修改角色，在页面添加选择框，并并且删除另一个页面的选择框
 $("#update-role").click(function (){
+	$("#select-box-update").empty();
 	$("#select-box-update").append('<div class="ue-container" style="margin-bottom: 15px">'+
 	    '<select multiple="multiple" size="10" name="doublebox" class="demo">'+
 	    '</select>'+
@@ -173,11 +175,11 @@ $("#update-rolename").mouseleave(function(){
 			$.each(item.powerNames, function(index, item){
 				personPower.push(item);
 			});
-			console.log(roleTable);
 			flag = 0;
 			return false;
 		}
 	});
+	
 	if(flag == 1){
 		$("#submit-update-role").attr("disabled", true); 
 		$("#rolename-change").addClass("has-error");
@@ -187,19 +189,76 @@ $("#update-rolename").mouseleave(function(){
 		$("#submit-update-role").removeAttr("disabled");
 		$("#rolename-change").removeClass("has-error");
 		$("#rolename-change").addClass("has-success");
+		$("#submit-update-role").attr("update-prop", roleId);
 		$("#update-rolename-help").text("角色名输入正确，请操作其权限");
-	    var demo1 = $('.demo').doublebox({
-	        nonSelectedListLabel: '选择角色',
-	        selectedListLabel: '授权用户角色',
-	        preserveSelectionOnMove: 'moved',
-	        moveOnSelect: false,
-	        nonSelectedList:[{"roleId":"1","roleName":"zhangsan"},{"roleId":"2","roleName":"lisi"},{"roleId":"3","roleName":"wangwu"}],
-	        selectedList:personPower,
-	        optionValue:"roleId",
-	        optionText:"roleName",
-	        doubleMove:true,
-	    });
+		//获取权限表以及设置左右选择框
+		$.ajax({
+		    url:"getPowerTable.do",
+		    type:"POST",
+		    dataType:"json",
+		    success:function (data) {
+		    	$("#select-box-update").empty();
+		    	$("#select-box-update").append('<div class="ue-container" style="margin-bottom: 15px">'+
+		    	    '<select multiple="multiple" size="10" name="doublebox" class="demo">'+
+		    	    '</select>'+
+		    		'</div>'
+		    	);
+		        var nonSelect = new Array();
+		        $.each(data, function (index, item) { 
+		        	var exist = 1;
+		        	for(var i = 0; i < personPower.length; i++)
+		        	{
+		        		if(item.powerId == personPower[i].powerId)
+		        		{
+		        			exist = 0;
+		        			break;
+		        		}
+		        	}
+		        	if(exist == 1){
+		        		nonSelect.push(item);
+		        	}
+		        })
+		        var demo1 = $('.demo').doublebox({
+			        nonSelectedListLabel: '选择角色',
+			        selectedListLabel: '授权用户角色',
+			        preserveSelectionOnMove: 'moved',
+			        moveOnSelect: false,
+			        nonSelectedList:nonSelect,
+			        selectedList:personPower,
+			        optionValue:"powerId",
+			        optionText:"powerName",
+			        doubleMove:true,
+			    });
+		    },
+		    error:function () {
+		        alert("网络错误");
+		    }
+		});
+		
 	}
 });
 
-//修改角色
+//点击修改角色
+$("#submit-update-role").click(updateRole);
+function updateRole(){
+	var selectArr = new Array();
+	$("#bootstrap-duallistbox-selected-list_doublebox option").each(function () {
+		var item = $(this).val();
+		selectArr.push(item);
+	})
+	$.ajax({
+	    url:"update_role.do",
+	    type:"POST",
+	    dataType:"json",
+	    traditional: true,
+	    data:{"roleId":$("#submit-update-role").attr("update-prop"), "powerIds":selectArr},
+	    success: function(data){
+	    	window.location.reload();
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("角色修改发生错误，请检查后重试");
+	    }
+	});
+	return false;
+}
