@@ -202,5 +202,11 @@ public interface AccountDao
      * @return 班级
      */
     public Clazz getClassByClassName(String className);
-    
+
+    /**
+     * 得到全部班级，主要是给管理员用
+     *
+     * @return 返回班级列表
+     */
+    public List<Clazz> getAllClasses();
 }

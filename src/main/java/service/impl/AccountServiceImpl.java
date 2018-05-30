@@ -29,14 +29,12 @@ import javax.print.attribute.standard.RequestingUserName;
  * @author Fish
  */
 @Service
-public class AccountServiceImpl implements AccountService
-{
+public class AccountServiceImpl implements AccountService {
     // 账号持久层对象
     private AccountDao accountDao = null;
 
     @Autowired
-    public void setAccountDao(AccountDao accountDao)
-    {
+    public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
@@ -46,11 +44,9 @@ public class AccountServiceImpl implements AccountService
      * @param user 前台传过来的要登陆的用户
      * @return true 登陆验证通过，false 用户名或密码不正确
      */
-    public AccountDto login(User user)
-    {
+    public AccountDto login(User user) {
         // 如果前台给过来的用户名是空的，返回错误提示
-        if (user == null || user.getUserName() == null || "".equals(user.getUserName()))
-        {
+        if (user == null || user.getUserName() == null || "".equals(user.getUserName())) {
             return new AccountDto(LoginStatus.WRONG_USERNAME);
         }
 
@@ -58,14 +54,12 @@ public class AccountServiceImpl implements AccountService
         Map u = accountDao.getUserByUserName(user.getUserName());
 
         // 用户名不存在！
-        if (u == null)
-        {
+        if (u == null) {
             return new AccountDto(LoginStatus.WRONG_USERNAME);
         }
 
         // 判断前台登陆用户输入的密码和后台数据的密码是否一致
-        if (!u.get("password").equals(user.getPassword()))
-        {
+        if (!u.get("password").equals(user.getPassword())) {
             return new AccountDto(LoginStatus.WRONG_PASSWORD);
         }
 
@@ -73,6 +67,11 @@ public class AccountServiceImpl implements AccountService
         Map<String, Object> infos = new HashMap<String, Object>();
         infos.put("user", u);
         infos.put("hisPowers", accountDao.getPowerIdByRoleId((Integer) u.get("role_id")));
+
+        if (user.getRoleId() == Role.ADMIN) {
+            infos.put("hisClasses", accountDao.getAllClasses());
+            return new AccountDto<>(infos, LoginStatus.SUCCESS);
+        }
 
         Integer[] classIds = accountDao.getClassIdsByUserId((Integer) u.get("user_id")).toArray(new Integer[0]);
         Arrays.sort(classIds); // 给这个列表排序
@@ -83,7 +82,7 @@ public class AccountServiceImpl implements AccountService
         }
         infos.put("hisClasses", clazzes);
 
-        return new AccountDto<Map>(infos, LoginStatus.SUCCESS);
+        return new AccountDto<>(infos, LoginStatus.SUCCESS);
     }
 
     /**
@@ -95,8 +94,7 @@ public class AccountServiceImpl implements AccountService
      * @param username 用于验证的账号
      * @return true 账号存在，false 账号不存在
      */
-    public boolean userNameExisted(String username)
-    {
+    public boolean userNameExisted(String username) {
         return accountDao.userNameIsExit(username) > 0;
     }
 
@@ -107,42 +105,36 @@ public class AccountServiceImpl implements AccountService
      * @return 返回创建的信息状态
      */
     @Transactional
-    public AccountDto createAccount(User user , UserClass userClass)
-    {	
-    	int affect;
+    public AccountDto createAccount(User user, UserClass userClass) {
+        int affect;
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null || userClass == null)
-        {
+        if (user == null || userClass == null) {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 
         // 如果这个用户的账号或密码为空，返回提示
-        if (user.getUserName() == null || "".equals(user.getUserName() )
-                || user.getPassword() == null || "".equals(user.getPassword()) )
-        {
+        if (user.getUserName() == null || "".equals(user.getUserName())
+                || user.getPassword() == null || "".equals(user.getPassword())) {
             return new AccountDto(CreateAccountStatus.CORE_INFO_IS_NULL);
         }
-        
+
         //班级为空
-        if( userClass.getClassIds()==null || userClass.getClassIds().size() < 0) {
-        	return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+        if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
+            return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
         }
 
         // 如果这个用户的其他信息为空，返回提示
         if (user.getName() == null || "".equals(user.getName())
-                || user.getRoleId() == null || user.getTypeId() == null)
-        {
+                || user.getRoleId() == null || user.getTypeId() == null) {
             return new AccountDto(CreateAccountStatus.INFO_IS_NOT_COMPLETED);
         }
 
         // 当所有信息都填完整了，就进行数据库查询，看看这个用户是否存在
-        if (userNameExisted(user.getUserName()))
-        {
+        if (userNameExisted(user.getUserName())) {
             return new AccountDto(CreateAccountStatus.USERNAME_EXISTED);
         }
 
-        switch (user.getTypeId())
-        {
+        switch (user.getTypeId()) {
             case Type.INNER_STAFF:
                 // 内部员工
                 Staff staff = new Staff();
@@ -157,35 +149,32 @@ public class AccountServiceImpl implements AccountService
                 user.setInfoId(customer.getInfoId()); // 填充详细信息 id
                 break;
         }
-        
-        switch (user.getRoleId())
-        {
+
+        switch (user.getRoleId()) {
             case Role.STUDENT:
-            	if(userClass.getClassIds().size() > 1) {
-            		return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
-            	}
-            	affect = accountDao.insertIntoUser(user);
-          	   	if(affect <= 0) 
-          	   	{
-          	   		return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
-          	   	}
-          	   	userClass.setUserId(user.getUserId());
-          	   	affect = accountDao.insertUserClass(userClass);
-          	   	if(affect < 0) {
-          	   		return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
-          	   	}
+                if (userClass.getClassIds().size() > 1) {
+                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+                }
+                affect = accountDao.insertIntoUser(user);
+                if (affect <= 0) {
+                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+                }
+                userClass.setUserId(user.getUserId());
+                affect = accountDao.insertUserClass(userClass);
+                if (affect < 0) {
+                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+                }
             default:
-            	 affect = accountDao.insertIntoUser(user);
-            	 if (affect <= 0) 
-                 {
-                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
-                 }
-                 userClass.setUserId(user.getUserId());
-                 affect = accountDao.insertUserClass(userClass);
-                 if (affect < 0) {
-                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
-            	}
-                 
+                affect = accountDao.insertIntoUser(user);
+                if (affect <= 0) {
+                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+                }
+                userClass.setUserId(user.getUserId());
+                affect = accountDao.insertUserClass(userClass);
+                if (affect < 0) {
+                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+                }
+
         }
         //成功
         return new AccountDto(CreateAccountStatus.SUCCESS);
@@ -199,8 +188,7 @@ public class AccountServiceImpl implements AccountService
      * @return 返回所有账户的信息
      */
     @Override
-    public AccountDto getAllAccounts(Integer pageNumber)
-    {
+    public AccountDto getAllAccounts(Integer pageNumber) {
         if (pageNumber == null) // 如果参数为空，则返回参数错误
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
@@ -223,11 +211,10 @@ public class AccountServiceImpl implements AccountService
      * 通过 roleId 获取用户信息，目前主要是内部和外部
      *
      * @param pageNumber 页数
-     * @param typeId 用户类型
+     * @param typeId     用户类型
      * @return 返回用户信息
      */
-    public AccountDto getAccounts(Integer pageNumber, Integer typeId)
-    {
+    public AccountDto getAccounts(Integer pageNumber, Integer typeId) {
         if (pageNumber == null || typeId == null) // 如果参数为空，则返回参数错误
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
@@ -252,36 +239,29 @@ public class AccountServiceImpl implements AccountService
      * @param typeId 类型id
      * @return 返回处理结果
      */
-    private AccountDto getCustomerOrStaffByInfoId(Integer infoId, Integer typeId)
-    {
+    private AccountDto getCustomerOrStaffByInfoId(Integer infoId, Integer typeId) {
         //参数为空
-        if (infoId == null)
-        {
+        if (infoId == null) {
             return new AccountDto<>(Common.WRONG_ARGEMENT);
         }
-        if (Type.INNER_STAFF == typeId)
-        {
+        if (Type.INNER_STAFF == typeId) {
             //得到员工信息
             Staff staff = accountDao.getStaffDetailByTid(infoId);
-            if (staff == null)
-            {
+            if (staff == null) {
                 return new AccountDto<>(Common.GET_IS_NULL);
             }
             return new AccountDto<>(staff, Common.SUCCESS);
-        }
-        else if (Type.OUTTER_CLIENT == typeId)
-        {
-            //得到客户信息
-            Customer customer = accountDao.getCustomerDetailByInfoId(infoId);
-            if (customer == null)
-            {
-                return new AccountDto<>(Common.GET_IS_NULL);
+        } else {
+            if (Type.OUTTER_CLIENT == typeId) {
+                //得到客户信息
+                Customer customer = accountDao.getCustomerDetailByInfoId(infoId);
+                if (customer == null) {
+                    return new AccountDto<>(Common.GET_IS_NULL);
+                }
+                return new AccountDto<>(customer, Common.SUCCESS);
+            } else {
+                return new AccountDto<>(Common.ERROR);
             }
-            return new AccountDto<>(customer, Common.SUCCESS);
-        }
-        else
-        {
-            return new AccountDto<>(Common.ERROR);
         }
     }
 
@@ -292,36 +272,29 @@ public class AccountServiceImpl implements AccountService
      * @param typeId 类型id
      * @return 处理结果
      */
-    private AccountDto updateCustomerOrStaffInfoByInfoId(Object object, Integer typeId)
-    {
+    private AccountDto updateCustomerOrStaffInfoByInfoId(Object object, Integer typeId) {
         //参数为空
-        if (object == null)
-        {
+        if (object == null) {
             return new AccountDto<>(Common.WRONG_ARGEMENT);
         }
-        if (Type.INNER_STAFF == typeId)
-        {
+        if (Type.INNER_STAFF == typeId) {
             //更新员工信息
             int num = accountDao.settingStaffInfo((Staff) object);
-            if (num == 0)
-            {
+            if (num == 0) {
                 return new AccountDto<>(Common.ERROR);
             }
             return new AccountDto<>(Common.SUCCESS);
-        }
-        else if (Type.OUTTER_CLIENT == typeId)
-        {
-            //得到客户信息
-            int num = accountDao.settingCustomerInfo((Customer) object);
-            if (num == 0)
-            {
+        } else {
+            if (Type.OUTTER_CLIENT == typeId) {
+                //得到客户信息
+                int num = accountDao.settingCustomerInfo((Customer) object);
+                if (num == 0) {
+                    return new AccountDto<>(Common.ERROR);
+                }
+                return new AccountDto<>(Common.SUCCESS);
+            } else {
                 return new AccountDto<>(Common.ERROR);
             }
-            return new AccountDto<>(Common.SUCCESS);
-        }
-        else
-        {
-            return new AccountDto<>(Common.ERROR);
         }
     }
 
@@ -331,8 +304,7 @@ public class AccountServiceImpl implements AccountService
      * @param infoId 信息id
      * @return 处理结果状态
      */
-    public AccountDto getStaffInfoByInfoId(Integer infoId)
-    {
+    public AccountDto getStaffInfoByInfoId(Integer infoId) {
         return getCustomerOrStaffByInfoId(infoId, Type.INNER_STAFF);
     }
 
@@ -342,8 +314,7 @@ public class AccountServiceImpl implements AccountService
      * @param infoId 信息id
      * @return 处理结果状态
      */
-    public AccountDto getCustomerInfoByInfoId(Integer infoId)
-    {
+    public AccountDto getCustomerInfoByInfoId(Integer infoId) {
         return getCustomerOrStaffByInfoId(infoId, Type.OUTTER_CLIENT);
     }
 
@@ -353,8 +324,7 @@ public class AccountServiceImpl implements AccountService
      * @param staff 员工类
      * @return 处理结果
      */
-    public AccountDto updateStaffInfoByInfoId(Staff staff)
-    {
+    public AccountDto updateStaffInfoByInfoId(Staff staff) {
         return updateCustomerOrStaffInfoByInfoId(staff, Type.INNER_STAFF);
     }
 
@@ -364,8 +334,7 @@ public class AccountServiceImpl implements AccountService
      * @param customer 客户类
      * @return 处理结果
      */
-    public AccountDto updateCustomerInfoByInfoId(Customer customer)
-    {
+    public AccountDto updateCustomerInfoByInfoId(Customer customer) {
         return updateCustomerOrStaffInfoByInfoId(customer, Type.OUTTER_CLIENT);
     }
 
@@ -375,13 +344,11 @@ public class AccountServiceImpl implements AccountService
      * @return 返回省份集合
      */
     @Override
-    public AccountDto getAllProvinces()
-    {
+    public AccountDto getAllProvinces() {
         //得到所有省份
         List<Province> provinces = accountDao.getProvinces();
         //获得为空异常
-        if (provinces == null)
-        {
+        if (provinces == null) {
             return new AccountDto<>(Common.GET_IS_NULL);
         }
         return new AccountDto<>(Common.SUCCESS);
@@ -394,18 +361,15 @@ public class AccountServiceImpl implements AccountService
      * @return 返回城市集合
      */
     @Override
-    public AccountDto getCitysByProvinceId(Integer provinceId)
-    {
+    public AccountDto getCitysByProvinceId(Integer provinceId) {
         //参数为空异常
-        if (provinceId == null)
-        {
+        if (provinceId == null) {
             return new AccountDto<>(Common.WRONG_ARGEMENT);
         }
         //获得城市
         List<City> citys = accountDao.getCitysByProvinceId(provinceId);
         //得到结果为空异常
-        if (citys == null)
-        {
+        if (citys == null) {
             return new AccountDto<>(Common.GET_IS_NULL);
         }
         return new AccountDto<>(Common.SUCCESS);
@@ -418,116 +382,114 @@ public class AccountServiceImpl implements AccountService
      * @return 返回城市集合
      */
     @Override
-    public AccountDto getSchoolsByCityId(Integer cityId)
-    {
+    public AccountDto getSchoolsByCityId(Integer cityId) {
         //获得参数为空异常
-        if (cityId == null)
-        {
+        if (cityId == null) {
             return new AccountDto<>(Common.WRONG_ARGEMENT);
         }
         List<School> schools = accountDao.getSchoolsByCityId(cityId);
         //得到结果为空异常
-        if (schools == null)
-        {
+        if (schools == null) {
             return new AccountDto<>(Common.GET_IS_NULL);
         }
         return new AccountDto<>(Common.SUCCESS);
     }
-    
+
     /**
      * 新增班级
+     *
      * @param clazz 班级类
      * @return 插入结果
      */
-	@Override
-	public AccountDto saveClass(Clazz clazz) {
-		try {
-			if(accountDao.getClassByClassName(clazz.getClassName()) != null) {
-				return new AccountDto(CreateAccountStatus.CLASS_EXISTED);
-			}
-			if(clazz == null)
-				return new AccountDto(Common.WRONG_ARGEMENT);
-			int affect = accountDao.insertClass(clazz);
-			if(affect <= 0)
-				return new AccountDto(Common.ERROR);
-		} catch (Exception e) {
-			return new AccountDto(Common.ERROR);
-		}
-		return new AccountDto(Common.SUCCESS);
-	}
-	
-	/**
-	 * 更新用户
-	 * @param user 用户类
-	 * @param userClass 用户班级类
-	 * @return 更新结果
-	 */
-	@Override
-	public AccountDto updateUser(User user, UserClass userClass) {
-		
-		int affect;
+    @Override
+    public AccountDto saveClass(Clazz clazz) {
+        try {
+            if (accountDao.getClassByClassName(clazz.getClassName()) != null) {
+                return new AccountDto(CreateAccountStatus.CLASS_EXISTED);
+            }
+            if (clazz == null) {
+                return new AccountDto(Common.WRONG_ARGEMENT);
+            }
+            int affect = accountDao.insertClass(clazz);
+            if (affect <= 0) {
+                return new AccountDto(Common.ERROR);
+            }
+        } catch (Exception e) {
+            return new AccountDto(Common.ERROR);
+        }
+        return new AccountDto(Common.SUCCESS);
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param user      用户类
+     * @param userClass 用户班级类
+     * @return 更新结果
+     */
+    @Override
+    public AccountDto updateUser(User user, UserClass userClass) {
+
+        int affect;
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null || user.getUserId() == null || userClass == null)
-        {
+        if (user == null || user.getUserId() == null || userClass == null) {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
-      
-      
+
+
         //班级为空
-        if( userClass.getClassIds()==null || userClass.getClassIds().size() < 0) {
-        	return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+        if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
+            return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
         }
-       
-        
+
+
         // 当所有信息都填完整了，就进行数据库查询，看看这个用户是否存在
-        if (userNameExisted(user.getUserName()))
-        {
+        if (userNameExisted(user.getUserName())) {
             return new AccountDto(CreateAccountStatus.USERNAME_EXISTED);
         }
         //判断是老师还是学生
-        switch (user.getRoleId())
-        {
+        switch (user.getRoleId()) {
             case Role.STUDENT:
-            	 if(userClass.getClassIds().size() > 1) {
-            	    return new AccountDto(CreateAccountStatus.CLASS_TOO_MANY);
-            	 }
-            	 //删除用户所属班级
-                 affect = accountDao.deleteUserClass(user.getUserId());
-                 if(affect <= 0) {
-                 	return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                 }
-               	 affect = accountDao.updateUser(user);
-          	   	 if (affect <= 0) // 更新失败
-          	   	 {	
+                if (userClass.getClassIds().size() > 1) {
+                    return new AccountDto(CreateAccountStatus.CLASS_TOO_MANY);
+                }
+                //删除用户所属班级
+                affect = accountDao.deleteUserClass(user.getUserId());
+                if (affect <= 0) {
                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-          	   	 }
-          	   	 userClass.setUserId(user.getUserId());
-          	   	 affect = accountDao.insertUserClass(userClass);
-          	   	 if (affect <= 0) // 插入失败
-          	   	 {
-          	   		 return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-          	   	 }
+                }
+                affect = accountDao.updateUser(user);
+                if (affect <= 0) // 更新失败
+                {
+                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                }
+                userClass.setUserId(user.getUserId());
+                affect = accountDao.insertUserClass(userClass);
+                if (affect <= 0) // 插入失败
+                {
+                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                }
             default:
-            	 //删除用户所属班级
-                 affect = accountDao.deleteUserClass(user.getUserId());
-                 if(affect <= 0) {
-                	 return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                 }
-            	 affect = accountDao.updateUser(user);
-            	 if (affect <= 0) // 更新失败
-                 {
-                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                 }
-                 userClass.setUserId(user.getUserId());
-                 affect = accountDao.insertUserClass(userClass);
-                 if (affect <= 0) // 插入失败
-                 {
-                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                 }
-                 
-       } 
+                //删除用户所属班级
+                affect = accountDao.deleteUserClass(user.getUserId());
+                if (affect <= 0) {
+                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                }
+                affect = accountDao.updateUser(user);
+                if (affect <= 0) // 更新失败
+                {
+                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                }
+                userClass.setUserId(user.getUserId());
+                affect = accountDao.insertUserClass(userClass);
+                if (affect <= 0) // 插入失败
+                {
+                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                }
+
+        }
         return new AccountDto(UpdateAccountStatus.SUCCESS);
-	}
-		
-	
+    }
+
+
 }

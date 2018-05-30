@@ -173,5 +173,9 @@
 	<select id="getClassByClassName" resultType="entity.Clazz">
 		SELECT class_name FROM class WHERE class_name = #{className}
 	</select>
+
+	<select id="getAllClasses" resultType="entity.Clazz">
+        SELECT class_name, course_id FROM class
+    </select>
 	
 </mapper>
