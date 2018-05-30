@@ -51,36 +51,34 @@ public class AccountServiceTest
     @Test
     public void testCreateAccount()
     {
-//        User user = new User();
-//        user.setUserName("xxiaosxxososo");
-//        user.setPassword("696969");
-//        user.setName("dd");
-//        user.setRoleId(1);
-//        user.setTypeId(0);
-//        UserClass userClass = new UserClass();
-//        List<Integer> classIds = new ArrayList<>();
-//        classIds.add(1);
-//        classIds.add(3);
-//        
-//        
-//        userClass.setClassIds(classIds);
-//        AccountDto accountDto = accountService.createAccount(user,userClass);
-//
-//        System.out.println(accountDto);
+        User user = new User();
+        user.setUserName("测试学生3");
+        user.setPassword("696969");
+        user.setName("dd");
+        user.setRoleId(2);
+        user.setTypeId(1);
+        UserClass userClass = new UserClass();
+        List<Integer> classIds = new ArrayList<>();
+        classIds.add(2);
+        
+        userClass.setClassIds(classIds);
+        AccountDto accountDto = accountService.createAccount(user,userClass);
+
+        System.out.println(accountDto);
     		
-      User user = new User();
-      
-      user.setPassword("696969");
-      user.setName("dd");
-      user.setUserId(21);
-      user.setRoleId(2);
-      UserClass userClass = new UserClass();
-      List<Integer> classIds = new ArrayList<>();
-      classIds.add(3);
-      classIds.add(4);
-      userClass.setClassIds(classIds);
-      AccountDto accountDto = accountService.updateUser(user, userClass);
-      System.out.println(accountDto);
+//      User user = new User();
+//      
+//      user.setPassword("696969");
+//      user.setName("dd");
+//      user.setUserId(21);
+//      user.setRoleId(2);
+//      UserClass userClass = new UserClass();
+//      List<Integer> classIds = new ArrayList<>();
+//      classIds.add(3);
+//      classIds.add(4);
+//      userClass.setClassIds(classIds);
+//      AccountDto accountDto = accountService.updateUser(user, userClass);
+//      System.out.println(accountDto);
     }
     
     @Test

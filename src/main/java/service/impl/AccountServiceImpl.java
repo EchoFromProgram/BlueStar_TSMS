@@ -149,11 +149,12 @@ public class AccountServiceImpl implements AccountService {
                 user.setInfoId(customer.getInfoId()); // 填充详细信息 id
                 break;
         }
-
+        
+        //判断学生还是老师，对应的班级数不同
         switch (user.getRoleId()) {
             case Role.STUDENT:
                 if (userClass.getClassIds().size() > 1) {
-                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+                    return new AccountDto(CreateAccountStatus.CLASS_TOO_MANY);
                 }
                 affect = accountDao.insertIntoUser(user);
                 if (affect <= 0) {
@@ -164,7 +165,9 @@ public class AccountServiceImpl implements AccountService {
                 if (affect < 0) {
                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
                 }
-            default:
+                break;
+                
+            case Role.TEACHER:
                 affect = accountDao.insertIntoUser(user);
                 if (affect <= 0) {
                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
@@ -174,8 +177,16 @@ public class AccountServiceImpl implements AccountService {
                 if (affect < 0) {
                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
                 }
-
-        }
+                break;
+                
+            case Role.ADMIN:
+            	 affect = accountDao.insertIntoUser(user);
+                 if (affect <= 0) {
+                     return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+                 }
+                 break;
+            	
+        }	
         //成功
         return new AccountDto(CreateAccountStatus.SUCCESS);
     }
