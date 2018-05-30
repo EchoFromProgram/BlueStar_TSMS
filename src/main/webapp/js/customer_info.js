@@ -41,7 +41,6 @@ function setCustomerInfo(){
 		type:"POST",
 		async : false,
 		data:{
-			"infoId":$.cookie("infoId"),
 			"identityNum":$("#info-update-ID-input").val(),
 			"province":$("#province-select").find("option:selected").text(),
 			"city":$("#city-select").find("option:selected").text(),

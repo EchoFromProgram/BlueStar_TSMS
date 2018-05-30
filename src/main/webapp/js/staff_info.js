@@ -35,7 +35,6 @@ function setStaffInfo(){
 		type:"POST",
 		async: false,
 		data:{
-			"tId":$.cookie("infoId"),
 			"identityNum":$("#info-update-ID-input").val(),
 			"resume":$("#info-update-intro-input").val(),
 			"qq":$("#info-update-qq-input").val(),
@@ -47,7 +46,7 @@ function setStaffInfo(){
 			loadInfo();
 		},
 		error:function () {
-            alert("网络错误");
+            alert("员工信息更新失败");
         }
 	});
 	return false;

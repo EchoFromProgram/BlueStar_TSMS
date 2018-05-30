@@ -43,8 +43,10 @@ public class ManageController {
 	
 	@ResponseBody
 	@RequestMapping(path = "insert_user.do", produces = {"application/json;charset=UTF8"})
-	public Object insertUser(User user) {
+	public Object insertUser(User user, Integer[] classArr) {
 		UserClass userClass = new UserClass();
+		List<Integer> classList = Arrays.asList(classArr);
+		userClass.setClassIds(classList);
 		AccountDto accountDto = accountService.createAccount(user, userClass);
 		return accountDto;
 	}
@@ -99,6 +101,15 @@ public class ManageController {
 		rolePower.setRoleId(roleId);
 		rolePower.setPowerIds(powerIdArray);
 		AccountDto accountDto = roleService.updateRole(rolePower);
+		return accountDto;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "add_class.do", produces = {"application/json;charset=UTF8"})
+	public Object addClass(String className) {
+		Clazz clazz = new Clazz();
+		clazz.setClassName(className);
+		AccountDto accountDto = accountService.saveClass(clazz);
 		return accountDto;
 	}
 }

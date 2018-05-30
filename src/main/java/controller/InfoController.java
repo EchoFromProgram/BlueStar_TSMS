@@ -39,7 +39,9 @@ public class InfoController {
 	
 	@ResponseBody
 	@RequestMapping(path = "update_staff_info.do", produces = {"application/json;charset=UTF8"})
-	public Object updateStaffInfo(Staff staff) {
+	public Object updateStaffInfo(Staff staff, HttpSession session) {
+		staff.settId((Integer)((Map)session.getAttribute("user")).get("info_id"));
+		System.out.println(staff);
 		AccountDto accountDto = accountService.updateStaffInfoByInfoId(staff);
 		return accountDto;
 	}
@@ -53,9 +55,8 @@ public class InfoController {
 	
 	@ResponseBody
 	@RequestMapping(path = "update_customer_info.do", produces = {"application/json;charset=UTF8"})
-	public Object updateCustomerInfo(Customer customer) {
-		System.out.println("---------------------------------");
-		System.out.println(customer);
+	public Object updateCustomerInfo(Customer customer, HttpSession session) {
+		customer.setInfoId((Integer)((Map)session.getAttribute("user")).get("info_id"));
 		AccountDto accountDto = accountService.updateCustomerInfoByInfoId(customer);
 		return accountDto;
 	}

@@ -1,14 +1,90 @@
+var classTable;
+//获取班级列表
+$(function(){
+	$.ajax({
+		url:"getSessionHisClasses.do",
+		type:"POST",
+		success: function(data){
+			classTable = data;
+			//便签1班级获取
+			$("#mul-class-on-add").empty();
+//			$("#add-class-select").empty();
+		    $.each(data,function(index, item){
+//		        var option = $("<option></option>").append(item.className);
+//		        option.attr("value", item.classId);
+//		        option.appendTo("#add-class-select");
+//		        
+		    	$("#mul-class-on-add").append(
+		    			'<input type="checkbox" id="check-update-'+ item.classId +'" value="'+ item.classId +'" name="class-select-box-add">'+
+		    			'<label for="check-update-'+ item.classId +'">'+ item.className +'</label>'
+		    			);
+		    });
+		    
+		    //便签2班级获取
+		    $("#mul-class-on-update").empty();
+//		    $("#update-class-select").empty();
+		    $.each(data,function(index, item){
+//		        var option = $("<option></option>").append(item.className);
+//		        option.attr("value", item.classId);
+//		        option.appendTo("#update-class-select");
+//		        
+		        $("#mul-class-on-update").append(
+		    			'<input type="checkbox" id="check-add-'+ item.classId +'" value="'+ item.classId +'" name="class-select-box-update">'+
+		    			'<label for="check-add-'+ item.classId +'">'+ item.className +'</label>'
+		    			);
+		    });
+		},
+		error:function () {
+          alert("网络错误");
+      }
+	});
+	
+    $.ajax({
+        type: "POST",
+        url: "get_all_role.do",
+        dataType: "json",
+        success: function(data){
+        	//添加用户便签内的角色
+			$("#add-role-select").empty();
+		    $.each(data.data,function(index, item){
+		        var option = $("<option></option>").append(item.role);
+		        option.attr("value", item.roleId);
+		        option.appendTo("#add-role-select");
+		    });
+		    //更新用户便签内的角色
+		    $("#update-role-select").empty();
+		    $.each(data.data,function(index, item){
+		        var option = $("<option></option>").append(item.role);
+		        option.attr("value", item.roleId);
+		        option.appendTo("#update-role-select");
+		    });
+        },
+        error:function () {
+            alert("网络错误");
+        }
+    });
+});
+
+
+
+//创建用户
 function insert_user(){
+	var addClassArr = new Array();
+	$.each($('input:checkbox[name=class-select-box-add]:checked'),function(){
+        	addClassArr.push($(this).val());
+    });
 	$.ajax({
 	    url:"insert_user.do",
 	    type:"POST",
 	    dataType:"json",
+	    traditional: true,
 	    data:{
 	    		"userName":$("#insert-username").val(),
 	    		"password":$("#insert-password").val(),
 	    		"name":$("#insert-name").val(),
-	    		"roleId":$("#insert-role-select").val(),
-	    		"typeId":$("#insert-type-select").val()
+	    		"roleId":$("#add-role-select").val(),
+	    		"typeId":$("#add-type-select").val(),
+	    		"classArr":addClassArr
 	    	},
 	    success: function(data){
 	        alert(data.info);
@@ -17,7 +93,6 @@ function insert_user(){
 	        alert("网络错误");
 	    }
 	});
-
 	return false;
 }
 
@@ -153,6 +228,37 @@ $("#submit-which-stage").click(function(){
 
 $(function(){
 	getAllUser(1, -1);
+});
+
+//创建班级
+$("#add-class-button-on-add").click(function (){
+	$.ajax({
+	    url:"add_class.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"className":$("#class-name-input-on-add").val()},
+	    success: function(data){
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("班级创建失败");
+	    }
+	});
+});
+//创建班级
+$("#add-class-button-on-update").click(function(){
+	$.ajax({
+	    url:"add_class.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"className":$("#class-name-input-on-update").val()},
+	    success: function(data){
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("班级创建失败");
+	    }
+	});
 });
 
 

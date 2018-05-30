@@ -24,12 +24,11 @@ function createRole(){
 }
 
 var roleTable;
-function to_page(page){
+function to_page(){
     $.ajax({
         type: "POST",
         url: "get_all_role.do",
         dataType: "json",
-        data:{"page":page},
         success: function(data){
         	roleTable = data.data;
             //显示table
@@ -62,12 +61,12 @@ function build_table(data) {
 
 
 //显示签到信息的总函数
-function getAllRole(page){
-	to_page(page);
+function getAllRole(){
+	to_page();
 };
 
 $(function(){
-	getAllRole(1);
+	getAllRole();
 });
 
 //点击创建角色，在页面添加选择框，并并且删除另一个页面的选择框
