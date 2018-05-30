@@ -1,6 +1,7 @@
 package service;
 
 import dto.AccountDto;
+import entity.Clazz;
 import entity.SignData;
 import entity.User;
 import entity.UserClass;
@@ -93,5 +94,12 @@ public class AccountServiceTest
     {
         AccountDto<PageInfo<SignData>> signs = signService.getSignsByUserId(1, 2);
         System.out.println(signs);
+    }
+    
+    @Test
+    public void testInsert() {
+    	Clazz clazz = new Clazz();
+		clazz.setClassName("3.班");
+		accountService.saveClass(clazz);
     }
 }

@@ -26,6 +26,7 @@ import entity.SignData;
 import entity.Staff;
 import entity.User;
 import entity.UserClass;
+import service.AccountService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class AccountDaoTest {
@@ -132,12 +133,7 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		User user = new User();
-		user.setUserId(16);
-		user.setUserName("xxx");
-		user.setPassword("15141");
-		user.setName("你好");
-		accountDao.updateUser(user);
+		
 	}
 	
 	

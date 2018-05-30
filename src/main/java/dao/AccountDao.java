@@ -196,4 +196,11 @@ public interface AccountDao
      */
     public Integer updateUser(User user);
     
+    /**
+     * 根据班级名得到该班级
+     * @param className 班级名
+     * @return 班级
+     */
+    public Clazz getClassByClassName(String className);
+    
 }

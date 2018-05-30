@@ -148,7 +148,7 @@
 	
 	<!-- 插入一个班级 -->
 	<insert id="insertClass">
-		INSERT INTO class(class_name) VALUES(#{className})
+		INSERT INTO class(class_name, course_id) VALUES(#{className}, 1)
 	</insert>
 	
 	<!-- 根据用户id删除用户所在班级 -->
@@ -157,7 +157,7 @@
 	</delete>
 	
 	<!-- 修改用户信息 -->
-	<update id="updateUser">
+	<update id="updateUser" >
 		UPDATE user
 		<set>
 		  <if test="userName != null">username = #{userName},</if>
@@ -168,5 +168,10 @@
  		</set>
  		WHERE user_id = #{userId}
 	</update>
+	
+	<!-- 根据班级名得到班级名 -->
+	<select id="getClassByClassName" resultType="entity.Clazz">
+		SELECT class_name FROM class WHERE class_name = #{className}
+	</select>
 	
 </mapper>

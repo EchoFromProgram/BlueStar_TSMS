@@ -162,7 +162,7 @@ public class AccountServiceImpl implements AccountService
         {
             case Role.STUDENT:
             	if(userClass.getClassIds().size() > 1) {
-            		return new AccountDto(Common.ERROR);
+            		return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
             	}
             	affect = accountDao.insertIntoUser(user);
           	   	if(affect <= 0) 
@@ -442,6 +442,9 @@ public class AccountServiceImpl implements AccountService
 	@Override
 	public AccountDto saveClass(Clazz clazz) {
 		try {
+			if(accountDao.getClassByClassName(clazz.getClassName()) != null) {
+				return new AccountDto(CreateAccountStatus.CLASS_EXISTED);
+			}
 			if(clazz == null)
 				return new AccountDto(Common.WRONG_ARGEMENT);
 			int affect = accountDao.insertClass(clazz);
@@ -486,12 +489,12 @@ public class AccountServiceImpl implements AccountService
         {
             case Role.STUDENT:
             	 if(userClass.getClassIds().size() > 1) {
-            	    return new AccountDto(Common.ERROR);
+            	    return new AccountDto(CreateAccountStatus.CLASS_TOO_MANY);
             	 }
             	 //删除用户所属班级
                  affect = accountDao.deleteUserClass(user.getUserId());
                  if(affect <= 0) {
-                 	return new AccountDto(Common.ERROR);
+                 	return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
                  }
                	 affect = accountDao.updateUser(user);
           	   	 if (affect <= 0) // 更新失败
@@ -508,7 +511,7 @@ public class AccountServiceImpl implements AccountService
             	 //删除用户所属班级
                  affect = accountDao.deleteUserClass(user.getUserId());
                  if(affect <= 0) {
-                	 return new AccountDto(Common.ERROR);
+                	 return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
                  }
             	 affect = accountDao.updateUser(user);
             	 if (affect <= 0) // 更新失败
