@@ -106,5 +106,5 @@ public interface ScoreService
      */
     public AccountDto getUsersByClassId(Integer classId);
     
-    
+  
 }

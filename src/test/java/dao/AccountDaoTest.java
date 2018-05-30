@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.aspectj.bridge.MessageWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import entity.SignData;
 import entity.Staff;
 import entity.User;
 import entity.UserClass;
+import service.AccountService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class AccountDaoTest {
@@ -131,9 +133,7 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		Clazz clazz = new Clazz();
-		clazz.setClassName("5班");
-		accountDao.insertClass(clazz);
+		
 	}
 	
 	

@@ -118,4 +118,12 @@ public interface AccountService
      * @return 插入结果
      */
     public AccountDto saveClass(Clazz clazz);
+    
+    /**
+     * 修改用户信息
+     * @param user 用户类
+     * @param userClass 用户班级类
+     * @return 修改结果
+     */
+    public AccountDto updateUser(User user, UserClass userClass);
 }

@@ -1,6 +1,7 @@
 package service;
 
 import dto.AccountDto;
+import entity.Clazz;
 import entity.SignData;
 import entity.User;
 import entity.UserClass;
@@ -51,19 +52,33 @@ public class AccountServiceTest
     public void testCreateAccount()
     {
         User user = new User();
-        user.setUserName("woddowssdow");
+        user.setUserName("测试学生3");
         user.setPassword("696969");
-        user.setName("ddd");
-        user.setRoleId(1);
-        user.setTypeId(0);
+        user.setName("dd");
+        user.setRoleId(2);
+        user.setTypeId(1);
         UserClass userClass = new UserClass();
         List<Integer> classIds = new ArrayList<>();
-        classIds.add(1);
-     
+        classIds.add(2);
+        
         userClass.setClassIds(classIds);
         AccountDto accountDto = accountService.createAccount(user,userClass);
 
         System.out.println(accountDto);
+    		
+//      User user = new User();
+//      
+//      user.setPassword("696969");
+//      user.setName("dd");
+//      user.setUserId(21);
+//      user.setRoleId(2);
+//      UserClass userClass = new UserClass();
+//      List<Integer> classIds = new ArrayList<>();
+//      classIds.add(3);
+//      classIds.add(4);
+//      userClass.setClassIds(classIds);
+//      AccountDto accountDto = accountService.updateUser(user, userClass);
+//      System.out.println(accountDto);
     }
     
     @Test
@@ -77,5 +92,12 @@ public class AccountServiceTest
     {
         AccountDto<PageInfo<SignData>> signs = signService.getSignsByUserId(1, 2);
         System.out.println(signs);
+    }
+    
+    @Test
+    public void testInsert() {
+    	Clazz clazz = new Clazz();
+		clazz.setClassName("3.班");
+		accountService.saveClass(clazz);
     }
 }

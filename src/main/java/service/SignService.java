@@ -43,6 +43,18 @@ public interface SignService
     public AccountDto sign(User user, Integer inputCode, Integer realCode, Integer classId, String reason);
 
     /**
+     * 老师签到
+     *
+     * @param user    要签到的用户
+     * @param classId 用户所属班级
+     *                如果用户没有班级，那就传入一个 null 即可
+     * @param reason  * 签到原因，（选填）
+     *                如果是迟到或者旷课就必须填写
+     * @return
+     */
+    public AccountDto sign(User user, Integer classId, String reason);
+
+    /**
      * 根据班级信息获取签到信息
      *
      * @param pageNumber 要显示的页数

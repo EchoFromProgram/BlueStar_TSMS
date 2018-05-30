@@ -181,5 +181,32 @@ public interface AccountDao
      * @return 影响的行数，如果是1则插入成功
      */
     public Integer insertClass(Clazz clazz);
-  
+    
+    /**
+     * 根据用户id删除用户所在班级，用户更新
+     * @param userId 用户id
+     * @return 删除的行数
+     */
+    public Integer deleteUserClass(Integer userId);
+    
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    public Integer updateUser(User user);
+    
+    /**
+     * 根据班级名得到该班级
+     * @param className 班级名
+     * @return 班级
+     */
+    public Clazz getClassByClassName(String className);
+
+    /**
+     * 得到全部班级，主要是给管理员用
+     *
+     * @return 返回班级列表
+     */
+    public List<Clazz> getAllClasses();
 }
