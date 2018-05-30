@@ -121,21 +121,36 @@ public interface SignDao {
     public int signIsExisted(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
     
     /**
-	 * 得到签到成功百分比
+	 * 得到学生签到成功百分比
 	 * @param classId 班级id
 	 * @param courseId 课程id
 	 * @return 百分比
 	 */
-	public Double getSignSuccessNumberByClass(Integer classId);
+	public Double getStudentSignSuccessNumber(@Param("classId")Integer classId,@Param("courseId")Integer courseId);
 	
-	public Double getSignSuccessNumberByCourse(Integer courseId);
+	
 	
 	/**
-	 * 得到迟到百分比
+	 * 得到学生迟到百分比
 	 * @param classId 班级id
 	 * @param courseId 课程id
 	 * @return 百分比
 	 */
-	public Double getSignLateNumber(@Param("classId")Integer classId, @Param("courseId")Integer courseId);
+	public Double getStudentSignLateNumber(@Param("classId")Integer classId, @Param("courseId")Integer courseId);
+	
+	/**
+	 * 得到老师签到成功百分比
+	 * @param classId 班级id
+	 * @param courseId 课程id
+	 * @return 百分比
+	 */
+	public Double getTeacherSignSuccessNumber(@Param("classId")Integer classId,@Param("courseId")Integer courseId);
    
+	/**
+	 * 得到老师迟到百分比
+	 * @param classId 班级id
+	 * @param courseId 课程id
+	 * @return 百分比
+	 */
+	public Double getTeacherSignLateNumber(@Param("classId")Integer classId,@Param("courseId")Integer courseId);
 }

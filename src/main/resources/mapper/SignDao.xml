@@ -97,27 +97,50 @@
 	</select>
 	
 	
-     <!-- 根据班级得到签到成功的百分比 -->
-	<select id="getSignSuccessNumberByClass" resultType="double">
-		SELECT ROUND(T1.success/((T2.total) * (T3.cid)),2)
+     <!-- 根据班级和课程得到签到成功的百分比(学生) -->
+	<select id="getStudentSignSuccessNumber" resultType="double">
+		SELECT ROUND(T1.success/T2.total,2)
     	FROM 
      	(SELECT COUNT(*) AS success
-         FROM sign WHERE sign.status = 0 AND sign.class_id = #{classId}) T1,
+         FROM sign INNER JOIN user ON sign.user_id = user.user_id WHERE sign.status = 0 AND sign.class_id = #{classId} AND sign.course_id = #{courseId} AND user.role_id = 2)  T1,
      	(SELECT COUNT(*) AS total
        	FROM user u INNER JOIN user_class uc ON u.user_id = uc.user_id 
-       	WHERE u.role_id = 2 AND uc.class_id = #{classId})T2,
-        (SELECT c.course_id cid FROM class c WHERE c.class_id = #{classId})T3
+       	WHERE u.role_id = 2 AND uc.class_id = #{classId})T2
      </select>
      
-     <select id="getSignSuccessNumberByCourse" resultType="double">
-     	SELECT ROUND(T1.success/((T2.total) * (T3.cn-1)),2)
+     <!-- 根据班级和课程得到签到迟到的百分比(学生) -->
+	<select id="getStudentSignLateNumber" resultType="double">
+		SELECT ROUND(T1.success/T2.total,2)
     	FROM 
      	(SELECT COUNT(*) AS success
-         FROM sign WHERE sign.status = 0 AND sign.course_id = #{courseId}) T1,
+         FROM sign INNER JOIN user ON sign.user_id = user.user_id WHERE sign.status = 1 AND sign.class_id = #{classId} AND sign.course_id = #{courseId} AND user.role_id = 2)  T1,
      	(SELECT COUNT(*) AS total
        	FROM user u INNER JOIN user_class uc ON u.user_id = uc.user_id 
-       	WHERE u.role_id = 2 AND uc.class_id = #{classId})T2,
-        (SELECT COUNT(*) cn FROM class c)T3
+       	WHERE u.role_id = 2 AND uc.class_id = #{classId})T2
      </select>
+     
+      <!-- 根据班级和课程得到签到成功的百分比(老师) -->
+	<select id="getTeacherSignSuccessNumber" resultType="double">
+		SELECT ROUND(T1.success/T2.total,2)
+    	FROM 
+     	(SELECT COUNT(*) AS success
+         FROM sign INNER JOIN user ON sign.user_id = user.user_id WHERE sign.status = 0 AND sign.class_id = #{classId} AND sign.course_id = #{courseId} AND user.role_id = 1)  T1,
+     	(SELECT COUNT(*) AS total
+       	FROM user u INNER JOIN user_class uc ON u.user_id = uc.user_id 
+       	WHERE u.role_id = 1 AND uc.class_id = #{classId})T2
+     </select>
+     
+     <!-- 根据班级和课程得到签到迟到的百分比(老师) -->
+	<select id="getTeacherSignLateNumber" resultType="double">
+		SELECT ROUND(T1.success/T2.total,2)
+    	FROM 
+     	(SELECT COUNT(*) AS success
+         FROM sign INNER JOIN user ON sign.user_id = user.user_id WHERE sign.status = 1 AND sign.class_id = #{classId} AND sign.course_id = #{courseId} AND user.role_id = 1)  T1,
+     	(SELECT COUNT(*) AS total
+       	FROM user u INNER JOIN user_class uc ON u.user_id = uc.user_id 
+       	WHERE u.role_id = 1 AND uc.class_id = #{classId})T2
+     </select>
+     
+	
      
 </mapper>

@@ -279,4 +279,6 @@ public class ScoreServiceImpl implements ScoreService
 		return new AccountDto<List<User>>(users,Common.SUCCESS);
 		
 	}
+
+	
 }
