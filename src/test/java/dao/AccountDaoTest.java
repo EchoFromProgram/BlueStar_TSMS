@@ -26,6 +26,7 @@ import entity.SignData;
 import entity.Staff;
 import entity.User;
 import entity.UserClass;
+import entity.UserData;
 import service.AccountService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
@@ -133,8 +134,10 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		List<Map<String, Object>> map = accountDao.getUserByUserNameForUpdate("h123");
+
+		UserData map = accountDao.getUserByUserNameForUpdate("h123");
 		System.out.println(map);
+
 	}
 	
 	

@@ -17,7 +17,9 @@ public enum CreateAccountStatus implements Statusable
     UNKNOWN_ERROR(-5, "未知错误！"),
 	CLASS_IS_NULL(-6,"班级为空!"),
 	CLASS_TOO_MANY(-7,"一个学生只能对应一个班级！"),
-	CLASS_EXISTED(-8,"班级已存在！");
+	CLASS_EXISTED(-8,"班级已存在！"),
+	USERNAME_NOEXISTED(-9, "用户不存在！");
+	
     // 创建状态码
     private int code;
 

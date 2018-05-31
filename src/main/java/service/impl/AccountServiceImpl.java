@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 import service.AccountService;
 import utils.PageUtil;
 
@@ -68,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
         infos.put("user", u);
         infos.put("hisPowers", accountDao.getPowerIdByRoleId((Integer) u.get("role_id")));
 
-        if (user.getRoleId() == Role.ADMIN) {
+        if ((Integer)u.get("role_id") == Role.ADMIN) {
             infos.put("hisClasses", accountDao.getAllClasses());
             return new AccountDto<>(infos, LoginStatus.SUCCESS);
         }
@@ -501,6 +503,28 @@ public class AccountServiceImpl implements AccountService {
         }
         return new AccountDto(UpdateAccountStatus.SUCCESS);
     }
+
+    /**
+     * 得到用户信息用于更新
+     * @param username 用户名
+     * @return 用户数据
+     */
+	@Override
+	public AccountDto getUserByUserNameForUpdate(String username) {
+		
+		if(username == null) {
+			return new AccountDto(Common.WRONG_ARGEMENT);
+		}
+		
+		UserData u = accountDao.getUserByUserNameForUpdate(username);
+		 // 用户名不存在！
+        if (u == null) {
+            return new AccountDto(LoginStatus.WRONG_USERNAME);
+        }
+        
+        return new AccountDto<UserData>(u,Common.SUCCESS);
+      
+	}
 
 
 }

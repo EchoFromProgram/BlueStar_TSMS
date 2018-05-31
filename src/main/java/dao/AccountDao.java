@@ -16,6 +16,7 @@ import entity.SignData;
 import entity.Staff;
 import entity.User;
 import entity.UserClass;
+import entity.UserData;
 
 /**
  * 该方法用于管理用户
@@ -215,6 +216,6 @@ public interface AccountDao
      * @param userName 用户名
      * @return 用户
      */
-    public List<Map<String, Object>> getUserByUserNameForUpdate(String userName);
+    public UserData getUserByUserNameForUpdate(String username);
    
 }
