@@ -61,6 +61,29 @@ public class ManageController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(path = "update_user.do", produces = {"application/json;charset=UTF8"})
+	public Object updateUser(User user, String[] classArr) {
+		UserClass userClass = new UserClass();
+		if (classArr != null && classArr.length != 0) {
+			List<Integer> classList = new ArrayList<>();
+			for (String string : classArr) {
+				classList.add(Integer.valueOf(string.trim()));
+			}
+			userClass.setClassIds(classList);
+			AccountDto accountDto = accountService.updateUser(user, userClass);
+			return accountDto;
+		}
+		
+		return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "find_user.do", produces = {"application/json;charset=UTF8"})
+	public Object findUser(String username) {
+		return accountService.userNameExisted(username);
+	}
+	
+	@ResponseBody
 	@RequestMapping(path = "get_all_accounts.do", produces = {"application/json;charset=UTF8"})
 	public Object getAllAccounts(Integer page, Integer typeId) {
 		AccountDto accountDto = null;

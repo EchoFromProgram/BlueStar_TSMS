@@ -8,6 +8,8 @@ public class UserData {
 	
 	private String role;
 	
+	private Integer roleId;
+	
 	private Integer userId;
 	
 	private Integer typeId;
@@ -74,11 +76,22 @@ public class UserData {
 		this.name = name;
 	}
 
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+
 	@Override
 	public String toString() {
-		return "UserData [password=" + password + ", role=" + role + ", userId=" + userId + ", typeId=" + typeId
-				+ ", classNames=" + classNames + ", username=" + username + ", name=" + name + "]";
+		return "UserData [password=" + password + ", role=" + role + ", roleId=" + roleId + ", userId=" + userId
+				+ ", typeId=" + typeId + ", classNames=" + classNames + ", username=" + username + ", name=" + name
+				+ "]";
 	}
+
+	
 
 	
 	

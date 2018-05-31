@@ -154,7 +154,7 @@
                                     <input type="text" id="update-username" class="form-control" placeholder="原账号" required="" autofocus="">
                                     <span class="help-block" id="update-username-help"></span>
                                 </div>
-
+								<div id="update-user-display-box">
                                 <div class="form-group" id="password-change">
                                     <label for="update-password">密码</label>
                                     <input type="text" id="update-password" class="form-control" placeholder="原密码" required="">
@@ -170,9 +170,7 @@
                                 <div class="form-group" id="role-change">
                                     <label for="update-role-select">角色</label>
                                     <select class="form-control" id="update-role-select">
-                                        <option value ="学生">学生</option>
-                                        <option value ="教师">教师</option>
-                                        <option value ="管理员">管理员</option>
+                      
                                     </select>
                                 </div>
 
@@ -213,6 +211,7 @@
 						            </div>
 						        </div>
                                 <button class="btn btn-lg btn-primary btn-block" id="submit-change">修改用户</button>
+                            	</div>
                             </form>
 
                         </div>
@@ -223,19 +222,19 @@
                             <form class="form" onsubmit="return insert_user()">
                                 <div class="form-group" id="username-create">
                                     <label for="insert-username">用户名</label>
-                                    <input type="text" id="insert-username" class="form-control" placeholder="为其设置一个账号">
+                                    <input type="text" id="insert-username" class="form-control" placeholder="为其设置一个账号" required="">
                                     <span class="help-block" id="insert-username-help"></span>
                                 </div>
 
                                 <div class="form-group" id="password-create">
                                     <label for="insert-password">密码</label>
-                                    <input type="text" id="insert-password" class="form-control" placeholder="还需要一个密码">
+                                    <input type="text" id="insert-password" class="form-control" placeholder="还需要一个密码" required="">
                                     <span class="help-block" id="insert-password-help"></span>
                                 </div>
 
                                 <div class="form-group" id="name-create">
                                     <label for="insert-name">姓名</label>
-                                    <input type="text" id="insert-name" class="form-control" placeholder="这个账户的拥有者姓名">
+                                    <input type="text" id="insert-name" class="form-control" placeholder="这个账户的拥有者姓名" required="">
                                     <span class="help-block" id="insert-name-help"></span>
                                 </div>
 
