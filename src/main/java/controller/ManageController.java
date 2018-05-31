@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.github.pagehelper.Page;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import dto.AccountDto;
 import entity.Clazz;
@@ -19,6 +20,7 @@ import entity.Role;
 import entity.RolePower;
 import entity.User;
 import entity.UserClass;
+import enums.impl.CreateAccountStatus;
 import service.AccountService;
 import service.RoleService;
 
@@ -43,12 +45,19 @@ public class ManageController {
 	
 	@ResponseBody
 	@RequestMapping(path = "insert_user.do", produces = {"application/json;charset=UTF8"})
-	public Object insertUser(User user, Integer[] classArr) {
+	public Object insertUser(User user, String[] classArr) {
 		UserClass userClass = new UserClass();
-		List<Integer> classList = Arrays.asList(classArr);
-		userClass.setClassIds(classList);
-		AccountDto accountDto = accountService.createAccount(user, userClass);
-		return accountDto;
+		if (classArr != null && classArr.length != 0) {
+			List<Integer> classList = new ArrayList<>();
+			for (String string : classArr) {
+				classList.add(Integer.valueOf(string.trim()));
+			}
+			userClass.setClassIds(classList);
+			AccountDto accountDto = accountService.createAccount(user, userClass);
+			return accountDto;
+		}
+		
+		return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
 	}
 	
 	@ResponseBody

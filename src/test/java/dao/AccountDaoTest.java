@@ -133,7 +133,7 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		
+		System.out.println(accountDao.getAllClasses());
 	}
 	
 	

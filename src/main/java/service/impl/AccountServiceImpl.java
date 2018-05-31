@@ -68,7 +68,7 @@ public class AccountServiceImpl implements AccountService {
         infos.put("user", u);
         infos.put("hisPowers", accountDao.getPowerIdByRoleId((Integer) u.get("role_id")));
 
-        if (user.getRoleId() == Role.ADMIN) {
+        if ((Integer)u.get("role_id") == Role.ADMIN) {
             infos.put("hisClasses", accountDao.getAllClasses());
             return new AccountDto<>(infos, LoginStatus.SUCCESS);
         }
