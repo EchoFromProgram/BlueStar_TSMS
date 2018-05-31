@@ -264,27 +264,45 @@ $("#add-class-button-on-update").click(function(){
 //输入姓名之后，判定是否存在，如果不存在，就无法点击按钮
 $("#update-username").mouseleave(function(){
 	var flag;
-	var username;
 	$.ajax({
 	    url:"find_user.do",
 	    type:"POST",
 	    dataType:"json",
-	    data:{"username":$(this).val()},
+	    data:{"userName":$(this).val()},
 	    success: function(data){
-	        flag = data;
-	    	if(flag == false){
+	        flag = data.code;
+	    	if(flag == -2){
 	    		$("#update-user-display-box").hide();
 	    		$("#submit-change").attr("disabled", true); 
 	    		$("#username-change").addClass("has-error");
 	    		$("#username-change").removeClass("has-success");
 	    		$("#update-username-help").text("角色名不存在，请核对后再输入");
-	    	}else{
+	    	}else if(flag == 0){
 	    		$("#update-user-display-box").show();
 	    		$("#submit-change").removeAttr("disabled");
 	    		$("#username-change").removeClass("has-error");
 	    		$("#username-change").addClass("has-success");
 	    		$("#update-username-help").text("角色名输入正确");
-	    		$("#submit-change").attr("update-username", username);
+	    		$("#submit-change").attr("update-username", data.data.userId);
+	    		$("#update-password").val(data.data.password);
+	    		$("#update-name").val(data.data.name);
+	    		$("#update-role-select").val(data.data.role);
+	    		$("#update-type-select").val(data.data.typeId);
+	    		for(var i=0;i<data.data.classNames.length;i++){  
+	                $("input[name=class-select-box-update]").each(function(){  
+	                    if($(this).val()==data.data.classNames[i].classId){  
+	                        $(this).attr("checked","checked");  
+	                    }  
+	                })  
+	            }  
+
+	    		$("#mul-class-on-update").val();
+	    	}else{
+	    		$("#update-user-display-box").hide();
+	    		$("#submit-change").attr("disabled", true); 
+	    		$("#username-change").addClass("has-error");
+	    		$("#username-change").removeClass("has-success");
+	    		$("#update-username-help").text(data.info);
 	    	}
 	    },
 	    error:function () {

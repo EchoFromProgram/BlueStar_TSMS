@@ -79,8 +79,10 @@ public class ManageController {
 	
 	@ResponseBody
 	@RequestMapping(path = "find_user.do", produces = {"application/json;charset=UTF8"})
-	public Object findUser(String username) {
-		return accountService.userNameExisted(username);
+	public Object findUser(String userName) {
+		System.out.println(userName);
+		AccountDto accountDto = accountService.getUserByUserNameForUpdate(userName);
+		return accountDto;
 	}
 	
 	@ResponseBody
