@@ -519,7 +519,7 @@ public class AccountServiceImpl implements AccountService {
 		UserData u = accountDao.getUserByUserNameForUpdate(username);
 		 // 用户名不存在！
         if (u == null) {
-            return new AccountDto(LoginStatus.WRONG_USERNAME);
+            return new AccountDto(CreateAccountStatus.USERNAME_NOEXISTED);
         }
         
         return new AccountDto<UserData>(u,Common.SUCCESS);
