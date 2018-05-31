@@ -17,10 +17,19 @@
 	</select>
 	
 	<!-- 根据用户名得到密码，角色id，姓名 -->
+	<select id="getUserByUserNameForUpdate" resultType="java.util.HashMap">
+		SELECT u.user_id, u.username, u.name, u.role_id, u.info_id, u.type_id, r.role, c.class_name
+		FROM user u, role r, user_class uc, class c WHERE u.username = #{username} AND r.role_id = u.role_id AND uc.user_id = u.user_id
+		AND uc.class_id = c.class_id
+	</select>
+	
+	<!-- 根据用户名得到密码，角色id，姓名 -->
 	<select id="getUsersByTypeId" resultType="java.util.HashMap">
 		SELECT u.user_id, u.username, u.password, u.name, u.role_id, u.info_id, u.type_id, r.role
 		FROM user u, role r  WHERE u.type_id = #{typeId} AND r.role_id = u.role_id
 	</select>
+	
+	
 
 	<!-- 创建一个新用户,插入到用户表中 -->
 	<insert id="insertIntoUser" useGeneratedKeys="true" keyProperty="userId">

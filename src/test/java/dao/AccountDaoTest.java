@@ -133,7 +133,8 @@ public class AccountDaoTest {
 	
 	@Test
 	public void test1() {
-		
+		List<Map<String, Object>> map = accountDao.getUserByUserNameForUpdate("h123");
+		System.out.println(map);
 	}
 	
 	

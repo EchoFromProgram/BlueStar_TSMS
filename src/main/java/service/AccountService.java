@@ -126,4 +126,11 @@ public interface AccountService
      * @return 修改结果
      */
     public AccountDto updateUser(User user, UserClass userClass);
+    
+    /**
+     * 根据用户名查询用户
+     * @param userName
+     * @return
+     */
+    public AccountDto getUserByUserNameForUpdate(String userName);
 }

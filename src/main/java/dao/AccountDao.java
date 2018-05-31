@@ -209,4 +209,12 @@ public interface AccountDao
      * @return 返回班级列表
      */
     public List<Clazz> getAllClasses();
+    
+    /**
+     * 根据用户名得到用户
+     * @param userName 用户名
+     * @return 用户
+     */
+    public List<Map<String, Object>> getUserByUserNameForUpdate(String userName);
+   
 }
