@@ -16,6 +16,7 @@ import entity.SignData;
 import entity.Staff;
 import entity.User;
 import entity.UserClass;
+import entity.UserData;
 
 /**
  * 该方法用于管理用户
@@ -209,4 +210,12 @@ public interface AccountDao
      * @return 返回班级列表
      */
     public List<Clazz> getAllClasses();
+    
+    /**
+     * 根据用户名得到用户
+     * @param userName 用户名
+     * @return 用户
+     */
+    public UserData getUserByUserNameForUpdate(String username);
+   
 }

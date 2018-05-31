@@ -52,11 +52,11 @@ public class AccountServiceTest
     public void testCreateAccount()
     {
         User user = new User();
-        user.setUserName("测试学生3");
+        user.setUserName("西欧I嘻嘻系");
         user.setPassword("696969");
         user.setName("dd");
-        user.setRoleId(2);
-        user.setTypeId(1);
+        user.setRoleId(1);
+        user.setTypeId(0);
         UserClass userClass = new UserClass();
         List<Integer> classIds = new ArrayList<>();
         classIds.add(2);
