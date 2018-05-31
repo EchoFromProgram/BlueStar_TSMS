@@ -261,6 +261,36 @@ $("#add-class-button-on-update").click(function(){
 	});
 });
 
-
+//输入姓名之后，判定是否存在，如果不存在，就无法点击按钮
+$("#update-username").mouseleave(function(){
+	var flag;
+	var username;
+	$.ajax({
+	    url:"find_user.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"username":$(this).val()},
+	    success: function(data){
+	        flag = data;
+	    	if(flag == false){
+	    		$("#update-user-display-box").hide();
+	    		$("#submit-change").attr("disabled", true); 
+	    		$("#username-change").addClass("has-error");
+	    		$("#username-change").removeClass("has-success");
+	    		$("#update-username-help").text("角色名不存在，请核对后再输入");
+	    	}else{
+	    		$("#update-user-display-box").show();
+	    		$("#submit-change").removeAttr("disabled");
+	    		$("#username-change").removeClass("has-error");
+	    		$("#username-change").addClass("has-success");
+	    		$("#update-username-help").text("角色名输入正确");
+	    		$("#submit-change").attr("update-username", username);
+	    	}
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+});
 
 
