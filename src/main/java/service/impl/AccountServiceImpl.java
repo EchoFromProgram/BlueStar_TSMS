@@ -451,8 +451,11 @@ public class AccountServiceImpl implements AccountService {
 
 
         //班级为空
-        if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
+        if(user.getRoleId() != 3)
+        {
+        	if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
             return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+        	}
         }
 
 
@@ -482,7 +485,7 @@ public class AccountServiceImpl implements AccountService {
                 {
                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
                 }
-            default:
+            case Role.TEACHER:
                 //删除用户所属班级
                 affect = accountDao.deleteUserClass(user.getUserId());
                 if (affect <= 0) {
@@ -499,7 +502,14 @@ public class AccountServiceImpl implements AccountService {
                 {
                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
                 }
-
+                
+            case Role.ADMIN:
+            	affect = accountDao.updateUser(user);
+                if (affect <= 0) // 更新失败
+                {
+                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+                }
+            	
         }
         return new AccountDto(UpdateAccountStatus.SUCCESS);
     }
