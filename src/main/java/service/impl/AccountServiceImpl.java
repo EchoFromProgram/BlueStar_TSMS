@@ -451,8 +451,11 @@ public class AccountServiceImpl implements AccountService {
 
 
         //班级为空
-        if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
+        if(user.getRoleId() != 3)
+        {
+        	if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
             return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+        	}
         }
 
 
