@@ -52,6 +52,7 @@ function setCustomerInfo(){
 			},
 		success: function(data){
 			alert(data.info);
+			window.location.reload();
 		},
 		error:function () {
             alert("网络错误");

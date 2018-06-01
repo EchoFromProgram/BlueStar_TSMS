@@ -116,11 +116,20 @@ public class SignController {
 	@RequestMapping(path = "student_sign.do", produces = {"application/json;charset=UTF8"})
 	public Object studentSign(HttpSession session, Integer inputCode, String reason) {
 		Integer realCode = ContextUtil.getSignCode(1);
-		System.out.println(realCode + ",  " + inputCode);
 		Integer classId = ((List<Clazz>)session.getAttribute("hisClasses")).get(0).getClassId();
 		User user = new User();
 		user.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
 		AccountDto accountDto = signService.sign(user, inputCode, realCode, classId, reason);
+		return accountDto;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "teacher_sign.do", produces = {"application/json;charset=UTF8"})
+	public Object teacherSign(HttpSession session, String reason) {
+		Integer classId = ((List<Clazz>)session.getAttribute("hisClasses")).get(0).getClassId();
+		User user = new User();
+		user.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
+		AccountDto accountDto = signService.sign(user, classId, reason);
 		return accountDto;
 	}
 }

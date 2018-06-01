@@ -148,22 +148,23 @@
                         <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-user-2">
 
                             <h2 class="sub-header">修改用户</h2>
-                            <form class="form" onsubmit="return ">
+                            <form class="form" onsubmit="return false">
                                 <div class="form-group" id="username-change">
                                     <label for="update-username">用户名</label>
-                                    <input type="text" id="update-username" class="form-control" placeholder="原账号" required="" autofocus="">
+                                    <input type="text" id="update-username" class="form-control" placeholder="原账号" autofocus="">
                                     <span class="help-block" id="update-username-help"></span>
+                                    <button id="check-username-exist" class="btn btn-primary">查询用户</button>
                                 </div>
-								<div id="update-user-display-box">
+								<div id="update-user-display-box" style="display:none">
                                 <div class="form-group" id="password-change">
                                     <label for="update-password">密码</label>
-                                    <input type="text" id="update-password" class="form-control" placeholder="原密码" required="">
+                                    <input type="text" id="update-password" class="form-control" placeholder="原密码">
                                     <span class="help-block" id="update-password-help"></span>
                                 </div>
 
                                 <div class="form-group" id="name-change">
                                     <label for="update-name">姓名</label>
-                                    <input type="text" id="update-name" class="form-control" placeholder="原姓名" required="">
+                                    <input type="text" id="update-name" class="form-control" placeholder="原姓名">
                                     <span class="help-block" id="update-name-help"></span>
                                 </div>
 

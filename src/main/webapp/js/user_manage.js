@@ -1,10 +1,39 @@
 var classTable;
 //获取班级列表
 $(function(){
+    $.ajax({
+        type: "POST",
+        url: "get_all_role.do",
+        dataType: "json",
+        success: function(data){
+        	//添加用户便签内的角色
+			$("#add-role-select").empty();
+		    $.each(data.data,function(index, item){
+		        var option = $("<option></option>").append(item.role);
+		        option.attr("value", item.roleId);
+		        option.appendTo("#add-role-select");
+		    });
+		    //更新用户便签内的角色
+		    $("#update-role-select").empty();
+		    $.each(data.data,function(index, item){
+		        var option = $("<option></option>").append(item.role);
+		        option.attr("value", item.roleId);
+		        option.appendTo("#update-role-select");
+		    });
+        },
+        error:function () {
+            alert("网络错误");
+        }
+    });
+    getClasses();
+});
+
+function getClasses(){
 	$.ajax({
 		url:"getSessionHisClasses.do",
 		type:"POST",
 		success: function(data){
+			console.log(data)
 			classTable = data;
 			//便签1班级获取
 			$("#mul-class-on-add").empty();
@@ -39,33 +68,7 @@ $(function(){
       }
 	});
 	
-    $.ajax({
-        type: "POST",
-        url: "get_all_role.do",
-        dataType: "json",
-        success: function(data){
-        	//添加用户便签内的角色
-			$("#add-role-select").empty();
-		    $.each(data.data,function(index, item){
-		        var option = $("<option></option>").append(item.role);
-		        option.attr("value", item.roleId);
-		        option.appendTo("#add-role-select");
-		    });
-		    //更新用户便签内的角色
-		    $("#update-role-select").empty();
-		    $.each(data.data,function(index, item){
-		        var option = $("<option></option>").append(item.role);
-		        option.attr("value", item.roleId);
-		        option.appendTo("#update-role-select");
-		    });
-        },
-        error:function () {
-            alert("网络错误");
-        }
-    });
-});
-
-
+}
 
 //创建用户
 function insert_user(){
@@ -245,6 +248,7 @@ $("#add-class-button-on-add").click(function (){
 	    }
 	});
 });
+
 //创建班级
 $("#add-class-button-on-update").click(function(){
 	$.ajax({
@@ -254,6 +258,7 @@ $("#add-class-button-on-update").click(function(){
 	    data:{"className":$("#class-name-input-on-update").val()},
 	    success: function(data){
 	        alert(data.info);
+	        getClasses();
 	    },
 	    error:function () {
 	        alert("班级创建失败");
@@ -262,41 +267,46 @@ $("#add-class-button-on-update").click(function(){
 });
 
 //输入姓名之后，判定是否存在，如果不存在，就无法点击按钮
-$("#update-username").mouseleave(function(){
+$("#check-username-exist").click(function(){
 	var flag;
 	$.ajax({
 	    url:"find_user.do",
 	    type:"POST",
 	    dataType:"json",
-	    data:{"userName":$(this).val()},
+	    data:{"userName":$("#update-username").val()},
 	    success: function(data){
 	        flag = data.code;
-	    	if(flag == -2){
+	    	if(flag == -9){
 	    		$("#update-user-display-box").hide();
 	    		$("#submit-change").attr("disabled", true); 
 	    		$("#username-change").addClass("has-error");
 	    		$("#username-change").removeClass("has-success");
 	    		$("#update-username-help").text("角色名不存在，请核对后再输入");
 	    	}else if(flag == 0){
+	    		$.each($('input:checkbox[name=class-select-box-update]:checked'),function(){
+	    			$(this).prop("checked",false);
+	    		})
+	    		
 	    		$("#update-user-display-box").show();
 	    		$("#submit-change").removeAttr("disabled");
 	    		$("#username-change").removeClass("has-error");
 	    		$("#username-change").addClass("has-success");
 	    		$("#update-username-help").text("角色名输入正确");
-	    		$("#submit-change").attr("update-username", data.data.userId);
+	    		$("#submit-change").attr("update-userId", data.data.userId);
 	    		$("#update-password").val(data.data.password);
 	    		$("#update-name").val(data.data.name);
-	    		$("#update-role-select").val(data.data.role);
+	    		$("#update-role-select").val(data.data.roleId);
 	    		$("#update-type-select").val(data.data.typeId);
+	    		//为复选框赋值
 	    		for(var i=0;i<data.data.classNames.length;i++){  
 	                $("input[name=class-select-box-update]").each(function(){  
 	                    if($(this).val()==data.data.classNames[i].classId){  
-	                        $(this).attr("checked","checked");  
+	                        $(this).prop("checked","checked");  
 	                    }  
 	                })  
 	            }  
 
-	    		$("#mul-class-on-update").val();
+	    		
 	    	}else{
 	    		$("#update-user-display-box").hide();
 	    		$("#submit-change").attr("disabled", true); 
@@ -311,4 +321,31 @@ $("#update-username").mouseleave(function(){
 	});
 });
 
-
+$("#submit-change").click(updateUser);
+function updateUser(){
+	var updateClassArr = new Array();
+	$.each($('input:checkbox[name=class-select-box-update]:checked'),function(){
+		updateClassArr.push($(this).val());
+    });
+	$.ajax({
+	    url:"update_user.do",
+	    type:"POST",
+	    dataType:"json",
+	    traditional: true,
+	    data:{
+	    		"userId":$("#submit-change").attr("update-userId"),
+	    		"password":$("#update-password").val(),
+	    		"name":$("#update-name").val(),
+	    		"roleId":$("#update-role-select").val(),
+	    		"typeId":$("#update-type-select").val(),
+	    		"classArr":updateClassArr
+	    	},
+	    success: function(data){
+	        alert(data.info);
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+	return false;
+}

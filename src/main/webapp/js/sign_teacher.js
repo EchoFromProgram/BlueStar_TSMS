@@ -210,6 +210,32 @@ $(function(){
 	teacherGetSign(1, 0, 0);
 })
 
+//教师签到
 
+function teacherSign(){
+	$.ajax({
+	    url:"teacher_sign.do",
+	    type:"POST",
+	    dataType:"json",
+	    data:{"reason":$("#teacher-sign-reason").val()},
+	    success: function(data){
+	    	$('#teacher-sign-reason-help').text("");
+            $('#teacher-sign-reason-div').removeClass("has-error");
+            
+	    	if(0 == data.code){
+	    		alert(data.info);
+	    	}else if(-2 == data.code){
+	    		$("#teacher-sign-reason-help").text(data.info);
+	    		$('#teacher-sign-reason-div').addClass("has-error");
+	    	}else{
+	    		alert(data.info);
+	    	}
+	    },
+	    error:function () {
+	        alert("网络错误");
+	    }
+	});
+	return false;
+};
 
 	
