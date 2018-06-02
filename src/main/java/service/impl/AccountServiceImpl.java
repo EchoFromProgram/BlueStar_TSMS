@@ -109,11 +109,22 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public AccountDto createAccount(User user, UserClass userClass) {
         int affect;
+        boolean flag = true;//默认是管理员
+        
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null || userClass == null) {
+        if (user == null ) {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
-
+        
+        //如果不是管理员，判断传入的班级是否为空
+        if(user.getRoleId() != Role.ADMIN )
+        {	
+        	flag = false;
+        	if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
+            return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+        	}
+        }
+        
         // 如果这个用户的账号或密码为空，返回提示
         if (user.getUserName() == null || "".equals(user.getUserName())
                 || user.getPassword() == null || "".equals(user.getPassword())) {
@@ -153,8 +164,9 @@ public class AccountServiceImpl implements AccountService {
         }
         
         //判断学生还是老师，对应的班级数不同
-        switch (user.getRoleId()) {
-            case Role.STUDENT:
+        switch (user.getTypeId()) {
+            case Type.OUTTER_CLIENT:
+            	//如果是客户，判断班级是否过多
                 if (userClass.getClassIds().size() > 1) {
                     return new AccountDto(CreateAccountStatus.CLASS_TOO_MANY);
                 }
@@ -169,24 +181,27 @@ public class AccountServiceImpl implements AccountService {
                 }
                 break;
                 
-            case Role.TEACHER:
-                affect = accountDao.insertIntoUser(user);
-                if (affect <= 0) {
-                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
-                }
-                userClass.setUserId(user.getUserId());
-                affect = accountDao.insertUserClass(userClass);
-                if (affect < 0) {
-                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
-                }
-                break;
-                
-            case Role.ADMIN:
+            case Type.INNER_STAFF:
+            	//如果不是管理员
+            	if(flag == false){
+	                affect = accountDao.insertIntoUser(user);
+	                if (affect <= 0) {
+	                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+	                }
+	                userClass.setUserId(user.getUserId());
+	                affect = accountDao.insertUserClass(userClass);
+	                if (affect < 0) {
+	                    return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
+	                }
+	                break;
+            	}
+            	else {
             	 affect = accountDao.insertIntoUser(user);
                  if (affect <= 0) {
                      return new AccountDto(CreateAccountStatus.UNKNOWN_ERROR);
                  }
                  break;
+            	}
             	
         }	
         //成功
@@ -464,7 +479,7 @@ public class AccountServiceImpl implements AccountService {
         if (userNameExisted(user.getUserName())) {
             return new AccountDto(CreateAccountStatus.USERNAME_EXISTED);
         }
-        //判断是老师还是学生
+        //判断是内部员工还是外部员工
         switch (user.getTypeId()) {
             case Type.OUTTER_CLIENT:
                 if (userClass.getClassIds().size() > 1) {
