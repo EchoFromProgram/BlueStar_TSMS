@@ -87,7 +87,7 @@
 	<select id="getSignDatasByCourseIdAndHisClassId" resultType="entity.SignData">
 		SELECT DISTINCT u.name,  c.class_name,  cr.course , s.date, s.status, s.reason, s.class_id 
 		FROM user u, class c, course cr, sign s WHERE s.user_id = u.user_id AND s.class_id = c.class_id AND s.course_id = cr.course_id AND s.class_id IN (SELECT user_class.class_id FROM user_class WHERE user_class.user_id = #{userId})
-		AND s.course_id = #{courseId};
+		AND s.course_id = #{courseId}
 	</select>
 
 	<select id="signIsExisted" resultType="java.lang.Integer">
