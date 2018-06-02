@@ -33,7 +33,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public AccountDto getCourseByClassId(Integer classId) {
         // 检测参数有没有问题
-        if (classId == null) {
+        if (classId == null || classId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 

@@ -35,8 +35,8 @@ import java.util.Map;
  *                     rollbackForClassName 根据异常类名回滚
  */
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
-public class QuizServiceImpl implements QuizService
-{
+public class QuizServiceImpl implements QuizService {
+
     // 记录日志
     private Logger logger = Logger.getLogger(this.getClass());
 
@@ -45,14 +45,12 @@ public class QuizServiceImpl implements QuizService
     private AccountDao accountDao = null;
 
     @Autowired
-    public void setQuizDao(NewQuizDao quizDao)
-    {
+    public void setQuizDao(NewQuizDao quizDao) {
         this.quizDao = quizDao;
     }
 
     @Autowired
-    public void setAccountDao(AccountDao accountDao)
-    {
+    public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
@@ -60,21 +58,20 @@ public class QuizServiceImpl implements QuizService
      * 主要是学生查看他填写的问卷，通过 userId 获得
      *
      * @param pageNumber 页数
-     * @param userId 用户 id
-     * @param courseId 课程 id，如果不用可以传入 null
+     * @param userId     用户 id
+     * @param courseId   课程 id，如果不用可以传入 null
      * @return 返回这个用户填写过的问卷
      */
-    public AccountDto getQuizsByUser(Integer pageNumber, Integer userId, Integer courseId)
-    {
-        if (pageNumber == null || userId == null) // 参数为空错误
-        {
+    public AccountDto getQuizsByUser(Integer pageNumber, Integer userId, Integer courseId) {
+        // 参数为空错误
+        if (pageNumber == null || pageNumber <= 0 || userId == null || userId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         PageUtil.toPage(pageNumber);
         List<Map<String, Object>> quizzes = quizDao.getQuizByUserIdOrCourseId(userId, courseId);
-        if (quizzes == null) // 没有得到数据
-        {
+        // 没有得到数据
+        if (quizzes == null || quizzes.size() == 0) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -87,16 +84,14 @@ public class QuizServiceImpl implements QuizService
      * @param quizId 问卷 id
      * @return 返回这条数据的详细信息
      */
-    public AccountDto getQuizById(Integer quizId)
-    {
-        if (quizId == null) // id 必须填
-        {
+    public AccountDto getQuizById(Integer quizId) {
+        // id 必须填
+        if (quizId == null || quizId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         Quiz quiz = quizDao.getQuizById(quizId);
-        if (quiz == null)
-        {
+        if (quiz == null) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -112,21 +107,20 @@ public class QuizServiceImpl implements QuizService
      * 传入 courseId == null 就获取所有课程的
      *
      * @param pageNumber 页数
-     * @param classId 班级 id
-     * @param courseId 课程 id
+     * @param classId    班级 id
+     * @param courseId   课程 id
      * @return 返回这个班级的所有问卷
      */
-    public AccountDto getQuizsByClassAndCourse(Integer pageNumber, Integer classId, Integer courseId)
-    {
-        if (pageNumber == null) // 参数错误
-        {
+    public AccountDto getQuizsByClassAndCourse(Integer pageNumber, Integer classId, Integer courseId) {
+        // 参数错误
+        if (pageNumber == null || pageNumber <= 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         PageUtil.toPage(pageNumber);
         List<Map<String, Object>> quizzes = quizDao.getQuizByClassIdOrCourseId(classId, courseId);
-        if (quizzes == null) // 没有得到数据
-        {
+        // 没有得到数据
+        if (quizzes == null || quizzes.size() == 0) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -138,12 +132,10 @@ public class QuizServiceImpl implements QuizService
      *
      * @return 返回问卷问题
      */
-    public AccountDto getQuiz()
-    {
+    public AccountDto getQuiz() {
         // 得到问卷
         QuizDetail quizDetail = quizDao.getQuiz();
-        if (quizDetail == null)
-        {
+        if (quizDetail == null) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -156,17 +148,15 @@ public class QuizServiceImpl implements QuizService
      * @param pageNumber 页数
      * @return 返回所有问卷, QuizDetail
      */
-    public AccountDto getQuizes(Integer pageNumber)
-    {
-        if (pageNumber == null) // 必须分页
-        {
+    public AccountDto getQuizes(Integer pageNumber) {
+        // 必须分页
+        if (pageNumber == null || pageNumber <= 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         PageUtil.toPage(pageNumber); // 开始分页
         List<QuizDetail> quizes = quizDao.getQuizes();
-        if (quizes == null)
-        {
+        if (quizes == null || quizes.size() == 0) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -179,21 +169,20 @@ public class QuizServiceImpl implements QuizService
      * 如果 courseId == null，就是课程
      *
      * @param pageNumber 页数
-     * @param userId 用户 id
-     * @param courseId 课程 id
+     * @param userId     用户 id
+     * @param courseId   课程 id
      * @return 返回问卷信息
      */
-    public AccountDto getQuizByClassIdAndCourseId(Integer pageNumber, Integer userId, Integer courseId)
-    {
-        if (pageNumber == null || userId == null) // userId 必须有
-        {
+    public AccountDto getQuizByClassIdAndCourseId(Integer pageNumber, Integer userId, Integer courseId) {
+        // userId 必须有
+        if (pageNumber == null || pageNumber <= 0 || userId == null || userId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         PageUtil.toPage(pageNumber);
         List<Map<String, Object>> quizzes = quizDao.getQuizByHisClassIdOrCourseId(userId, courseId);
-        if (quizzes == null) // 没有得到数据
-        {
+        // 没有得到数据
+        if (quizzes == null || quizzes.size() == 0) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -207,44 +196,40 @@ public class QuizServiceImpl implements QuizService
      * @param quiz 填写的问卷
      * @return 返回是否填写成功
      */
-    public AccountDto writeQuiz(Quiz quiz)
-    {
-        if (quiz == null || quiz.getUserId() == null || quiz.getClassId() == null)
-        {
-            // 这些参数必须传入
+    public AccountDto writeQuiz(Quiz quiz) {
+        if (quiz == null || quiz.getUserId() == null || quiz.getUserId() < 0 ||
+                quiz.getClassId() == null || quiz.getClassId() < 0) {
+            // 这些参数必须传入，并且有意义
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         quiz.setDate(new Date()); // 填写时间
         Clazz clazz = accountDao.getClassByClassId(quiz.getClassId());
-        if (clazz == null) // 班级信息必须要有，主要是课程
-        {
+        // 班级信息必须要有，主要是课程
+        if (clazz == null) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         quiz.setCourseId(clazz.getCourseId());
         int affect = quizDao.checkIfWritten(quiz.getUserId(), quiz.getCourseId(), quiz.getQuizDetailId());
-        if (affect > 0) // 重复填写问卷错误
-        {
-            return new AccountDto(new Statusable()
-            {
+        // 重复填写问卷错误
+        if (affect > 0) {
+            return new AccountDto(new Statusable() {
                 @Override
-                public int getCode()
-                {
+                public int getCode() {
                     return -1;
                 }
 
                 @Override
-                public String getInfo()
-                {
+                public String getInfo() {
                     return "这节课，您已经填写过这个问卷了！";
                 }
             });
         }
 
         affect = quizDao.insertQuiz(quiz); // 可以获得 quiz_id
-        if (affect <= 0) // 由于未知错误，插入失败
-        {
+        // 由于未知错误，插入失败
+        if (affect <= 0) {
             logger.warn("insertQuiz...err...");
             return new AccountDto(Common.ERROR);
         }
@@ -253,8 +238,7 @@ public class QuizServiceImpl implements QuizService
         quizAnswer.setQuizId(quiz.getQuizId());
         quizAnswer.setAnswers(quiz.getAnswers());
         affect = quizDao.insertQuizAnswer(quizAnswer);
-        if (affect <= 0)
-        {
+        if (affect <= 0) {
             logger.warn("insertQuizAnswer...err...");
             return new AccountDto(Common.ERROR);
         }
@@ -269,10 +253,8 @@ public class QuizServiceImpl implements QuizService
      * @param quizDetail 要发布的问卷
      * @return 返回是否发布成功
      */
-    public AccountDto publishQuiz(QuizDetail quizDetail)
-    {
-        if (quizDetail == null || quizDetail.getQuestions() == null)
-        {
+    public AccountDto publishQuiz(QuizDetail quizDetail) {
+        if (quizDetail == null || quizDetail.getQuestions() == null || quizDetail.getQuestions().size() == 0) {
             // questions 必须传入
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
@@ -282,16 +264,16 @@ public class QuizServiceImpl implements QuizService
 
         // 先在 quiz_detail 表中插入一条数据，得到 quiz_detail_id
         int affect = quizDao.insertQuizDetail(quizDetail);
-        if (affect <= 0) // 内部错误
-        {
+        // 内部错误
+        if (affect <= 0) {
             logger.warn("insertQuizDetail...err...");
             return new AccountDto(Common.ERROR);
         }
 
         // 然后再将 quiz_detail_id 插入到 quiz_question 中
         affect = quizDao.insertQuizQuestion(quizDetail);
-        if (affect <= 0) // 内部错误
-        {
+        // 内部错误
+        if (affect <= 0) {
             return new AccountDto(Common.ERROR);
         }
 

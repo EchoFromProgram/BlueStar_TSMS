@@ -102,4 +102,14 @@ public final class SignUtil {
 
         return false;
     }
+
+    /**
+     * 如果 rate 为 null，就返回 0
+     *
+     * @param rate 比率
+     * @return 返回合理的比率
+     */
+    public static Double checkRate(Double rate) {
+        return (rate == null) ? 0 : rate * 100;
+    }
 }

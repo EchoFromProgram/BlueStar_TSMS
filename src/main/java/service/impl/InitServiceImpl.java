@@ -6,6 +6,8 @@ import dto.AccountDto;
 import entity.Course;
 import entity.Power;
 import enums.impl.Common;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.InitService;
@@ -21,21 +23,22 @@ import java.util.Map;
  * @author Fish
  */
 @Service
-public class InitServiceImpl implements InitService
-{
+public class InitServiceImpl implements InitService {
+
+    // 记录日志
+    private Log log = LogFactory.getLog(InitService.class);
+
     private AccountDao accountDao = null;
 
     @Autowired
-    public void setAccountDao(AccountDao accountDao)
-    {
+    public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
     private NewQuizDao quizDao = null;
 
     @Autowired
-    public void setQuizDao(NewQuizDao quizDao)
-    {
+    public void setQuizDao(NewQuizDao quizDao) {
         this.quizDao = quizDao;
     }
 
@@ -44,21 +47,22 @@ public class InitServiceImpl implements InitService
      *
      * @return 整张权限表，以 Map 封装，key 值为权限 id，value 值为权限（这里主要是 URL 和功能名称）
      */
-    public AccountDto getAllPowers()
-    {
+    public AccountDto getAllPowers() {
         Map<Integer, Power> powersMap = new HashMap<>();
         List<Power> powers = accountDao.getPowers();
 
-        if (powers != null)
-        {
+        if (powers != null) {
             // 如果成功得到权限表，就将它转成 Map
-            for (Power power : powers)
-            {
+            for (Power power : powers) {
                 powersMap.put(power.getPowerId(), power);
             }
         }
 
-        return new AccountDto<Map<Integer, Power>>(powersMap, Common.SUCCESS);
+        if (powersMap.size() == 0) {
+            log.warn("获取的权限表为空！");
+        }
+
+        return new AccountDto<>(powersMap, Common.SUCCESS);
     }
 
     /**
@@ -66,30 +70,29 @@ public class InitServiceImpl implements InitService
      *
      * @return 整张课程表
      */
-    public AccountDto getAllCourses()
-    {
+    public AccountDto getAllCourses() {
         List<Course> courses = accountDao.getAllcourses();
-        if (courses == null) // 没有获取数据
-        {
+        // 没有获取数据
+        if (courses == null) {
+            log.error("课程表获取失败！");
             return new AccountDto(Common.GET_IS_NULL);
         }
 
         // 课程排序器
         courses.sort((o1, o2) ->
         {
-            if (o1.getCourseId() > o2.getCourseId())
-            {
+            if (o1.getCourseId() > o2.getCourseId()) {
                 return 1;
-            }
-            else if (o1.getCourseId() < o2.getCourseId())
-            {
-                return -1;
+            } else {
+                if (o1.getCourseId() < o2.getCourseId()) {
+                    return -1;
+                }
             }
 
             return 0;
         });
 
-        return new AccountDto<List<Course>>(courses, Common.SUCCESS);
+        return new AccountDto<>(courses, Common.SUCCESS);
     }
 
     /**
@@ -97,8 +100,7 @@ public class InitServiceImpl implements InitService
      *
      * @return 返回问卷
      */
-    public AccountDto getQuiz()
-    {
+    public AccountDto getQuiz() {
         return new AccountDto<>(quizDao.getQuiz(), Common.SUCCESS);
     }
 }
