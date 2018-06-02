@@ -25,6 +25,14 @@ public class LoginController {
 	@Resource
 	private InitService InitService;
 	
+	/***
+	 * 登陆验证
+	 * 如果信息正确，将信息，权限和班级放入session
+	 * 
+	 * @param user
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
 	public Object loginCheck(User user, HttpSession session)
@@ -40,16 +48,19 @@ public class LoginController {
 		return accountDto;
 	}
 	
+	//转跳首页
 	@RequestMapping(path = "index.do", produces = {"application/json;charset=UTF8"})
 	public String loginSuccess() {
 		return "index";
 	}
 	
+	//转跳登陆界面
 	@RequestMapping(path = "login.do", produces = {"application/json;charset=UTF8"})
 	public String login() {
 		return "Login";
 	}
 	
+	//session获取信息(现在通过直接在session传入controller，无需传到前台，此方法基本不会用到)
 	@ResponseBody
 	@RequestMapping(path = "getSessionUser.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionUser(HttpSession session) {
@@ -57,6 +68,7 @@ public class LoginController {
 		return session.getAttribute("user");
 	}
 	
+	//session获取权限(现在通过直接在session传入controller，无需传到前台，此方法基本不会用到)
 	@ResponseBody
 	@RequestMapping(path = "getSessionHisPowers.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionHisPower(HttpSession session) {
@@ -64,6 +76,7 @@ public class LoginController {
 		return session.getAttribute("hisPowers");
 	}
 	
+	//session获取班级(现在通过直接在session传入controller，无需传到前台，此方法基本不会用到)
 	@ResponseBody
 	@RequestMapping(path = "getSessionHisClasses.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionHisClasses(HttpSession session) {
@@ -79,6 +92,7 @@ public class LoginController {
 		return session.getServletContext().getAttribute("powerMap");
 	}
 	
+	//从全局获取课表
 	@ResponseBody
 	@RequestMapping(path = "get_courses.do", produces = {"application/json;charset=UTF8"})
 	public Object getCourses(HttpSession session) {
