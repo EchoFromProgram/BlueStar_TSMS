@@ -71,8 +71,8 @@ public class ScoreDaoTest {
 	
 	@Test
 	public void testA() {
-		List<User> list = scoreDao.getUsersByClassId(2);
-		System.out.println(list);
+		double double1 = scoreDao.getPassNumberForTeacher(2, 1, 1);
+		System.out.println(double1);
 	}
 	
 	

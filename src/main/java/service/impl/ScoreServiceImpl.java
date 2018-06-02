@@ -41,7 +41,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public AccountDto getAllScores(Integer pageNumber) {
         // 页数必须传
-        if (pageNumber == null) {
+        if (pageNumber == null || pageNumber < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -64,7 +64,7 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public AccountDto getScoresByUserId(Integer pageNumber, Integer userId) {
         // 参数错误
-        if (pageNumber == null || userId == null) {
+        if (pageNumber == null || userId == null || pageNumber < 0 || userId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -87,7 +87,7 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public AccountDto getScoresByClassId(Integer pageNumber, Integer classId) {
         // 参数不能为空
-        if (pageNumber == null || classId == null) {
+        if (pageNumber == null || classId == null || pageNumber < 0 || classId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -109,7 +109,7 @@ public class ScoreServiceImpl implements ScoreService {
      * @return 返回成绩信息
      */
     public AccountDto getScoreByStatus(Integer pageNumber, Integer status) {
-        if (pageNumber == null || status == null) {
+        if (pageNumber == null || status == null || pageNumber < 0 || status < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -132,7 +132,7 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public AccountDto getScoresByClassIdAndStatus(Integer pageNumber, Integer status, Integer classId) {
         // 参数不能为空
-        if (pageNumber == null || status == null || classId == null) {
+        if (pageNumber == null || status == null || classId == null || pageNumber < 0 || status < 0 || classId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -155,7 +155,7 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public AccountDto getScoresByHisClassId(Integer pageNumber, Integer userId) {
         // 参数错误
-        if (pageNumber == null || userId == null) {
+        if (pageNumber == null || userId == null || pageNumber < 0 || userId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -179,7 +179,7 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public AccountDto getScoresByStatusAndHisClassId(Integer pageNumber, Integer userId, Integer status) {
         // 参数错误
-        if (pageNumber == null || userId == null || status == null) {
+        if (pageNumber == null || userId == null || status == null || pageNumber < 0 || userId < 0 || status < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -201,15 +201,15 @@ public class ScoreServiceImpl implements ScoreService {
      * @return 返回更新数据
      */
     public AccountDto updateScore(Score score) {
-        if (score == null) // 参数错误
+        if (score == null || score.getScoreId() < 0) // 参数错误
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
         int num = scoreDao.updateScoreByScoreId(score);
         if (num <= 0) {
-            return new AccountDto(ScoreStatus.UPDATE_ERROR);
+            return new AccountDto(Common.ERROR);
         }
-        return new AccountDto(Common.SUCCESS);
+        return new AccountDto(Common.UPDATE_SCORE_SUCCESS);
     }
 
     /**
@@ -220,14 +220,14 @@ public class ScoreServiceImpl implements ScoreService {
      */
     @Override
     public AccountDto insertScores(List<Score> scores) {
-        if (scores == null || scores.size() == 0) {
+        if (scores == null || scores.size() == 0 ) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
         int num = scoreDao.insertScores(scores);
         if (num <= 0) {
-            return new AccountDto(ScoreStatus.INSERT_ERROR);
+            return new AccountDto(Common.ERROR);
         }
-        return new AccountDto(Common.SUCCESS);
+        return new AccountDto(Common.INSERT_SCORE_SUCCESS);
     }
 
     /**
@@ -238,14 +238,14 @@ public class ScoreServiceImpl implements ScoreService {
      */
     @Override
     public AccountDto deleteScore(Integer scoreId) {
-        if (scoreId == null) {
+        if (scoreId == null || scoreId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
         int num = scoreDao.deleteScoreByScoreId(scoreId);
         if (num <= 0) {
-            return new AccountDto(ScoreStatus.DELTE_ERROR);
+            return new AccountDto(Common.ERROR);
         }
-        return new AccountDto(Common.SUCCESS);
+        return new AccountDto(Common.DELETE_SCORE_SUCCESS);
     }
 
     /**
@@ -256,7 +256,7 @@ public class ScoreServiceImpl implements ScoreService {
      */
     @Override
     public AccountDto getUsersByClassId(Integer classId) {
-        if (classId == null) {
+        if (classId == null || classId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 

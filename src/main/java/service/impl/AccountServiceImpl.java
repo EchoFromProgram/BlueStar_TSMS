@@ -5,12 +5,14 @@ import constant.Type;
 import dao.AccountDao;
 import dto.AccountDto;
 import entity.*;
+import enums.Statusable;
 import enums.impl.Common;
 import enums.impl.CreateAccountStatus;
 import enums.impl.LoginStatus;
 import enums.impl.UpdateAccountStatus;
 
 import org.aspectj.apache.bcel.generic.ReturnaddressType;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,8 @@ import javax.print.attribute.standard.RequestingUserName;
 public class AccountServiceImpl implements AccountService {
     // 账号持久层对象
     private AccountDao accountDao = null;
+    
+    private static final String Message = "创建班级成功";
 
     @Autowired
     public void setAccountDao(AccountDao accountDao) {
@@ -48,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
      */
     public AccountDto login(User user) {
         // 如果前台给过来的用户名是空的，返回错误提示
-        if (user == null || user.getUserName() == null || "".equals(user.getUserName())) {
+        if (user == null || user.getUserName() == null || "".equals(user.getUserName()) ) {
             return new AccountDto(LoginStatus.WRONG_USERNAME);
         }
 
@@ -112,8 +116,8 @@ public class AccountServiceImpl implements AccountService {
         boolean flag = true;//默认是管理员
         
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null ) {
-            return new AccountDto(CreateAccountStatus.USER_IS_NULL);
+        if (user == null || user.getUserId() < 0 || user.getRoleId() < 0 || user.getTypeId() < 0 ) {
+            return new AccountDto(Common.WRONG_ARGEMENT);
         }
         
         //如果不是管理员，判断传入的班级是否为空
@@ -131,11 +135,7 @@ public class AccountServiceImpl implements AccountService {
             return new AccountDto(CreateAccountStatus.CORE_INFO_IS_NULL);
         }
 
-        //班级为空
-        if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
-            return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
-        }
-
+        
         // 如果这个用户的其他信息为空，返回提示
         if (user.getName() == null || "".equals(user.getName())
                 || user.getRoleId() == null || user.getTypeId() == null) {
@@ -228,7 +228,7 @@ public class AccountServiceImpl implements AccountService {
         List<User> users = accountDao.getAllUsers();
         if (users == null) // 如果为空，说明没有获取到数据，有可能是系统错误
         {
-            return new AccountDto(Common.ERROR);
+            return new AccountDto(Common.GET_IS_NULL);
         }
 
         // 这里如果 users 的元素个数为 0 也算成功，只能说没有成员
@@ -253,7 +253,7 @@ public class AccountServiceImpl implements AccountService {
         List<Map<String, Object>> users = accountDao.getUsersByTypeId(typeId);
         if (users == null) // 如果为空，说明没有获取到数据，有可能是系统错误
         {
-            return new AccountDto(Common.ERROR);
+            return new AccountDto(Common.GET_IS_NULL);
         }
 
         // 这里如果 users 的元素个数为 0 也算成功，只能说没有成员
@@ -311,7 +311,7 @@ public class AccountServiceImpl implements AccountService {
             if (num == 0) {
                 return new AccountDto<>(Common.ERROR);
             }
-            return new AccountDto<>(Common.SUCCESS);
+            return new AccountDto<>(UpdateAccountStatus.UPDATE_ERROR);
         } else {
             if (Type.OUTTER_CLIENT == typeId) {
                 //得到客户信息
@@ -319,9 +319,9 @@ public class AccountServiceImpl implements AccountService {
                 if (num == 0) {
                     return new AccountDto<>(Common.ERROR);
                 }
-                return new AccountDto<>(Common.SUCCESS);
+                return new AccountDto<>(UpdateAccountStatus.SUCCESS);
             } else {
-                return new AccountDto<>(Common.ERROR);
+                return new AccountDto<>(UpdateAccountStatus.UPDATE_ERROR);
             }
         }
     }
@@ -435,7 +435,7 @@ public class AccountServiceImpl implements AccountService {
             if (accountDao.getClassByClassName(clazz.getClassName()) != null) {
                 return new AccountDto(CreateAccountStatus.CLASS_EXISTED);
             }
-            if (clazz == null) {
+            if (clazz == null || clazz.getClassId() < 0) {
                 return new AccountDto(Common.WRONG_ARGEMENT);
             }
             int affect = accountDao.insertClass(clazz);
@@ -445,7 +445,18 @@ public class AccountServiceImpl implements AccountService {
         } catch (Exception e) {
             return new AccountDto(Common.ERROR);
         }
-        return new AccountDto(Common.SUCCESS);
+        return new AccountDto(new Statusable() {
+			
+			@Override
+			public String getInfo() {
+				return Message;
+			}
+			
+			@Override
+			public int getCode() {
+				return 0;
+			}
+		});
     }
 
     /**
@@ -461,7 +472,7 @@ public class AccountServiceImpl implements AccountService {
         int affect;
         boolean flag = true;//默认是管理员
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null || user.getUserId() == null) {
+        if (user == null || user.getUserId() == null || user.getRoleId() < 0 || user.getTypeId() < 0 || user.getUserId() < 0) {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 

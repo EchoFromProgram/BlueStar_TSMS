@@ -127,7 +127,7 @@ public class NoticeServiceImpl implements NoticeService
         {
         	return new AccountDto(Common.ERROR);
         }
-        return new AccountDto(Common.SUCCESS);
+        return new AccountDto(Common.UPDATE_NOTICE_SUCCESS);
 	}
 	
 	/**
@@ -147,7 +147,7 @@ public class NoticeServiceImpl implements NoticeService
         {
         	return new AccountDto(Common.ERROR);
         }
-        return new AccountDto(Common.SUCCESS);
+        return new AccountDto(Common.DELTE_NOTICE_SUCCESS);
 	}
 	
 	
@@ -178,7 +178,7 @@ public class NoticeServiceImpl implements NoticeService
         {
         	return new AccountDto(Common.ERROR);
         }
-        return new AccountDto(Common.SUCCESS);
+        return new AccountDto(Common.INSERT_NOTICE_SUCCESS);
 	}
 	
 	/**

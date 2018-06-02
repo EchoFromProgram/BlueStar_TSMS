@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
 	
 	public AccountDto deleteRole(Integer roleId) {
 		//判断参数是否为空
-		if(roleId == null)
+		if(roleId == null || roleId < 0)
 		{
 			return new AccountDto(Common.WRONG_ARGEMENT);
 		}
@@ -48,13 +48,13 @@ public class RoleServiceImpl implements RoleService {
 		{
 			return new AccountDto(Common.ERROR);
 		}
-		return new AccountDto(Common.SUCCESS);
+		return new AccountDto(Common.DELETE_ROLE_SUCCESS);
 	}
 
 	@Override
 	@Transactional
 	public AccountDto insertRole(Role role, RolePower rolePower) {
-		if(role == null || rolePower == null)
+		if(role == null || rolePower == null )
 		{
 			return new AccountDto(Common.WRONG_ARGEMENT);
 		}
@@ -69,7 +69,7 @@ public class RoleServiceImpl implements RoleService {
 		{
 			return new AccountDto(Common.ERROR);
 		}
-		return new AccountDto(Common.SUCCESS);
+		return new AccountDto(Common.INSERT_ROLE_SUCCESS);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class RoleServiceImpl implements RoleService {
 		{
 			return new AccountDto(Common.WRONG_ARGEMENT);
 		}
-		if(rolePower.getPowerIds() == null || rolePower.getRoleId() == null )
+		if(rolePower.getPowerIds() == null || rolePower.getRoleId() == null || rolePower.getRoleId() < 0 )
 		{
 			return new AccountDto(Common.WRONG_ARGEMENT);
 		}
@@ -93,7 +93,7 @@ public class RoleServiceImpl implements RoleService {
 		{
 			return new AccountDto(Common.ERROR);
 		}
-		return new AccountDto(Common.SUCCESS);
+		return new AccountDto(Common.UPDATE_ROLE_SUCCESS);
 	}
 
 }

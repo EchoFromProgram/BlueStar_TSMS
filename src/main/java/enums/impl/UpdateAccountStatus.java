@@ -8,8 +8,8 @@ public enum UpdateAccountStatus implements Statusable {
 	 INFO_IS_NOT_COMPLETED(-2, "用户信息不完整！"),
 	 USER_IS_NULL(-3, "用户对象为空！"),
 	 USERNAME_EXISTED(-4, "用户名已经存在！"),
-	 UNKNOWN_ERROR(-5, "未知错误！");
-	 
+	 UNKNOWN_ERROR(-5, "未知错误！"),
+	 UPDATE_ERROR(-6,"更新失败,请重试");
 	 // 创建状态码
 	 private int code;
 

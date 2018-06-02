@@ -91,7 +91,36 @@
 	</insert>
 	
 	<!-- 得到合格人数 -->
-	<select id="getPassNumber" resultType="double">
+	<select id="getPassNumberForAdmin" resultType="double">
+		SELECT ROUND(T1.pass/T2.total,2)
+    	FROM 
+     	(SELECT COUNT(*) AS pass
+        FROM score 
+       	<where>
+       		score.score >= 60
+       		<if test="classId != null">
+       		AND score.class_id = #{classId} 
+       		</if>
+       		<if test="classId == null">
+       		AND socre.class_id in(SELECT class_id FROM user_class WHERE user_id =#{userId})
+       		</if>
+       		<if test="status != null">
+       		AND score.status = #{status}
+       		</if>	
+       	</where>) T1,
+     	(SELECT COUNT(*) AS total
+       	FROM score
+       	<where>
+       		<if test="classId != null">
+       		score.class_id = #{classId} 
+       		</if>
+       		<if test="status != null">
+       		AND score.status = #{status}
+       		</if>	
+       	</where>)T2;
+	</select>
+	
+	<select id="getPassNumberForTeacher" resultType="double">
 		SELECT ROUND(T1.pass/T2.total,2)
     	FROM 
      	(SELECT COUNT(*) AS pass

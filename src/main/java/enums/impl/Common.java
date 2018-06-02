@@ -10,6 +10,16 @@ import enums.Statusable;
 public enum Common implements Statusable
 {
     SUCCESS(0, "成功！"),
+    SAVE_CLASS_SUCCESS(0,"新增班级成功！"),
+    DELTE_NOTICE_SUCCESS(0,"删除通知成功！"),
+    UPDATE_NOTICE_SUCCESS(0,"修改通知成功！"),
+    INSERT_NOTICE_SUCCESS(0,"发布通知成功！"),
+    DELETE_ROLE_SUCCESS(0,"删除角色成功！"),
+    UPDATE_ROLE_SUCCESS(0,"修改角色成功！"),
+    INSERT_ROLE_SUCCESS(0,"新增角色成功！"),
+    UPDATE_SCORE_SUCCESS(0,"修改成绩成功！"),
+    INSERT_SCORE_SUCCESS(0,"发布成绩成功！"),
+    DELETE_SCORE_SUCCESS(0,"删除成绩成功！"),
     ERROR(-1, "错误！请重试！"),
     WRONG_ARGEMENT(-2, "参数错误！"),
     GET_IS_NULL(-3 , "得到的数据为空！");

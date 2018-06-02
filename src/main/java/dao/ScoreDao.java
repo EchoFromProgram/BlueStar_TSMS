@@ -130,7 +130,8 @@ public interface ScoreDao {
 	 * @param status 阶段
 	 * @return 百分比
 	 */
-	public Double getPassNumber(@Param("classId")Integer classId, @Param("status")Integer status);
+	public Double getPassNumberForAdmin(@Param("classId")Integer classId, @Param("status")Integer status);
 	
+	public Double getPassNumberForTeacher(@Param("classId")Integer classId, @Param("status")Integer status,@Param("userId")Integer userId);
 	
 }

@@ -9,7 +9,7 @@ import enums.Statusable;
  * */
 public enum CreateAccountStatus implements Statusable
 {
-    SUCCESS(0, "创建成功！"),
+    SUCCESS(0, "创建用户成功！"),
     CORE_INFO_IS_NULL(-1, "用户名或密码为空！"),
     INFO_IS_NOT_COMPLETED(-2, "用户信息不完整！"),
     USER_IS_NULL(-3, "用户对象为空！"),
