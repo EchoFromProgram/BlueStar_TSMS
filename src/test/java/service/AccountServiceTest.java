@@ -18,6 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import aj.org.objectweb.asm.Type;
+
 /**
  * 测试账号业务方法
  *
@@ -51,34 +53,33 @@ public class AccountServiceTest
     @Test
     public void testCreateAccount()
     {
-        User user = new User();
-        user.setUserName("西欧I嘻嘻系");
-        user.setPassword("696969");
-        user.setName("dd");
-        user.setRoleId(1);
-        user.setTypeId(0);
-        UserClass userClass = new UserClass();
-        List<Integer> classIds = new ArrayList<>();
-        classIds.add(2);
-        
-        userClass.setClassIds(classIds);
-        AccountDto accountDto = accountService.createAccount(user,userClass);
-
-        System.out.println(accountDto);
+//        User user = new User();
+//        user.setUserName("西欧I嘻嘻系");
+//        user.setPassword("696969");
+//        user.setName("dd");
+//        user.setRoleId(1);
+//        user.setTypeId(0);
+//        UserClass userClass = new UserClass();
+//        List<Integer> classIds = new ArrayList<>();
+//        classIds.add(2);
+//        
+//        userClass.setClassIds(classIds);
+//        AccountDto accountDto = accountService.createAccount(user,userClass);
+//
+//        System.out.println(accountDto);
     		
-//      User user = new User();
-//      
-//      user.setPassword("696969");
-//      user.setName("dd");
-//      user.setUserId(21);
-//      user.setRoleId(2);
-//      UserClass userClass = new UserClass();
-//      List<Integer> classIds = new ArrayList<>();
-//      classIds.add(3);
-//      classIds.add(4);
-//      userClass.setClassIds(classIds);
-//      AccountDto accountDto = accountService.updateUser(user, userClass);
-//      System.out.println(accountDto);
+      User user = new User();
+      user.setPassword("696969");
+      user.setName("dd");
+      user.setUserId(22);
+      user.setRoleId(3);
+      user.setTypeId(0);
+      
+      UserClass userClass = new UserClass();
+      List<Integer> classIds = new ArrayList<>();
+      userClass.setClassIds(classIds);
+      AccountDto accountDto = accountService.updateUser(user, userClass);
+      System.out.println(accountDto);
     }
     
     @Test

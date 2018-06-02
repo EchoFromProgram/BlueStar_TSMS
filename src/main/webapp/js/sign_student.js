@@ -119,6 +119,7 @@ function buile_page_nav(data) {
     var navEle = $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 }
 
+//学生签到
 function studentSign(){
 	$.ajax({
 	    url:"student_sign.do",
@@ -139,15 +140,7 @@ function studentSign(){
 	    	}else if(-2 == data.code){
 	    		$("#sign-reason-help").text(data.info);
 	    		$('#sign-reason-div').addClass("has-error");
-	    	}else if(-3 == data.code){
-	    		alert(data.info);
-	    	}else if(-4 == data.code){
-	    		alert(data.info);
-	    	}else if(-5 == data.code){
-	    		alert(data.info);
-	    	}else if(-6 == data.code){
-	    		alert(data.info);
-	    	}else if(-7 == data.code){
+	    	}else{
 	    		alert(data.info);
 	    	}
 	    },

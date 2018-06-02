@@ -43,7 +43,7 @@ function setStaffInfo(){
 			},
 		success: function(data){
 			alert(data.info);
-			loadInfo();
+			window.location.reload();
 		},
 		error:function () {
             alert("员工信息更新失败");

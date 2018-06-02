@@ -444,15 +444,16 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto updateUser(User user, UserClass userClass) {
 
         int affect;
+        boolean flag = true;//默认是管理员
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null || user.getUserId() == null || userClass == null) {
+        if (user == null || user.getUserId() == null) {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 
-
         //班级为空
-        if(user.getRoleId() != 3)
-        {
+        if(user.getRoleId() != Role.ADMIN )
+        {	
+        	flag = false;
         	if (userClass.getClassIds() == null || userClass.getClassIds().size() < 0) {
             return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
         	}
@@ -464,8 +465,8 @@ public class AccountServiceImpl implements AccountService {
             return new AccountDto(CreateAccountStatus.USERNAME_EXISTED);
         }
         //判断是老师还是学生
-        switch (user.getRoleId()) {
-            case Role.STUDENT:
+        switch (user.getTypeId()) {
+            case Type.OUTTER_CLIENT:
                 if (userClass.getClassIds().size() > 1) {
                     return new AccountDto(CreateAccountStatus.CLASS_TOO_MANY);
                 }
@@ -485,30 +486,35 @@ public class AccountServiceImpl implements AccountService {
                 {
                     return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
                 }
-            case Role.TEACHER:
+            case Type.INNER_STAFF:
                 //删除用户所属班级
-                affect = accountDao.deleteUserClass(user.getUserId());
-                if (affect <= 0) {
-                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                }
-                affect = accountDao.updateUser(user);
-                if (affect <= 0) // 更新失败
-                {
-                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                }
-                userClass.setUserId(user.getUserId());
-                affect = accountDao.insertUserClass(userClass);
-                if (affect <= 0) // 插入失败
-                {
-                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                }
-                
-            case Role.ADMIN:
-            	affect = accountDao.updateUser(user);
-                if (affect <= 0) // 更新失败
-                {
-                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
-                }
+            	if(flag == false)
+            	{	
+            		
+	                affect = accountDao.deleteUserClass(user.getUserId());
+	                if (affect <= 0) {
+	                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+	                }
+	                affect = accountDao.updateUser(user);
+	                if (affect <= 0) // 更新失败
+	                {
+	                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+	                }
+	                userClass.setUserId(user.getUserId());
+	                affect = accountDao.insertUserClass(userClass);
+	                if (affect <= 0) // 插入失败
+	                {
+	                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+	                }
+            	}
+            	else {
+            		accountDao.deleteUserClass(user.getUserId());
+	            	affect = accountDao.updateUser(user);
+	                if (affect <= 0) // 更新失败
+	                {
+	                    return new AccountDto(UpdateAccountStatus.UNKNOWN_ERROR);
+	                }
+            	}
             	
         }
         return new AccountDto(UpdateAccountStatus.SUCCESS);
