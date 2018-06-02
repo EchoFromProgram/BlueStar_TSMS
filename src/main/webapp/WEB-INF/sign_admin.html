@@ -88,26 +88,28 @@
             <h2 class="sub-header">签到情况</h2>
             <div class="row">
             <!-- 统计情况进度条 -->
+            <div id="admin-static-box" style="display:none">
             <div class="col-sm-6 col-md-4 placeholders">
                 <img src="./img/叶子.jpg" width="100px" height="100px">
                 <h4>统计情况</h4>
             </div>
             <div class="col-sm-6 col-md-8">
+                <br>
                 <div class="progress progress-striped active">
-                    <span>签到人数</span>
-                    <div class="progress-bar progress-bar-success" style="width:80%">80%</div>
+                    <span>学生成功签到</span>
+                    <div class="progress-bar progress-bar-danger" id="admin-ssign-good" style="width:5%">5%</div>
                 </div>
                 <br>
                 <div class="progress progress-striped active">
-                    <span>迟到人数</span>
-                    <div class="progress-bar progress-bar-warning" style="width:15%">15%</div>
+                    <span>学生迟到</span>
+                    <div class="progress-bar progress-bar-danger" id="admin-ssign-bad" style="width:5%">5%</div>
                 </div>
                 <br>
                 <div class="progress progress-striped active">
-                    <span>旷课人数</span>
-                    <div class="progress-bar progress-bar-danger" style="width:5%">5%</div>
+                    <span>学生旷课</span>
+                    <div class="progress-bar progress-bar-danger" id="admin-ssign-sobad" style="width:100%">100%</div>
                 </div>
-                <br>
+            </div>
             </div>
                 <div class="col-md-6">
                 	<label for="which-stage" class="sr-only">类型</label>
@@ -115,13 +117,11 @@
                     
                 	</select>
                 </div>
-                <div class="line"></div>
                 <div class="col-md-6">
                 	<label for="which-stage" class="sr-only">类型</label>
                 	<select class="form-control" id="which-stage">
                     
                 	</select>
-                <div class="line"></div>
                 </div>
 
                 <button class="btn btn-primary pull-right" id="submit-which-need">查询</button>

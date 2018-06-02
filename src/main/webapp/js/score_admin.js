@@ -34,14 +34,46 @@ function to_page(page, classId, stage){
         dataType: "json",
         data:{"page":page, "classId":classId, "stage":stage},
         success: function(data){
-            //显示table
-            build_table(data);
-
-            //显示分页文字
-            buile_page_info(data);
-
-            //显示分页条
-            buile_page_nav(data);
+        	if(data.code == 0){
+	            //显示table
+	            build_table(data.data);
+	
+	            //显示分页文字
+	            buile_page_info(data.data);
+	
+	            //显示分页条
+	            buile_page_nav(data.data);
+        	}else{
+        		alert(data.info);
+        	}
+        },
+        error:function () {
+            alert("网络错误");
+        }
+    });
+    
+    //获取统计情况
+    $.ajax({
+        type: "POST",
+        url: "admin_get_static_score.do",
+        dataType: "json",
+        data:{"classId":classId, "stage":stage},
+        success: function(data){
+        	if(data.code == 0){
+        		if(data.data != 0){
+	                $("#admin-score-good-static").text(data.data + '%');
+	                $("#admin-score-good-static").css("width", data.data + '%');
+	                $("#admin-score-bad-static").text((100 - Number(data.data)) + '%');
+	                $("#admin-score-bad-static").css("width", (100 - Number(data.data)) + '%');
+        		}else{
+        			$("#admin-score-good-static").text('0%');
+	                $("#admin-score-good-static").css("width", '0%');
+	                $("#admin-score-bad-static").text('0%');
+	                $("#admin-score-bad-static").css("width", '0%');
+        		}
+            }else{
+            	alert(data.info);
+            }
         },
         error:function () {
             alert("网络错误");
@@ -263,6 +295,7 @@ function deleteScore(){
 	});
 }
 
+//发布成绩
 function publicScore(){
 	var names = new Array();
 	$.each($(".td-name"), function(index, item){

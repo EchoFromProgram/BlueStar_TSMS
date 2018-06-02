@@ -23,42 +23,65 @@ public class NoticeController {
 	@Resource
 	private NoticeService noticeService;
 	
+	//页面转跳通知管理
 	@RequestMapping(path = "notice_admin.do", produces = {"application/json;charset=UTF8"})
 	public String noticeAdmin() {
 		return "notice_admin";
 	}
 	
+	//页面转跳客户通知
 	@RequestMapping(path = "notice_student.do", produces = {"application/json;charset=UTF8"})
 	public String noticeStudent() {
 		return "notice_student";
 	}
 	
+	//页面转跳员工通知
 	@RequestMapping(path = "notice_teacher.do", produces = {"application/json;charset=UTF8"})
 	public String noticeTeacher() {
 		return "notice_teacher";
 	}
 	
+	/***
+	 * 教师级别身份获取所有通知
+	 * 
+	 * @param page
+	 * @param session
+	 * @return 通知列表
+	 */
 	@ResponseBody
 	@RequestMapping(path = "teacher_get_all_notice.do", produces = {"application/json;charset=UTF8"})
 	public Object getTeacherAllNotice(Integer page, HttpSession session) {
 		User user = new User();
 		user.setUserId((Integer)((Map)session.getAttribute("user")).get("user_id"));
 		AccountDto accountDto = noticeService.getNotices(page, user);
-		return accountDto.getData();
+		return accountDto;
 	}
 	
+	/***
+	 * //客户身份获取所有通知
+	 * 
+	 * @param page
+	 * @param session
+	 * @return 通知列表
+	 */
 	@ResponseBody
 	@RequestMapping(path = "student_get_all_notice.do", produces = {"application/json;charset=UTF8"})
 	public Object getStudentAllNotice(Integer page, HttpSession session) {
 		AccountDto accountDto = noticeService.getNotices(page, ((List<Clazz>)session.getAttribute("hisClasses")).get(0).getClassId());
-		return accountDto.getData();
+		return accountDto;
 	}
 	
+	/***
+	 * 管理通知
+	 * 
+	 * @param page
+	 * @return 通知列表
+	 */
 	@ResponseBody
 	@RequestMapping(path = "admin_get_all_notice.do", produces = {"application/json;charset=UTF8"})
 	public Object getAdminAllNotice(Integer page) {
 		AccountDto accountDto = noticeService.getAllNoticeDetails(page);
-		return accountDto.getData();
+		return accountDto;
 	}
 	
 	/**
@@ -74,6 +97,12 @@ public class NoticeController {
 		return accountDto;
 	}
 	
+	/***
+	 * 根据通知的id更新通知
+	 * 
+	 * @param noticeDetail
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(path = "update_notice.do", produces = {"application/json;charset=UTF8"})
 	public Object updateNotice(NoticeDetail noticeDetail) {
@@ -81,6 +110,12 @@ public class NoticeController {
 		return accountDto;
 	}
 	
+	/***
+	 * 查看一条通知
+	 * 
+	 * @param noticeId
+	 * @return 通知详细
+	 */
 	@ResponseBody
 	@RequestMapping(path = "get_one_notice.do", produces = {"application/json;charset=UTF8"})
 	public Object getOneNotice(Integer noticeId) {
@@ -88,6 +123,15 @@ public class NoticeController {
 		return accountDto;
 	}
 	
+	/***
+	 * 添加通知
+	 * 
+	 * @param classId
+	 * @param title
+	 * @param content
+	 * @param session
+	 * @return 操作提示
+	 */
 	@ResponseBody
 	@RequestMapping(path = "add_notice.do", produces = {"application/json;charset=UTF8"})
 	public Object addNotice(Integer classId, String title, String content, HttpSession session) {

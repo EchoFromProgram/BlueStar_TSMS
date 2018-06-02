@@ -75,14 +75,18 @@ function to_page(page, classId, courseId){
         	"courseId":courseId
         	},
         success: function(data){
-            //显示table
-            build_table(data);
+        	if(data.code == 0){
+                //显示table
+                build_table(data.data);
 
-            //显示分页文字
-            buile_page_info(data);
+                //显示分页文字
+                buile_page_info(data.data);
 
-            //显示分页条
-            buile_page_nav(data);
+                //显示分页条
+                buile_page_nav(data.data);
+            	}else{
+            		alert(data.info);
+            	}
         },
         error:function () {
             alert("网络错误");
