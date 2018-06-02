@@ -440,10 +440,10 @@ public class SignServiceImpl implements SignService {
         }
 
         Map<String, Double> rates = new HashMap<>();
-        rates.put("teacherSuccessRate", signDao.getTeacherSignSuccessNumber(classId, courseId));
-        rates.put("teacherLateRate", signDao.getTeacherSignLateNumber(classId, courseId));
-        rates.put("studentSuccessRate", signDao.getStudentSignSuccessNumber(classId, courseId));
-        rates.put("studentLateRate", signDao.getStudentSignLateNumber(classId, courseId));
+        rates.put("teacherSuccessRate", signDao.getTeacherSignSuccessNumber(classId, courseId) * 100);
+        rates.put("teacherLateRate", signDao.getTeacherSignLateNumber(classId, courseId) * 100);
+        rates.put("studentSuccessRate", signDao.getStudentSignSuccessNumber(classId, courseId) * 100);
+        rates.put("studentLateRate", signDao.getStudentSignLateNumber(classId, courseId) * 100);
 
         return new AccountDto<>(rates, Common.SUCCESS);
     }

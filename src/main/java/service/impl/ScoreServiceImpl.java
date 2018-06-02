@@ -277,12 +277,6 @@ public class ScoreServiceImpl implements ScoreService {
      * @return 返回成绩统计情况比率
      */
     public AccountDto getScoreRate(Integer classId, Integer status) {
-        Double rate = scoreDao.getPassNumber(classId, status);
-        if (rate == null) {
-            // 比率为空，说明没有得到数据
-            return new AccountDto(Common.GET_IS_NULL);
-        }
-
-        return new AccountDto<>(rate, Common.SUCCESS);
+        return new AccountDto<>(scoreDao.getPassNumber(classId, status) * 100, Common.SUCCESS);
     }
 }
