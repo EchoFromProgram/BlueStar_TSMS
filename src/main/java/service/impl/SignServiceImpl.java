@@ -64,7 +64,7 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getClasses(User user) {
         // 避免空指针
-        if (user == null || user.getUserId() == null) {
+        if (user == null || user.getUserId() == null || user.getUserId() < 0) {
             return new AccountDto(Common.ERROR);
         }
 
@@ -106,7 +106,7 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto sign(User user, Integer inputCode, Integer realCode, Integer classId, String reason) {
         // 必须存在这个用户才能进行签到
-        if (user == null || user.getUserId() == null || inputCode == null) {
+        if (user == null || user.getUserId() == null || user.getUserId() < 0 || inputCode == null) {
             return new AccountDto(SignStatus.ILLEGAL_SIGN);
         }
 
@@ -129,6 +129,10 @@ public class SignServiceImpl implements SignService {
 
         // 判断这个班级是否属于这个用户
         List<Clazz> classes = (List<Clazz>) this.getClasses(user).getData();
+        if (classes == null) {
+            return new AccountDto(SignStatus.WRONG_CLASS);
+        }
+
         Clazz clazz = accountDao.getClassByClassId(classId); // 得到这个班级信息
         if (!classes.contains(clazz)) {
             return new AccountDto(SignStatus.WRONG_CLASS);
@@ -154,6 +158,7 @@ public class SignServiceImpl implements SignService {
             sign.setStatus(SignCode.SUCCESS);
         }
 
+        // 插入失败，可能是系统错误或者网络错误
         int affect = signDao.insertIntoSign(sign);
         if (affect <= 0) {
             return new AccountDto(Common.ERROR);
@@ -186,11 +191,11 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getClassSigns(Integer pageNumber, Clazz clazz) {
         // 判断页数是否为空
-        if (pageNumber == null) {
+        if (pageNumber == null || pageNumber <= 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-        if (clazz == null || clazz.getClassId() == null) {
+        if (clazz == null || clazz.getClassId() == null || clazz.getClassId() < 0) {
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
@@ -210,11 +215,11 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getTeacherSignsByClass(Integer pageNumber, Clazz clazz) {
         // 判断参数是否正确
-        if (pageNumber == null) {
+        if (pageNumber == null || pageNumber <= 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-        if (clazz == null || clazz.getClassId() == null) {
+        if (clazz == null || clazz.getClassId() == null || clazz.getClassId() < 0) {
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
@@ -233,11 +238,11 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getStudentSignsByClass(Integer pageNumber, Clazz clazz) {
         // 判断参数是否正确
-        if (pageNumber == null) {
+        if (pageNumber == null || pageNumber <= 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-        if (clazz == null || clazz.getClassId() == null) {
+        if (clazz == null || clazz.getClassId() == null || clazz.getClassId() < 0) {
             return new AccountDto(SignStatus.WRONG_CLASS);
         }
 
@@ -255,7 +260,7 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getSigns(Integer pageNumber) {
         // 判断参数是否正确
-        if (pageNumber == null) {
+        if (pageNumber == null || pageNumber <= 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -273,12 +278,12 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getSignsByUser(Integer pageNumber, User user) {
         // 判断参数是否正确
-        if (pageNumber == null) {
+        if (pageNumber == null || pageNumber <= 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         // 先判断用户是否可用
-        if (user == null || user.getUserId() == null) {
+        if (user == null || user.getUserId() == null || user.getUserId() < 0) {
             return new AccountDto(CreateAccountStatus.USER_IS_NULL);
         }
 
@@ -297,7 +302,7 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getStudentSignsByCourseId(Integer pageNumber, Integer courseId) {
         // 判断参数是否正确
-        if (pageNumber == null || courseId == null) {
+        if (pageNumber == null || pageNumber <= 0 || courseId == null || courseId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -316,7 +321,7 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getTeacherSignsByCourseId(Integer pageNumber, Integer courseId) {
         // 判断参数是否正确
-        if (pageNumber == null || courseId == null) {
+        if (pageNumber == null || pageNumber <= 0 || courseId == null || courseId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -337,7 +342,9 @@ public class SignServiceImpl implements SignService {
     @Override
     public AccountDto getSignsByCouseIdAndClassId(Integer pageNumber, Integer courseId, Integer classId) {
         // 判断参数是否正确
-        if (pageNumber == null || courseId == null || classId == null) {
+        if (pageNumber == null || pageNumber <= 0 ||
+                courseId == null || courseId < 0 ||
+                classId == null || classId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
@@ -355,14 +362,14 @@ public class SignServiceImpl implements SignService {
      */
     public AccountDto getSignsByUserId(Integer pageNumber, Integer userId) {
         // 参数错误
-        if (userId == null) {
+        if (userId == null || userId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         PageUtil.toPage(pageNumber);
         List<SignData> signs = signDao.getSignDatasByHisClassId(userId);
         // 没能得到数据
-        if (signs == null) {
+        if (signs == null || signs.size() == 0) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -379,14 +386,16 @@ public class SignServiceImpl implements SignService {
      */
     public AccountDto getSignsByCourseIdAndHisClassId(Integer pageNumber, Integer userId, Integer courseId) {
         // 参数错误
-        if (pageNumber == null || userId == null || courseId == null) {
+        if (pageNumber == null || pageNumber <= 0 ||
+                userId == null || userId < 0 ||
+                courseId == null || courseId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         PageUtil.toPage(pageNumber); // 开始分页
         List<SignData> signs = signDao.getSignDatasByCourseIdAndHisClassId(userId, courseId);
         // 没能得到数据
-        if (signs == null) {
+        if (signs == null || signs.size() == 0) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -402,14 +411,15 @@ public class SignServiceImpl implements SignService {
      */
     public AccountDto getSignsByCourseId(Integer pageNumber, Integer courseId) {
         // 参数错误
-        if (pageNumber == null || courseId == null) {
+        if (pageNumber == null || pageNumber <= 0 ||
+                courseId == null || courseId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         PageUtil.toPage(pageNumber); // 开始分页
         List<SignData> signs = signDao.getSignDatasByCourseId(courseId);
         // 没有返回数据
-        if (signs == null) {
+        if (signs == null || signs.size() == 0) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
@@ -435,7 +445,8 @@ public class SignServiceImpl implements SignService {
      */
     public AccountDto getSignRate(Integer classId, Integer courseId) {
         // 参数一个都不能为 null
-        if (classId == null || courseId == null) {
+        if (classId == null || classId < 0 ||
+                courseId == null || courseId < 0) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
