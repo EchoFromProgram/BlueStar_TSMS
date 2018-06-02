@@ -114,5 +114,5 @@ public interface ScoreService
      * @param status  阶段
      * @return 返回成绩统计情况比率
      */
-    public AccountDto getScoreRate(Integer classId, Integer status);
+    public AccountDto getScoreRate(Integer classId, Integer status, Integer userId);
 }

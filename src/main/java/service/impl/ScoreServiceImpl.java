@@ -277,7 +277,11 @@ public class ScoreServiceImpl implements ScoreService {
      * @param status 阶段
      * @return 返回成绩统计情况比率
      */
-    public AccountDto getScoreRate(Integer classId, Integer status) {
-        return new AccountDto<>(SignUtil.checkRate(scoreDao.getPassNumber(classId, status)), Common.SUCCESS);
+    public AccountDto getScoreRate(Integer classId, Integer status, Integer userId) {
+        if (userId == null) {
+            return new AccountDto<>(SignUtil.checkRate(scoreDao.getPassNumberForAdmin(classId, status)), Common.SUCCESS);
+        }
+
+        return new AccountDto<>(SignUtil.checkRate(scoreDao.getPassNumberForTeacher(classId, status, userId)), Common.SUCCESS);
     }
 }

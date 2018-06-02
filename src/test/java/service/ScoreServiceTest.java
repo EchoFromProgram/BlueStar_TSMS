@@ -24,6 +24,6 @@ public class ScoreServiceTest {
 
     @Test
     public void testGetScoreRate() {
-        System.out.println(scoreService.getScoreRate(1, null));
+        System.out.println(scoreService.getScoreRate(1, null, 2));
     }
 }
