@@ -10,8 +10,7 @@ import javax.servlet.ServletContext;
  * @author Fish
  * created by 2018-05-17 15:03
  */
-public final class ContextUtil
-{
+public final class ContextUtil {
     // 上下文对象
     private static ServletContext servletContext = null;
 
@@ -35,8 +34,7 @@ public final class ContextUtil
      *
      * @param context 上下文对象
      */
-    public static void init(ServletContext context)
-    {
+    public static void init(ServletContext context) {
         servletContext = context;
         logger.info("ContextUtil is ready!!!");
     }
@@ -44,8 +42,7 @@ public final class ContextUtil
     /**
      * 销毁工具类，释放资源
      */
-    public static void destroy()
-    {
+    public static void destroy() {
         servletContext = null;
         logger.info("ContextUtil is destroyed");
         logger = null;
@@ -54,32 +51,27 @@ public final class ContextUtil
     /**
      * 加载数据
      *
-     * @param key     数据 key 值
-     * @param data        数据来源
+     * @param key      数据 key 值
+     * @param data     数据来源
      * @param infoName 数据提示信息名字
      */
-    public static void load(String key, Object data, String infoName)
-    {
-        if (data == null)
-        {
-            logger.error(infoName + "加载失败！！！！！！！！");
-        }
-        else
-        {
+    public static void load(String key, Object data, String infoName) {
+        if (data == null) {
+            logger.error(infoName + " 数据为空，无法加载！");
+        } else {
             // 放进 Context
             set(key, data);
-            logger.info(infoName + "数据准备完毕！！！！！！！！！");
+            logger.info(infoName + " 数据准备完毕！！！！！！！！！");
         }
     }
 
     /**
      * 添加数据到 Context
      *
-     * @param key 数据 key 值
+     * @param key  数据 key 值
      * @param data 数据
      */
-    public static void set(String key, Object data)
-    {
+    public static void set(String key, Object data) {
         servletContext.setAttribute(key, data);
     }
 
@@ -89,8 +81,7 @@ public final class ContextUtil
      * @param key 数据 key 值
      * @return 返回数据
      */
-    public static Object get(String key)
-    {
+    public static Object get(String key) {
         return servletContext.getAttribute(key);
     }
 
@@ -98,10 +89,9 @@ public final class ContextUtil
      * 将老师发布的签到码加载到 ServletContext 中
      *
      * @param userId 老师 userId
-     * @param code 签到码
+     * @param code   签到码
      */
-    public synchronized static void putSignCode(Integer userId, Integer code)
-    {
+    public synchronized static void putSignCode(Integer userId, Integer code) {
         set(SIGN_CODE_PREFIX + userId, code);
     }
 
@@ -111,8 +101,7 @@ public final class ContextUtil
      * @param userId 老师 userId
      * @return 返回签到码
      */
-    public static Integer getSignCode(Integer userId)
-    {
+    public static Integer getSignCode(Integer userId) {
         return (Integer) get(SIGN_CODE_PREFIX + userId);
     }
 }

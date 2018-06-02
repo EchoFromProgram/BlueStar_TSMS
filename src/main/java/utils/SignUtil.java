@@ -9,8 +9,7 @@ import java.util.Date;
  * @author Fish
  * created by 2018-05-17 16:24
  */
-public final class SignUtil
-{
+public final class SignUtil {
     /**
      * 得到时间，只有小时和分钟
      *
@@ -18,8 +17,7 @@ public final class SignUtil
      * @param minute 分钟
      * @return 返回时间
      */
-    private static Calendar getCalendar(int hour, int minute)
-    {
+    private static Calendar getCalendar(int hour, int minute) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2000, 0, 0, hour, minute, 0);
         return calendar;
@@ -31,8 +29,7 @@ public final class SignUtil
      * @param date 时间
      * @return 返回时间
      */
-    private static Calendar getCalendar(Date date)
-    {
+    private static Calendar getCalendar(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
@@ -72,16 +69,14 @@ public final class SignUtil
      * @param date 要被判断的时间
      * @return true 在签到时间内 false 不在签到时间内
      */
-    public static boolean isSignTime(Date date)
-    {
+    public static boolean isSignTime(Date date) {
         // 重新得到只有小时和分钟的时间
         Calendar calendar = getCalendar(date);
 
         // 判断是否在签到时间开始和上课时间开始之间
         if ((calendar.after(MORNING_SIGN_TIME) && calendar.before(MORNING_BEGIN_TIME))
                 || (calendar.after(AFTERNOON_SIGN_TIME) && calendar.before(AFTERNOON_BEGIN_TIME))
-                || (calendar.after(EVENING_SIGN_TIME) && calendar.before(EVENING_BEGIN_TIME)))
-        {
+                || (calendar.after(EVENING_SIGN_TIME) && calendar.before(EVENING_BEGIN_TIME))) {
             return true;
         }
 
@@ -94,16 +89,14 @@ public final class SignUtil
      * @param date 要被判断的时间
      * @return true 在上课时间内 false 不在上课时间内
      */
-    public static boolean isClassTime(Date date)
-    {
+    public static boolean isClassTime(Date date) {
         // 重新得到只有小时和分钟的时间
         Calendar calendar = getCalendar(date);
 
         // 判断是否在签到时间开始和上课时间开始之间
         if ((calendar.after(MORNING_BEGIN_TIME) && calendar.before(MORNING_END_TIME))
                 || (calendar.after(AFTERNOON_BEGIN_TIME) && calendar.before(AFTERNOON_END_TIME))
-                || (calendar.after(EVENING_BEGIN_TIME) && calendar.before(EVENING_END_TIME)))
-        {
+                || (calendar.after(EVENING_BEGIN_TIME) && calendar.before(EVENING_END_TIME))) {
             return true;
         }
 

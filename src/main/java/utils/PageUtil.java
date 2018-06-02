@@ -11,15 +11,13 @@ import java.util.List;
  *
  * @author Fish
  */
-public final class PageUtil
-{
+public final class PageUtil {
     /**
      * pageHelper 每进行一次分页就得调用一次这个方法
      *
      * @param pn 到第几页
-     * */
-    public static void toPage(Integer pn)
-    {
+     */
+    public static void toPage(Integer pn) {
         PageHelper.startPage(pn, Page.ONE_PAGE_SIZE);
     }
 
@@ -27,10 +25,9 @@ public final class PageUtil
      * 返回 pageInfo 对象，包含分页的信息
      *
      * @param objs 要被分页的集合
-     * */
-    public static <T> PageInfo<T> pageInfo(List<T> objs)
-    {	
-    	//第一个参数为分页对象，第二个为每次显示的页数
+     */
+    public static <T> PageInfo<T> pageInfo(List<T> objs) {
+        //第一个参数为分页对象，第二个为每次显示的页数
         return new PageInfo<T>(objs, Page.SHOW_PAGES);
     }
 }
