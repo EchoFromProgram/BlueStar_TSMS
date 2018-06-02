@@ -135,9 +135,8 @@ public class AccountDaoTest {
 	@Test
 	public void test1() {
 
-		UserData map = accountDao.getUserByUserNameForUpdate("h123");
-		System.out.println(map);
-
+		Integer num = accountDao.deleteUserClass(40);
+		System.out.println(num);
 	}
 	
 	
