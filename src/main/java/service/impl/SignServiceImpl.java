@@ -22,6 +22,7 @@ import utils.SignUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 签到业务实现类
@@ -343,7 +344,6 @@ public class SignServiceImpl implements SignService {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
-
         PageUtil.toPage(pageNumber);
         return new AccountDto<>(PageUtil.pageInfo(signDao.getSignDatasByClassIdAndCourseId(classId, courseId)),
                 SignStatus.SUCCESS);
@@ -428,4 +428,9 @@ public class SignServiceImpl implements SignService {
     public Integer getTeacherId(Integer studentId) {
         return accountDao.getHisTeacherUserId(studentId);
     }
+
+    /*public Map<String, Double> getSignRate(Integer classId, Integer courseId)
+    {
+        //signDao.getTeacherSignSuccessNumber();
+    }*/
 }

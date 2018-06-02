@@ -45,12 +45,12 @@
         <listener-class>listener.InitListener</listener-class>
     </listener>
 
-    <!-- 配置过滤器 -->
-    <filter>
+    <!-- 配置登陆过滤器 -->
+    <!--<filter>
         <filter-name>sessionFilter</filter-name>
         <filter-class>filter.SessionFilter</filter-class>
         <init-param>
-            <!-- 登陆 uri -->
+            &lt;!&ndash; 登陆 uri &ndash;&gt;
             <param-name>loginUri</param-name>
             <param-value>login.do</param-value>
         </init-param>
@@ -66,6 +66,6 @@
     <filter-mapping>
         <filter-name>sessionFilter</filter-name>
         <url-pattern>*.html</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
 </web-app>
