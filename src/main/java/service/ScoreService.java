@@ -105,6 +105,14 @@ public interface ScoreService
      * @return
      */
     public AccountDto getUsersByClassId(Integer classId);
-    
-  
+
+    /**
+     * 得到成绩统计情况比率，0 - 1 之间
+     * 可以得到多种组合，比如传入 null
+     *
+     * @param classId 班级 id
+     * @param status  阶段
+     * @return 返回成绩统计情况比率
+     */
+    public AccountDto getScoreRate(Integer classId, Integer status);
 }
