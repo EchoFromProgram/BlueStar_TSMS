@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.ScoreService;
 import utils.PageUtil;
+import utils.SignUtil;
 
 import java.util.List;
 
@@ -277,6 +278,6 @@ public class ScoreServiceImpl implements ScoreService {
      * @return 返回成绩统计情况比率
      */
     public AccountDto getScoreRate(Integer classId, Integer status) {
-        return new AccountDto<>(scoreDao.getPassNumber(classId, status) * 100, Common.SUCCESS);
+        return new AccountDto<>(SignUtil.checkRate(scoreDao.getPassNumber(classId, status)), Common.SUCCESS);
     }
 }
