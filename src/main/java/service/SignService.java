@@ -158,4 +158,13 @@ public interface SignService
      * @return 返回老师 id
      */
     public Integer getTeacherId(Integer studentId);
+
+    /**
+     * 得到签到统计信息，比率，0 - 1 之间
+     *
+     * @param classId  班级 id
+     * @param courseId 课程 id
+     * @return 返回签到情况
+     */
+    public AccountDto getSignRate(Integer classId, Integer courseId);
 }

@@ -19,17 +19,20 @@ import utils.ContextUtil;
         "classpath:spring/spring-dao.xml",
         "classpath:spring/spring-service.xml"
 })
-public class SignServiceTest
-{
+public class SignServiceTest {
     @Autowired
     private SignService signService = null;
 
     @Test
-    public void testSign()
-    {
+    public void testSign() {
         User user = new User();
         user.setUserId(4);
         int code = signService.getSignCode();
         System.out.println(signService.sign(user, code, code, 2, "哈哈哈，日常迟到！"));
+    }
+
+    @Test
+    public void testGetSignRate() {
+        System.out.println(signService.getSignRate(2, null));
     }
 }

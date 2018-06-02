@@ -19,10 +19,7 @@ import service.SignService;
 import utils.PageUtil;
 import utils.SignUtil;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 签到业务实现类
@@ -168,11 +165,11 @@ public class SignServiceImpl implements SignService {
     /**
      * 老师签到
      *
-     * @param user 要签到的用户
+     * @param user    要签到的用户
      * @param classId 用户所属班级
      *                如果用户没有班级，那就传入一个 null 即可
-     * @param reason * 签到原因，（选填）
-     *               如果是迟到或者旷课就必须填写
+     * @param reason  * 签到原因，（选填）
+     *                如果是迟到或者旷课就必须填写
      * @return
      */
     public AccountDto sign(User user, Integer classId, String reason) {
@@ -429,8 +426,25 @@ public class SignServiceImpl implements SignService {
         return accountDao.getHisTeacherUserId(studentId);
     }
 
-    /*public Map<String, Double> getSignRate(Integer classId, Integer courseId)
-    {
-        //signDao.getTeacherSignSuccessNumber();
-    }*/
+    /**
+     * 得到签到统计信息，比率，0 - 1 之间
+     *
+     * @param classId  班级 id
+     * @param courseId 课程 id
+     * @return 返回签到情况
+     */
+    public AccountDto getSignRate(Integer classId, Integer courseId) {
+        // 参数一个都不能为 null
+        if (classId == null || courseId == null) {
+            return new AccountDto(Common.WRONG_ARGEMENT);
+        }
+
+        Map<String, Double> rates = new HashMap<>();
+        rates.put("teacherSuccessRate", signDao.getTeacherSignSuccessNumber(classId, courseId));
+        rates.put("teacherLateRate", signDao.getTeacherSignLateNumber(classId, courseId));
+        rates.put("studentSuccessRate", signDao.getStudentSignSuccessNumber(classId, courseId));
+        rates.put("studentLateRate", signDao.getStudentSignLateNumber(classId, courseId));
+
+        return new AccountDto<>(rates, Common.SUCCESS);
+    }
 }

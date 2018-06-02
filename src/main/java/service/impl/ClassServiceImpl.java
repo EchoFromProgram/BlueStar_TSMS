@@ -16,13 +16,11 @@ import service.ClassService;
  * created by 2018-05-09
  */
 @Service
-public class ClassServiceImpl implements ClassService
-{
+public class ClassServiceImpl implements ClassService {
     private AccountDao accountDao = null;
 
     @Autowired
-    public void setAccountDao(AccountDao accountDao)
-    {
+    public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
@@ -33,24 +31,22 @@ public class ClassServiceImpl implements ClassService
      * @return 返回课程
      */
     @Override
-    public AccountDto getCourseByClassId(Integer classId)
-    {
+    public AccountDto getCourseByClassId(Integer classId) {
         // 检测参数有没有问题
-        if (classId == null)
-        {
+        if (classId == null) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         Clazz clazz = accountDao.getClassByClassId(classId);
-        if (clazz == null) // 没有查到数据，提示错误
-        {
+        // 没有查到数据，提示错误
+        if (clazz == null) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
         // 通过班级查课程
         Course course = accountDao.getCoursesByCourseId(clazz.getCourseId());
-        if (course == null) // 没有查到数据，报错
-        {
+        // 没有查到数据，报错
+        if (course == null) {
             return new AccountDto(Common.GET_IS_NULL);
         }
 
