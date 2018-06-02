@@ -91,7 +91,7 @@
 	</insert>
 	
 	<!-- 得到合格人数 -->
-	<select id="getPassNumberForAdmin" resultType="double">
+	<select id="getPassNumberForTeacher" resultType="double">
 		SELECT ROUND(T1.pass/T2.total,2)
     	FROM 
      	(SELECT COUNT(*) AS pass
@@ -120,7 +120,7 @@
        	</where>)T2;
 	</select>
 	
-	<select id="getPassNumberForTeacher" resultType="double">
+	<select id="getPassNumberForAdmin" resultType="double">
 		SELECT ROUND(T1.pass/T2.total,2)
     	FROM 
      	(SELECT COUNT(*) AS pass
