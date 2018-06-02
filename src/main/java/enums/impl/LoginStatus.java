@@ -10,8 +10,8 @@ import enums.Statusable;
 public enum LoginStatus implements Statusable
 {
     SUCCESS(0, "登陆成功！"),
-    WRONG_USERNAME(-1, "用户名错误！"),
-    WRONG_PASSWORD(-2, "密码错误！"),
+    WRONG_USERNAME(-1, "用户名或密码错误！"),
+    WRONG_PASSWORD(-2, "用户名或密码错误！"),
     NEED_LOGIN(-3, "您还没有登陆！");
 
     // 登陆状态码

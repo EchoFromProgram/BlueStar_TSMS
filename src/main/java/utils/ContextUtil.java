@@ -35,6 +35,11 @@ public final class ContextUtil {
      * @param context 上下文对象
      */
     public static void init(ServletContext context) {
+        if (context == null) {
+            logger.error("ServletContext is null!");
+            return;
+        }
+
         servletContext = context;
         logger.info("ContextUtil is ready!!!");
     }
@@ -58,11 +63,12 @@ public final class ContextUtil {
     public static void load(String key, Object data, String infoName) {
         if (data == null) {
             logger.error(infoName + " 数据为空，无法加载！");
-        } else {
-            // 放进 Context
-            set(key, data);
-            logger.info(infoName + " 数据准备完毕！！！！！！！！！");
+            return;
         }
+
+        // 放进 Context
+        set(key, data);
+        logger.info(infoName + " 数据准备完毕！！！！！！！！！");
     }
 
     /**
