@@ -37,6 +37,17 @@
         </collection>
 	</resultMap>
 	
+	<!-- 查询管理员 -->
+	<select id="getAdminByUserNameForUpdate" resultMap="userData">
+		SELECT u.user_id, u.username, u.password, u.name, u.role_id, u.type_id, r.role
+		FROM user u, role r WHERE u.username = #{username} AND r.role_id = u.role_id 
+	</select>
+	
+	<!-- 查询角色id和类型id -->
+	<select id="getTypeIdAndRoleId" resultType="entity.User">
+		SELECT u.role_id, u.type_id FROM user u WHERE u.username = #{username} 
+	</select>
+	
 	<!-- 根据用户名得到密码，角色id，姓名 -->
 	<select id="getUsersByTypeId" resultType="java.util.HashMap">
 		SELECT u.user_id, u.username, u.password, u.name, u.role_id, u.info_id, u.type_id, r.role

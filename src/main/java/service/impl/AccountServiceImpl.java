@@ -542,17 +542,25 @@ public class AccountServiceImpl implements AccountService {
      */
 	@Override
 	public AccountDto getUserByUserNameForUpdate(String username) {
-		
+		UserData u = null;
 		if(username == null) {
 			return new AccountDto(Common.WRONG_ARGEMENT);
 		}
-		
-		UserData u = accountDao.getUserByUserNameForUpdate(username);
 		 // 用户名不存在！
-        if (u == null) {
+		User user = accountDao.getTypeIdAndRoleId(username);
+		if (user == null) {
             return new AccountDto(CreateAccountStatus.USERNAME_NOEXISTED);
         }
-        
+		//判断是管理员还是其他
+		switch (user.getRoleId()) {
+			case Role.ADMIN:
+				u = accountDao.getAdminByUserNameForUpdate(username);
+				break;
+			default:
+				u = accountDao.getUserByUserNameForUpdate(username);
+				break;
+		}
+		
         return new AccountDto<UserData>(u,Common.SUCCESS);
       
 	}
