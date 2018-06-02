@@ -218,4 +218,17 @@ public interface AccountDao
      */
     public UserData getUserByUserNameForUpdate(String username);
    
+    /**
+     * 根据用户名得到管理员
+     * @param username 用户名
+     * @return 管理员
+     */
+    public UserData getAdminByUserNameForUpdate(String username);
+    
+    /**
+     * 得到类型和角色id
+     * @param username 用户名
+     * @return 用户类
+     */
+    public User getTypeIdAndRoleId(String username);
 }

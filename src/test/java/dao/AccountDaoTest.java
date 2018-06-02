@@ -135,8 +135,8 @@ public class AccountDaoTest {
 	@Test
 	public void test1() {
 
-		Integer num = accountDao.deleteUserClass(40);
-		System.out.println(num);
+		User user = accountDao.getTypeIdAndRoleId("macky");
+		System.out.println(user);
 	}
 	
 	
