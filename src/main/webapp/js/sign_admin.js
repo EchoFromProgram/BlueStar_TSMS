@@ -35,8 +35,13 @@ function to_page(page, classId, courseId){
 	            $("#admin-ssign-good").css("width", data.data.studentSuccessRate + '%');
 	            $("#admin-ssign-bad").text(data.data.studentLateRate + '%');
 	            $("#admin-ssign-bad").css("width", data.data.studentLateRate + '%');
-	            $("#admin-ssign-sobad").text((100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
-	            $("#admin-ssign-sobad").css("width", (100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
+	            if(data.data.studentLateRate == 0 && data.data.studentSuccessRate == 0){
+	            	$("#admin-ssign-sobad").text('0%');
+	            	$("#admin-ssign-sobad").css("width", '0%');
+	            }else{
+		            $("#admin-ssign-sobad").text((100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
+		            $("#admin-ssign-sobad").css("width", (100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
+	            }
             }else{
             	alert(data.info);
             }

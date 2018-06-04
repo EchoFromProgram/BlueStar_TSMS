@@ -309,7 +309,10 @@ $("#check-username-exist").click(function(){
 	                    }  
 	                })  
 	            }  
-
+	    		//如果是管理员，隐藏班级选择
+	    		if($("#update-role-select").val() == 3) {
+	    				$("#update-class-box").hide();
+	    		}
 	    		
 	    	}else{
 	    		$("#update-user-display-box").hide();
@@ -353,3 +356,22 @@ function updateUser(){
 	});
 	return false;
 }
+
+$("#update-role-select").click(function (){
+	if($(this).val() == 3) {
+		$("#update-class-box").hide();
+	}else{
+		$("#update-class-box").show();
+	}
+});
+
+$("#add-role-select").click(function (){
+	if($(this).val() == 3) {
+		$("#add-class-box").hide();
+	}else{
+		$("#add-class-box").show();
+	}
+});
+
+
+

@@ -50,9 +50,13 @@ function to_page(page, classId, courseId){
 	            $("#teacher-ssign-good").css("width", data.data.studentSuccessRate + '%');
 	            $("#teacher-ssign-bad").text(data.data.studentLateRate + '%');
 	            $("#teacher-ssign-bad").css("width", data.data.studentLateRate + '%');
-	            $("#teacher-ssign-sobad").text((100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
-	            $("#teacher-ssign-sobad").css("width", (100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
-	            
+	            if(data.data.studentLateRate == 0 && data.data.studentSuccessRate == 0){
+		            $("#teacher-ssign-sobad").text('0%');
+		            $("#teacher-ssign-sobad").css("width", '0%');
+	            }else{
+	            	$("#teacher-ssign-sobad").text((100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
+		            $("#teacher-ssign-sobad").css("width", (100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
+	            }
             }else{
             	alert(data.info);
             }
