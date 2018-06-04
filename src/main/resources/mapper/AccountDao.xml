@@ -54,8 +54,11 @@
 		FROM user u, role r  WHERE u.type_id = #{typeId} AND r.role_id = u.role_id
 	</select>
 	
+	<select id="getUsersNotByTypeId" resultType="java.util.HashMap">
+	SELECT u.user_id, u.username, u.password, u.name, u.role_id, u.info_id, u.type_id, r.role
+		FROM user u, role r  WHERE  r.role_id = u.role_id
+	</select>
 	
-
 	<!-- 创建一个新用户,插入到用户表中 -->
 	<insert id="insertIntoUser" useGeneratedKeys="true" keyProperty="userId">
 		INSERT INTO user(username, password, name, role_id, info_id, type_id)

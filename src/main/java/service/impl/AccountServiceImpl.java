@@ -225,8 +225,8 @@ public class AccountServiceImpl implements AccountService {
         // pageHelper 中每进行一次分页就要执行一次这个方法
         PageUtil.toPage(pageNumber);
 
-        List<User> users = accountDao.getAllUsers();
-        if (users == null) // 如果为空，说明没有获取到数据，有可能是系统错误
+        List<Map<String, Object>> users = accountDao.getUsersNotByTypeId();
+        if (users == null || users.size() == 0) // 如果为空，说明没有获取到数据，有可能是系统错误
         {
             return new AccountDto(Common.GET_IS_NULL);
         }
@@ -251,7 +251,7 @@ public class AccountServiceImpl implements AccountService {
         // pageHelper 中每进行一次分页就要执行一次这个方法
         PageUtil.toPage(pageNumber);
         List<Map<String, Object>> users = accountDao.getUsersByTypeId(typeId);
-        if (users == null) // 如果为空，说明没有获取到数据，有可能是系统错误
+        if (users == null || users.size() == 0) // 如果为空，说明没有获取到数据，有可能是系统错误
         {
             return new AccountDto(Common.GET_IS_NULL);
         }

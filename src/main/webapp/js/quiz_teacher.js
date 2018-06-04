@@ -54,7 +54,7 @@ function getCourseByClass(classId){
 			if(classId == 0){
 				$("#which-stage").val(0);
 			}else{
-				$("#which-stage").val(data.courseId);	
+				$("#which-stage").val(data.data.courseId);	
 			}
 		},
 		error:function () {

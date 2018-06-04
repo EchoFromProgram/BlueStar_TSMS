@@ -33,7 +33,6 @@ function getClasses(){
 		url:"getSessionHisClasses.do",
 		type:"POST",
 		success: function(data){
-			console.log(data)
 			classTable = data;
 			//便签1班级获取
 			$("#mul-class-on-add").empty();
@@ -136,19 +135,12 @@ function build_table(data) {
     $.each(dataList,function(index, item){
         //创建td并朝里面追加内容
         var name = $("<td></td>").append(item.name);
-        var userName = $("<td></td>").append(item.userName);
+        var username = $("<td></td>").append(item.username);
         var password = $("<td></td>").append(item.password);
-        var role = $("<td></td>");
-        if(item.roleId == 1) {
-        	role.append("教师")
-        }else if(item.roleId == 2){
-        	role.append("学生")
-        }else if(item.roleId == 3){
-        	role.append("管理员")
-        }
-        var type = $("<td></td>").append(item.typeId==0?"员工":"客户");
+        var role = $("<td></td>").append(item.role)
+        var type = $("<td></td>").append(Number(item.type_id)==0?"员工":"客户");
         //向一个tr中添加所有的td
-        $("<tr></tr>").append(name).append(userName).append(password)
+        $("<tr></tr>").append(name).append(username).append(password)
             .append(role).append(type).appendTo("#user-table tbody");
     })
 }
