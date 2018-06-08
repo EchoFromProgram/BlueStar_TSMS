@@ -20,14 +20,46 @@ function to_page(page, classId, courseId){
         dataType: "json",
         data:{"page":page, "classId":classId, "courseId":courseId},
         success: function(data){
-            //显示table
-            build_table(data);
+        	if(data.code == 0){
+                //显示table
+                build_table(data.data);
 
-            //显示分页文字
-            buile_page_info(data);
+                //显示分页文字
+                buile_page_info(data.data);
 
-            //显示分页条
-            buile_page_nav(data);
+                //显示分页条
+                buile_page_nav(data.data);
+            }else{
+            	alert(data.info);
+            }
+        },
+        error:function () {
+            alert("网络错误");
+        }
+    });
+    
+    //获取统计情况
+    $.ajax({
+        type: "POST",
+        url: "get_static_sign.do",
+        dataType: "json",
+        data:{"classId":classId, "courseId":courseId},
+        success: function(data){
+        	if(data.code == 0){
+	            $("#teacher-ssign-good").text(data.data.studentSuccessRate + '%');
+	            $("#teacher-ssign-good").css("width", data.data.studentSuccessRate + '%');
+	            $("#teacher-ssign-bad").text(data.data.studentLateRate + '%');
+	            $("#teacher-ssign-bad").css("width", data.data.studentLateRate + '%');
+	            if(data.data.studentLateRate == 0 && data.data.studentSuccessRate == 0){
+		            $("#teacher-ssign-sobad").text('0%');
+		            $("#teacher-ssign-sobad").css("width", '0%');
+	            }else{
+	            	$("#teacher-ssign-sobad").text((100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
+		            $("#teacher-ssign-sobad").css("width", (100 - Number(data.data.studentSuccessRate) - Number(data.data.studentLateRate)) + '%');
+	            }
+            }else{
+            	alert(data.info);
+            }
         },
         error:function () {
             alert("网络错误");
@@ -186,7 +218,7 @@ function getCourseByClass(classId){
 			if(classId == 0){
 				$("#which-stage").val(0);
 			}else{
-				$("#which-stage").val(data.courseId);	
+				$("#which-stage").val(data.data.courseId);	
 			}
 		},
 		error:function () {
@@ -203,6 +235,11 @@ function teacherGetSign(page, classId, courseId){
 //点击查询按钮获取相应的签到信息
 $("#submit-which-need").click(function(){
 	teacherGetSign(1, $("#which-class").val(), $("#which-stage").val());
+	if($("#which-class").val() != 0 && $("#which-stage").val() != 0){
+		$("#teacher-static-box").show();
+	}else{
+		$("#teacher-static-box").hide();
+	}
 });
 
 //页面载入的时候获取全部签到信息

@@ -64,15 +64,13 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(path = "getSessionUser.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionUser(HttpSession session) {
-		// TODO html访问session， 
 		return session.getAttribute("user");
 	}
 	
 	//session获取权限(现在通过直接在session传入controller，无需传到前台，此方法基本不会用到)
 	@ResponseBody
 	@RequestMapping(path = "getSessionHisPowers.do", produces = {"application/json;charset=UTF8"})
-	public Object getSessionHisPower(HttpSession session) {
-		// TODO html访问session， 
+	public Object getSessionHisPower(HttpSession session) { 
 		return session.getAttribute("hisPowers");
 	}
 	
@@ -80,7 +78,6 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(path = "getSessionHisClasses.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionHisClasses(HttpSession session) {
-		// TODO html访问session， 
 		return session.getAttribute("hisClasses");
 	}
 	

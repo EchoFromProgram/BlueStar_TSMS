@@ -41,7 +41,7 @@
                 <li><a href="#" id="logout">注销</a></li>
                 <li><a href="#">帮助</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
+       <!--     <form class="navbar-form navbar-right">
                 <div class="dropdown" style="display: inline-block">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                         <span id="current_select">请选择</span>
@@ -56,7 +56,7 @@
                 </div>
                 <input type="text" class="form-control" placeholder="您想根据什么来查">
                 <input type="submit" class="form-control btn" value="搜索">
-            </form>
+            </form> -->
         </div>
     </div>
 </nav>
@@ -178,8 +178,8 @@
                                 <div class="form-group">
                                     <label for="update-type-select">类型</label>
                                     <select class="form-control" id="update-type-select">
-                                        <option value ="0">客户</option>
-                                        <option value ="1">员工</option>
+                                        <option value ="1">客户</option>
+                                    	<option value ="0">员工</option>
                                     </select>
                                 </div>
                                 
@@ -189,9 +189,10 @@
  
                                     </select>
                                 </div> --> 
+                                <div id="update-class-box">
                                 <label for="mul-class-on-update">班级</label>
                                 <div class="form-group" id="mul-class-on-update">
-                                		
+                                </div>	
                                 </div>
  								<div id="add-class-on-update" href="#modal-add-class-on-update" data-toggle="modal" style="position: fixed;bottom: 200px;right: 80px;z-index: 100">
 						            <label>点击添加班级</label>
@@ -242,9 +243,7 @@
                                 <div class="form-group" id="role-create">
                                     <label for="insert-role-select">角色</label>
                                     <select class="form-control" id="add-role-select">
-                                        <option value ="1">教师</option>
-                                        <option value ="2">学生</option>
-                                        <option value ="3">管理员</option>
+                                        
                                     </select>
                                 </div>
 
@@ -252,7 +251,7 @@
                                     <label for="insert-type-select">类型</label>
                                     <select class="form-control" id="add-type-select">
                                         <option value ="1">客户</option>
-                                        <option value ="0">员工</option>
+                                    	<option value ="0">员工</option>
                                     </select>
                                 </div>
                            <!-- <div class="form-group" id="single-class">
@@ -261,9 +260,10 @@
     
                                     </select>
                                 </div>-->    
+                                <div id="add-class-box">
                                 <label for="mul-class-on-add">班级</label>
                                 <div class="form-group" id="mul-class-on-add">
-                                		
+                                </div>		
                                 </div>
 								<div id="add-class-on-add" href="#modal-add-class-on-add" data-toggle="modal" style="position: fixed;bottom: 200px;right: 80px;z-index: 100">
 						            <label>点击添加班级</label>

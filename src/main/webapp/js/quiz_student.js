@@ -6,9 +6,10 @@ $(function(){
 	    type:"POST",
 	    dataType:"json",
 	    success: function(data){
-	    	quizDetailId = data.quizDetailId;
+	    	if(data.code == 0){
+	    	quizDetailId = data.data.quizDetailId;
 	    	$("#quiz-answer").empty();
-	    	$.each(data.questions,function(index, item){
+	    	$.each(data.data.questions,function(index, item){
 	    		$("#quiz-answer").append('<div class="form-group">'+
 	    				'<div class="form-control question-title">'+
 	    				item.question +
@@ -17,6 +18,9 @@ $(function(){
 	    				'</div>'
 	    				);
 	    	});
+	    	}else{
+	    		alert(data.info)
+	    	}
 	    },
 	    error:function () {
 	        alert("网络错误");
@@ -57,14 +61,18 @@ function to_page(page){
         dataType: "json",
         data:{"page":page},
         success: function(data){
-            //显示table
-            build_table(data.data);
+        	if(data.code == 0){
+                //显示table
+                build_table(data.data);
 
-            //显示分页文字
-            buile_page_info(data.data);
+                //显示分页文字
+                buile_page_info(data.data);
 
-            //显示分页条
-            buile_page_nav(data.data);
+                //显示分页条
+                buile_page_nav(data.data);
+            	}else{
+            		alert(data.info);
+            	}
         },
         error:function () {
             alert("网络错误");

@@ -231,4 +231,10 @@ public interface AccountDao
      * @return 用户类
      */
     public User getTypeIdAndRoleId(String username);
+    
+    /***
+     * 获得所有用户列表
+     * @return 用户列表
+     */
+    public List<Map<String, Object>> getUsersNotByTypeId();
 }

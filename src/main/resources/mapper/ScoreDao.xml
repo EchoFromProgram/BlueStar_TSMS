@@ -102,7 +102,7 @@
        		AND score.class_id = #{classId} 
        		</if>
        		<if test="classId == null">
-       		AND socre.class_id in(SELECT class_id FROM user_class WHERE user_id =#{userId})
+       		AND score.class_id in(SELECT class_id FROM user_class WHERE user_id =#{userId})
        		</if>
        		<if test="status != null">
        		AND score.status = #{status}

@@ -8,7 +8,7 @@ $(function(){
 	       $("#student-score-table ")
 			//清空
 		    $("#student-score-table tbody").empty();
-		    var dataList = data.list;
+		    var dataList = data.data.list;
 		    //jquery遍历,emps为遍历对象，function(index索引,item得到的每一个对象)为回调函数
 		    $.each(dataList,function(index, item){
 		        //创建td并朝里面追加内容

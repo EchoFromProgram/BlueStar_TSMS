@@ -33,7 +33,6 @@ function getClasses(){
 		url:"getSessionHisClasses.do",
 		type:"POST",
 		success: function(data){
-			console.log(data)
 			classTable = data;
 			//便签1班级获取
 			$("#mul-class-on-add").empty();
@@ -108,14 +107,18 @@ function to_page(page, typeId){
         dataType: "json",
         data:{"page":page, "typeId":typeId},
         success: function(data){
+        	if(data.code == 0){
             //显示table
-            build_table(data);
+            build_table(data.data);
 
             //显示分页文字
-            buile_page_info(data);
+            buile_page_info(data.data);
 
             //显示分页条
-            buile_page_nav(data);
+            buile_page_nav(data.data);
+        	}else{
+        		alert(data.info);
+        	}
         },
         error:function () {
             alert("网络错误");
@@ -132,19 +135,12 @@ function build_table(data) {
     $.each(dataList,function(index, item){
         //创建td并朝里面追加内容
         var name = $("<td></td>").append(item.name);
-        var userName = $("<td></td>").append(item.userName);
+        var username = $("<td></td>").append(item.username);
         var password = $("<td></td>").append(item.password);
-        var role = $("<td></td>");
-        if(item.roleId == 1) {
-        	role.append("教师")
-        }else if(item.roleId == 2){
-        	role.append("学生")
-        }else if(item.roleId == 3){
-        	role.append("管理员")
-        }
-        var type = $("<td></td>").append(item.typeId==0?"员工":"客户");
+        var role = $("<td></td>").append(item.role)
+        var type = $("<td></td>").append(Number(item.type_id)==0?"员工":"客户");
         //向一个tr中添加所有的td
-        $("<tr></tr>").append(name).append(userName).append(password)
+        $("<tr></tr>").append(name).append(username).append(password)
             .append(role).append(type).appendTo("#user-table tbody");
     })
 }
@@ -305,7 +301,10 @@ $("#check-username-exist").click(function(){
 	                    }  
 	                })  
 	            }  
-
+	    		//如果是管理员，隐藏班级选择
+	    		if($("#update-role-select").val() == 3) {
+	    				$("#update-class-box").hide();
+	    		}
 	    		
 	    	}else{
 	    		$("#update-user-display-box").hide();
@@ -349,3 +348,22 @@ function updateUser(){
 	});
 	return false;
 }
+
+$("#update-role-select").click(function (){
+	if($(this).val() == 3) {
+		$("#update-class-box").hide();
+	}else{
+		$("#update-class-box").show();
+	}
+});
+
+$("#add-role-select").click(function (){
+	if($(this).val() == 3) {
+		$("#add-class-box").hide();
+	}else{
+		$("#add-class-box").show();
+	}
+});
+
+
+

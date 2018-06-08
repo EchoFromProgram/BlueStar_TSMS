@@ -23,6 +23,7 @@ import entity.UserClass;
 import enums.impl.CreateAccountStatus;
 import service.AccountService;
 import service.RoleService;
+import utils.ListUtil;
 
 @Controller
 public class ManageController {
@@ -56,17 +57,9 @@ public class ManageController {
 	@RequestMapping(path = "insert_user.do", produces = {"application/json;charset=UTF8"})
 	public Object insertUser(User user, String[] classArr) {
 		UserClass userClass = new UserClass();
-		if (classArr != null && classArr.length != 0) {
-			List<Integer> classList = new ArrayList<>();
-			for (String string : classArr) {
-				classList.add(Integer.valueOf(string.trim()));
-			}
-			userClass.setClassIds(classList);
-			AccountDto accountDto = accountService.createAccount(user, userClass);
-			return accountDto;
-		}
-		
-		return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+		userClass.setClassIds(ListUtil.strings2integers(classArr));
+		AccountDto accountDto = accountService.createAccount(user, userClass);
+		return accountDto;
 	}
 	
 	/***
@@ -80,17 +73,9 @@ public class ManageController {
 	@RequestMapping(path = "update_user.do", produces = {"application/json;charset=UTF8"})
 	public Object updateUser(User user, String[] classArr) {
 		UserClass userClass = new UserClass();
-		if (classArr != null && classArr.length != 0) {
-			List<Integer> classList = new ArrayList<>();
-			for (String string : classArr) {
-				classList.add(Integer.valueOf(string.trim()));
-			}
-			userClass.setClassIds(classList);
-			AccountDto accountDto = accountService.updateUser(user, userClass);
-			return accountDto;
-		}
-		
-		return new AccountDto(CreateAccountStatus.CLASS_IS_NULL);
+		userClass.setClassIds(ListUtil.strings2integers(classArr));
+		AccountDto accountDto = accountService.updateUser(user, userClass);
+		return accountDto;
 	}
 	
 	/***
@@ -102,13 +87,12 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(path = "find_user.do", produces = {"application/json;charset=UTF8"})
 	public Object findUser(String userName) {
-		System.out.println(userName);
 		AccountDto accountDto = accountService.getUserByUserNameForUpdate(userName);
 		return accountDto;
 	}
 	
 	/***
-	 * 根据用户类型查询所有用户信息，分页处理
+	 * 管理员根据用户类型查询所有用户信息，分页处理
 	 * 
 	 * @param page
 	 * @param typeId
@@ -125,7 +109,7 @@ public class ManageController {
 		else {
 			accountDto = accountService.getAccounts(page, typeId);
 		}
-		return accountDto.getData();
+		return accountDto;
 	}
 	
 	/***
@@ -137,14 +121,11 @@ public class ManageController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "create_role.do", produces = {"application/json;charset=UTF8"})
-	public Object createRole(String roleName, Integer[] roleIds) {
-		System.out.println(roleName);
-		System.out.println(roleIds);
+	public Object createRole(String roleName, String[] roleIds) {
 		Role role = new Role();
 		RolePower rolePower = new RolePower();
 		role.setRole(roleName);
-		List<Integer> roleArr = Arrays.asList(roleIds);
-		rolePower.setPowerIds(roleArr);
+		rolePower.setPowerIds(ListUtil.strings2integers(roleIds));
 		AccountDto accountDto = roleService.insertRole(role, rolePower);
 		return accountDto;
 	}
@@ -174,17 +155,30 @@ public class ManageController {
 		return accountDto;
 	}
 	
+	
+	/***
+	 * 更新角色权限
+	 * 
+	 * @param roleId
+	 * @param powerIds
+	 * @return 操作提示
+	 */
 	@ResponseBody
 	@RequestMapping(path = "update_role.do", produces = {"application/json;charset=UTF8"})
-	public Object updateRole(Integer roleId, Integer[] powerIds) {
+	public Object updateRole(Integer roleId, String[] powerIds) {
 		RolePower rolePower = new RolePower();
-		List<Integer> powerIdArray = Arrays.asList(powerIds);
 		rolePower.setRoleId(roleId);
-		rolePower.setPowerIds(powerIdArray);
+		rolePower.setPowerIds(ListUtil.strings2integers(powerIds));
 		AccountDto accountDto = roleService.updateRole(rolePower);
 		return accountDto;
 	}
 	
+	/***
+	 * 添加班级，需要输入班级名称（班级名称唯一）
+	 * 
+	 * @param className
+	 * @return 操作提示
+	 */
 	@ResponseBody
 	@RequestMapping(path = "add_class.do", produces = {"application/json;charset=UTF8"})
 	public Object addClass(String className) {

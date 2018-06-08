@@ -9,14 +9,18 @@ function to_page(page){
         dataType: "json",
         data:{"page":page},
         success: function(data){
+        	if(data.code == 0){
             //显示table
-            build_table(data);
+            build_table(data.data);
 
             //显示分页文字
-            buile_page_info(data);
+            buile_page_info(data.data);
 
             //显示分页条
-            buile_page_nav(data);
+            buile_page_nav(data.data);
+        	}else{
+        		alert(data.info);
+        	}
         },
         error:function () {
             alert("网络错误");
@@ -236,9 +240,6 @@ $(function(){
 		        option.attr("value", item.classId);
 		        option.appendTo("#which-class");
 		    });
-		    $("#which-class").change(function(){
-	        	getCourseByClass(this.value)
-	        });
 		},
 		error:function () {
           alert("网络错误");
