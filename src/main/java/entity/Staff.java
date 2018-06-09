@@ -1,4 +1,7 @@
 package entity;
+
+import javax.validation.constraints.Pattern;
+
 /**
  * 员工类，对应staff表
  * @author happyChicken
@@ -10,18 +13,28 @@ public class Staff {
 	private Integer tId;
 	
 	//身份证
+	@Pattern(regexp = "(^[A-Z0-9]{18}$)",
+   		 message = "身份证长度必须是18位")
 	private String identityNum;
 	
 	//工作履历
+	@Pattern(regexp = "(^.*{2000}$)",
+	   		 message = "履历的最大长度为2000")
 	private String resume;
 	
 	//QQ
+	@Pattern(regexp = "(^[0-9]{6,12}$)",
+	   		 message = "QQ长度范围(6~12)")
 	private String qq;
 	
 	//电话
+	@Pattern(regexp = "(^[0-9]{7,11}$)",
+	   		 message = "电话的长度范围(7-11)")
 	private String telephone;
 	
 	//邮箱
+	@Pattern(regexp = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$",
+   		 message = "邮箱不合法")
 	private String email;
 
 	public Integer gettId() {

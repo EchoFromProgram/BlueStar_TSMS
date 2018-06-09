@@ -320,7 +320,9 @@ function publicScore(){
 	    	"stage":$("#which-stage-need").val()
 	    	},
 	    success: function(data){
-	    	window.location.reload();
+	    	if(data.code == 0){
+	    		window.location.reload();
+	    	}
 	        alert(data.info);
 	    },
 	    error:function () {

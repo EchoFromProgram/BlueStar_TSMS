@@ -4,8 +4,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +16,7 @@ import dto.AccountDto;
 import entity.Customer;
 import entity.Staff;
 import service.AccountService;
+import utils.ValidateUtil;
 
 @Controller
 public class InfoController {
@@ -54,7 +58,10 @@ public class InfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "update_staff_info.do", produces = {"application/json;charset=UTF8"})
-	public Object updateStaffInfo(Staff staff, HttpSession session) {
+	public Object updateStaffInfo(@Valid Staff staff, BindingResult bindingResult, HttpSession session) {
+		if(bindingResult.hasErrors()) {
+			return ValidateUtil.Validate(bindingResult);
+		}
 		staff.settId((Integer)((Map)session.getAttribute("user")).get("info_id"));
 		System.out.println(staff);
 		AccountDto accountDto = accountService.updateStaffInfoByInfoId(staff);
@@ -83,7 +90,10 @@ public class InfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "update_customer_info.do", produces = {"application/json;charset=UTF8"})
-	public Object updateCustomerInfo(Customer customer, HttpSession session) {
+	public Object updateCustomerInfo(@Valid Customer customer, BindingResult bindingResult, HttpSession session) {
+		if(bindingResult.hasErrors()) {
+			return ValidateUtil.Validate(bindingResult);
+		}
 		customer.setInfoId((Integer)((Map)session.getAttribute("user")).get("info_id"));
 		AccountDto accountDto = accountService.updateCustomerInfoByInfoId(customer);
 		return accountDto;

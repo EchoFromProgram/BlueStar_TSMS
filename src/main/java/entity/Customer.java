@@ -1,4 +1,7 @@
 package entity;
+
+import javax.validation.constraints.Pattern;
+
 /**
  * 客户类，对应customer表
  * @author happyChicken
@@ -10,6 +13,8 @@ public class Customer  {
 	private Integer infoId;
 	
 	// 身份证
+	@Pattern(regexp = "(^[A-Z0-9]{18}$)",
+	   		 message = "身份证长度必须是18位")
 	private String identityNum;
 	
 	// 学校
@@ -19,12 +24,18 @@ public class Customer  {
 	private String gradeMajor;
 	
 	// qq
+	@Pattern(regexp = "(^[0-9]{6,12}$)",
+	   		 message = "QQ长度范围(6~12)")
 	private String qq;
 	
 	// 电话号码
+	@Pattern(regexp = "(^[0-9]{7,11}$)",
+	   		 message = "电话的长度范围(7-11)")
 	private String telephone;
 	
 	// 邮箱
+	@Pattern(regexp = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$",
+	   		 message = "邮箱不合法")
 	private String email;
 
 	//城市

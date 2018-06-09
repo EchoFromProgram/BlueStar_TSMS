@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dto.AccountDto;
 import entity.Clazz;
 import entity.Score;
+import enums.Statusable;
 import enums.impl.Common;
 import service.ScoreService;
 import service.SignService;
@@ -215,6 +216,22 @@ public class ScoreController {
 		Date date = new Date();
 		if(userIds == null || userIds.length <= 0 || scoreArr == null || scoreArr.length <= 0) {
 			return new AccountDto(Common.GET_IS_NULL);
+		}
+		for(int i = 0; i < scoreArr.length; i++) {
+			if((Integer.parseInt(scoreArr[i])) < 0 || (Integer.parseInt(scoreArr[i])) > 100) {
+				return new AccountDto(new Statusable() {
+					
+					@Override
+					public String getInfo() {
+						return "输入的成绩范围(0~100)";
+					}
+					
+					@Override
+					public int getCode() {
+						return -1;
+					}
+				});
+			}
 		}
 		for(int i = 0; i < userIds.length; i++) {
 			Score score = new Score();
