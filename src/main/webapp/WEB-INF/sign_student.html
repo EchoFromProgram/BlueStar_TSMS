@@ -94,11 +94,11 @@
                                     </h4>
                                 </div>
                                 <div class="modal-body form-group" id="sign-div">
-                                        <input type="text" class="form-control" id="signword" placeholder="请输入签到口令" required="" autofocus="">
+                                        <input type="number" min="0" max="10000" class="form-control" id="signword" placeholder="请输入签到口令" required="" autofocus="">
                                         <span class="help-block" id="sign-help"></span>
                                 </div>
                                 <div class="modal-body form-group" id="sign-reason-div">
-                                    <input class="form-control" id="sign-reason" placeholder="由于你迟到了，请输入迟到原因" autofocus=""></input>
+                                    <input maxlength="63" class="form-control" id="sign-reason" placeholder="由于你迟到了，请输入迟到原因" autofocus=""></input>
                                     <span class="help-block" id="sign-reason-help"></span>
                                 </div>
                                 <div class="modal-footer">

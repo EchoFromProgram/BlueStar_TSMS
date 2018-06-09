@@ -141,7 +141,7 @@
                             <form class="form" onsubmit="return ">
                                 <div class="form-group" id="rolename-change">
                                     <label for="insert-rolename" class="sr-only ">用户名</label>
-                                    <input type="text" id="update-rolename" style="width:200px;" class="form-control center-block" placeholder="请输入需要修改的角色名" required="" autofocus="">
+                                    <input type="text" maxlength="63" id="update-rolename" style="width:200px;" class="form-control center-block" placeholder="请输入需要修改的角色名" required="" autofocus="">
                                     <span class="help-block center-block" style="text-align: center;" id="update-rolename-help"></span>
                                 </div>
 								<div id="select-box-update">
@@ -158,7 +158,7 @@
 						    <form class="form" onsubmit="return ">
 						        <div class="form-group" id="rolename-create">
 						            <label for="insert-rolename" class="sr-only">角色名</label>
-						            <input type="text" id="insert-rolename" style="width:200px;" class="form-control center-block" placeholder="给新的角色起个名字把" required="" autofocus="">
+						            <input type="text" maxlength="63" id="insert-rolename" style="width:200px;" class="form-control center-block" placeholder="给新的角色起个名字把" required="" autofocus="">
 						            <span class="help-block" id="insert-rolename-help"></span>
 						        </div>
 						        <div id="select-box-add">
@@ -174,7 +174,7 @@
                             <form class="form" onsubmit="return false">
                                 <div class="form-group" id="role-delete" style="margin-top:50px">
                                     <label for="delete-role-input" class="sr-only">角色名</label>
-                                    <input type="text" id="delete-role-input" class="form-control" placeholder="输入需要删除的角色名" required="">
+                                    <input type="text" maxlength="63" id="delete-role-input" class="form-control" placeholder="输入需要删除的角色名" required="">
                                     <span class="help-block" id="delete-user-help"></span>
                                 </div>
                                 <!-- 遮罩窗体确定是否操作 -->

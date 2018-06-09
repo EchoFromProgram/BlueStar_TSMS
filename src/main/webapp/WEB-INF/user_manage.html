@@ -151,20 +151,20 @@
                             <form class="form" onsubmit="return false">
                                 <div class="form-group" id="username-change">
                                     <label for="update-username">用户名</label>
-                                    <input type="text" id="update-username" class="form-control" placeholder="原账号" autofocus="">
+                                    <input type="text" maxlength="63" id="update-username" class="form-control" placeholder="原账号" autofocus="">
                                     <span class="help-block" id="update-username-help"></span>
                                     <button id="check-username-exist" class="btn btn-primary">查询用户</button>
                                 </div>
 								<div id="update-user-display-box" style="display:none">
                                 <div class="form-group" id="password-change">
                                     <label for="update-password">密码</label>
-                                    <input type="text" id="update-password" class="form-control" placeholder="原密码">
+                                    <input type="text" maxlength="63" id="update-password" class="form-control" placeholder="原密码">
                                     <span class="help-block" id="update-password-help"></span>
                                 </div>
 
                                 <div class="form-group" id="name-change">
                                     <label for="update-name">姓名</label>
-                                    <input type="text" id="update-name" class="form-control" placeholder="原姓名">
+                                    <input type="text" maxlength="63" id="update-name" class="form-control" placeholder="原姓名">
                                     <span class="help-block" id="update-name-help"></span>
                                 </div>
 
@@ -204,7 +204,7 @@
 						                    <div class="modal-header">
 						                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						                        <label for="class-name-input">班级名称</label>
-						                        <input type="text" class="form-control" placeholder="请输入要创建的班级名称" id="class-name-input-on-update">
+						                        <input type="text" maxlength="63" class="form-control" placeholder="请输入要创建的班级名称" id="class-name-input-on-update">
 						                    </div>
 						                    <div class="modal-footer">
 						                        <button class="btn btn-danger" id="add-class-button-on-update">创建班级</button>
@@ -224,19 +224,19 @@
                             <form class="form" onsubmit="return insert_user()">
                                 <div class="form-group" id="username-create">
                                     <label for="insert-username">用户名</label>
-                                    <input type="text" id="insert-username" class="form-control" placeholder="为其设置一个账号" required="">
+                                    <input type="text" maxlength="63" id="insert-username" class="form-control" placeholder="为其设置一个账号" required="">
                                     <span class="help-block" id="insert-username-help"></span>
                                 </div>
 
                                 <div class="form-group" id="password-create">
                                     <label for="insert-password">密码</label>
-                                    <input type="text" id="insert-password" class="form-control" placeholder="还需要一个密码" required="">
+                                    <input type="text" maxlength="63" id="insert-password" class="form-control" placeholder="还需要一个密码" required="">
                                     <span class="help-block" id="insert-password-help"></span>
                                 </div>
 
                                 <div class="form-group" id="name-create">
                                     <label for="insert-name">姓名</label>
-                                    <input type="text" id="insert-name" class="form-control" placeholder="这个账户的拥有者姓名" required="">
+                                    <input type="text" maxlength="63" id="insert-name" class="form-control" placeholder="这个账户的拥有者姓名" required="">
                                     <span class="help-block" id="insert-name-help"></span>
                                 </div>
 
@@ -275,7 +275,7 @@
 						                    <div class="modal-header">
 						                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						                        <label for="class-name-input">班级名称</label>
-						                        <input type="text" class="form-control" placeholder="请输入要创建的班级名称" id="class-name-input-on-add">
+						                        <input type="text" maxlength="63" class="form-control" placeholder="请输入要创建的班级名称" id="class-name-input-on-add">
 						                    </div>
 						                    <div class="modal-footer">
 						                        <button class="btn btn-danger" id="add-class-button-on-add">创建班级</button>

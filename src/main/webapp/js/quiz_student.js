@@ -14,7 +14,7 @@ $(function(){
 	    				'<div class="form-control question-title">'+
 	    				item.question +
 	    				'</div>'+
-	    				'<textarea placeholder="请填写问卷内容" class="form-control question-detail answer-box" required=""></textarea>'+
+	    				'<textarea maxlength="255" placeholder="请填写问卷内容" class="form-control question-detail answer-box" required=""></textarea>'+
 	    				'</div>'
 	    				);
 	    	});
