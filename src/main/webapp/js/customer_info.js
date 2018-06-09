@@ -55,14 +55,16 @@ function setCustomerInfo(){
 			"email":$("#info-update-mail-input").val()
 			},
 		success: function(data){
+			if(data.code == 0){
+				window.location.reload();
+			}
 			alert(data.info);
-			window.location.reload();
 		},
 		error:function () {
             alert("个人资料设置错误");
         }
 	});
-
+	return false;
 };
 
 //获取省份
