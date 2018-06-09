@@ -23,7 +23,7 @@ $(function(){
 	    	}
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("问卷的问题部分拉取失败");
 	    }
 	});
 });
@@ -47,7 +47,7 @@ function submitQuiz(){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("问卷提交出现异常，请重试");
 	    }
 	});
 

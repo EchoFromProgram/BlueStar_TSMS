@@ -29,7 +29,7 @@ $(function(){
 			$('#school-select option').filter(function(){return $(this).text()==data.data.school}).attr("selected",true);
 		},
 		error:function () {
-            alert("网络错误");
+            alert("预先拉取个人信息出现异常");
         }
 	});
 });
@@ -55,7 +55,7 @@ function setCustomerInfo(){
 			window.location.reload();
 		},
 		error:function () {
-            alert("网络错误");
+            alert("个人资料设置错误");
         }
 	});
 
@@ -78,7 +78,7 @@ function getProvince(){
             });
         },
         error:function () {
-            alert("网络错误");
+            alert("获取省份错误");
         }
     });
 }
@@ -101,7 +101,7 @@ function getCity(){
             });
         },
         error:function () {
-            alert("网络错误");
+            alert("获取城市错误");
         }
     });
 }
@@ -128,7 +128,7 @@ function getSchool(){
           });
       },
       error:function () {
-          alert("网络错误");
+          alert("获取学校错误");
       }
   });
 }

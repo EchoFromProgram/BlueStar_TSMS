@@ -32,6 +32,8 @@ $('#password').blur(
 
 //登陆验证 以及 必要数据的cookie
 function submitData() {
+	$("#submit").attr("disabled", true);
+	$("#submit").text("正在登录...");
     $.ajax({
         type: "POST",
         url: "loginCheck.do",
@@ -44,21 +46,20 @@ function submitData() {
 //            	$.cookie('infoId', data.data.user.info_id);
 //            	$.cookie('typeId', data.data.user.type_id);
 //            	$.cookie('name', data.data.user.name);
+            	$("#submit").removeAttr("disabled");
+	        	$("#submit").text("登录");
                 window.location.href="index.do";
             }
-            else if(-2 == data.code)
+            else if(-2 == data.code || -1 == data.code)
             {
             	$('#password-help').text(data.info);
 	            $('#password-div').addClass("has-error");
-            }
-            else if(-1 == data.code)
-            {
-            	$('#username-help').text(data.info);
-	            $('#username-div').addClass("has-error");
+	            $("#submit").removeAttr("disabled");
+	        	$("#submit").text("登录");
             }
         },
         error:function () {
-            alert("网络错误");
+            alert("登陆时发生异常");
         }
     });
     return false;

@@ -23,7 +23,7 @@ function loadInfo(){
 			$("#info-update-mail-input").val(data.data.email);
 		},
 		error:function () {
-            alert("网络错误");
+            alert("预先拉取个人信息出现异常");
         }
 	});
 }

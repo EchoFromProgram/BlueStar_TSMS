@@ -23,7 +23,7 @@ function to_page(page){
             }
         },
         error:function () {
-            alert("网络错误");
+            alert("签到列表拉取失败");
         }
     });
 };
@@ -149,7 +149,7 @@ function studentSign(){
 	    	}
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("签到时出现异常，请重试");
 	    }
 	});
 	return false;

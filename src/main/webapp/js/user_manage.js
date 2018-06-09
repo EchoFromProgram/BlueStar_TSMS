@@ -22,7 +22,7 @@ $(function(){
 		    });
         },
         error:function () {
-            alert("网络错误");
+            alert("班级信息拉取失败");
         }
     });
     getClasses();
@@ -63,7 +63,7 @@ function getClasses(){
 		    });
 		},
 		error:function () {
-          alert("网络错误");
+          alert("用户相关班级信息拉取失败，请重新查询用户");
       }
 	});
 	
@@ -92,7 +92,7 @@ function insert_user(){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("用户创建出现异常，请检查后重试");
 	    }
 	});
 	return false;
@@ -121,7 +121,7 @@ function to_page(page, typeId){
         	}
         },
         error:function () {
-            alert("网络错误");
+            alert("用户列表拉取失败");
         }
     });
 };
@@ -240,7 +240,7 @@ $("#add-class-button-on-add").click(function (){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("班级创建失败");
+	        alert("班级创建出现异常，请重试");
 	    }
 	});
 });
@@ -257,7 +257,7 @@ $("#add-class-button-on-update").click(function(){
 	        getClasses();
 	    },
 	    error:function () {
-	        alert("班级创建失败");
+	        alert("班级创建出现异常，请重试");
 	    }
 	});
 });
@@ -315,7 +315,7 @@ $("#check-username-exist").click(function(){
 	    	}
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("用户对应信息拉取失败，请重新查询");
 	    }
 	});
 });
@@ -343,7 +343,7 @@ function updateUser(){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("更新用户出现异常");
 	    }
 	});
 	return false;
