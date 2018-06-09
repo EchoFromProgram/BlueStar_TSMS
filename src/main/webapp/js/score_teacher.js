@@ -152,7 +152,7 @@ function build_table(data) {
     		    '</div>'+
     		    '<div class="form-group" id="score-update-num-s-' + item.scoreId + '">'+
     		    '<label class="sr-only">分数</label>'+
-    		    '<input id="score-update-num-i-s-' + item.scoreId + '" class="form-control" required="" value="' + item.score + '"></input>'+
+    		    '<input min="0" type="number" id="score-update-num-i-s-' + item.scoreId + '" class="form-control" required="" value="' + item.score + '"></input>'+
     		    '<span class="help-block" id="update-score-help-num-s-1"></span>'+
     		    '</div>'+
     		    '</div>'+
@@ -348,7 +348,7 @@ function getUsers(classId){
 	        		item.name +
                 '</td>'+
                 '<td>'+
-                	'<input class="form-control td-score" placeholder="学生成绩分数" required="">'+
+                	'<input min="0" max="100" type="number" class="form-control td-score" placeholder="学生成绩分数" required="">'+
                 '</td>'+
                 '</tr>'
 	        	)
