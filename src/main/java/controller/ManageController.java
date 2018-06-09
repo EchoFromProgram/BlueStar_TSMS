@@ -22,6 +22,7 @@ import entity.Role;
 import entity.RolePower;
 import entity.User;
 import entity.UserClass;
+import enums.Statusable;
 import enums.impl.CreateAccountStatus;
 import service.AccountService;
 import service.RoleService;
@@ -129,6 +130,20 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(path = "create_role.do", produces = {"application/json;charset=UTF8"})
 	public Object createRole(String roleName, String[] roleIds) {
+		if(roleName.trim().length() < 1 || roleName.trim().length() > 12) {
+			return new AccountDto(new Statusable() {
+				
+				@Override
+				public String getInfo() {
+					return "角色名必须是1~12位的字母或中文";
+				}
+				
+				@Override
+				public int getCode() {
+					return -1;
+				}
+			});
+		}
 		Role role = new Role();
 		RolePower rolePower = new RolePower();
 		role.setRole(roleName);
