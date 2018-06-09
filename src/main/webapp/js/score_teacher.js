@@ -261,7 +261,7 @@ function updateScore(){
 		url:"update_score.do",
 		data:{
 			"scoreId":$(this).attr("update-prop"),
-			"socreNum":$("#score-update-num-i-s-" + $(this).attr("update-prop")).val()
+			"score":$("#score-update-num-i-s-" + $(this).attr("update-prop")).val()
 			},
 		dataType:"json",
 		type:"POST",

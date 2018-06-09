@@ -7,15 +7,19 @@ package entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+
 public class Score {
 	
-	public Score(Integer classId, Integer userId, Integer status, Date date, Integer score) {
+	public Score(Integer classId, Integer userId, Integer status, Date date, Integer scoreNum) {
 		super();
 		this.classId = classId;
 		this.userId = userId;
 		this.status = status;
 		this.date = date;
-		this.score = score;
+		this.score = scoreNum;
 	}
 
 	public Score() {
@@ -25,8 +29,6 @@ public class Score {
 	//成绩id
 	private Integer scoreId;
 	
-	
-
 	//班级id
 	private Integer classId;
 	
@@ -40,15 +42,23 @@ public class Score {
 	private Date date;
 	
 	//分数
+	@Min(value = 0, message = "成绩最少为0分")
+	@Max(value = 100, message = "成绩不能超过100分")
 	private Integer score;
 
-	
+	public Integer getScoreId() {
+		return scoreId;
+	}
+
+	public void setScoreId(Integer scoreId) {
+		this.scoreId = scoreId;
+	}
 
 	public Integer getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Integer classId) {
 		this.classId = classId;
 	}
 
@@ -60,7 +70,13 @@ public class Score {
 		this.userId = userId;
 	}
 
-	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public Date getDate() {
 		return date;
@@ -70,7 +86,7 @@ public class Score {
 		this.date = date;
 	}
 
-	public int getScore() {
+	public Integer getScore() {
 		return score;
 	}
 
@@ -78,29 +94,14 @@ public class Score {
 		this.score = score;
 	}
 
-	public Integer getScoreId() {
-		return scoreId;
-	}
-
-	public void setScoreId(Integer scoreId) {
-		this.scoreId = scoreId;
-	}
-
-	
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	@Override
 	public String toString() {
 		return "Score [scoreId=" + scoreId + ", classId=" + classId + ", userId=" + userId + ", status=" + status
 				+ ", date=" + date + ", score=" + score + "]";
 	}
+
+	
+
 
 	
 	

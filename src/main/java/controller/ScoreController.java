@@ -2,8 +2,10 @@ package controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +15,7 @@ import entity.Score;
 import enums.impl.Common;
 import service.ScoreService;
 import service.SignService;
+import utils.ValidateUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -175,10 +178,10 @@ public class ScoreController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "update_score.do", produces = {"application/json;charset=UTF8"})
-	public Object updateScore(Integer scoreId, Integer socreNum) {
-		Score score = new Score();
-		score.setScore(socreNum);
-		score.setScoreId(scoreId);
+	public Object updateScore(@Valid Score score, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return ValidateUtil.Validate(bindingResult);
+		}
 		AccountDto accountDto = scoreService.updateScore(score);
 		return accountDto;
 	}

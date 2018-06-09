@@ -116,7 +116,7 @@ public class AccountServiceImpl implements AccountService {
         boolean flag = true;//默认是管理员
         
         // 如果前台传了一个空对象过来，创建失败
-        if (user == null || user.getUserId() < 0 || user.getRoleId() < 0 || user.getTypeId() < 0 ) {
+        if (user == null ||  user.getRoleId() < 0 || user.getTypeId() < 0 ) {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
         

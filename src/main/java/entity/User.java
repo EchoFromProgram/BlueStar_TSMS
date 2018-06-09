@@ -15,13 +15,16 @@ public class User {
 	private Integer userId;
 	
 	//用户名
-	@Pattern(regexp = "(^[a-zA-Z0-9_-]{1,63}$)", message = "用户名必须是1~63位英文字母")
+	@Pattern(regexp = "(^[a-zA-Z0-9_-]{1,63}$)", message = "用户名必须是1~63位字母或数字")
 	private String userName;
 	
 	//密码
+	@Pattern(regexp = "(^[a-zA-Z0-9_-]{1,63}$)", message = "密码必须是1~63位字母或数字")
 	private String password;
 	
 	//姓名
+	@Pattern(regexp = "(^[a-zA-Z]{2,10}$)|(^[\\u2E80-\\u9FFF]{2,5})",
+   		 message = "姓名必须是2~10位字母或者2~5位中文")
 	private String name;
 	
 	//角色id

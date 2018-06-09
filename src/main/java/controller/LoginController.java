@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.AccountDto;
 import entity.User;
+import enums.Statusable;
 import enums.impl.Common;
 import service.AccountService;
 import service.InitService;
+import utils.ValidateUtil;
 
 @Controller
 public class LoginController {
@@ -41,17 +43,13 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
-	public Object loginCheck(@Valid User user, HttpSession session,BindingResult bindingResult)
+	public Object loginCheck(@Valid User user, BindingResult bindingResult, HttpSession session)
 	{	
-		System.out.println(user.getUserName());
+		
 		if(bindingResult.hasErrors()) {
-			Map<String, Object> map = new HashMap<>();
-			List<FieldError> errors = bindingResult.getFieldErrors();
-			for(FieldError fieldError: errors) {
-				map.put(fieldError.getField(), fieldError.getDefaultMessage());
-			}
-			return new AccountDto(map,Common.ERROR);
+			return ValidateUtil.Validate(bindingResult);
 		}
+			
 		
 		AccountDto accountDto = accountService.login(user);
 		if(accountDto.getCode() == 0)

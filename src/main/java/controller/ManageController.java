@@ -5,8 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +26,7 @@ import enums.impl.CreateAccountStatus;
 import service.AccountService;
 import service.RoleService;
 import utils.ListUtil;
+import utils.ValidateUtil;
 
 @Controller
 public class ManageController {
@@ -55,8 +58,12 @@ public class ManageController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "insert_user.do", produces = {"application/json;charset=UTF8"})
-	public Object insertUser(User user, String[] classArr) {
+	public Object insertUser(@Valid User user,BindingResult bindingResult, String[] classArr) {
+		if(bindingResult.hasErrors()) {
+			return ValidateUtil.Validate(bindingResult);
+		}
 		UserClass userClass = new UserClass();
+		
 		userClass.setClassIds(ListUtil.strings2integers(classArr));
 		AccountDto accountDto = accountService.createAccount(user, userClass);
 		return accountDto;
