@@ -7,30 +7,31 @@ package entity;
 public class Province {
 	
 	// 省份id
-	private Integer provinceId;
+	private Integer id;
 	
 	// 省份
-	private String province;
+	private String name;
 
-	public Integer getProvinceId() {
-		return provinceId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setProvinceId(Integer provinceId) {
-		this.provinceId = provinceId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getProvince() {
-		return province;
+	public String getName() {
+		return name;
 	}
 
-	public void setProvince(String province) {
-		this.province = province;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "Province [provinceId=" + provinceId + ", province=" + province + "]";
+		return "Province [id=" + id + ", name=" + name + "]";
 	}
-	
+
+
 }

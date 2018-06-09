@@ -160,7 +160,7 @@ public interface AccountDao
      * @param cityId
      * @return 学校集合
      */
-    public List<School> getSchoolsByCityId(Integer cityId);
+    public List<School> getSchoolsByCity(String city);
     
     
     /**

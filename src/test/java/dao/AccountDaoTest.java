@@ -126,11 +126,6 @@ public class AccountDaoTest {
 		System.out.println(list);
 	}
 	
-	@Test
-	public void testPro() {
-		List<School> list = accountDao.getSchoolsByCityId(1);
-		System.out.println(list);
-	}
 	
 	@Test
 	public void test1() {

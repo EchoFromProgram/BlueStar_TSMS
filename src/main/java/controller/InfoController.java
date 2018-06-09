@@ -88,4 +88,22 @@ public class InfoController {
 		AccountDto accountDto = accountService.updateCustomerInfoByInfoId(customer);
 		return accountDto;
 	}
+	
+	@ResponseBody
+	@RequestMapping(path = "get_provinces.do", produces = {"application/json;charset=UTF8"})
+	public Object getProvinces() {
+		return accountService.getAllProvinces().getData();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "get_citys.do", produces = {"application/json;charset=UTF8"})
+	public Object getCitys(Integer provinceId) {
+		return accountService.getCitysByProvinceId(provinceId).getData();
+	}
+
+	@ResponseBody
+	@RequestMapping(path = "get_schools.do", produces = {"application/json;charset=UTF8"})
+	public Object getSchools(String city) {
+		return accountService.getSchoolsByCity(city).getData();
+	}
 }

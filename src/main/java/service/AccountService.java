@@ -110,7 +110,7 @@ public interface AccountService
      * @param cityId 城市id
      * @return 学校集合
      */
-    public AccountDto getSchoolsByCityId(Integer cityId);
+    public AccountDto getSchoolsByCity(String city);
     
     /**
      * 新增一个班级

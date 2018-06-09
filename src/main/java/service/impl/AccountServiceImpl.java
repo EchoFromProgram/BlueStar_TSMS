@@ -379,7 +379,7 @@ public class AccountServiceImpl implements AccountService {
         if (provinces == null) {
             return new AccountDto<>(Common.GET_IS_NULL);
         }
-        return new AccountDto<>(Common.SUCCESS);
+        return new AccountDto<>(provinces,Common.SUCCESS);
     }
 
     /**
@@ -400,7 +400,7 @@ public class AccountServiceImpl implements AccountService {
         if (citys == null) {
             return new AccountDto<>(Common.GET_IS_NULL);
         }
-        return new AccountDto<>(Common.SUCCESS);
+        return new AccountDto<>(citys, Common.SUCCESS);
     }
 
     /**
@@ -410,17 +410,17 @@ public class AccountServiceImpl implements AccountService {
      * @return 返回城市集合
      */
     @Override
-    public AccountDto getSchoolsByCityId(Integer cityId) {
+    public AccountDto getSchoolsByCity(String city) {
         //获得参数为空异常
-        if (cityId == null) {
+        if (city == null) {
             return new AccountDto<>(Common.WRONG_ARGEMENT);
         }
-        List<School> schools = accountDao.getSchoolsByCityId(cityId);
+        List<School> schools = accountDao.getSchoolsByCity(city);
         //得到结果为空异常
         if (schools == null) {
             return new AccountDto<>(Common.GET_IS_NULL);
         }
-        return new AccountDto<>(Common.SUCCESS);
+        return new AccountDto<>(schools, Common.SUCCESS);
     }
 
     /**
