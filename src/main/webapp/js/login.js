@@ -50,7 +50,7 @@ function submitData() {
 	        	$("#submit").text("登录");
                 window.location.href="index.do";
             }
-            else if(-2 == data.code || -1 == data.code)
+            else
             {
             	$('#password-help').text(data.info);
 	            $('#username-div').addClass("has-error");
