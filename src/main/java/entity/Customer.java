@@ -25,12 +25,12 @@ public class Customer  {
 	
 	// qq
 	@Pattern(regexp = "(^[0-9]{6,12}$)",
-	   		 message = "QQ长度范围(6~12)")
+	   		 message = "输入的QQ格式不合法")
 	private String qq;
 	
 	// 电话号码
 	@Pattern(regexp = "(^[0-9]{7,11}$)",
-	   		 message = "电话的长度范围(7-11)")
+	   		 message = "输入的电话格式不合法")
 	private String telephone;
 	
 	// 邮箱

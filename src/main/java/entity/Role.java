@@ -2,6 +2,8 @@ package entity;
 
 import java.util.List;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * 角色类，对应role表
  * @author happyChicken
@@ -13,6 +15,8 @@ public class Role {
 	private Integer roleId;
 	
 	//角色
+	@Pattern(regexp = "(^[a-zA-Z0-9_-]{1,8}$)|(^[\\u2E80-\\u9FFF]{1,8})",
+   		 message = "角色名必须是1~8位的字母或中文")
 	private String role;
 	
 	
