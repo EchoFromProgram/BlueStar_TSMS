@@ -53,12 +53,15 @@ function submitData() {
             else if(-2 == data.code || -1 == data.code)
             {
             	$('#password-help').text(data.info);
+	            $('#username-div').addClass("has-error");
 	            $('#password-div').addClass("has-error");
 	            $("#submit").removeAttr("disabled");
 	        	$("#submit").text("登录");
             }
         },
         error:function () {
+        	$("#submit").removeAttr("disabled");
+        	$("#submit").text("登录");
             alert("登陆时发生异常");
         }
     });
