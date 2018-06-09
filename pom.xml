@@ -79,7 +79,6 @@
 			<version>6.0.9.Final</version>
 		</dependency>
 
-
 		<!-- mybatis -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
