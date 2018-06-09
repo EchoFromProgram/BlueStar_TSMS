@@ -2,6 +2,8 @@ package entity;
 
 import java.util.List;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * 用户类，对应user表
  * @author happyChicken
@@ -13,6 +15,7 @@ public class User {
 	private Integer userId;
 	
 	//用户名
+	@Pattern(regexp = "(^[a-zA-Z0-9_-]{1,63}$)", message = "用户名必须是1~63位英文字母")
 	private String userName;
 	
 	//密码

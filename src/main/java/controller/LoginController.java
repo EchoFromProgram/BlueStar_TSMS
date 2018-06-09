@@ -1,18 +1,24 @@
 package controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dto.AccountDto;
 import entity.User;
+import enums.impl.Common;
 import service.AccountService;
 import service.InitService;
 
@@ -35,8 +41,18 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "loginCheck.do", produces = {"application/json;charset=UTF8"})
-	public Object loginCheck(User user, HttpSession session)
-	{
+	public Object loginCheck(@Valid User user, HttpSession session,BindingResult bindingResult)
+	{	
+		System.out.println(user.getUserName());
+		if(bindingResult.hasErrors()) {
+			Map<String, Object> map = new HashMap<>();
+			List<FieldError> errors = bindingResult.getFieldErrors();
+			for(FieldError fieldError: errors) {
+				map.put(fieldError.getField(), fieldError.getDefaultMessage());
+			}
+			return new AccountDto(map,Common.ERROR);
+		}
+		
 		AccountDto accountDto = accountService.login(user);
 		if(accountDto.getCode() == 0)
 		{
