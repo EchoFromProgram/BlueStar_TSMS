@@ -23,7 +23,7 @@ function to_page(page){
         	}
         },
         error:function () {
-            alert("网络错误");
+            alert("拉取通知列表失败");
         }
     });
 };

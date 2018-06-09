@@ -16,7 +16,7 @@ $(function(){
 				});
 			},
 			error:function () {
-	            alert("网络错误");
+	            alert("课程信息拉取失败");
 	        }
 		});
 });
@@ -39,7 +39,7 @@ $(function(){
 	        });
 		},
 		error:function () {
-          alert("网络错误");
+          alert("班级信息拉取失败");
       }
 	});
 });
@@ -58,7 +58,7 @@ function getCourseByClass(classId){
 			}
 		},
 		error:function () {
-            alert("网络错误");
+            alert("请重新选择班级获取相应课程");
         }
 	});
 }
@@ -89,7 +89,7 @@ function to_page(page, classId, courseId){
             	}
         },
         error:function () {
-            alert("网络错误");
+            alert("问卷列表拉取失败");
         }
     });
 };
@@ -194,6 +194,7 @@ $(function(){
 	adminGetSign(1, 0, 0);
 })
 
+//查看详细问卷
 function getQuizDetail(){
 	$.ajax({
 	    url:"get_quiz_by_id.do",
@@ -216,7 +217,7 @@ function getQuizDetail(){
 
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("详细问卷内容拉取失败");
 	    }
 	});
 }

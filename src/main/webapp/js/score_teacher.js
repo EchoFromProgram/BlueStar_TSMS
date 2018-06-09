@@ -22,7 +22,7 @@ $(function(){
 		    getUsers($("#which-class-need").val());
 		},
 		error:function () {
-          alert("网络错误");
+          alert("班级信息拉取失败");
       }
 	});
 });
@@ -48,7 +48,7 @@ function to_page(page, classId, stage){
         	}
         },
         error:function () {
-            alert("网络错误");
+            alert("成绩列表拉取失败");
         }
     });
     
@@ -76,7 +76,7 @@ function to_page(page, classId, stage){
             }
         },
         error:function () {
-            alert("网络错误");
+            alert("成绩统计情况拉取失败");
         }
     });
 };
@@ -272,7 +272,7 @@ function updateScore(){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("成绩更新出现异常");
 	    }
 	});
 	return false;
@@ -290,11 +290,13 @@ function deleteScore(){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("成绩删除出现异常");
 	    }
 	});
 }
 
+
+//发布成绩
 function publicScore(){
 	var names = new Array();
 	$.each($(".td-name"), function(index, item){
@@ -322,12 +324,13 @@ function publicScore(){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("成绩发布出现异常");
 	    }
 	});
 	return false;
 }
 
+//通过classId获取这个班级的所有学生
 function getUsers(classId){
 		$.ajax({
 	    url:"get_users.do",
@@ -351,7 +354,7 @@ function getUsers(classId){
 	        });
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("班级的学生信息获取失败，请重试");
 	    }
 	});
 }

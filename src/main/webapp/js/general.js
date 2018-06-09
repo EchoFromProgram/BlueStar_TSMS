@@ -14,7 +14,7 @@ $(function(){
 	    	}
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        //alert("信息标签url设置失败");
 	    }
 	});
 });
@@ -77,12 +77,12 @@ $(function(){
 	     	    	 	});
 	     	       },
 	     	       error:function () {
-	     	           alert("网络错误");
+	     	           alert("导航栏生成失败");
 	     	       }
 	     	   });
 	       },
 	       error:function () {
-	           alert("网络错误");
+	           alert("导航栏生成失败");
 	       }
 	   });
 	});

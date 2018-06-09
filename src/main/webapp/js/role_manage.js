@@ -17,7 +17,7 @@ function createRole(){
 	        alert(data.info);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("创建角色出现异常");
 	    }
 	});
 	return false;
@@ -35,7 +35,7 @@ function to_page(){
             build_table(data.data);
         },
         error:function () {
-            alert("网络错误");
+            alert("角色列表拉取失败");
         }
     });
 };
@@ -69,7 +69,7 @@ $(function(){
 	getAllRole();
 });
 
-//点击创建角色，在页面添加选择框，并并且删除另一个页面的选择框
+//点击创建角色，在页面添加选择框，并且删除另一个页面的选择框
 $("#add-role").click(function (){
 	$("#select-box-add").empty();
 	$("#select-box-add").append('<div class="ue-container" style="margin-bottom: 15px">'+
@@ -102,7 +102,7 @@ $("#add-role").click(function (){
 	            });
 	        },
 	        error:function () {
-	            alert("网络错误");
+	            alert("选择框构建失败");
 	        }
 	    });
 
@@ -163,6 +163,7 @@ $("#delete-role-button").click(function(){
     });
 });
 
+//角色更新前的操作
 $("#update-rolename").mouseleave(function(){
 	var flag = 1;
 	var roleId;
@@ -230,7 +231,7 @@ $("#update-rolename").mouseleave(function(){
 			    });
 		    },
 		    error:function () {
-		        alert("网络错误");
+		        alert("指定更新者的资料拉取失败");
 		    }
 		});
 		

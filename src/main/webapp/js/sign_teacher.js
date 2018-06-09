@@ -8,7 +8,7 @@ $("#modal-pub").click(function(){
 				$("#sign-code-display").html(data);
 			},
 			error:function () {
-	            alert("网络错误");
+	            alert("签到码获取失败，请重试");
 	        }
 		});
 });
@@ -34,7 +34,7 @@ function to_page(page, classId, courseId){
             }
         },
         error:function () {
-            alert("网络错误");
+            alert("签到列表拉取失败");
         }
     });
     
@@ -62,7 +62,7 @@ function to_page(page, classId, courseId){
             }
         },
         error:function () {
-            alert("网络错误");
+            alert("签到统计情况拉取失败");
         }
     });
 };
@@ -180,7 +180,7 @@ $(function(){
 				});
 			},
 			error:function () {
-	            alert("网络错误");
+	            alert("课程信息拉取失败");
 	        }
 		});
 });
@@ -203,7 +203,7 @@ $(function(){
 	        });
 		},
 		error:function () {
-          alert("网络错误");
+          alert("班级信息拉取失败");
       }
 	});
 });
@@ -222,7 +222,7 @@ function getCourseByClass(classId){
 			}
 		},
 		error:function () {
-            alert("网络错误");
+            alert("请重新选择班级获取相应课程");
         }
 	});
 }
@@ -269,7 +269,7 @@ function teacherSign(){
 	    	}
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("签到时出现异常，请重试");
 	    }
 	});
 	return false;

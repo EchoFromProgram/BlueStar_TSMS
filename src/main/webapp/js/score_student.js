@@ -30,7 +30,7 @@ $(function(){
 		    })
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("成绩列表拉取失败");
 	    }
 	});
 });

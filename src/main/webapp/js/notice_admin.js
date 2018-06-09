@@ -23,7 +23,7 @@ function to_page(page){
         	}
         },
         error:function () {
-            alert("网络错误");
+            alert("拉取通知列表失败");
         }
     });
 };
@@ -184,7 +184,7 @@ function delete_notice(){
 	        window.location.reload();
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("删除通知出现异常");
 	    }
 	});
 }
@@ -203,7 +203,7 @@ function get_notice_by_detailId(){
 	        $("#" + contentId).val(data.data.content);
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("拉取通知信息失败");
 	    }
 	});
 }
@@ -222,7 +222,7 @@ function update_notice(){
 	        window.location.reload();
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("更新通知出现异常");
 	    }
 	});
 }
@@ -242,7 +242,7 @@ $(function(){
 		    });
 		},
 		error:function () {
-          alert("网络错误");
+          alert("班级信息拉取失败");
       }
 	});
 });
@@ -264,7 +264,7 @@ function addNotice(){
 	        window.location.reload();
 	    },
 	    error:function () {
-	        alert("网络错误");
+	        alert("添加通知出现异常");
 	    }
 	});
 }
