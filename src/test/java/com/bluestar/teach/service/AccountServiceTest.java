@@ -105,7 +105,7 @@ public class AccountServiceTest
 
     @Test
     public void testGetUser(){
-        AccountDto accountDto = accountService.getAccounts(1,null,"1");
+        AccountDto accountDto = accountService.getAccounts(1,null,"m");
         System.out.println(accountDto);
     }
 }
