@@ -1,7 +1,7 @@
 package util;
 
 import org.junit.Test;
-import utils.ListUtil;
+import com.bluestar.common.utils.ListUtil;
 
 /**
  * ListUtil 工具类测试类

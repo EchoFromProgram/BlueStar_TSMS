@@ -9,7 +9,7 @@
  		<setting name="useGeneratedKeys" value="true"/>
  		
  		<!-- 使用列别名替换列名，默认true
- 			 select name(table) as title(entity) from table
+ 			 select name(table) as title(com.bluestar.teach.entity) from table
  		 -->
  		<setting name="useColumnLabel" value="true"/>
  		
