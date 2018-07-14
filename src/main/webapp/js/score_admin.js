@@ -98,73 +98,73 @@ function build_table(data) {
 	        	stage = "第三阶段测试";
 	        }
     	$("#admin-get-score-table tbody").append('<tr> <td>'+
-    		    item.className +
-    		    '</td>'+
-    		    '<td>'+
-    		    item.name +
-    		    '</td>'+
-    		    '<td>'+
-    		    dateFormat(new Date(item.date)) +
-    		    '</td>'+
-    		    '<td>'+
-    		    stage +
-    		    '</td>'+
-    		    '<td>'+
-    		    item.score+
-    		    '</td>'+
-    		    '<td>'+
-    		    '<button id="modal-score-delete-sta-1" href="#modal-score-delete-s-' + item.scoreId + '" role="button" class="btn btn-danger pull-right" data-toggle="modal">'+
-    		    '删除'+
-    		    '</button>'+
-    		    '<div class="modal fade" id="modal-score-delete-s-' + item.scoreId + '" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-    		    '<div class="modal-dialog">'+
-    		    '<div class="modal-content">'+
-    		    '<div class="modal-header">'+
-    		    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-    		    '<h4 class="modal-title " id="myModalLabel-2">'+
-    		    '确定要删除这条成绩吗？'+
-    		    '</h4>'+
-    		    '</div>'+
-    		    '<div class="modal-footer">'+
-    		    '<button class="btn btn-danger delete-score-button" delete-prop="' + item.scoreId + '">删除</button>'+
-    		    '</div>'+
-    		    '</div>'+
-    		    '</div>'+
-    		    '</div>'+
-    		    '<button id="modal-score-update-sta-1" href="#modal-score-update-s-' + item.scoreId + '" pre-prop="'+ item.scoreId +'" role="button" class="btn btn-primary pull-right pre-update-button" data-toggle="modal">'+
-    		    '修改'+
-    		    '</button>'+
-    		    '<div class="modal fade" id="modal-score-update-s-' + item.scoreId + '" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-    		    '<div class="modal-dialog">'+
-    		    '<form class="form" onsubmit="return ">'+
-    		    '<div class="modal-content">'+
-    		    '<div class="modal-header">'+
-    		    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-    		    '<h4 class="modal-title " id="myModalLabel-update-score-1">'+
-    		    '修改这位学生的成绩信息'+
-    		    '</h4>'+
-    		    '</div>'+
-    		    '<div class="modal-body">'+
-    		    '<div class="form-group">'+
-    		    '<label class="sr-only">姓名</label>'+
-    		    '<input type="number" min="0" id="score-update-name-i-s-' + item.scoreId + '" class="form-control"  required=""></input>'+
-    		    '<span class="help-block" id="update-score-help-name-s-1"></span>'+
-    		    '</div>'+
-    		    '<div class="form-group" id="score-update-num-s-' + item.scoreId + '">'+
-    		    '<label class="sr-only">分数</label>'+
-    		    '<input type="number" min="0" id="score-update-num-i-s-' + item.scoreId + '" class="form-control" required=""></input>'+
-    		    '<span class="help-block" id="update-score-help-num-s-1"></span>'+
-    		    '</div>'+
-    		    '</div>'+
-    		    '<div class="modal-footer">'+
-    		    '<button class="btn btn-danger update-score-button" update-prop="'+ item.scoreId +'">修改</button>'+
-    		    '</div>'+
-    		    '</div>'+
-    		    '</form>'+
-    		    '</div>'+
-    		    '</div>'+
-    		    '</td>'+
-    		    '</tr>'
+            item.className +
+            '</td>'+
+            '<td>'+
+            item.name +
+            '</td>'+
+            '<td>'+
+            dateFormat(new Date(item.date)) +
+            '</td>'+
+            '<td>'+
+            stage +
+            '</td>'+
+            '<td>'+
+            item.score+
+            '</td>'+
+            '<td>'+
+            '<button id="modal-score-delete-sta-1" href="#modal-score-delete-s-' + item.scoreId + '" role="button" class="btn btn-danger pull-right" data-toggle="modal">'+
+            '删除'+
+            '</button>'+
+            '<div class="modal fade" id="modal-score-delete-s-' + item.scoreId + '" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+            '<div class="modal-dialog">'+
+            '<div class="modal-content">'+
+            '<div class="modal-header">'+
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+            '<h4 class="modal-title " id="myModalLabel-2">'+
+            '确定要删除这条成绩吗？'+
+            '</h4>'+
+            '</div>'+
+            '<div class="modal-footer">'+
+            '<button class="btn btn-danger delete-score-button" delete-prop="' + item.scoreId + '">删除</button>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '<button id="modal-score-update-sta-1" href="#modal-score-update-s-' + item.scoreId + '" pre-prop="'+ item.scoreId +'" role="button" class="btn btn-primary pull-right pre-update-button" data-toggle="modal">'+
+            '修改'+
+            '</button>'+
+            '<div class="modal fade" id="modal-score-update-s-' + item.scoreId + '" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+            '<div class="modal-dialog">'+
+            '<form class="form" onsubmit="return ">'+
+            '<div class="modal-content">'+
+            '<div class="modal-header">'+
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+            '<h4 class="modal-title ">'+
+            '修改这位学生的成绩信息'+
+            '</h4>'+
+            '</div>'+
+            '<div class="modal-body">'+
+            '<div class="form-group">'+
+            '<label class="sr-only">姓名</label>'+
+            '<div id="score-update-name-i-s-' + item.scoreId + '" class="placeholders">' + item.name + '</div>'+
+            '<span class="help-block" id="update-score-help-name-s-1"></span>'+
+            '</div>'+
+            '<div class="form-group" id="score-update-num-s-' + item.scoreId + '">'+
+            '<label class="sr-only">分数</label>'+
+            '<input min="0" type="number" id="score-update-num-i-s-' + item.scoreId + '" class="form-control" required="" value="' + item.score + '"></input>'+
+            '<span class="help-block" id="update-score-help-num-s-1"></span>'+
+            '</div>'+
+            '</div>'+
+            '<div class="modal-footer">'+
+            '<button class="btn btn-danger update-score-button" update-prop="'+ item.scoreId +'">修改</button>'+
+            '</div>'+
+            '</div>'+
+            '</form>'+
+            '</div>'+
+            '</div>'+
+            '</td>'+
+            '</tr>'
     		);
     })
     $(".delete-score-button").click(deleteScore);
