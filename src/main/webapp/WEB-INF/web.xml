@@ -46,26 +46,26 @@
     </listener>
 
     <!-- 配置登陆过滤器 -->
-    <!--<com.bluestar.common.filter>
-        <com.bluestar.common.filter-name>sessionFilter</com.bluestar.common.filter-name>
-        <com.bluestar.common.filter-class>com.bluestar.common.filter.SessionFilter</com.bluestar.common.filter-class>
+    <filter>
+        <filter-name>sessionFilter</filter-name>
+        <filter-class>com.bluestar.common.filter.SessionFilter</filter-class>
         <init-param>
-            &lt;!&ndash; 登陆 uri &ndash;&gt;
+            <!-- 登陆 uri -->
             <param-name>loginUri</param-name>
             <param-value>login.do</param-value>
         </init-param>
         <init-param>
-            <param-name>loginCheckUri</param-name>
-            <param-value>loginCheck.do</param-value>
+            <param-name>notFilterUrls</param-name>
+            <param-value>login.do;loginCheck.do</param-value>
         </init-param>
-    </com.bluestar.common.filter>
-    <com.bluestar.common.filter-mapping>
-        <com.bluestar.common.filter-name>sessionFilter</com.bluestar.common.filter-name>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionFilter</filter-name>
         <url-pattern>*.do</url-pattern>
-    </com.bluestar.common.filter-mapping>
-    <com.bluestar.common.filter-mapping>
-        <com.bluestar.common.filter-name>sessionFilter</com.bluestar.common.filter-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>sessionFilter</filter-name>
         <url-pattern>*.html</url-pattern>
-    </com.bluestar.common.filter-mapping>-->
+    </filter-mapping>
 
 </web-app>

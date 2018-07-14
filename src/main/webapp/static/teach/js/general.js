@@ -100,9 +100,24 @@ function dateFormat(date) {
 
 //注销功能
 $("#logout").click(function(){
-	$.cookie('userData', null);
+	/*$.cookie('userData', null);
 	$.cookie('infoId', null);
 	$.cookie('typeId', null);
-	$.cookie('name', null);
-    window.location.href="login.do";
+	$.cookie('name', null);*/
+	$.ajax({
+        url: "logout.do",
+        type: "GET",
+        success: function (resp) {
+            console.log(resp);
+            if (resp.code === 0) {
+                window.location.href = "login.do";
+                return;
+            }
+
+            alert("对不起，退出失败！");
+        },
+        error: function () {
+            alert("对不起，退出失败！");
+        }
+    });
 });

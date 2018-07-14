@@ -1,10 +1,13 @@
 package com.bluestar.common.filter;
 
+import com.bluestar.teach.constant.SessionKey;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * 用户会话相关过滤器
@@ -14,9 +17,9 @@ import java.io.IOException;
  */
 public class SessionFilter implements Filter
 {
-    private String loginUri = null; // 登陆界面 uri
+    private Set<String> notFilterUrls = new HashSet<>(Arrays.asList(new String[0])); // 不过滤容器
 
-    private String loginCheckUri = null;
+    private String loginUrl = null;
 
     public void destroy()
     {
@@ -29,16 +32,16 @@ public class SessionFilter implements Filter
 
         // 如果已经是登陆界面，就不用过滤了
         String currentUri = request.getRequestURL().substring(request.getRequestURL().lastIndexOf("/") + 1);
-        if ("".equals(currentUri) || currentUri.equals(loginUri) || currentUri.equals(loginCheckUri))
+        if ("".equals(currentUri) || notFilterUrls.contains(currentUri))
         {
             chain.doFilter(request, response);
         }
         else
         {
             HttpSession session = request.getSession(); // 取得会话
-            if (session.getAttribute("user") == null)
+            if (session.getAttribute(SessionKey.USER) == null)
             {
-                response.sendRedirect(request.getContextPath() + "/" + loginUri);
+                response.sendRedirect(request.getContextPath() + "/" + loginUrl);
                 return; // 阻止继续向下走了，没必要再过滤
             }
 
@@ -63,25 +66,22 @@ public class SessionFilter implements Filter
             }
             else
             {
-                response.sendRedirect(request.getContextPath() + "/" + loginUri);
+                response.sendRedirect(request.getContextPath() + "/" + loginUrl);
             }
         }
     }
 
     public void init(FilterConfig config) throws ServletException
     {
-        // 获得登陆界面 uri
-        loginUri = config.getInitParameter("loginUri");
-        if (loginUri == null || "".equals(loginUri))
-        {
-            loginUri = "login.do";
+        loginUrl = config.getInitParameter("loginUri");
+        if (loginUrl == null || "".equals(loginUrl.trim())) {
+            loginUrl = "login.do";
         }
 
-        // 获得登陆验证 uri
-        loginCheckUri = config.getInitParameter("loginCheckUri");
-        if (loginCheckUri == null || "".equals(loginCheckUri))
-        {
-            loginCheckUri = "loginCheck.do";
+        // 从配置文件中读取不过滤的 url
+        String urls = config.getInitParameter("notFilterUrls");
+        if (!(urls == null || "".equals(urls.trim()))) {
+            notFilterUrls.addAll(Arrays.asList(urls.split(";")));
         }
     }
 }
