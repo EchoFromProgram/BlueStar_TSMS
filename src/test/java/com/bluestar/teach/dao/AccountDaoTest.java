@@ -130,7 +130,7 @@ public class AccountDaoTest {
 	@Test
 	public void test1() {
 
-		List<Map<String,Object>> list = accountDao.getUsersByTypeIdAndName(1,null);
+		List<Map<String,Object>> list = accountDao.getUsersByTypeIdAndName(null,null);
 		System.out.println(list);
 	}
 	

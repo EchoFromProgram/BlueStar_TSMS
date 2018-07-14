@@ -106,7 +106,7 @@ public class ManageController {
 			accountDto = accountService.getAllAccounts(page);
 		}
 		else {
-			accountDto = accountService.getAccounts(page, typeId);
+		//	accountDto = accountService.getAccounts(page, typeId);
 		}
 		return accountDto;
 	}

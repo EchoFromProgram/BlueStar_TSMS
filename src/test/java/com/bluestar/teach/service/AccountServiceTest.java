@@ -8,6 +8,7 @@ import com.bluestar.teach.entity.UserClass;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -100,5 +101,11 @@ public class AccountServiceTest
     	Clazz clazz = new Clazz();
 		clazz.setClassName("3.班");
 		accountService.saveClass(clazz);
+    }
+
+    @Test
+    public void testGetUser(){
+        AccountDto accountDto = accountService.getAccounts(1,null,"1");
+        System.out.println(accountDto);
     }
 }
