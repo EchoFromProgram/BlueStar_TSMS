@@ -257,25 +257,25 @@ $(function(){
 
 //更新学生成绩
 function updateScore(){
-	$.ajax({
-		url:"update_score.do",
-		data:{
-			"scoreId":$(this).attr("update-prop"),
-			"socreNum":$("#score-update-num-i-s-" + $(this).attr("update-prop")).val()
-			},
-		dataType:"json",
-		type:"POST",
-		async:false,
-		traditional: true,
-		success: function(data){
-			window.location.reload();
-	        alert(data.info);
-	    },
-	    error:function () {
-	        alert("成绩更新出现异常");
-	    }
-	});
-	return false;
+    $.ajax({
+        url:"update_score.do",
+        data:{
+            "scoreId":$(this).attr("update-prop"),
+            "score":$("#score-update-num-i-s-" + $(this).attr("update-prop")).val()
+        },
+        dataType:"json",
+        type:"POST",
+        async:false,
+        traditional: true,
+        success: function(data){
+            window.location.reload();
+            alert(data.info);
+        },
+        error:function () {
+            alert("成绩更新出现异常");
+        }
+    });
+    return false;
 }
 
 //删除学生成绩
