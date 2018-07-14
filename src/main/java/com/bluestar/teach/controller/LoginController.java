@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.bluestar.teach.constant.SessionKey;
+import com.bluestar.teach.enums.impl.LoginStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +50,7 @@ public class LoginController {
 		if(accountDto.getCode() == 0)
 		{
 			
-			session.setAttribute("user", ((Map)accountDto.getData()).get("user"));
+			session.setAttribute(SessionKey.USER, ((Map)accountDto.getData()).get("user"));
 			session.setAttribute("hisPowers", ((Map)accountDto.getData()).get("hisPowers"));
 			session.setAttribute("hisClasses", ((Map)accountDto.getData()).get("hisClasses"));
 		}
@@ -66,12 +68,20 @@ public class LoginController {
 	public String login() {
 		return "teach/Login";
 	}
+
+    //退出登录
+    @RequestMapping(path = "logout.do", produces = {"application/json;charset=UTF8"})
+    @ResponseBody
+    public AccountDto logout(HttpSession session) {
+        session.removeAttribute(SessionKey.USER); // 清空 session
+	    return new AccountDto(LoginStatus.LOGOUT_SUCCESS);
+    }
 	
 	//session获取信息(现在通过直接在session传入controller，无需传到前台，此方法基本不会用到)
 	@ResponseBody
 	@RequestMapping(path = "getSessionUser.do", produces = {"application/json;charset=UTF8"})
 	public Object getSessionUser(HttpSession session) {
-		return session.getAttribute("user");
+		return session.getAttribute(SessionKey.USER);
 	}
 	
 	//session获取权限(现在通过直接在session传入controller，无需传到前台，此方法基本不会用到)

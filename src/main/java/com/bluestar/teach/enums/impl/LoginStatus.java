@@ -12,7 +12,8 @@ public enum LoginStatus implements Statusable
     SUCCESS(0, "登陆成功！"),
     WRONG_USERNAME(-1, "用户名或密码错误！"),
     WRONG_PASSWORD(-2, "用户名或密码错误！"),
-    NEED_LOGIN(-3, "您还没有登陆！");
+    NEED_LOGIN(-3, "您还没有登陆！"),
+    LOGOUT_SUCCESS(0, "成功退出登录！");
 
     // 登陆状态码
     private int code;
