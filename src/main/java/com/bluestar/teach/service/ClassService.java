@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
  * @author Fish
  * created by 2018-05-09
  */
-@Service
 public interface ClassService
 {
     /**

@@ -13,6 +13,7 @@ import com.bluestar.teach.entity.RolePower;
 import com.bluestar.teach.enums.impl.Common;
 import com.bluestar.teach.service.RoleService;
 
+@Service
 public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleDao roleDao;

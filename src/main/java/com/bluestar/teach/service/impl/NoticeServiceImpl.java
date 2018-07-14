@@ -23,6 +23,7 @@ import java.util.List;
  * @author Fish
  * created by 2018-05-07
  */
+@Service
 public class NoticeServiceImpl implements NoticeService
 {
     private NoticeDao noticeDao = null;

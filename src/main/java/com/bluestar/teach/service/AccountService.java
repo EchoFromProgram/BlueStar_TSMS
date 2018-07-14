@@ -17,7 +17,6 @@ import java.util.List;
  *
  * @author Fish
  */
-@Service
 public interface AccountService
 {
     /**

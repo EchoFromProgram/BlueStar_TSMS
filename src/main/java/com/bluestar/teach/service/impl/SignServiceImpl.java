@@ -26,6 +26,7 @@ import java.util.*;
  *
  * @author Fish
  */
+@Service
 public class SignServiceImpl implements SignService {
     // 签到持久层对象
     private SignDao signDao = null;
@@ -174,7 +175,6 @@ public class SignServiceImpl implements SignService {
      *                如果用户没有班级，那就传入一个 null 即可
      * @param reason  * 签到原因，（选填）
      *                如果是迟到或者旷课就必须填写
-     * @return
      */
     public AccountDto sign(User user, Integer classId, String reason) {
         return sign(user, 0, 0, classId, reason);

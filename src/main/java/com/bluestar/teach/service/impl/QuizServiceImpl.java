@@ -28,6 +28,7 @@ import java.util.Map;
  * @author Fish
  * created by 2018-05-15 15:10
  */
+@Service
 /*
  * @Transactional中的的属性 propagation :事务的传播行为 isolation :事务的隔离级别 readOnly :只读
  *                     rollbackFor :发生哪些异常回滚 noRollbackFor :发生哪些异常不回滚

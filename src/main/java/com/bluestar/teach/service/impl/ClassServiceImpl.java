@@ -15,6 +15,7 @@ import com.bluestar.teach.service.ClassService;
  * @author Fish
  * created by 2018-05-09
  */
+@Service
 public class ClassServiceImpl implements ClassService {
     private AccountDao accountDao = null;
 

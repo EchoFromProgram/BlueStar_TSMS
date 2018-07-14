@@ -25,6 +25,7 @@ import java.util.*;
  *
  * @author Fish
  */
+@Service
 public class AccountServiceImpl implements AccountService {
     // 账号持久层对象
     private AccountDao accountDao = null;

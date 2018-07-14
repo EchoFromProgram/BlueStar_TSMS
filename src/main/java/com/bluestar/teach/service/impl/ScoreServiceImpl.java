@@ -21,6 +21,7 @@ import java.util.List;
  * @author Fish
  * created by 2018-05-10
  */
+@Service
 public class ScoreServiceImpl implements ScoreService {
     private ScoreDao scoreDao = null;
 
