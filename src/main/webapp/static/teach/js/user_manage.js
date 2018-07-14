@@ -100,12 +100,12 @@ function insert_user(){
 
 
 
-function to_page(page, typeId){
+function to_page(page, typeId, name){
     $.ajax({
         type: "POST",
         url: "get_all_accounts.do",
         dataType: "json",
-        data:{"page":page, "typeId":typeId},
+        data:{"page":page, "typeId":typeId, "name":name},
         success: function(data){
         	if(data.code == 0){
             //显示table
@@ -185,11 +185,11 @@ function buile_page_nav(data) {
     }else{
         //跳转到末页
         lastPageLi.click(function () {
-            to_page(data.pages, $("#which-stage").val());
+            to_page(data.pages, $("#which-stage").val(), $("#which-input").val());
         })
         //下一页
         nextPageLi.click(function () {
-            to_page(data.pageNum + 1, $("#which-stage").val());
+            to_page(data.pageNum + 1, $("#which-stage").val(), $("#which-input").val());
         })
     }
 
@@ -203,7 +203,7 @@ function buile_page_nav(data) {
             numLi.addClass("active")
         }
         numLi.click(function() {
-            to_page(item, $("#which-stage").val());
+            to_page(item, $("#which-stage").val(), $("#which-input").val());
         });
         ul.append(numLi);
     })
@@ -216,17 +216,17 @@ function buile_page_nav(data) {
 
 
 //显示签到信息的总函数
-function getAllUser(page, typeId){
-	to_page(page, typeId);
+function getAllUser(page, typeId, name){
+	to_page(page, typeId, name);
 };
 
 //点击查询按钮获取相应的签到信息
 $("#submit-which-stage").click(function(){
-	getAllUser(1,  $("#which-stage").val());
+	getAllUser(1,  $("#which-stage").val(), $("#which-input").val());
 });
 
 $(function(){
-	getAllUser(1, -1);
+	getAllUser(1, -1, null);
 });
 
 //创建班级

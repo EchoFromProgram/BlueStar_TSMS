@@ -241,7 +241,6 @@ public class AccountServiceImpl implements AccountService {
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
-
         // pageHelper 中每进行一次分页就要执行一次这个方法
         PageUtil.toPage(pageNumber);
 

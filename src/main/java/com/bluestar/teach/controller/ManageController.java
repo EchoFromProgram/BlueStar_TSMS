@@ -99,15 +99,26 @@ public class ManageController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "get_all_accounts.do", produces = {"application/json;charset=UTF8"})
-	public Object getAllAccounts(Integer page, Integer typeId) {
+	public Object getAllAccounts(Integer page, Integer typeId, String name) {
 		AccountDto accountDto = null;
-		System.out.println(typeId);
-		if (typeId == -1) {
-			accountDto = accountService.getAllAccounts(page);
-		}
-		else {
-		//	accountDto = accountService.getAccounts(page, typeId);
-		}
+//		System.out.println(typeId);
+//		System.out.println(name + "123");
+        if(name.equals("")){
+            name = null;
+        }
+		if (typeId == -1 && name == null) {
+            System.out.println("1--------------------------------------");
+			accountDto = accountService.getAccounts(page, null, null);
+		} else if(typeId == -1 && name != null){
+            System.out.println("2--------------------------------------");
+			accountDto = accountService.getAccounts(page, null, name);
+		} else if(typeId != -1 && name == null){
+            System.out.println("3--------------------------------------");
+            accountDto = accountService.getAccounts(page, typeId, null);
+        } else {
+            System.out.println("4--------------------------------------");
+            accountDto = accountService.getAccounts(page, typeId, name);
+        }
 		return accountDto;
 	}
 	

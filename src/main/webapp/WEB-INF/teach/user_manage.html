@@ -107,14 +107,25 @@
                         <div class="tab-pane active" id="panel-user-1">
                             <h2 class="sub-header">用户详细</h2>
                             <div class="row">
-                                <label for="which-stage" class="sr-only">类型</label>
-                                <select class="form-control" id="which-stage">
-                                	<option value ="-1">全部</option>
-                                    <option value ="1">客户</option>
-                                    <option value ="0">员工</option>
-                                </select>
-                                <div class="line"></div>
-                                <button class="btn btn-primary pull-right" id="submit-which-stage">查询</button>
+                                <div class="col-sm-4">
+                                    <label for="which-input" class="">名字</label>
+                                    <input type="text" class="form-control" placeholder="请输入用户名或姓名" id="which-input">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="which-stage" class="">类型</label>
+                                    <select class="form-control" id="which-stage" style="width:100%">
+                                        <option value ="-1">全部</option>
+                                        <option value ="1">客户</option>
+                                        <option value ="0">员工</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <br/>
+                                    <button class="btn btn-primary text-center center-block " id="submit-which-stage">查询</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <br>
                             </div>
                             <!-- 表格 -->
 				            <div class="table-responsive">
