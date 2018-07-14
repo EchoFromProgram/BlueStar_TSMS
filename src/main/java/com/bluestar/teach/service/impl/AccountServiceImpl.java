@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bluestar.teach.service.AccountService;
 import com.bluestar.common.utils.PageUtil;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -235,15 +236,16 @@ public class AccountServiceImpl implements AccountService {
      * @param typeId     用户类型
      * @return 返回用户信息
      */
-    public AccountDto getAccounts(Integer pageNumber, Integer typeId) {
-        if (pageNumber == null || typeId == null) // 如果参数为空，则返回参数错误
+    public AccountDto getAccounts(Integer pageNumber, Integer typeId, String name) {
+        if (pageNumber == null ) // 如果参数为空，则返回参数错误
         {
             return new AccountDto(Common.WRONG_ARGEMENT);
         }
 
         // pageHelper 中每进行一次分页就要执行一次这个方法
         PageUtil.toPage(pageNumber);
-        List<Map<String, Object>> users = accountDao.getUsersByTypeId(typeId);
+        List<Map<String, Object>> users = accountDao.getUsersByTypeIdAndName(typeId,name);
+
         if (users == null || users.size() == 0) // 如果为空，说明没有获取到数据，有可能是系统错误
         {
             return new AccountDto(Common.GET_IS_NULL);
@@ -399,7 +401,7 @@ public class AccountServiceImpl implements AccountService {
     /**
      * 根据城市id得到所有学校
      *
-     * @param cityId 城市id
+     * @param city 城市id
      * @return 返回城市集合
      */
     @Override

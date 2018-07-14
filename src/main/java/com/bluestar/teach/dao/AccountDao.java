@@ -17,6 +17,7 @@ import com.bluestar.teach.entity.Staff;
 import com.bluestar.teach.entity.User;
 import com.bluestar.teach.entity.UserClass;
 import com.bluestar.teach.entity.UserData;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 该方法用于管理用户
@@ -134,13 +135,16 @@ public interface AccountDao
      * @return 用户集合
      */
     public List<User> getAllUsers();
-    
-    /**
-     * 通过用户类型获得用户
-     * @param typeId 用户类型id
-     * @return 用户集合
-     */
-    public List<Map<String, Object>> getUsersByTypeId(Integer typeId);
+
+ /**
+  * 根据类型、名字查询用户
+  *
+  * @param typeId 类型id
+  * @param name 姓名
+  * @return 用户列表
+  */
+ public List<Map<String, Object>> getUsersByTypeIdAndName(@Param("typeId") Integer typeId,
+                                                             @Param("name") String name);
     
     /**
      * 得到所有的省份

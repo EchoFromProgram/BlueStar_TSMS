@@ -61,7 +61,7 @@ public interface AccountService
      * @param typeId     用户类型
      * @return 返回用户信息 
      */
-    public AccountDto getAccounts(Integer pageNumber, Integer typeId);
+    public AccountDto getAccounts(Integer pageNumber, Integer typeId, String name);
     
     /**
      * 根据信息id查询客户的信息

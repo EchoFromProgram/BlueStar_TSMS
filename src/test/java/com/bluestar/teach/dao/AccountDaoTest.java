@@ -130,8 +130,8 @@ public class AccountDaoTest {
 	@Test
 	public void test1() {
 
-		User user = accountDao.getTypeIdAndRoleId("macky");
-		System.out.println(user);
+		List<Map<String,Object>> list = accountDao.getUsersByTypeIdAndName(1,null);
+		System.out.println(list);
 	}
 	
 	
