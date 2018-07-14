@@ -77,12 +77,12 @@ $(function(){
 	     	    	 	});
 	     	       },
 	     	       error:function () {
-	     	           alert("导航栏生成失败");
+	     	           alert("您还未登陆或是Session失效，请重新登陆");
 	     	       }
 	     	   });
 	       },
 	       error:function () {
-	           alert("导航栏生成失败");
+	           alert("您还未登陆或是Session失效，请重新登陆");
 	       }
 	   });
 	});
