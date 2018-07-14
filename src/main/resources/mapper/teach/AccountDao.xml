@@ -54,7 +54,7 @@
 		FROM user u, role r
 		<where>
 			<if test="typeId != null">u.type_id = #{typeId}</if>
-			<if test="name != null"> u.name like %${name}% or u.username like %${name%}%</if>
+			<if test="name != null"> u.name like %${name}% or u.username like %${name}%</if>
 			AND r.role_id = u.role_id
 		</where>
 	</select>
