@@ -2,6 +2,7 @@
 //点击创建来创建角色
 $("#submit-create-role").click(createRole);
 function createRole(){
+    $('#submit-create-role').attr("disabled", true);
 	var selectArr = new Array();
 	$("#bootstrap-duallistbox-selected-list_doublebox option").each(function () {
 		var item = $(this).val();
@@ -15,9 +16,11 @@ function createRole(){
 	    data:{"roleName":$("#insert-rolename").val(), "roleIds":selectArr},
 	    success: function(data){
 	        alert(data.info);
+            $('#submit-create-role').removeAttr("disabled");
 	    },
 	    error:function () {
 	        alert("创建角色出现异常");
+            $('#submit-create-role').removeAttr("disabled");
 	    }
 	});
 	return false;
@@ -82,7 +85,6 @@ function goDelete(){
     var btns = $('.delete-role-btn');
     btns.bind('click', function () {
         $('#delete-role-input').val($(this).attr('name'));
-        $('#modal-role-delete-a').trigger('click');
     });
 }
 
@@ -269,6 +271,7 @@ function checkRole(){
 //点击修改角色
 $("#submit-update-role").click(updateRole);
 function updateRole(){
+    $("#submit-update-role").attr("disabled", true);
 	var selectArr = new Array();
 	$("#bootstrap-duallistbox-selected-list_doublebox option").each(function () {
 		var item = $(this).val();
@@ -283,9 +286,11 @@ function updateRole(){
 	    success: function(data){
 	    	window.location.reload();
 	        alert(data.info);
+            $("#submit-update-role").removeAttr("disabled");
 	    },
 	    error:function () {
 	        alert("角色修改发生错误，请检查后重试");
+            $("#submit-update-role").removeAttr("disabled");
 	    }
 	});
 	return false;

@@ -233,6 +233,7 @@ $("#delete-question-num").click(function () {
 //发布问卷
 //填写问卷的提交
 function publictQuiz(){
+    $('.btn-primary').attr("disabled", true);
 	var questions = new Array();
 	$.each($(".question-submit"), function(index, item){
 		questions.push($(item).val());
@@ -248,9 +249,11 @@ function publictQuiz(){
 	    traditional: true,
 	    success: function(data){
 	        alert(data.info);
+            $('.btn-primary').removeAttr("disabled");
 	    },
 	    error:function () {
 	        alert("问卷问题提交出现异常，请重试");
+            $('.btn-primary').removeAttr("disabled");
 	    }
 	});
 	return false;

@@ -174,16 +174,19 @@ function buile_page_nav(data) {
 
 //删除通知
 function delete_notice(){
+	$('.delete-table-button').attr("disabled", true);
 	$.ajax({
 	    url:"delete_notice.do",
 	    type:"POST",
 	    dataType:"json",
 	    data:{"noticeId":$(this).attr("delete-prop")},
 	    success: function(data){
+            $('.delete-table-button').removeAttr("disabled");
 	        alert(data.info);
 	        window.location.reload();
 	    },
 	    error:function () {
+            $('.delete-table-button').removeAttr("disabled");
 	        alert("删除通知出现异常");
 	    }
 	});
@@ -249,6 +252,9 @@ $(function(){
 
 //添加一条通知
 function addNotice(){
+    $('#submit-change').attr("disabled", true);
+    console.log("ing");
+    $('#submit-change').text("正在发布...");
 	$.ajax({
 	    url:"add_notice.do",
 	    type:"POST",
@@ -260,10 +266,15 @@ function addNotice(){
 	    	"content":$("#notcie-detail-input").val()
 	    	},
 	    success: function(data){
-	        alert(data.info);
+            alert(data.info);
+            $('#submit-change').removeAttr("disabled");
+            $('#submit-change').text("发布");
+            console.log("already");
 	        window.location.reload();
 	    },
 	    error:function () {
+            $('#submit-change').removeAttr("disabled");
+            $('#submit-change').text("发布");
 	        alert("添加通知出现异常");
 	    }
 	});
