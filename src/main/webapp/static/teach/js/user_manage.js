@@ -28,12 +28,7 @@ $(function(){
     getClasses();
 });
 
-//添加用户
-function addUser(){
-    $('#submit-add').click(function () {
 
-    });
-}
 
 function getClasses(){
 	$.ajax({
