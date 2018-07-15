@@ -87,20 +87,6 @@
                                 <span class="text-muted">显示当前系统所有用户信息</span>
                             </a>
                         </div>
-                        <!-- 标签2 -->
-                        <div>
-                            <a href="#panel-user-2" data-toggle="tab" class="col-xs-4 col-sm-4 placeholders" id="update-user" style='text-decoration:none;'>
-                                <h4>修改用户信息</h4>
-                                <span class="text-muted">可修改那些重要信息</span>
-                            </a>
-                        </div>
-                        <!-- 标签3 -->
-                        <div>
-                            <a href="#panel-user-3" data-toggle="tab" class="col-xs-4 col-sm-4 placeholders" id="add-user" style='text-decoration:none;'>
-                                <h4>新增用户</h4>
-                                <span class="text-muted">为其一些必要信息</span>
-                            </a>
-                        </div>
                     </div>
                     <!-- 标签1对应的模块 -->
                     <div class="tab-content">
@@ -121,11 +107,14 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <br/>
-                                    <button class="btn btn-primary text-center center-block " id="submit-which-stage">查询</button>
+                                    <button class="btn btn-primary text-center" id="submit-which-stage">查询</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <br>
+                                <div class="col-sm-3">
+                                    <button href="#panel-user-3" data-toggle="tab" class="btn btn-warning " id="submit-add">添加</button>
+                                </div>
                             </div>
                             <!-- 表格 -->
 				            <div class="table-responsive">
@@ -134,9 +123,9 @@
 				                    <tr>
 				                        <th>姓名</th>
 				                        <th>用户名</th>
-				                        <th>密码</th>
 				                        <th>角色</th>
 				                        <th>类型</th>
+                                        <th>操作</th>
 				                    </tr>
 				                    </thead>
 				                    <tbody>

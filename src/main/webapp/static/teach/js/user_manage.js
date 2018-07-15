@@ -28,6 +28,13 @@ $(function(){
     getClasses();
 });
 
+//添加用户
+function addUser(){
+    $('#submit-add').click(function () {
+
+    });
+}
+
 function getClasses(){
 	$.ajax({
 		url:"getSessionHisClasses.do",
@@ -136,13 +143,28 @@ function build_table(data) {
         //创建td并朝里面追加内容
         var name = $("<td></td>").append(item.name);
         var username = $("<td></td>").append(item.username);
-        var password = $("<td></td>").append(item.password);
         var role = $("<td></td>").append(item.role)
         var type = $("<td></td>").append(Number(item.type_id)==0?"员工":"客户");
+        var oprea = $("<td></td>").append(
+            '<button id="modal-user-update-sta-1" href="#panel-user-2" pre-prop="'+ item.user_id +'" name="'+ item.username +'" role="button" class="btn btn-primary pull-right pre-update-button" data-toggle="tab">'+
+            '修改'+
+            '</button>'
+        );
         //向一个tr中添加所有的td
-        $("<tr></tr>").append(name).append(username).append(password)
-            .append(role).append(type).appendTo("#user-table tbody");
+        $("<tr></tr>").append(name).append(username).append(role).append(type).append(oprea).appendTo("#user-table tbody");
     })
+    goUpdate();
+}
+
+//为按钮设置转跳
+function goUpdate() {
+    var btns = $('.pre-update-button');
+    $.each(btns, function (index, item) {
+       $(this).bind('click', function () {
+          $('#update-username').val($(this).attr('name'));
+          $('#check-username-exist').trigger('click');
+       });
+    });
 }
 
 //解析显示分页文字
@@ -304,7 +326,9 @@ $("#check-username-exist").click(function(){
 	    		//如果是管理员，隐藏班级选择
 	    		if($("#update-role-select").val() == 3) {
 	    				$("#update-class-box").hide();
-	    		}
+	    		} else {
+                    $("#update-class-box").show();
+                }
 	    		
 	    	}else{
 	    		$("#update-user-display-box").hide();
