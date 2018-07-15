@@ -1,5 +1,6 @@
 package com.bluestar.teach.service.impl;
 
+import com.bluestar.common.utils.CodeUtil;
 import com.bluestar.teach.constant.Role;
 import com.bluestar.teach.constant.Type;
 import com.bluestar.teach.dao.AccountDao;
@@ -59,7 +60,7 @@ public class AccountServiceImpl implements AccountService {
         }
 
         // 判断前台登陆用户输入的密码和后台数据的密码是否一致
-        if (!u.get("password").equals(user.getPassword())) {
+        if (!u.get("password").equals(CodeUtil.getMD5(user.getPassword()))) {
             return new AccountDto(LoginStatus.WRONG_PASSWORD);
         }
 
@@ -141,6 +142,10 @@ public class AccountServiceImpl implements AccountService {
             return new AccountDto(CreateAccountStatus.USERNAME_EXISTED);
         }
 
+        // 将密码进行 MD5 加密
+        user.setPassword(CodeUtil.getMD5(user.getPassword()));
+
+        // 判断是什么员工
         switch (user.getTypeId()) {
             case Type.INNER_STAFF:
                 // 内部员工
