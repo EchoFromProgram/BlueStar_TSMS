@@ -39,7 +39,7 @@
 
     <!-- int saveDepartment(Department department); -->
     <insert id="saveDepartment">
-        INSERT INTO t_dept(<include refid="t_dept_columns"/>)
+        INSERT ignore INTO t_dept(<include refid="t_dept_columns"/>)
         VALUES(#{deptId}, #{deptCode}, #{deptName}, #{deptPCode}, #{deptLevel}, #{deptOrder}, #{deptStatus},
         #{deptRemark})
     </insert>
