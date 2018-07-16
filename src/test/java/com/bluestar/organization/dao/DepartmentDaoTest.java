@@ -46,4 +46,10 @@ public class DepartmentDaoTest {
         String deptCode = "RA9-002-003";
         System.out.println(departmentDao.listDepartmentByDeptCode(deptCode, false));
     }
+
+    @Test
+    public void testListDepartmentByDeptLevel() {
+        String deptLevel = "2";
+        System.out.println(departmentDao.listDepartmentByDeptLevel(deptLevel, false));
+    }
 }

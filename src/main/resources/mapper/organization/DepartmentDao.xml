@@ -20,7 +20,7 @@
                 AND `dept_status` != '2'
             </if>
         </where>
-        ORDER By `dept_order`
+        ORDER By `dept_order` ASC
     </select>
 
     <!-- List<Department> listDepartmentByDeptLevel(String deptLevel); -->
@@ -34,7 +34,7 @@
                 AND `dept_status` != '2'
             </if>
         </where>
-        ORDER BY `dept_order`
+        ORDER BY `dept_order` ASC
     </select>
 
     <!-- int saveDepartment(Department department); -->
