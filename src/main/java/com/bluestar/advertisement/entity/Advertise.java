@@ -27,6 +27,8 @@ public class Advertise {
 
     private String adLinkUrl;
 
+    public Advertise() { }
+
     public String getAdId() {
         return adId;
     }
