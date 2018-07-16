@@ -28,7 +28,7 @@ public class Department {
     private String deptCode = null;
     private String deptName = null;
     private String deptPCode = null;
-    private String deptLevel = null;
+    private String deptLevel = null; // 级别，从 1 开始，且 1 是最高层级
     private String deptOrder = null;
     private String deptStatus = null; // 状态:1正常，2无效
     private String deptRemark = null;

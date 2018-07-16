@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bluestar.organization.dao.DepartmentDao">
+
+    <sql id="t_dept_columns">
+        `dept_id`, `dept_code`, `dept_name`, `dept_p_code`, `dept_level`, `dept_order`, `dept_status`, `dept_remark`
+    </sql>
+
+    <!-- List<Department> listDepartmentByDeptCode(String deptCode); -->
+    <!-- 状态为 2 的时候是无效，所以查找的时候就不找无效的了 -->
+    <select id="listDepartmentByDeptCode" resultType="com.bluestar.organization.entity.Department">
+        SELECT
+        <include refid="t_dept_columns"/>
+        FROM t_dept
+        WHERE `dept_p_code` = #{deptCode} AND `dept_status` != '2'
+        ORDER By `dept_order`
+    </select>
+
+</mapper>
