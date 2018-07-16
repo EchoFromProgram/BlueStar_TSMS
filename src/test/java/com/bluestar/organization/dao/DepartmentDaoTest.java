@@ -1,7 +1,7 @@
 package com.bluestar.organization.dao;
 
+import com.bluestar.common.utils.CodeUtil;
 import com.bluestar.organization.common.DepartmentConst;
-import com.bluestar.organization.common.util.CodeUtils;
 import com.bluestar.organization.entity.Department;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class DepartmentDaoTest {
     @Test
     public void testSaveDepartment() {
         Department department = new Department();
-        department.setDeptId(CodeUtils.getId());
+        department.setDeptId(CodeUtil.getId());
         department.setDeptCode("RA9-002-003-001");
         department.setDeptName("深圳开发部维护小组服务器维护办公室");
         department.setDeptPCode("RA9-002-003");
