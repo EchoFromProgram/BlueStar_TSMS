@@ -1,6 +1,7 @@
 package com.bluestar.organization.dao;
 
 import com.bluestar.organization.entity.Department;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface DepartmentDao {
      * @param all 是否要查询出无效的
      * @return 返回这个部门下一级的信息
      */
-    List<Department> listDepartmentByDeptCode(String deptCode, boolean all);
+    List<Department> listDepartmentByDeptCode(@Param("deptCode") String deptCode, @Param("all") boolean all);
 
     /**
      * 通过 deptLevel 获得相同等级的组织信息
@@ -29,7 +30,7 @@ public interface DepartmentDao {
      * @param all 是否要查询出无效
      * @return 返回和 deptLevel 相同级别的组织信息
      */
-    List<Department> listDepartmentByDeptLevel(String deptLevel, boolean all);
+    List<Department> listDepartmentByDeptLevel(@Param("deptLevel") String deptLevel, @Param("all") boolean all);
 
     /**
      * 保存一个新的组织部门信息

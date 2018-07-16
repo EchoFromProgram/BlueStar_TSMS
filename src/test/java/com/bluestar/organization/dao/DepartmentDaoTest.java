@@ -31,7 +31,7 @@ public class DepartmentDaoTest {
         department.setDeptId(CodeUtils.getId());
         department.setDeptCode("RA9-002-003-001");
         department.setDeptName("深圳开发部维护小组服务器维护办公室");
-        department.setDeptPCode("36097856-9a4d-41ae-9722-2b1be9bf96df");
+        department.setDeptPCode("RA9-002-003");
         department.setDeptLevel("3");
         department.setDeptOrder(1);
         department.setDeptStatus(DepartmentConst.DEPT_STATUS_NORMAL);
@@ -39,5 +39,11 @@ public class DepartmentDaoTest {
 
         int affect = departmentDao.saveDepartment(department);
         System.out.println(affect);
+    }
+
+    @Test
+    public void testListDepartmentByDeptCode() {
+        String deptCode = "RA9-002-003";
+        System.out.println(departmentDao.listDepartmentByDeptCode(deptCode, false));
     }
 }
