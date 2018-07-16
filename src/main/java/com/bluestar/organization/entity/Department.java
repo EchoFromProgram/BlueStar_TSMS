@@ -29,11 +29,12 @@ public class Department {
     private String deptName = null;
     private String deptPCode = null;
     private String deptLevel = null; // 级别，从 1 开始，且 1 是最高层级
-    private String deptOrder = null;
+    private Integer deptOrder = null;
     private String deptStatus = null; // 状态:1正常，2无效
     private String deptRemark = null;
 
-    public Department() {}
+    public Department() {
+    }
 
     public String getDeptId() {
         return deptId;
@@ -75,11 +76,11 @@ public class Department {
         this.deptLevel = deptLevel;
     }
 
-    public String getDeptOrder() {
+    public Integer getDeptOrder() {
         return deptOrder;
     }
 
-    public void setDeptOrder(String deptOrder) {
+    public void setDeptOrder(Integer deptOrder) {
         this.deptOrder = deptOrder;
     }
 
@@ -107,7 +108,7 @@ public class Department {
                 ", deptName='" + deptName + '\'' +
                 ", deptPCode='" + deptPCode + '\'' +
                 ", deptLevel='" + deptLevel + '\'' +
-                ", deptOrder='" + deptOrder + '\'' +
+                ", deptOrder=" + deptOrder +
                 ", deptStatus='" + deptStatus + '\'' +
                 ", deptRemark='" + deptRemark + '\'' +
                 '}';

@@ -14,8 +14,34 @@
         SELECT
         <include refid="t_dept_columns"/>
         FROM t_dept
-        WHERE `dept_p_code` = #{deptCode} AND `dept_status` != '2'
+        <where>
+            `dept_p_code` = #{deptCode}
+            <if test="all">
+                AND `dept_status` != '2'
+            </if>
+        </where>
         ORDER By `dept_order`
     </select>
+
+    <!-- List<Department> listDepartmentByDeptLevel(String deptLevel); -->
+    <select id="listDepartmentByDeptLevel" resultType="com.bluestar.organization.entity.Department">
+        SELECT
+        <include refid="t_dept_columns"/>
+        FROM t_dept
+        <where>
+            `dept_level` = #{deptLevel}
+            <if test="all">
+                AND `dept_status` != '2'
+            </if>
+        </where>
+        ORDER BY `dept_order`
+    </select>
+
+    <!-- int saveDepartment(Department department); -->
+    <insert id="saveDepartment">
+        INSERT INTO t_dept(<include refid="t_dept_columns"/>)
+        VALUES(#{deptId}, #{deptCode}, #{deptName}, #{deptPCode}, #{deptLevel}, #{deptOrder}, #{deptStatus},
+        #{deptRemark})
+    </insert>
 
 </mapper>
