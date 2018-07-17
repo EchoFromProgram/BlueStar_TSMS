@@ -42,8 +42,11 @@ function setStaffInfo(){
 			"email":$("#info-update-mail-input").val()
 			},
 		success: function(data){
+			if (data.code === 0) {
+				alert(data.code);
+                window.location.reload();
+			}
 			alert(data.info);
-			window.location.reload();
 		},
 		error:function () {
             alert("员工信息更新失败");

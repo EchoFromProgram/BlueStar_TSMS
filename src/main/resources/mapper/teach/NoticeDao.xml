@@ -72,7 +72,7 @@
 	
 	<!-- 得到所有的具体通知 -->
 	<select id="getAllNoticeDetails" resultType="com.bluestar.teach.entity.NoticeDetail">
-		SELECT notice_detail_id, content, title, date FROM notice_detail 
+		SELECT notice_detail_id, content, title, date FROM notice_detail ORDER BY date DESC
 	</select>
 	
 	

@@ -38,7 +38,7 @@ function build_table(data) {
     	$("#accordion-notice").append('<div class="accordion-group">' + 
                 '<h3 class="accordion-heading">' + 
                 '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-notice" href="#accordion-element-notice-'+ item.noticeDetailId +'">'+
-                    item.title +
+					new Date(item.date).toLocaleString() + ": &nbsp;&nbsp;&nbsp;" + item.title +
                 '</a>'+
                 '<div id="accordion-element-notice-'+ item.noticeDetailId +'" class="accordion-body collapse">'+
                     '<h4 class="accordion-inner">'+
