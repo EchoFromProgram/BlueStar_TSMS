@@ -311,7 +311,7 @@ public class AccountServiceImpl implements AccountService {
             if (num == 0) {
                 return new AccountDto<>(Common.ERROR);
             }
-            return new AccountDto<>(UpdateAccountStatus.UPDATE_ERROR);
+            return new AccountDto<>(UpdateAccountStatus.SUCCESS);
         } else {
             if (Type.OUTTER_CLIENT == typeId) {
                 //得到客户信息

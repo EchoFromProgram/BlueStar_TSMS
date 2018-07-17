@@ -47,6 +47,8 @@ function setStaffInfo(){
                 window.location.reload();
 			}
 			alert(data.info);
+			console.log(data);
+
 		},
 		error:function () {
             alert("员工信息更新失败");

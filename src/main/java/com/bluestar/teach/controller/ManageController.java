@@ -107,16 +107,12 @@ public class ManageController {
             name = null;
         }
 		if (typeId == -1 && name == null) {
-            System.out.println("1--------------------------------------");
 			accountDto = accountService.getAccounts(page, null, null);
 		} else if(typeId == -1 && name != null){
-            System.out.println("2--------------------------------------");
 			accountDto = accountService.getAccounts(page, null, name);
 		} else if(typeId != -1 && name == null){
-            System.out.println("3--------------------------------------");
             accountDto = accountService.getAccounts(page, typeId, null);
         } else {
-            System.out.println("4--------------------------------------");
             accountDto = accountService.getAccounts(page, typeId, name);
         }
 		return accountDto;
