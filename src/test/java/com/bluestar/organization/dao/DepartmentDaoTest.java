@@ -129,4 +129,11 @@ public class DepartmentDaoTest {
         int affect = departmentDao.updateUserInUserDepartment(userDepartment);
         System.out.println(affect);
     }
+
+    @Test
+    public void testRemoveUserInUserDepartment() {
+        String userDeptId = "gfg";
+
+        System.out.println(departmentDao.removeUserInUserDepartment(userDeptId));
+    }
 }

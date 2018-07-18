@@ -118,4 +118,12 @@ public interface DepartmentDao {
      * @return 返回 0 表示失败，大于 0 表示成功
      */
     int updateUserInUserDepartment(UserDepartment userDepartment);
+
+    /**
+     * 通过具体信息的 id 值找到具体信息，然后移除
+     *
+     * @param userDeptId 具体信息主键
+     * @return 返回 0 表示失败，大于 0 表示成功
+     */
+    int removeUserInUserDepartment(String userDeptId);
 }

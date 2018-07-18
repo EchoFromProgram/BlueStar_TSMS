@@ -129,4 +129,9 @@
         WHERE `user_dept_id` = #{userDeptId}
     </update>
 
+    <!-- int removeUserInUserDepartment(String userDepartmentId); -->
+    <delete id="removeUserInUserDepartment">
+        DELETE FROM `t_user_dept` WHERE `user_dept_id` = #{userDeptId}
+    </delete>
+
 </mapper>
