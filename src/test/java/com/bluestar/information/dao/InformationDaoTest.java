@@ -31,9 +31,9 @@ public class InformationDaoTest {
     }
 
     @Test
-    public void listInformationById() {
+    public void listInformationByStatu() {
         String statu = "1";
-        List<Information> informations = informationDao.listInformationById(statu);
+        List<Information> informations = informationDao.listInformationByStatu(null, "i");
         for (Information information: informations) {
             System.out.println(information);
         }

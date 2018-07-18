@@ -20,11 +20,11 @@ public interface InformationDao {
     Information getInformationById(String informationId);
 
     /**
-     * 列举所有资讯
+     * 列举所有资讯 按照标题状态模糊查询
      * TODO 分页
      * @return
      */
-    List<Information> listInformationById(String informationStatu);
+    List<Information> listInformationByStatu(@Param("informationStatu") String informationStatu, @Param("informationTitle") String informationTitle);
 
     /**
      * 按照标题模糊查询

@@ -32,13 +32,13 @@ public class ManageController {
 	//页面转跳用户管理
 	@RequestMapping(path = "user_manage.do", produces = {"application/json;charset=UTF8"})
 	public String userManage() {
-		return "teach/user_manage";
+		return "teach/user_manage.html";
 	}
 	
 	//页面转跳角色管理
 	@RequestMapping(path = "role_manage.do", produces = {"application/json;charset=UTF8"})
 	public String roleManage() {
-		return "teach/role_manage";
+		return "teach/role_manage.html";
 	}
 	
 	/***

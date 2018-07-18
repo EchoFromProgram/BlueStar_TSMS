@@ -15,11 +15,14 @@
         WHERE information_id = #{informationId}
     </select>
 
-    <select id="listInformationById" resultType="com.bluestar.information.entity.Information">
+    <select id="listInformationByStatu" resultType="com.bluestar.information.entity.Information">
         SELECT
             <include refid="all_columns_of_information"/>
         FROM t_information
-        WHERE information_statu = #{informationStatu}
+        <where>
+            <if test="informationStatu != null"> AND information_statu = #{informationStatu}</if>
+            <if test="informationTitle != null"> AND information_title LIKE '%${informationTitle}%'</if>
+        </where>
     </select>
 
     <insert id="saveInformation" parameterType="com.bluestar.information.entity.Information">
