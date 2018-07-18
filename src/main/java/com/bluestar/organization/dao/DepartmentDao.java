@@ -100,4 +100,13 @@ public interface DepartmentDao {
      * @return 返回这个部门下的所有用户
      */
     List<UserDepartment> listUsersInDepartment(String deptCode);
+
+    /**
+     * 当 t_dept 表中的部门编号改变之后，所有相关联的编号都要跟着改
+     *
+     * @param oldDeptCode 原来的部门编号，主要是用来找到要改动的信息
+     * @param newDeptCode 新的部门编号
+     * @return 返回 0 表示失败，大于 0 表示成功
+     */
+    int updateDepartmentCode(@Param("oldDeptCode") String oldDeptCode, @Param("newDeptCode") String newDeptCode);
 }

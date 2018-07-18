@@ -98,7 +98,7 @@
 
     <!-- int saveUserInDepartment(UserDepartment userDepartment); -->
     <insert id="saveUserInDepartment">
-        INSERT INTO `t_user_dept`(`user_dept_id`, `dept_code`, `user_id`, `user_dept_order`)
+        INSERT INTO `t_user_dept` (`user_dept_id`, `dept_code`, `user_id`, `user_dept_order`)
         VALUES (#{userDeptId}, #{deptCode}, #{userId}, #{userDeptOrder});
     </insert>
 
@@ -114,5 +114,12 @@
         FROM `t_user_dept` d, `user` u
         WHERE d.`user_id` = u.`user_id` AND d.`dept_code` = #{deptCode}
     </select>
+
+    <!-- int updateDepartmentCode(@Param("oldDeptCode") String oldDeptCode, @Param("newDeptCode") String newDeptCode); -->
+    <update id="updateDepartmentCode">
+        UPDATE `t_user_dept`
+        SET `dept_code` = #{newDeptCode}
+        WHERE `dept_code` = #{oldDeptCode}
+    </update>
 
 </mapper>

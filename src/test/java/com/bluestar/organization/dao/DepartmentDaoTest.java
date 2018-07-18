@@ -110,4 +110,12 @@ public class DepartmentDaoTest {
 
         System.out.println(departmentDao.listUsersInDepartment(deptCode));
     }
+
+    @Test
+    public void testUpdateDepartmentCode() {
+        String oldDeptCode = "RA9-0010";
+        String newDeptCode = "RA9-001";
+
+        System.out.println(departmentDao.updateDepartmentCode(oldDeptCode, newDeptCode));
+    }
 }
