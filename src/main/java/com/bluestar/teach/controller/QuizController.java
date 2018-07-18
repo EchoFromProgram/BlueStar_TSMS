@@ -31,19 +31,19 @@ public class QuizController {
 	//页面转跳管理问卷
 	@RequestMapping(path = "quiz_admin.do", produces = {"application/json;charset=UTF8"})
 	public String quizAdmin() {
-		return "teach/quiz_admin";
+		return "teach/quiz_admin.html";
 	}
 	
 	//页面转跳学生问卷
 	@RequestMapping(path = "quiz_student.do", produces = {"application/json;charset=UTF8"})
 	public String quizStudent() {
-		return "teach/quiz_student";
+		return "teach/quiz_student.html";
 	}
 	
 	//页面转跳教师问卷
 	@RequestMapping(path = "quiz_teacher.do", produces = {"application/json;charset=UTF8"})
 	public String quizTeacher() {
-		return "teach/quiz_teacher";
+		return "teach/quiz_teacher.html";
 	}
 	
 	/***

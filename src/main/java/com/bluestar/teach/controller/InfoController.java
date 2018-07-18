@@ -26,13 +26,13 @@ public class InfoController {
 	//转跳到客户资料页面
 	@RequestMapping(path = "customer_info.do", produces = {"application/json;charset=UTF8"})
 	public String customerInfo() {
-		return "teach/customer_info";
+		return "teach/customer_info.html";
 	}
 	
 	//转跳到员工资料页面
 	@RequestMapping(path = "staff_info.do", produces = {"application/json;charset=UTF8"})
 	public String staffInfo() {
-		return "teach/staff_info";
+		return "teach/staff_info.html";
 	}
 	
 	/***

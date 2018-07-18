@@ -60,13 +60,13 @@ public class LoginController {
 	//转跳首页
 	@RequestMapping(path = "index.do", produces = {"application/json;charset=UTF8"})
 	public String loginSuccess() {
-		return "teach/index";
+		return "teach/index.html";
 	}
 	
 	//转跳登陆界面
 	@RequestMapping(path = "login.do", produces = {"application/json;charset=UTF8"})
 	public String login() {
-		return "teach/Login";
+		return "teach/Login.html";
 	}
 
     //退出登录

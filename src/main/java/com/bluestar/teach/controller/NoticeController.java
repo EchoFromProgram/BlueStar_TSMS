@@ -26,19 +26,19 @@ public class NoticeController {
 	//页面转跳通知管理
 	@RequestMapping(path = "notice_admin.do", produces = {"application/json;charset=UTF8"})
 	public String noticeAdmin() {
-		return "teach/notice_admin";
+		return "teach/notice_admin.html";
 	}
 	
 	//页面转跳客户通知
 	@RequestMapping(path = "notice_student.do", produces = {"application/json;charset=UTF8"})
 	public String noticeStudent() {
-		return "teach/notice_student";
+		return "teach/notice_student.html";
 	}
 	
 	//页面转跳员工通知
 	@RequestMapping(path = "notice_teacher.do", produces = {"application/json;charset=UTF8"})
 	public String noticeTeacher() {
-		return "teach/notice_teacher";
+		return "teach/notice_teacher.html";
 	}
 	
 	/***

@@ -30,7 +30,7 @@
         <!--<property name="prefix" value="/WEB-INF/"></property>
         <property name="suffix" value=".jsp"></property>  -->
         <property name="prefix" value="/WEB-INF/"/>
-        <property name="suffix" value=".html"/>
+        <!--<property name="suffix" value=".html"/>-->
     </bean>
 
     <!-- 静态资源管理器 -->

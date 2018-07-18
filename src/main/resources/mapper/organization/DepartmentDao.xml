@@ -54,4 +54,30 @@
         WHERE `dept_id` = #{deptId}
     </update>
 
+    <!-- int updateDepartment(Department department); -->
+    <update id="updateDepartment">
+        UPDATE `t_dept`
+        <set>
+            <if test="deptCode != null">
+                dept_code = #{deptCode},
+            </if>
+            <if test="deptName != null">
+                dept_name = #{deptName},
+            </if>
+            <if test="deptPCode != null">
+                dept_p_code = #{deptPCode},
+            </if>
+            <if test="deptLevel != null">
+                dept_level = #{deptLevel},
+            </if>
+            <if test="deptStatus != null">
+                dept_status = #{deptStatus},
+            </if>
+            <if test="deptRemark != null">
+                dept_remark = #{deptRemark},
+            </if>
+        </set>
+        WHERE `dept_id` = #{deptId}
+    </update>
+
 </mapper>

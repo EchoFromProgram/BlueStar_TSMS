@@ -48,4 +48,14 @@ public interface DepartmentDao {
      * @return 返回 0 表示操作失败，大于 0 表示成功
      */
     int removeDepartment(String DeptId);
+
+    /**
+     * 修改指定的部门信息
+     * 这里主要是通过这个对象的 deptId 来找到旧的对象
+     * 部门编号可以改，但是编号一旦改了，所有相同子类的父级编号都得改
+     *
+     * @param department 包含修改信息的部门对象
+     * @return 返回 0 表示失败，大于 0 表示成功
+     */
+    int updateDepartment(Department department);
 }

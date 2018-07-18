@@ -30,19 +30,19 @@ public class SignController {
 	//页面转跳管理签到
 	@RequestMapping(path = "sign_admin.do", produces = {"application/json;charset=UTF8"})
 	public String signAdmin() {
-		return "teach/sign_admin";
+		return "teach/sign_admin.html";
 	}
 	
 	//页面转跳学生签到
 	@RequestMapping(path = "sign_student.do", produces = {"application/json;charset=UTF8"})
 	public String signStudent() {
-		return "teach/sign_student";
+		return "teach/sign_student.html";
 	}
 	
 	//页面转跳学生签到
 	@RequestMapping(path = "sign_teacher.do", produces = {"application/json;charset=UTF8"})
 	public String signTeacher() {
-		return "teach/sign_teacher";
+		return "teach/sign_teacher.html";
 	}
 	
 	/***

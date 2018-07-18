@@ -30,19 +30,19 @@ public class ScoreController {
 	//页面转跳分数管理
 	@RequestMapping(path = "score_admin.do", produces = {"application/json;charset=UTF8"})
 	public String scoreAdmin() {
-		return "teach/score_admin";
+		return "teach/score_admin.html";
 	}
 	
 	//页面转跳学生分数
 	@RequestMapping(path = "score_student.do", produces = {"application/json;charset=UTF8"})
 	public String scoreStudent() {
-		return "teach/score_student";
+		return "teach/score_student.html";
 	}
 	
 	//页面转跳教师分数
 	@RequestMapping(path = "score_teacher.do", produces = {"application/json;charset=UTF8"})
 	public String scoreTeacher() {
-		return "teach/score_teacher";
+		return "teach/score_teacher.html";
 	}
 	
 	/**
