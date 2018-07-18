@@ -3,6 +3,7 @@ package com.bluestar.organization.dao;
 import com.bluestar.common.utils.CodeUtil;
 import com.bluestar.organization.common.DepartmentConst;
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,17 @@ public class DepartmentDaoTest {
     public void testCountDepartmentCode() {
         String deptCode = "RA9-001";
         System.out.println(departmentDao.countDepartmentCode(deptCode));
+    }
+
+    @Test
+    public void testSaveUserInDepartment() {
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setUserDeptId(CodeUtil.getId());
+        userDepartment.setDeptCode("RA9-001");
+        userDepartment.setUserId(2);
+        userDepartment.setUserDeptOrder(1);
+
+        int affect = departmentDao.saveUserInDepartment(userDepartment);
+        System.out.println(affect);
     }
 }

@@ -1,6 +1,8 @@
 package com.bluestar.organization.dao;
 
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
+import com.bluestar.teach.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -78,4 +80,15 @@ public interface DepartmentDao {
      * @return 返回这个编号出现的次数，正常应该是 0 或 1 个
      */
     int countDepartmentCode(String deptCode);
+
+    /**
+     * 将一个用户归类到某一个部门中
+     * userId 用户 id
+     * deptCode 部门编号
+     * userDeptOrder 在部门的排序
+     *
+     * @param userDepartment 要被保存的用户部门关系
+     * @return 返回 0 表示失败，大于 0 表示成功
+     */
+    int saveUserInDepartment(UserDepartment userDepartment);
 }

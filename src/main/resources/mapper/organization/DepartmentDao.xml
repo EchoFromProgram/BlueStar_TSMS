@@ -96,4 +96,10 @@
         WHERE `dept_code` = #{deptCode}
     </select>
 
+    <!-- int saveUserInDepartment(UserDepartment userDepartment); -->
+    <insert id="saveUserInDepartment">
+        INSERT INTO `t_user_dept`(`user_dept_id`, `dept_code`, `user_id`, `user_dept_order`)
+        VALUES (#{userDeptId}, #{deptCode}, #{userId}, #{userDeptOrder});
+    </insert>
+
 </mapper>
