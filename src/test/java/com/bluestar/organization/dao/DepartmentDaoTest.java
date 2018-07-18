@@ -118,4 +118,15 @@ public class DepartmentDaoTest {
 
         System.out.println(departmentDao.updateDepartmentCode(oldDeptCode, newDeptCode));
     }
+
+    @Test
+    public void testUpdateUserInUserDepartment() {
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setUserDeptId("ab4fcd8f-7b78-4097-b2e8-c9db9d34a0e4");
+        userDepartment.setDeptCode("RA9-001");
+        userDepartment.setUserDeptOrder(3);
+
+        int affect = departmentDao.updateUserInUserDepartment(userDepartment);
+        System.out.println(affect);
+    }
 }

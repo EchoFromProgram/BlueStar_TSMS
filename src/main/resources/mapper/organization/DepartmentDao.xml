@@ -122,4 +122,11 @@
         WHERE `dept_code` = #{oldDeptCode}
     </update>
 
+    <!-- int updateUserInUserDepartment(UserDepartment userDepartment); -->
+    <update id="updateUserInUserDepartment">
+        UPDATE `t_user_dept`
+        SET `dept_code` = #{deptCode}, `user_dept_order` = #{userDeptOrder}
+        WHERE `user_dept_id` = #{userDeptId}
+    </update>
+
 </mapper>

@@ -109,4 +109,13 @@ public interface DepartmentDao {
      * @return 返回 0 表示失败，大于 0 表示成功
      */
     int updateDepartmentCode(@Param("oldDeptCode") String oldDeptCode, @Param("newDeptCode") String newDeptCode);
+
+    /**
+     * 更新 t_user_department 表中的信息
+     * 根据 userDepartment 中的 id 来找到具体的信息
+     *
+     * @param userDepartment 包含更新的信息
+     * @return 返回 0 表示失败，大于 0 表示成功
+     */
+    int updateUserInUserDepartment(UserDepartment userDepartment);
 }
