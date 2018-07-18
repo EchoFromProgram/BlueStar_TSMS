@@ -91,7 +91,7 @@ public class AdController {
 
     @RequestMapping(value = "listAd.do")
     public String listAd(Model model, @RequestParam(value = "adTitle", defaultValue = "-1")String adTitle,
-                         @RequestParam(value = "adStatus",defaultValue = "-1") String adStatus) {
+                         @RequestParam(value = "adStatus",defaultValue = "-1") String adStatus ) {
 
         if(!adTitle.equals("-1")){
             model.addAttribute("title",adTitle);
