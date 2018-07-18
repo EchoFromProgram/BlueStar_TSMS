@@ -17,4 +17,16 @@ public final class DepartmentConst {
 
     // 部门默认排序
     public static final int DEFAULT_ORDER = 1;
+
+    // 部门名称最长长度
+    public static final int MAX_LENGTH_OF_DEPT_NAME = 200;
+
+    // 部门说明最长长度
+    public static final int MAX_LENGTH_OF_DEPT_REMARK = 400;
+
+    // 部门状态最长长度
+    public static final int MAX_LENGTH_OF_DEPT_STATUS = 2;
+
+    // 部门编号最长长度
+    public static final int MAX_LENGTH_OF_DEPT_CODE = 64;
 }

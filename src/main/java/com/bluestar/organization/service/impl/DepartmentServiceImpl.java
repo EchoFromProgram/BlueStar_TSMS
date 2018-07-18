@@ -1,11 +1,14 @@
 package com.bluestar.organization.service.impl;
 
 import com.bluestar.common.utils.CodeUtil;
+import com.bluestar.organization.common.DepartmentConst;
 import com.bluestar.organization.common.status.enums.DepartmentEnum;
 import com.bluestar.organization.dao.DepartmentDao;
 import com.bluestar.organization.dto.ServerResponse;
 import com.bluestar.organization.entity.Department;
 import com.bluestar.organization.service.DepartmentService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -27,6 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
 public class DepartmentServiceImpl implements DepartmentService {
+
+    // log4j 记录日志
+    private static final Log log = LogFactory.getLog(DepartmentServiceImpl.class);
 
     DepartmentDao departmentDao = null;
 
@@ -53,6 +59,13 @@ public class DepartmentServiceImpl implements DepartmentService {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
+        boolean isParameterTooLong = (department.getDeptCode().length() >= DepartmentConst.MAX_LENGTH_OF_DEPT_CODE ||
+                department.getDeptName().length() >= DepartmentConst.MAX_LENGTH_OF_DEPT_NAME ||
+                department.getDeptLevel().length() >= DepartmentConst.MAX_LENGTH_OF_DEPT_STATUS);
+        if (isParameterTooLong) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_TOO_LONG);
+        }
+
         // 检查部门编号是否可用
         ServerResponse resp = checkDepartmentCode(department.getDeptCode());
         if (!resp.isSuccess()) {
@@ -64,6 +77,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         int affect = departmentDao.saveDepartment(department);
         if (affect <= 0) {
+            log.error("保存部门：" + department);
             return ServerResponse.response(DepartmentEnum.SAVE_FAILED);
         }
 
@@ -104,6 +118,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         // 那这个编号还是用不了。。。会一直提示编号存在
         int affect = departmentDao.removeDepartment(deptId);
         if (affect <= 0) {
+            log.error("删除失败，部门 id：" + deptId);
             return ServerResponse.response(DepartmentEnum.REMOVE_FAILED);
         }
 
@@ -118,14 +133,14 @@ public class DepartmentServiceImpl implements DepartmentService {
      * 2. 如果修改涉及编号的修改，还要把这张表其他父节点是这个编号的都改了
      * 3. 如果修改涉及编号的修改，还要把用户部门表中的关系约一起改了
      *
-     * @param department 要被更新的部门信息
+     * @param department        要被更新的部门信息
      * @param oldDepartmentCode 原来的部门编号
      * @return 返回部门信息
      */
     @Override
     public ServerResponse updateDepartment(Department department, String oldDepartmentCode) {
         // 检验参数合法性
-        if (department == null || department.getDeptId() == null) {
+        if (department == null || department.getDeptId() == null || oldDepartmentCode == null) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
@@ -135,9 +150,40 @@ public class DepartmentServiceImpl implements DepartmentService {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
-        // 参数合法
-        
+        boolean isParameterTooLong = (department.getDeptCode().length() >= DepartmentConst.MAX_LENGTH_OF_DEPT_CODE ||
+                department.getDeptName().length() >= DepartmentConst.MAX_LENGTH_OF_DEPT_NAME ||
+                department.getDeptLevel().length() >= DepartmentConst.MAX_LENGTH_OF_DEPT_STATUS);
+        if (isParameterTooLong) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_TOO_LONG);
+        }
 
-        return null;
+        // 参数合法
+        // 首先更新具体这条数据的信息
+        int affect = departmentDao.updateDepartment(department);
+        if (affect <= 0) {
+            log.error("更新失败：" + department);
+            return ServerResponse.response(DepartmentEnum.UPDATE_FAILED);
+        }
+
+        // 到这一步就说明，上一步更新成功，这时候要去更新表中其他数据
+        // 当然，先看看部门编号有没有改动，没有的话，这一步就可以省略了
+        if (!department.getDeptCode().equals(oldDepartmentCode)) {
+            // 部门编号被修改了，要同时改动另外两处
+            affect = departmentDao.updateDepartmentPCode(oldDepartmentCode, department.getDeptCode());
+            if (affect <= 0) {
+                log.error("旧的部门编号：" + oldDepartmentCode + "，想改为部门编号：" + department.getDeptCode());
+                return ServerResponse.response(DepartmentEnum.UPDATE_FAILED);
+            }
+
+            // 修改另外一张表
+            affect = departmentDao.updateDepartmentCode(oldDepartmentCode, department.getDeptCode());
+            if (affect <= 0) {
+                log.error("旧的部门编号：" + oldDepartmentCode + "，想改为部门编号：" + department.getDeptCode());
+                return ServerResponse.response(DepartmentEnum.UPDATE_FAILED);
+            }
+        }
+
+        // 修改成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
 }

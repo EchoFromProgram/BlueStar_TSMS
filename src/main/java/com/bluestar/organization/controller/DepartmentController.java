@@ -60,4 +60,17 @@ public class DepartmentController {
     public ServerResponse deleteDepartment(String deptId) {
         return departmentService.deleteDepartment(deptId);
     }
+
+    /**
+     * 更新指定的部门信息
+     *
+     * @param department 指定的部门信息，这里的 id 必须得有
+     * @param oldDeptCode 旧的 id 部门编号
+     * @return 返回更新情况
+     */
+    @RequestMapping(path = "updateDepartment.do")
+    @ResponseBody
+    public ServerResponse updateDepartment(Department department, String oldDeptCode) {
+        return departmentService.updateDepartment(department, oldDeptCode);
+    }
 }
