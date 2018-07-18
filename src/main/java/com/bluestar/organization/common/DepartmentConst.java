@@ -14,4 +14,7 @@ public final class DepartmentConst {
 
     // 部门无效情况
     public static final String DEPT_STATUS_ABANDON = "2";
+
+    // 部门默认排序
+    public static final int DEFAULT_ORDER = 1;
 }

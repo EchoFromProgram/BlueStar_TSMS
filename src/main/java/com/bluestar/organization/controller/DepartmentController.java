@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 @Controller("dept")
 public class DepartmentController {
 
-    DepartmentService departmentService = null;
+    private DepartmentService departmentService = null;
 
     @Autowired
     public void setDepartmentService(DepartmentService departmentService) {

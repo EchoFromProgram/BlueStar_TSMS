@@ -1,5 +1,7 @@
 package com.bluestar.organization.entity;
 
+import com.bluestar.organization.common.DepartmentConst;
+
 /**
  * 组织实体类
  *
@@ -34,6 +36,9 @@ public class Department {
     private String deptRemark = null;
 
     public Department() {
+        // 默认是正常的状态
+        this.setDeptStatus(DepartmentConst.DEPT_STATUS_NORMAL);
+        this.setDeptOrder(DepartmentConst.DEFAULT_ORDER);
     }
 
     public String getDeptId() {

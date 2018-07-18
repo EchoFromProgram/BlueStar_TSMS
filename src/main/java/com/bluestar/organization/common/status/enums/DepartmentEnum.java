@@ -11,7 +11,10 @@ import com.bluestar.organization.common.status.Statusable;
  */
 public enum DepartmentEnum implements Statusable {
 
-    SUCCESS(Statusable.SUCCESS_CODE, "操作成功");
+    SUCCESS(Statusable.SUCCESS_CODE, "操作成功"),
+    PARAMETER_UNCOMPLETED(-1, "参数不完整"),
+    SAVE_FAILED(-2, "保存失败"),
+    CODE_EXISTED(-3, "部门编号重复");
 
     private int code;
     private String msg;
