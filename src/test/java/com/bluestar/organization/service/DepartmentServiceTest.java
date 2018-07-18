@@ -46,13 +46,14 @@ public class DepartmentServiceTest {
     @Test
     public void testUpdateDepartment() {
         Department department = new Department();
-        department.setDeptId("e1565d7d-efaa-4704-ba96-b10c07365592");
-        department.setDeptCode("RA9-003");
-        department.setDeptName("福州检测总部");
+        department.setDeptId("a906c8a3-e85c-45b2-aa6b-f4229ed54ce1");
+        department.setDeptCode("RA9-001");
+        department.setDeptName("福州开发总部");
+        department.setDeptPCode(null);
         department.setDeptLevel("1");
-        department.setDeptStatus(DepartmentConst.DEPT_STATUS_ABANDON);
-        department.setDeptRemark("福州检测总部....");
-        String oldDeptCode = "RA9-003";
+        department.setDeptStatus(DepartmentConst.DEPT_STATUS_NORMAL);
+        department.setDeptRemark("福州开发总部....");
+        String oldDeptCode = "RA9-0010";
 
         System.out.println(departmentService.updateDepartment(department, oldDeptCode));
     }
