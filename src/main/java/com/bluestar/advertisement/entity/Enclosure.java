@@ -99,6 +99,21 @@ public class Enclosure {
         this.enclosureUrl = enclosureUrl;
     }
 
+    public Enclosure(String enclosureId, String businessId, String busiConId, String enclosureName, String enclosurePath, String enclosureOrder, long fileSize, String extName, String enclosureUrl) {
+        this.enclosureId = enclosureId;
+        this.businessId = businessId;
+        this.busiConId = busiConId;
+        this.enclosureName = enclosureName;
+        this.enclosurePath = enclosurePath;
+        this.enclosureOrder = enclosureOrder;
+        this.fileSize = fileSize;
+        this.extName = extName;
+        this.enclosureUrl = enclosureUrl;
+    }
+
+    public Enclosure() {
+    }
+
     @Override
     public String toString() {
         return "Enclosure{" +

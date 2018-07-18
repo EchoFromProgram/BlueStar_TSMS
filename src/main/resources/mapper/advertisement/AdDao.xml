@@ -28,13 +28,26 @@
         <set>
             <if test="adTitle != null"> ad_title = #{adTitle}, </if>
             <if test="adPicture != null"> ad_picture = #{adPicture}, </if>
-            <if test="adCreateTime != null"> ad_create_time = #{adCreateTime}, </if>
             <if test="adCreateUser != null"> ad_create_user = #{adCreateUser}, </if>
             <if test="adStatus != null"> ad_status = #{adStatus}, </if>
             <if test="adOrder != null"> ad_order = #{adOrder}, </if>
             <if test="adLinkUrl != null"> ad_link_url = #{adLinkUrl}, </if>
         </set>
         WHERE ad_id = #{adId}
+    </update>
+
+    <!--根据图片id更新附件-->
+    <update id="updateEnById">
+        UPDATE t_enclosure
+        <set>
+            <if test="enclosure.busiConId != null"> busi_con_id = #{enclosure.busiConId}, </if>
+            <if test="enclosure.enclosureName != null"> enclosure_name = #{enclosure.enclosureName}, </if>
+            <if test="enclosure.enclosurePath != null"> enclosure_path = #{enclosure.enclosurePath}, </if>
+            <if test="enclosure.fileSize != null"> file_size = #{enclosure.fileSize}, </if>
+            <if test="enclosure.extName != null"> ext_name = #{enclosure.extName}, </if>
+            <if test="enclosure.enclosureUrl != null"> enclosure_url = #{enclosure.enclosureUrl}, </if>
+        </set>
+        WHERE busi_con_id = #{pictureId}
     </update>
 
     <!--查询广告-->
@@ -48,8 +61,10 @@
         </where>
     </select>
 
-
-
+    <!--将广告的状态置为无效-->
+    <update id="deleteAdById">
+        UPDATE t_ad SET ad_status = 3
+    </update>
 
 
 
