@@ -70,4 +70,12 @@ public interface DepartmentDao {
      * @return 返回 0 表示失败，大于 0 表示成功
      */
     int updateDepartmentPCode(@Param("oldDeptPCode") String oldDeptPCode, @Param("newDeptPCode") String newDeptPCode);
+
+    /**
+     * 统计这个部门编号的个数，正常应该是 0 或 1 个
+     *
+     * @param deptCode 部门编号
+     * @return 返回这个编号出现的次数，正常应该是 0 或 1 个
+     */
+    int countDepartmentCode(String deptCode);
 }

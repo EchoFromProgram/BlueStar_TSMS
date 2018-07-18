@@ -84,4 +84,10 @@ public class DepartmentDaoTest {
         int affect = departmentDao.updateDepartmentPCode(oldDeptPCode, newDeptPCode);
         System.out.println(affect);
     }
+
+    @Test
+    public void testCountDepartmentCode() {
+        String deptCode = "RA9-001";
+        System.out.println(departmentDao.countDepartmentCode(deptCode));
+    }
 }

@@ -89,4 +89,11 @@
         WHERE `dept_p_code` = #{oldDeptPCode}
     </update>
 
+    <!-- int countDepartmentCode(String deptCode); -->
+    <select id="countDepartmentCode" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `t_dept`
+        WHERE `dept_code` = #{deptCode}
+    </select>
+
 </mapper>
