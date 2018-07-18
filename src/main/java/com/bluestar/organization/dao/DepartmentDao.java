@@ -41,5 +41,11 @@ public interface DepartmentDao {
      */
     int saveDepartment(Department department);
 
+    /**
+     * 通过 deptId 找到并删除一个部门信息，这里的“删除”仅仅只是把状态改为“无效”
+     *
+     * @param DeptId 部门信息主键
+     * @return 返回 0 表示操作失败，大于 0 表示成功
+     */
     int removeDepartment(String DeptId);
 }

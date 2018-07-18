@@ -47,6 +47,11 @@
         #{deptRemark})
     </insert>
 
-
+    <!-- int removeDepartment(String DeptId); -->
+    <update id="removeDepartment">
+        UPDATE `t_dept`
+        SET `dept_status` = 2
+        WHERE `dept_id` = #{deptId}
+    </update>
 
 </mapper>
