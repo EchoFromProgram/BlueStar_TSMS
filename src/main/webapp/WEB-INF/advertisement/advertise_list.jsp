@@ -1,10 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: MackyHuang
-  Date: 2018/7/18
-  Time: 11:03
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.bluestar.advertisement.vo.AdVo" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="zh-CN">
@@ -23,7 +20,16 @@
     <link href="./static/teach/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <link href="./static/teach/css/dashboard.css" rel="stylesheet">
     <link href="./static/teach/css/mycss.css" rel="stylesheet">
+    <style>
+        .list_tr td {
+            height: 50px;
+            line-height: 50px !important;
+        }
 
+        .btn-mine {
+            margin-top: 7px;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,7 +74,7 @@
 
         <!-- 右侧模块 -->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">咨询管理</h1>
+            <h1 class="page-header">广告管理</h1>
 
             <div class="span12" id="jump-menu">
                 <div class="tabbable" id="tabs-user">
@@ -76,33 +82,37 @@
                         <!-- 标签1 -->
                         <div class="active">
                             <a href="#panel-1" data-toggle="tab" class="col-xs-4 col-sm-4 placeholders" id="show-role" style='text-decoration:none;'>
-                                <h4>查看咨询列表</h4>
-                                <span class="text-muted">点击查看当前咨询详细</span>
+                                <h4>查看广告列表</h4>
+                                <span class="text-muted">点击查看当前广告详细</span>
                             </a>
                         </div>
                     </div>
                     <!-- 标签1对应的模块 列表 -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="panel-1">
-                            <h2 class="sub-header">咨询列表</h2>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="which-input" class="">名字</label>
-                                    <input type="text" class="form-control" placeholder="请输入用户名或姓名" id="which-input">
+                            <h2 class="sub-header">广告列表</h2>
+                            <form action="listAd.do">
+                            <form action="listAd.do">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="which-input" class="">广告标题</label>
+                                        <input type="text" name="adTitle" class="form-control" placeholder="请输入广告标题进行查询" id="which-input" value=${title}>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="which-stage" class="">状态</label>
+                                        <select class="form-control" id="which-stage" style="width:100%" name="adStatus" data-sele="${status}">
+                                            <option value ="-1">全部</option>
+                                            <option value ="1">正常</option>
+                                            <option value ="2">上架</option>
+                                            <option value ="3">无效</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <br/>
+                                        <button class="btn btn-primary text-center center-block " id="submit-which-stage">查询</button>
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <label for="which-stage" class="">类型</label>
-                                    <select class="form-control" id="which-stage" style="width:100%">
-                                        <option value ="-1">全部</option>
-                                        <option value ="1">客户</option>
-                                        <option value ="0">员工</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-1">
-                                    <br/>
-                                    <button class="btn btn-primary text-center center-block " id="submit-which-stage">查询</button>
-                                </div>
-                            </div>
+                            </form>
                             <div class="row">
                                 <br>
                                 <div class="col-sm-3">
@@ -114,30 +124,52 @@
                                 <table class="table table-striped table-hover" id="role-table">
                                     <thead>
                                     <tr>
-                                        <th>1</th>
-                                        <th>2</th>
-                                        <th>3</th>
-                                        <th>4</th>
-                                        <th>5</th>
-                                        <th>操作</th>
+                                        <th>广告标题</th>
+                                        <th>采编人</th>
+                                        <th>采编时间</th>
+                                        <th>状态</th>
+                                        <th>url</th>
+                                        <th>图片</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                        <td>4</td>
-                                        <td>5</td>
+                                    <%
+                                        String status = null;
+                                        List<AdVo> ads = new ArrayList<>();
+                                        ads = (List<AdVo>)request.getAttribute("ads");
+
+                                        if(ads != null && ads.size() > 0)
+                                        for(int i = 0; i < ads.size(); i++) {
+                                            AdVo advo = ads.get(i);
+                                            if(advo.getAdStatus().equals("1")){
+                                                status = "正常";
+                                            } else if(advo.getAdStatus().equals("2")) {
+                                                status = "上架";
+                                            } else if(advo.getAdStatus().equals("3")) {
+                                                status = "无效";
+                                            }
+
+                                    %>
+                                    <tr class="list_tr">
+                                        <td><%= advo.getAdTitle() %></td>
+                                        <td><%= advo.getAdCreateUser() %></td>
+                                        <td> <fmt:formatDate value="<%= advo.getAdCreateTime() %>" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
+                                        <td><%= status %></td>
+                                        <td><%= advo.getAdLinkUrl() %></td>
+                                        <td><img style="height: 50px;width: 50px" src="<%= advo.getEnclosurePath() %>" alt=""></td>
                                         <td>
-                                            <button class="delete-role-btn btn btn-danger pull-right" href="#panel-4" data-toggle="tab" name="'+ item.role +'" role="button">
+                                            <button id="delete-btn"  data-adId="<%= advo.getAdId() %>" class="delete-role-btn btn btn-danger pull-right btn-mine delete-btn"   role="button">
                                                 删除
                                             </button>
-                                            <button class="update-role-btn btn btn-primary pull-right pre-update-button" href="#panel-2" data-toggle="tab" name="'+ item.role +'" role="button">
+                                            <button class="update-role-btn btn btn-primary pull-right pre-update-button btn-mine" href="#panel-2" data-toggle="tab" name="'+ item.role +'" role="button">
                                                 修改
                                             </button>
                                         </td>
                                     </tr>
+                                    <%
+                                        }
+                                    %>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -187,7 +219,7 @@
                                 </div>
                                 <!-- 遮罩窗体确定是否操作 -->
                                 <!-- 触发按钮 -->
-                                <button id="modal-role-delete-a" href="#modal-delete-block" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" style="margin-top:50px">
+                                <button  id="modal-role-delete-a" href="#modal-delete-block" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" style="margin-top:50px">
                                     删除
                                 </button>
                                 <!-- 被隐藏的模块 -->
@@ -224,5 +256,6 @@
 <script src="./static/teach/js/holder.min.js"></script>
 <script src="./static/teach/js/ie10-viewport-bug-workaround.js"></script>
 <script src="./static/teach/js/general.js"></script>
+<script src=./static/advertisement/js/advertise.js></script>
 </body>
 </html>

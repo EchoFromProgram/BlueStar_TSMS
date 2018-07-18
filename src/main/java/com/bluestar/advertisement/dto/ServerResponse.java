@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class ServerResponse<T> implements Serializable {
 
     // 状态
-    private int status;
+    private int statusCode;
 
     // 信息
     private String msg;
@@ -21,14 +21,14 @@ public class ServerResponse<T> implements Serializable {
     // 数据
     private T data;
 
-    private ServerResponse(int status, String msg, T data) {
-        this.status = status;
+    private ServerResponse(int statusCode, String msg, T data) {
+        this.statusCode = statusCode;
         this.msg = msg;
         this.data = data;
     }
 
-    public int getStatus() {
-        return status;
+    public int getStatusCode() {
+        return statusCode;
     }
 
     public String getMsg() {
@@ -45,7 +45,7 @@ public class ServerResponse<T> implements Serializable {
      */
     @JsonIgnore // 使之不在json序列化当中
     public boolean isSuccess() {
-        return this.status == ResponseStatus.SUCCESS_CODE;
+        return this.statusCode == ResponseStatus.SUCCESS_CODE;
     }
 
     public static <T> ServerResponse<T> getServerResponse(ResponseStatus responseStatus) {
@@ -59,7 +59,7 @@ public class ServerResponse<T> implements Serializable {
     @Override
     public String toString() {
         return "ServerResponse{" +
-                "status=" + status +
+                "statusCode=" + statusCode +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +
                 '}';

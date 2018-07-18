@@ -2,6 +2,7 @@ package com.bluestar.advertisement.dao;
 
 import com.bluestar.advertisement.entity.Advertise;
 import com.bluestar.advertisement.entity.Enclosure;
+import com.bluestar.advertisement.vo.AdVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +42,8 @@ public interface AdDao {
      * @param title 标题
      * @return
      */
-    public List<Advertise> queryAdsByStatusAndTitle(@Param("status")String status,
-                                                    @Param("title")String title);
+    public List<AdVo> queryAdsByStatusAndTitle(@Param("title")String title,
+                                               @Param("status")String status);
 
     /**
      * 将广告的状态置为3（无效）

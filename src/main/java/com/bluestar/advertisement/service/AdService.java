@@ -4,9 +4,13 @@ import com.bluestar.advertisement.dto.ServerResponse;
 import com.bluestar.advertisement.entity.Advertise;
 import com.bluestar.advertisement.enums.response.AdResponse;
 import com.bluestar.advertisement.utils.AdUtils;
+import com.bluestar.advertisement.vo.AdVo;
+import javafx.beans.binding.ObjectExpression;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Imp
@@ -42,4 +46,9 @@ public interface AdService {
      */
     public ServerResponse updateAd(CommonsMultipartFile file, String dirPath, Advertise advertise,
                                    String pictureId);
+
+
+
+    public List<AdVo> queryAds(String adTitle, String adStatus) ;
+
 }

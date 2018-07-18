@@ -5,10 +5,14 @@ import com.bluestar.advertisement.dto.ServerResponse;
 import com.bluestar.advertisement.entity.Advertise;
 import com.bluestar.advertisement.enums.response.AdResponse;
 import com.bluestar.advertisement.service.AdService;
+import com.bluestar.advertisement.vo.AdVo;
+import com.bluestar.common.utils.CodeUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +20,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Imp
@@ -30,12 +36,6 @@ public class AdController {
     @Autowired
     public AdController(AdService adService) {
         this.adService = adService;
-    }
-
-    @RequestMapping(value = "listAd.do")
-    public String list() {
-
-        return "advertisement/advertise_list.jsp";
     }
 
 
@@ -89,4 +89,25 @@ public class AdController {
     }
 
 
+    @RequestMapping(value = "listAd.do")
+    public String listAd(Model model, @RequestParam(value = "adTitle", defaultValue = "-1")String adTitle,
+                         @RequestParam(value = "adStatus",defaultValue = "-1") String adStatus) {
+
+        if(!adTitle.equals("-1")){
+            model.addAttribute("title",adTitle);
+        } else {
+            model.addAttribute("title",null);
+        }
+        model.addAttribute("status",adStatus);
+
+        if(CodeUtil.isBlank(adTitle) || CodeUtil.isBlank(adStatus)) {
+            model.addAttribute(AdConst.LIST_FAILURE);
+        }
+
+        List<AdVo> ads = new ArrayList<>();
+        ads = adService.queryAds(adTitle ,adStatus);
+        model.addAttribute("ads", ads);
+
+        return "advertisement/advertise_list.jsp";
+    }
 }

@@ -23,7 +23,7 @@ public class Enclosure {
 
     private long fileSize; // 附件大小
 
-    private String extName; // 扩展表
+    private String extName; // 扩展名
 
     private String enclosureUrl; // url
 

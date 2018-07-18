@@ -4,7 +4,8 @@
 
 <mapper namespace = "com.bluestar.advertisement.dao.AdDao">
     <sql id="adColumn">
-        ad_id, ad_title, ad_picture, ad_create_time, ad_create_user, ad_status, ad_order, ad_link_url
+        ad_id, ad_title, ad_picture, ad_create_time, ad_create_user, ad_status, ad_order, ad_link_url,
+        enclosure_name, enclosure_path, file_size, ext_name
     </sql>
 
     <!--插入一个广告-->
@@ -51,20 +52,24 @@
     </update>
 
     <!--查询广告-->
-    <select id="queryAdsByStatusAndTitle" resultType="com.bluestar.advertisement.entity.Advertise">
+    <select id="queryAdsByStatusAndTitle" resultType="com.bluestar.advertisement.vo.AdVo">
         SELECT
             <include refid="adColumn" />
-                    FROM t_ad
+                    FROM t_ad ad, t_enclosure en
         <where>
+            <if test="title != null"> and ad_title like '%${title}%'</if>
             <if test="status != null"> and ad_status = #{status} </if>
-            <if test="title != null"> and ad_title like '%${title}%' </if>
+            AND business_id = 1 AND ad.ad_picture = en.busi_con_id
         </where>
+        ORDER BY ad_order, ad_create_time
+
     </select>
 
     <!--将广告的状态置为无效-->
     <update id="deleteAdById">
-        UPDATE t_ad SET ad_status = 3
+        UPDATE t_ad SET ad_status = 3 WHERE ad_id = #{adId}
     </update>
+
 
 
 

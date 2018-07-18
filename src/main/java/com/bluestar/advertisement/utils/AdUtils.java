@@ -4,6 +4,7 @@ import com.bluestar.advertisement.constant.AdConst;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.aspectj.util.FileUtil;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -95,12 +96,15 @@ public class AdUtils {
     /**
      * 得到uri中 File 后面的uri
      *
-     * @param uri
+     * @param path
      * @return File 之后的uri
      */
-    public static String getAfterFileUri(String uri) {
-        return uri.substring(uri.indexOf(AdConst.DIR_PATH) + AdConst.DIR_PATH.length(), uri.length());
+    public static String getUri(String path) {
+        if(path.indexOf(AdConst.DIR_PATH) != -1)
+        return path.substring(path.indexOf(AdConst.DIR_PATH) , path.length());
+        else return null;
     }
+
 
     /**
      * 重命名方法

@@ -8,8 +8,10 @@ import com.bluestar.advertisement.entity.Enclosure;
 import com.bluestar.advertisement.enums.response.AdResponse;
 import com.bluestar.advertisement.service.AdService;
 import com.bluestar.advertisement.utils.AdUtils;
+import com.bluestar.advertisement.vo.AdVo;
 import com.bluestar.common.utils.CodeUtil;
 import org.apache.log4j.Logger;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Imp
@@ -31,6 +36,8 @@ public class AdServiceImpl implements AdService {
 
     @Autowired
     private AdDao adDao;
+
+
 
     /**
      * 新增一个广告
@@ -52,8 +59,7 @@ public class AdServiceImpl implements AdService {
         // 得到图片上传完整路径
         path = dirPath + File.separator + pictureName;
 
-        // 得到File后面的路径
-        String uri = AdUtils.getAfterFileUri(path);
+        String uri = AdUtils.getUri(path);
 
         // 设置广告id和图片id
         advertise.setAdId(CodeUtil.getId());
@@ -97,6 +103,8 @@ public class AdServiceImpl implements AdService {
         return ServerResponse.getServerResponse(AdResponse.SUCCESS);
     }
 
+
+
     /**
      * 删除一个广告
      * @param adId 广告id
@@ -106,7 +114,7 @@ public class AdServiceImpl implements AdService {
     public ServerResponse deleteAdById(String adId) {
 
         // 如果参数为空，删除失败
-        if(adId == null) {
+        if(CodeUtil.isBlank(adId)) {
             return ServerResponse.getServerResponse(AdResponse.DELETE_AD_FAILURE);
         }
 
@@ -120,6 +128,7 @@ public class AdServiceImpl implements AdService {
 
         return ServerResponse.getServerResponse(AdResponse.SUCCESS);
     }
+
 
 
     /**
@@ -152,8 +161,8 @@ public class AdServiceImpl implements AdService {
             // 得到图片上传完整路径
             path = dirPath + File.separator + pictureName;
 
-            // 得到File后面的路径
-            String uri = AdUtils.getAfterFileUri(path);
+            // 得到 /File/xx/xx
+            String uri = AdUtils.getUri(path); // TODO
 
             // 新的图片有新的id
             advertise.setAdPicture(CodeUtil.getId());
@@ -191,6 +200,26 @@ public class AdServiceImpl implements AdService {
         }
         return  ServerResponse.getServerResponse(AdResponse.SUCCESS);
     }
+
+
+
+    @Override
+    public List<AdVo> queryAds(String adTitle, String adStatus) {
+
+        List<AdVo> ads = new ArrayList<>();
+        // -1代表全部
+        if(adTitle.equals("-1") && adStatus.equals("-1")) {
+            ads = adDao.queryAdsByStatusAndTitle(null, null);
+        } else if(adTitle.equals("-1") && !adStatus.equals("-1")) {
+            ads = adDao.queryAdsByStatusAndTitle(null, adStatus);
+        } else if(!adTitle.equals("-1") && adStatus.equals("-1")) {
+            ads = adDao.queryAdsByStatusAndTitle(adTitle, null);
+        } else if(!adTitle.equals("-1") && !adStatus.equals("-1")) {
+            ads = adDao.queryAdsByStatusAndTitle(adTitle, adStatus);
+        }
+        return ads;
+    }
+
 
 
     /**
