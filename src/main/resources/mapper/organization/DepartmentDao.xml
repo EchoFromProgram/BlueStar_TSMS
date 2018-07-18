@@ -30,6 +30,9 @@
         FROM t_dept
         <where>
             `dept_level` = #{deptLevel}
+            <if test="deptPCode != null">
+                AND `dept_p_code` = #{deptPCode}
+            </if>
             <if test="all">
                 AND `dept_status` != '2'
             </if>
@@ -43,5 +46,7 @@
         VALUES(#{deptId}, #{deptCode}, #{deptName}, #{deptPCode}, #{deptLevel}, #{deptOrder}, #{deptStatus},
         #{deptRemark})
     </insert>
+
+
 
 </mapper>

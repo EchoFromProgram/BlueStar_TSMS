@@ -30,7 +30,8 @@ public interface DepartmentDao {
      * @param all 是否要查询出无效
      * @return 返回和 deptLevel 相同级别的组织信息
      */
-    List<Department> listDepartmentByDeptLevel(@Param("deptLevel") String deptLevel, @Param("all") boolean all);
+    List<Department> listDepartmentByDeptLevel(@Param("deptLevel") String deptLevel, @Param("deptPCode") String deptPCode,
+                                               @Param("all") boolean all);
 
     /**
      * 保存一个新的组织部门信息
@@ -39,4 +40,6 @@ public interface DepartmentDao {
      * @return 0 表示失败，大于 0 表示成功，通常这个值就是 1
      */
     int saveDepartment(Department department);
+
+    int removeDepartment(String DeptId);
 }

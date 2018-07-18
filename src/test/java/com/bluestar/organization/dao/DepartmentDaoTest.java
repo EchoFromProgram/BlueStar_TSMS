@@ -29,13 +29,13 @@ public class DepartmentDaoTest {
     public void testSaveDepartment() {
         Department department = new Department();
         department.setDeptId(CodeUtil.getId());
-        department.setDeptCode("RA9-002-003-001");
-        department.setDeptName("深圳开发部维护小组服务器维护办公室");
-        department.setDeptPCode("RA9-002-003");
-        department.setDeptLevel("3");
+        department.setDeptCode("RA9-001-001");
+        department.setDeptName("福州开发部维护小组");
+        department.setDeptPCode("RA9-001");
+        department.setDeptLevel("2");
         department.setDeptOrder(1);
         department.setDeptStatus(DepartmentConst.DEPT_STATUS_NORMAL);
-        department.setDeptRemark("深圳开发总部下的维护小组的服务器维护办公室....");
+        department.setDeptRemark("福州开发部维护小组....");
 
         int affect = departmentDao.saveDepartment(department);
         System.out.println(affect);
@@ -49,7 +49,8 @@ public class DepartmentDaoTest {
 
     @Test
     public void testListDepartmentByDeptLevel() {
-        String deptLevel = "2";
-        System.out.println(departmentDao.listDepartmentByDeptLevel(deptLevel, false));
+        String deptLevel = "1";
+        String deptPCode = "RA9-001";
+        System.out.println(departmentDao.listDepartmentByDeptLevel(deptLevel, null, false));
     }
 }
