@@ -97,10 +97,17 @@ public class DepartmentDaoTest {
         UserDepartment userDepartment = new UserDepartment();
         userDepartment.setUserDeptId(CodeUtil.getId());
         userDepartment.setDeptCode("RA9-001");
-        userDepartment.setUserId(2);
-        userDepartment.setUserDeptOrder(1);
+        userDepartment.setUserId(3);
+        userDepartment.setUserDeptOrder(3);
 
         int affect = departmentDao.saveUserInDepartment(userDepartment);
         System.out.println(affect);
+    }
+
+    @Test
+    public void testListUsersInDepartment() {
+        String deptCode = "RA9-0010";
+
+        System.out.println(departmentDao.listUsersInDepartment(deptCode));
     }
 }

@@ -102,4 +102,17 @@
         VALUES (#{userDeptId}, #{deptCode}, #{userId}, #{userDeptOrder});
     </insert>
 
+    <!-- List<UserDepartment> listUsersInDepartment(String deptCode); -->
+    <select id="listUsersInDepartment" resultType="com.bluestar.organization.entity.UserDepartment">
+        SELECT
+            d.`user_dept_id`,
+            d.`dept_code`,
+            d.`user_id`,
+            d.`user_dept_order`,
+            u.`username`,
+            u.`name`
+        FROM `t_user_dept` d, `user` u
+        WHERE d.`user_id` = u.`user_id` AND d.`dept_code` = #{deptCode}
+    </select>
+
 </mapper>

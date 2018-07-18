@@ -6,6 +6,7 @@ import com.bluestar.teach.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 组织部门 dao 接口
@@ -91,4 +92,12 @@ public interface DepartmentDao {
      * @return 返回 0 表示失败，大于 0 表示成功
      */
     int saveUserInDepartment(UserDepartment userDepartment);
+
+    /**
+     * 获得部门编号为 deptCode 下的所有用户
+     *
+     * @param deptCode 指定的部门编号
+     * @return 返回这个部门下的所有用户
+     */
+    List<UserDepartment> listUsersInDepartment(String deptCode);
 }

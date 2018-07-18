@@ -14,6 +14,8 @@ public class UserDepartment {
     private String deptCode = null;
     private Integer userId = null;
     private Integer userDeptOrder = null;
+    private String username = null;
+    private String name = null;
 
     public UserDepartment() {}
 
@@ -49,6 +51,22 @@ public class UserDepartment {
         this.userDeptOrder = userDeptOrder;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "UserDepartment{" +
@@ -56,6 +74,8 @@ public class UserDepartment {
                 ", deptCode='" + deptCode + '\'' +
                 ", userId=" + userId +
                 ", userDeptOrder=" + userDeptOrder +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
