@@ -32,6 +32,12 @@ public class AdController {
         this.adService = adService;
     }
 
+    @RequestMapping(value = "listAd.do")
+    public String list() {
+
+        return "advertisement/advertise_list.jsp";
+    }
+
 
     @RequestMapping(value = "saveAd.do")
     @ResponseBody
