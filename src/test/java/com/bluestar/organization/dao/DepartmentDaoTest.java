@@ -75,4 +75,13 @@ public class DepartmentDaoTest {
         int affect = departmentDao.updateDepartment(department);
         System.out.println(affect);
     }
+
+    @Test
+    public void testUpdateDepartmentPCode() {
+        String oldDeptPCode = "xxxxxx";
+        String newDeptPCode = "RA9-002";
+
+        int affect = departmentDao.updateDepartmentPCode(oldDeptPCode, newDeptPCode);
+        System.out.println(affect);
+    }
 }

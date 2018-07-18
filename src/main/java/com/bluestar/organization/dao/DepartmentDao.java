@@ -53,9 +53,21 @@ public interface DepartmentDao {
      * 修改指定的部门信息
      * 这里主要是通过这个对象的 deptId 来找到旧的对象
      * 部门编号可以改，但是编号一旦改了，所有相同子类的父级编号都得改
+     * 这要体现在 Service 层
      *
      * @param department 包含修改信息的部门对象
      * @return 返回 0 表示失败，大于 0 表示成功
      */
     int updateDepartment(Department department);
+
+    /**
+     * 根据旧的部门编号修改成新的部门编号
+     * 主要是配合上面的一个修改操作
+     * 如果这两个编号相同，也就是没有改动编号，这个操作应该要避免
+     *
+     * @param oldDeptPCode 旧的部门编号
+     * @param newDeptPCode 新的部门编号
+     * @return 返回 0 表示失败，大于 0 表示成功
+     */
+    int updateDepartmentPCode(@Param("oldDeptPCode") String oldDeptPCode, @Param("newDeptPCode") String newDeptPCode);
 }
