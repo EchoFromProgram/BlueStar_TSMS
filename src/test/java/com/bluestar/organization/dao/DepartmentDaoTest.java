@@ -59,4 +59,20 @@ public class DepartmentDaoTest {
         String deptId = "d6eae030-24e0-466a-bce0-9e61ac074381";
         System.out.println(departmentDao.removeDepartment(deptId));
     }
+
+    @Test
+    public void testUpdateDepartment() {
+        Department department = new Department();
+        department.setDeptId("d6eae030-24e0-466a-bce0-9e61ac074381");
+        department.setDeptCode("RA9-001-001");
+        //department.setDeptName("福州开发部维护小组");
+        //department.setDeptPCode("RA9-001");
+        department.setDeptLevel("2");
+        //department.setDeptOrder(1);
+        department.setDeptStatus(DepartmentConst.DEPT_STATUS_NORMAL);
+        department.setDeptRemark("福州开发部维护小组....");
+
+        int affect = departmentDao.updateDepartment(department);
+        System.out.println(affect);
+    }
 }
