@@ -18,7 +18,7 @@ public interface DepartmentService {
      * @param department 要被添加的部门
      * @return 返回添加状态
      */
-    public ServerResponse addANewDepartment(Department department);
+    public ServerResponse addDepartment(Department department);
 
     /**
      * 检查部门编号是否可用
@@ -27,4 +27,25 @@ public interface DepartmentService {
      * @return 返回状态信息
      */
     public ServerResponse checkDepartmentCode(String deptCode);
+
+    /**
+     * 删除一个部门
+     *
+     * @param deptId 要被删除的部门 id
+     * @return 返回删除情况
+     */
+    public ServerResponse deleteDepartment(String deptId);
+
+    /**
+     * 更新部门信息
+     * 这里的业务较为复杂，因为要涉及 3 个数据库操作
+     * 1. 首先是部门表更新，具体一条信息的更新
+     * 2. 如果修改涉及编号的修改，还要把这张表其他父节点是这个编号的都改了
+     * 3. 如果修改涉及编号的修改，还要把用户部门表中的关系约一起改了
+     *
+     * @param department 要被更新的部门信息
+     * @param oldDepartmentCode 原来的部门编号
+     * @return 返回部门信息
+     */
+    public ServerResponse updateDepartment(Department department, String oldDepartmentCode);
 }

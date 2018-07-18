@@ -14,7 +14,8 @@ public enum DepartmentEnum implements Statusable {
     SUCCESS(Statusable.SUCCESS_CODE, "操作成功"),
     PARAMETER_UNCOMPLETED(-1, "参数不完整"),
     SAVE_FAILED(-2, "保存失败"),
-    CODE_EXISTED(-3, "部门编号重复");
+    CODE_EXISTED(-3, "部门编号重复"),
+    REMOVE_FAILED(-4, "删除失败");
 
     private int code;
     private String msg;
