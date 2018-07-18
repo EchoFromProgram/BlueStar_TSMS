@@ -1,5 +1,6 @@
 package com.bluestar.organization.service;
 
+import com.bluestar.organization.common.DepartmentConst;
 import com.bluestar.organization.entity.Department;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,5 +41,19 @@ public class DepartmentServiceTest {
         String deptId = "";
 
         System.out.println(departmentService.deleteDepartment(deptId));
+    }
+
+    @Test
+    public void testUpdateDepartment() {
+        Department department = new Department();
+        department.setDeptId("e1565d7d-efaa-4704-ba96-b10c07365592");
+        department.setDeptCode("RA9-003");
+        department.setDeptName("福州检测总部");
+        department.setDeptLevel("1");
+        department.setDeptStatus(DepartmentConst.DEPT_STATUS_ABANDON);
+        department.setDeptRemark("福州检测总部....");
+        String oldDeptCode = "RA9-003";
+
+        System.out.println(departmentService.updateDepartment(department, oldDeptCode));
     }
 }

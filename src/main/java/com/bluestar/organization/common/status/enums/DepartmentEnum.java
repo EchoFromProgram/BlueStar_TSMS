@@ -15,7 +15,9 @@ public enum DepartmentEnum implements Statusable {
     PARAMETER_UNCOMPLETED(-1, "参数不完整"),
     SAVE_FAILED(-2, "保存失败"),
     CODE_EXISTED(-3, "部门编号重复"),
-    REMOVE_FAILED(-4, "删除失败");
+    REMOVE_FAILED(-4, "删除失败"),
+    UPDATE_FAILED(-5, "修改失败"),
+    PARAMETER_TOO_LONG(-6, "参数太长");
 
     private int code;
     private String msg;
