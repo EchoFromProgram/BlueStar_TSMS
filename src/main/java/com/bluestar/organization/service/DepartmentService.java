@@ -43,9 +43,18 @@ public interface DepartmentService {
      * 2. 如果修改涉及编号的修改，还要把这张表其他父节点是这个编号的都改了
      * 3. 如果修改涉及编号的修改，还要把用户部门表中的关系约一起改了
      *
-     * @param department 要被更新的部门信息
+     * @param department        要被更新的部门信息
      * @param oldDepartmentCode 原来的部门编号
      * @return 返回部门信息
      */
     public ServerResponse updateDepartment(Department department, String oldDepartmentCode);
+
+    /**
+     * 通过部门编号得到这个部门旗下的所有子部门
+     *
+     * @param deptCode 指定的部门编号
+     * @param isGetAllDepartments 是否查询出所有部门信息
+     * @return 返回得到的所有子部门
+     */
+    public ServerResponse getChildrenDepartments(String deptCode, boolean isGetAllDepartments);
 }

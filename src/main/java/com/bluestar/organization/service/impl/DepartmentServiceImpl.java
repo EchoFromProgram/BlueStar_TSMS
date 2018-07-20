@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 部门业务具体实现类
  *
@@ -185,5 +188,32 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         // 修改成功
         return ServerResponse.response(DepartmentEnum.SUCCESS);
+    }
+
+    /**
+     * 通过部门编号得到这个部门旗下的所有子部门
+     *
+     * @param deptCode            指定的部门编号
+     * @param isGetAllDepartments 是否查询出所有部门信息
+     * @return 返回得到的所有子部门
+     */
+    @Override
+    public ServerResponse getChildrenDepartments(String deptCode, boolean isGetAllDepartments) {
+
+        // 这两个参数都是必须的
+        if (deptCode == null) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 查询数据库
+        List<Department> departments = departmentDao.listDepartmentByDeptCode(deptCode, isGetAllDepartments);
+        if (departments == null) {
+            // 查询是空的，意味着查询出错了，因为即使数据为空，返回值也应该是空的 list，而不是 null
+            log.warn("listDepartmentByDeptCode: 返回 null " + "(参数: " + deptCode + ", " + isGetAllDepartments + ")");
+            return ServerResponse.response(DepartmentEnum.SUCCESS, new ArrayList<Department>(0));
+        }
+
+        // 成功查询，返回前台
+        return ServerResponse.response(DepartmentEnum.SUCCESS, departments);
     }
 }

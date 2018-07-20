@@ -57,4 +57,12 @@ public class DepartmentServiceTest {
 
         System.out.println(departmentService.updateDepartment(department, oldDeptCode));
     }
+
+    @Test
+    public void testGetChildrenDepartments() {
+        String deptCode = "RA9-002";
+        Boolean all = false;
+
+        System.out.println(departmentService.getChildrenDepartments(deptCode, all));
+    }
 }

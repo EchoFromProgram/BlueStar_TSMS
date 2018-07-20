@@ -6,6 +6,7 @@ import com.bluestar.organization.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -72,5 +73,18 @@ public class DepartmentController {
     @ResponseBody
     public ServerResponse updateDepartment(Department department, String oldDeptCode) {
         return departmentService.updateDepartment(department, oldDeptCode);
+    }
+
+    /**
+     * 通过部门编号得到这个部门旗下的所有子部门
+     *
+     * @param deptCode 指定的部门编号
+     * @param isGetAllDepartments 是否要显示所有部门信息，包括无效，这个参数不是必须的
+     * @return 返回查询的结果
+     */
+    @RequestMapping(path = "getChildrenDepartments.do")
+    @ResponseBody
+    public ServerResponse getChildrenDepartments(String deptCode, @RequestParam(required = false) Boolean isGetAllDepartments) {
+        return departmentService.getChildrenDepartments(deptCode, isGetAllDepartments);
     }
 }
