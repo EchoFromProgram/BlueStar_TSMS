@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * ------> 1149062639@qq.com
  * created by 2018/07/18 15:23:27
  */
-@Controller("dept")
+@Controller
 public class DepartmentController {
 
     private DepartmentService departmentService = null;
@@ -25,6 +25,16 @@ public class DepartmentController {
     @Autowired
     public void setDepartmentService(DepartmentService departmentService) {
         this.departmentService = departmentService;
+    }
+
+    /**
+     * 跳转到组织页面
+     *
+     * @return 没有意义的返回值，这个返回值只是跳转界面的
+     */
+    @RequestMapping(path = "organization.do")
+    public String toOrganizationPage() {
+        return "organization/organization.jsp";
     }
 
     /**
