@@ -84,4 +84,11 @@ public class DepartmentServiceTest {
 
         System.out.println(departmentService.putUserInDepartment(userDepartment));
     }
+
+    @Test
+    public void testGetUsersInDepartment() {
+        String deptCode = "RA9-0010";
+
+        System.out.println(departmentService.getUsersInDepartment(deptCode));
+    }
 }

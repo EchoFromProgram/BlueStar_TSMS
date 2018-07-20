@@ -78,4 +78,12 @@ public interface DepartmentService {
      * @return 返回保存结果
      */
     public ServerResponse putUserInDepartment(UserDepartment userDepartment);
+
+    /**
+     * 通过部门编号获取这个部门所拥有的用户
+     *
+     * @param deptCode 部门编号
+     * @return 返回这个部门的所有用户
+     */
+    public ServerResponse getUsersInDepartment(String deptCode);
 }

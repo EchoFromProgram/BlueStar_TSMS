@@ -117,4 +117,16 @@ public class DepartmentController {
     public ServerResponse putUserInDepartment(UserDepartment userDepartment) {
         return departmentService.putUserInDepartment(userDepartment);
     }
+
+    /**
+     * 获得部门中的用户
+     *
+     * @param deptCode 指定的部门编号
+     * @return 返回得到的用户
+     */
+    @RequestMapping(path = "getUsersInDepartment.do")
+    @ResponseBody
+    public ServerResponse getUsersInDepartment(String deptCode) {
+        return departmentService.getUsersInDepartment(deptCode);
+    }
 }

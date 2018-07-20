@@ -294,4 +294,28 @@ public class DepartmentServiceImpl implements DepartmentService {
         // 操作成功
         return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
+
+    /**
+     * 通过部门编号获取这个部门所拥有的用户
+     *
+     * @param deptCode 部门编号
+     * @return 返回这个部门的所有用户
+     */
+    @Override
+    public ServerResponse getUsersInDepartment(String deptCode) {
+
+        if (CodeUtil.isBlank(deptCode)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 查询数据库
+        List<UserDepartment> users = departmentDao.listUsersInDepartment(deptCode);
+        if (users == null) {
+            // 查询是空的，意味着查询出错了，因为即使数据为空，返回值也应该是空的 list，而不是 null
+            log.warn("listDepartmentByDeptLevel: 返回 null " + "(参数: " + deptCode + ")");
+            return ServerResponse.response(DepartmentEnum.SUCCESS, new ArrayList<UserDepartment>(0));
+        }
+
+        return ServerResponse.response(DepartmentEnum.SUCCESS, users);
+    }
 }
