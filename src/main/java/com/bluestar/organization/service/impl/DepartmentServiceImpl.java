@@ -6,6 +6,7 @@ import com.bluestar.organization.common.status.enums.DepartmentEnum;
 import com.bluestar.organization.dao.DepartmentDao;
 import com.bluestar.organization.dto.ServerResponse;
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
 import com.bluestar.organization.service.DepartmentService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,8 +57,8 @@ public class DepartmentServiceImpl implements DepartmentService {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
-        boolean isParameterUncompleted = (department.getDeptCode() == null ||
-                department.getDeptName() == null || department.getDeptLevel() == null);
+        boolean isParameterUncompleted = (CodeUtil.isBlank(department.getDeptCode()) ||
+                CodeUtil.isBlank(department.getDeptName()) || CodeUtil.isBlank(department.getDeptLevel()));
         if (isParameterUncompleted) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
@@ -95,6 +96,11 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return 返回状态信息
      */
     public ServerResponse checkDepartmentCode(String deptCode) {
+
+        if (CodeUtil.isBlank(deptCode)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
         int count = departmentDao.countDepartmentCode(deptCode);
         if (count > 0) {
             return ServerResponse.response(DepartmentEnum.CODE_EXISTED);
@@ -143,12 +149,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public ServerResponse updateDepartment(Department department, String oldDepartmentCode) {
         // 检验参数合法性
-        if (department == null || department.getDeptId() == null || oldDepartmentCode == null) {
+        if (department == null || CodeUtil.isBlank(department.getDeptId()) || CodeUtil.isBlank(oldDepartmentCode)) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
-        boolean isParameterUncompleted = (department.getDeptCode() == null ||
-                department.getDeptName() == null || department.getDeptLevel() == null);
+        boolean isParameterUncompleted = (CodeUtil.isBlank(department.getDeptCode()) ||
+                CodeUtil.isBlank(department.getDeptName()) || CodeUtil.isBlank(department.getDeptLevel()));
         if (isParameterUncompleted) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
@@ -246,5 +252,46 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         return ServerResponse.response(DepartmentEnum.SUCCESS, departments);
+    }
+
+    /**
+     * 将一个用户放进部门中
+     *
+     * @param userDepartment 保存着用户 id 和部门编号
+     * @return 返回保存结果
+     */
+    @Override
+    public ServerResponse putUserInDepartment(UserDepartment userDepartment) {
+
+        // 检查参数合法性
+        if (userDepartment == null) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        boolean isParameterUncompleted = CodeUtil.isBlank(userDepartment.getDeptCode()) ||
+                userDepartment.getUserId() == null;
+        if (isParameterUncompleted) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 检查部门编号的合法性，存不存在这个部门
+        ServerResponse resp = checkDepartmentCode(userDepartment.getDeptCode());
+        if (resp.isSuccess()) {
+            // 如果这个部门编号是可用的，也就说现在不存在这个部门编号！！
+            return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
+        }
+
+        // 设置主键，不允许别的地方设置主键
+        userDepartment.setUserDeptId(CodeUtil.getId());
+
+        // 参数合法
+        int affect = departmentDao.saveUserInDepartment(userDepartment);
+        if (affect <= 0) {
+            log.error("将用户放进部门中失败！" + userDepartment);
+            return ServerResponse.response(DepartmentEnum.SAVE_FAILED);
+        }
+
+        // 操作成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
 }

@@ -2,6 +2,7 @@ package com.bluestar.organization.service;
 
 import com.bluestar.organization.dto.ServerResponse;
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
 
 /**
  * 部门业务接口类
@@ -69,4 +70,12 @@ public interface DepartmentService {
      */
     public ServerResponse getDepartmentsByLevelAndDeptPCode(String deptLevel, String deptPCode,
                                                             boolean isGetAllDepartments);
+
+    /**
+     * 将一个用户放进部门中
+     *
+     * @param userDepartment 保存着用户 id 和部门编号
+     * @return 返回保存结果
+     */
+    public ServerResponse putUserInDepartment(UserDepartment userDepartment);
 }

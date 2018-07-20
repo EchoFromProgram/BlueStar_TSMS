@@ -2,6 +2,7 @@ package com.bluestar.organization.service;
 
 import com.bluestar.organization.common.DepartmentConst;
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,14 @@ public class DepartmentServiceTest {
         Boolean all = false;
 
         System.out.println(departmentService.getDepartmentsByLevelAndDeptPCode(deptLevel, deptPCode, all));
+    }
+
+    @Test
+    public void testPutUserInDepartment() {
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setDeptCode("RA9-0011");
+        userDepartment.setUserId(4);
+
+        System.out.println(departmentService.putUserInDepartment(userDepartment));
     }
 }

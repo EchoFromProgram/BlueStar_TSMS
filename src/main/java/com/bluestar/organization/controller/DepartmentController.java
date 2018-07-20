@@ -2,6 +2,7 @@ package com.bluestar.organization.controller;
 
 import com.bluestar.organization.dto.ServerResponse;
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
 import com.bluestar.organization.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,7 +66,7 @@ public class DepartmentController {
     /**
      * 更新指定的部门信息
      *
-     * @param department 指定的部门信息，这里的 id 必须得有
+     * @param department  指定的部门信息，这里的 id 必须得有
      * @param oldDeptCode 旧的 id 部门编号
      * @return 返回更新情况
      */
@@ -78,7 +79,7 @@ public class DepartmentController {
     /**
      * 通过部门编号得到这个部门旗下的所有子部门
      *
-     * @param deptCode 指定的部门编号
+     * @param deptCode            指定的部门编号
      * @param isGetAllDepartments 是否要显示所有部门信息，包括无效，这个参数不是必须的
      * @return 返回查询的结果
      */
@@ -91,8 +92,8 @@ public class DepartmentController {
     /**
      * 通过部门级别和父级别得到部门信息
      *
-     * @param deptLevel            指定的部门级别
-     * @param deptPCode 父级部门编号
+     * @param deptLevel           指定的部门级别
+     * @param deptPCode           父级部门编号
      * @param isGetAllDepartments 是否要显示所有部门信息，包括无效，这个参数不是必须的
      * @return 返回查询的结果
      */
@@ -102,5 +103,18 @@ public class DepartmentController {
                                                             @RequestParam(required = false) String deptPCode,
                                                             @RequestParam(required = false) Boolean isGetAllDepartments) {
         return departmentService.getDepartmentsByLevelAndDeptPCode(deptLevel, deptPCode, isGetAllDepartments);
+    }
+
+    /**
+     * 将用户保存进部门
+     * deptCode 和 userId 是必须的
+     *
+     * @param userDepartment 保存上面所需参数的对象
+     * @return 返回保存情况
+     */
+    @RequestMapping(path = "putUserInDepartment.do")
+    @ResponseBody
+    public ServerResponse putUserInDepartment(UserDepartment userDepartment) {
+        return departmentService.putUserInDepartment(userDepartment);
     }
 }
