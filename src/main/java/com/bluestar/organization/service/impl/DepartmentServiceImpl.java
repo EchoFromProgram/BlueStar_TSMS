@@ -6,6 +6,7 @@ import com.bluestar.organization.common.status.enums.DepartmentEnum;
 import com.bluestar.organization.dao.DepartmentDao;
 import com.bluestar.organization.dto.ServerResponse;
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
 import com.bluestar.organization.service.DepartmentService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 部门业务具体实现类
@@ -53,8 +57,8 @@ public class DepartmentServiceImpl implements DepartmentService {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
-        boolean isParameterUncompleted = (department.getDeptCode() == null ||
-                department.getDeptName() == null || department.getDeptLevel() == null);
+        boolean isParameterUncompleted = (CodeUtil.isBlank(department.getDeptCode()) ||
+                CodeUtil.isBlank(department.getDeptName()) || CodeUtil.isBlank(department.getDeptLevel()));
         if (isParameterUncompleted) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
@@ -92,6 +96,11 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return 返回状态信息
      */
     public ServerResponse checkDepartmentCode(String deptCode) {
+
+        if (CodeUtil.isBlank(deptCode)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
         int count = departmentDao.countDepartmentCode(deptCode);
         if (count > 0) {
             return ServerResponse.response(DepartmentEnum.CODE_EXISTED);
@@ -140,12 +149,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public ServerResponse updateDepartment(Department department, String oldDepartmentCode) {
         // 检验参数合法性
-        if (department == null || department.getDeptId() == null || oldDepartmentCode == null) {
+        if (department == null || CodeUtil.isBlank(department.getDeptId()) || CodeUtil.isBlank(oldDepartmentCode)) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
-        boolean isParameterUncompleted = (department.getDeptCode() == null ||
-                department.getDeptName() == null || department.getDeptLevel() == null);
+        boolean isParameterUncompleted = (CodeUtil.isBlank(department.getDeptCode()) ||
+                CodeUtil.isBlank(department.getDeptName()) || CodeUtil.isBlank(department.getDeptLevel()));
         if (isParameterUncompleted) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
@@ -184,6 +193,191 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         // 修改成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
+    }
+
+    /**
+     * 通过部门编号得到这个部门旗下的所有子部门
+     *
+     * @param deptCode            指定的部门编号
+     * @param isGetAllDepartments 是否查询出所有部门信息
+     * @return 返回得到的所有子部门
+     */
+    @Override
+    public ServerResponse getChildrenDepartments(String deptCode, boolean isGetAllDepartments) {
+
+        // 这两个参数都是必须的
+        if (CodeUtil.isBlank(deptCode)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 查询数据库
+        List<Department> departments = departmentDao.listDepartmentByDeptCode(deptCode, isGetAllDepartments);
+        if (departments == null) {
+            // 查询是空的，意味着查询出错了，因为即使数据为空，返回值也应该是空的 list，而不是 null
+            log.warn("listDepartmentByDeptCode: 返回 null " + "(参数: " + deptCode + ", " + isGetAllDepartments + ")");
+            return ServerResponse.response(DepartmentEnum.SUCCESS, new ArrayList<Department>(0));
+        }
+
+        // 成功查询，返回前台
+        return ServerResponse.response(DepartmentEnum.SUCCESS, departments);
+    }
+
+    /**
+     * 通过父级编号找到指定级别的部门，其实只能找到子级
+     * 所以这个方法的参数设定其实是有问题的，但以后说不定会有新功能用到
+     *
+     * @param deptLevel           级别
+     * @param deptPCode           父级部门
+     * @param isGetAllDepartments 是否查询出所有部门信息
+     * @return 返回得到的部门
+     */
+    @Override
+    public ServerResponse getDepartmentsByLevelAndDeptPCode(String deptLevel, String deptPCode,
+                                                            boolean isGetAllDepartments) {
+
+        // 级别不能省略，这个方法的精髓就在级别。。。
+        if (CodeUtil.isBlank(deptLevel)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 查询数据库
+        List<Department> departments = departmentDao.listDepartmentByDeptLevel(deptLevel, deptPCode,
+                isGetAllDepartments);
+        if (departments == null) {
+            // 查询是空的，意味着查询出错了，因为即使数据为空，返回值也应该是空的 list，而不是 null
+            log.warn("listDepartmentByDeptLevel: 返回 null " + "(参数: " + deptLevel + ", "
+                    + deptPCode + ", " + isGetAllDepartments + ")");
+            return ServerResponse.response(DepartmentEnum.SUCCESS, new ArrayList<Department>(0));
+        }
+
+        return ServerResponse.response(DepartmentEnum.SUCCESS, departments);
+    }
+
+    /**
+     * 将一个用户放进部门中
+     *
+     * @param userDepartment 保存着用户 id 和部门编号
+     * @return 返回保存结果
+     */
+    @Override
+    public ServerResponse putUserInDepartment(UserDepartment userDepartment) {
+
+        // 检查参数合法性
+        if (userDepartment == null) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        boolean isParameterUncompleted = CodeUtil.isBlank(userDepartment.getDeptCode()) ||
+                userDepartment.getUserId() == null;
+        if (isParameterUncompleted) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 检查部门编号的合法性，存不存在这个部门
+        ServerResponse resp = checkDepartmentCode(userDepartment.getDeptCode());
+        if (resp.getCode() != DepartmentEnum.CODE_EXISTED.getCode()) {
+            // 如果这个部门编号是可用的，也就说现在不存在这个部门编号！！
+            return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
+        }
+
+        // 设置主键，不允许别的地方设置主键
+        userDepartment.setUserDeptId(CodeUtil.getId());
+
+        // 参数合法
+        int affect = departmentDao.saveUserInDepartment(userDepartment);
+        if (affect <= 0) {
+            log.error("将用户放进部门中失败！" + userDepartment);
+            return ServerResponse.response(DepartmentEnum.SAVE_FAILED);
+        }
+
+        // 操作成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
+    }
+
+    /**
+     * 通过部门编号获取这个部门所拥有的用户
+     *
+     * @param deptCode 部门编号
+     * @return 返回这个部门的所有用户
+     */
+    @Override
+    public ServerResponse getUsersInDepartment(String deptCode) {
+
+        if (CodeUtil.isBlank(deptCode)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 查询数据库
+        List<UserDepartment> users = departmentDao.listUsersInDepartment(deptCode);
+        if (users == null) {
+            // 查询是空的，意味着查询出错了，因为即使数据为空，返回值也应该是空的 list，而不是 null
+            log.warn("listDepartmentByDeptLevel: 返回 null " + "(参数: " + deptCode + ")");
+            return ServerResponse.response(DepartmentEnum.SUCCESS, new ArrayList<UserDepartment>(0));
+        }
+
+        return ServerResponse.response(DepartmentEnum.SUCCESS, users);
+    }
+
+    /**
+     * 更新用户部门关系，比如把一个用户转移到另外一个部门
+     * 根据 userDepartment 中的 id 来找到具体的信息
+     *
+     * @param userDepartment 指定的关系对象
+     * @return 返回修改情况
+     */
+    @Override
+    public ServerResponse updateUserInDepartment(UserDepartment userDepartment) {
+
+        // 检查参数合法性
+        if (userDepartment == null || CodeUtil.isBlank(userDepartment.getUserDeptId())) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 用户 id 必须要
+        if (userDepartment.getUserId() == null) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 检查部门编号的合法性，存不存在这个部门
+        ServerResponse resp = checkDepartmentCode(userDepartment.getDeptCode());
+        if (resp.getCode() != DepartmentEnum.CODE_EXISTED.getCode()) {
+            // 如果这个部门编号是可用的，也就说现在不存在这个部门编号！！
+            return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
+        }
+
+        // 参数合法
+        int affect = departmentDao.updateUserInUserDepartment(userDepartment);
+        if (affect <= 0) {
+            log.error("修改用户部门关系失败！" + userDepartment);
+            return ServerResponse.response(DepartmentEnum.UPDATE_FAILED);
+        }
+
+        // 操作成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
+    }
+
+    /**
+     * 删除用户部门关系
+     *
+     * @param userDeptId 用户部门编号，这是主键
+     * @return 返回删除情况
+     */
+    @Override
+    public ServerResponse deleteUserInDepartment(String userDeptId) {
+
+        if (CodeUtil.isBlank(userDeptId)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 开始删除
+        int affect = departmentDao.removeUserInUserDepartment(userDeptId);
+        if (affect <= 0) {
+            log.error("用户关系删除失败！id = " + userDeptId);
+            return ServerResponse.response(DepartmentEnum.REMOVE_FAILED);
+        }
+
+        // 删除成功
         return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
 }

@@ -2,6 +2,7 @@ package com.bluestar.organization.service;
 
 import com.bluestar.organization.common.DepartmentConst;
 import com.bluestar.organization.entity.Department;
+import com.bluestar.organization.entity.UserDepartment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,55 @@ public class DepartmentServiceTest {
         String oldDeptCode = "RA9-0010";
 
         System.out.println(departmentService.updateDepartment(department, oldDeptCode));
+    }
+
+    @Test
+    public void testGetChildrenDepartments() {
+        String deptCode = "RA9-002";
+        Boolean all = false;
+
+        System.out.println(departmentService.getChildrenDepartments(deptCode, all));
+    }
+
+    @Test
+    public void testGetDepartmentsByLevelAndDeptPCode() {
+        String deptLevel = "1";
+        String deptPCode = null;
+        Boolean all = false;
+
+        System.out.println(departmentService.getDepartmentsByLevelAndDeptPCode(deptLevel, deptPCode, all));
+    }
+
+    @Test
+    public void testPutUserInDepartment() {
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setDeptCode("RA9-0011");
+        userDepartment.setUserId(4);
+
+        System.out.println(departmentService.putUserInDepartment(userDepartment));
+    }
+
+    @Test
+    public void testGetUsersInDepartment() {
+        String deptCode = "RA9-0010";
+
+        System.out.println(departmentService.getUsersInDepartment(deptCode));
+    }
+
+    @Test
+    public void testUpdateUserInDepartment() {
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setUserDeptId("1159eae3-cd5c-48ed-8d6c-eefd07c2b801");
+        userDepartment.setDeptCode("RA9-001");
+        userDepartment.setUserId(4);
+
+        System.out.println(departmentService.updateUserInDepartment(userDepartment));
+    }
+
+    @Test
+    public void testDeleteUserInDepartment() {
+        String userDeptId = "";
+
+        System.out.println(departmentService.deleteUserInDepartment(userDeptId));
     }
 }

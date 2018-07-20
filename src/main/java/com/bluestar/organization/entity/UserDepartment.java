@@ -1,5 +1,7 @@
 package com.bluestar.organization.entity;
 
+import com.bluestar.organization.common.DepartmentConst;
+
 /**
  * 对应 t_user_dept 的实体类
  * 这仅仅是一个关系实体类
@@ -17,7 +19,9 @@ public class UserDepartment {
     private String username = null;
     private String name = null;
 
-    public UserDepartment() {}
+    public UserDepartment() {
+        this.setUserDeptOrder(DepartmentConst.DEFAULT_ORDER);
+    }
 
     public String getUserDeptId() {
         return userDeptId;
