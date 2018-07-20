@@ -129,4 +129,17 @@ public class DepartmentController {
     public ServerResponse getUsersInDepartment(String deptCode) {
         return departmentService.getUsersInDepartment(deptCode);
     }
+
+    /**
+     * 更新用户部门关系，比如把一个用户转移到另外一个部门
+     * 根据 userDepartment 中的 id 来找到具体的信息
+     *
+     * @param userDepartment 用户部门关系对象
+     * @return 返回修改情况
+     */
+    @RequestMapping(path = "updateUserInDepartment.do")
+    @ResponseBody
+    public ServerResponse updateUserInDepartment(UserDepartment userDepartment) {
+        return departmentService.updateUserInDepartment(userDepartment);
+    }
 }

@@ -276,7 +276,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         // 检查部门编号的合法性，存不存在这个部门
         ServerResponse resp = checkDepartmentCode(userDepartment.getDeptCode());
-        if (resp.isSuccess()) {
+        if (resp.getCode() != DepartmentEnum.CODE_EXISTED.getCode()) {
             // 如果这个部门编号是可用的，也就说现在不存在这个部门编号！！
             return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
         }
@@ -317,5 +317,43 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         return ServerResponse.response(DepartmentEnum.SUCCESS, users);
+    }
+
+    /**
+     * 更新用户部门关系，比如把一个用户转移到另外一个部门
+     * 根据 userDepartment 中的 id 来找到具体的信息
+     *
+     * @param userDepartment 指定的关系对象
+     * @return 返回修改情况
+     */
+    @Override
+    public ServerResponse updateUserInDepartment(UserDepartment userDepartment) {
+
+        // 检查参数合法性
+        if (userDepartment == null || CodeUtil.isBlank(userDepartment.getUserDeptId())) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 用户 id 必须要
+        if (userDepartment.getUserId() == null) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 检查部门编号的合法性，存不存在这个部门
+        ServerResponse resp = checkDepartmentCode(userDepartment.getDeptCode());
+        if (resp.getCode() != DepartmentEnum.CODE_EXISTED.getCode()) {
+            // 如果这个部门编号是可用的，也就说现在不存在这个部门编号！！
+            return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
+        }
+
+        // 参数合法
+        int affect = departmentDao.updateUserInUserDepartment(userDepartment);
+        if (affect <= 0) {
+            log.error("修改用户部门关系失败！" + userDepartment);
+            return ServerResponse.response(DepartmentEnum.UPDATE_FAILED);
+        }
+
+        // 操作成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
 }

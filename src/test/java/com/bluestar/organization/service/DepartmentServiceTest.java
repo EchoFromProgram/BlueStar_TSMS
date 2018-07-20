@@ -91,4 +91,14 @@ public class DepartmentServiceTest {
 
         System.out.println(departmentService.getUsersInDepartment(deptCode));
     }
+
+    @Test
+    public void testUpdateUserInDepartment() {
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setUserDeptId("1159eae3-cd5c-48ed-8d6c-eefd07c2b801");
+        userDepartment.setDeptCode("RA9-001");
+        userDepartment.setUserId(4);
+
+        System.out.println(departmentService.updateUserInDepartment(userDepartment));
+    }
 }
