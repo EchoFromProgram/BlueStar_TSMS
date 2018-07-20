@@ -5,6 +5,7 @@ import com.bluestar.advertisement.entity.Advertise;
 import com.bluestar.advertisement.enums.response.AdResponse;
 import com.bluestar.advertisement.utils.AdUtils;
 import com.bluestar.advertisement.vo.AdVo;
+import com.github.pagehelper.PageInfo;
 import javafx.beans.binding.ObjectExpression;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -51,7 +52,7 @@ public interface AdService {
 
 
 
-    public List<AdVo> queryAds(String adTitle, String adStatus) ;
+    public PageInfo queryAds(String adTitle, String adStatus, Integer pageNum) ;
 
 
     public ServerResponse getUpdateData(String adId);

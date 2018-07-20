@@ -1,6 +1,7 @@
 <%@ page import="com.bluestar.advertisement.vo.AdVo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.github.pagehelper.PageInfo" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -136,7 +137,6 @@
                                         String status = null;
                                         List<AdVo> ads = new ArrayList<>();
                                         ads = (List<AdVo>)request.getAttribute("ads");
-
                                         if(ads != null && ads.size() > 0)
                                         for(int i = 0; i < ads.size(); i++) {
                                             AdVo advo = ads.get(i);
@@ -170,9 +170,17 @@
                                         }
                                     %>
                                     </tbody>
-
                                 </table>
+
                             </div>
+                            <!-- 分页信息 -->
+                            <div class="row">
+                                <!-- 分页文字 -->
+                                <div class="col-md-5" id="page_info_area"></div>
+                                <!-- 分页条 -->
+                                <div class="col-md-5" id="page_nav_area"></div>
+                            </div>
+                            <!--/ 分页结束-->
                                 <!-- 被隐藏的删除框 -->
                                 <div class="modal fade" id="modal-delete-block" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -276,5 +284,10 @@
 <script src="./static/teach/js/ie10-viewport-bug-workaround.js"></script>
 <script src="./static/teach/js/general.js"></script>
 <script src=./static/advertisement/js/advertise.js></script>
+
 </body>
+<script>
+    var pageData = <%= request.getAttribute("pageInfo") %>;
+    to_page(pageData);
+</script>
 </html>
