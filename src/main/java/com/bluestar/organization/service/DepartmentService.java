@@ -57,4 +57,16 @@ public interface DepartmentService {
      * @return 返回得到的所有子部门
      */
     public ServerResponse getChildrenDepartments(String deptCode, boolean isGetAllDepartments);
+
+    /**
+     * 通过父级编号找到指定级别的部门，其实只能找到子级
+     * 所以这个方法的参数设定其实是有问题的，但以后说不定会有新功能用到
+     *
+     * @param deptLevel 级别
+     * @param deptPCode 父级部门
+     * @param isGetAllDepartments 是否查询出所有部门信息
+     * @return 返回得到的部门
+     */
+    public ServerResponse getDepartmentsByLevelAndDeptPCode(String deptLevel, String deptPCode,
+                                                            boolean isGetAllDepartments);
 }

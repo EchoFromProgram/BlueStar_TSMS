@@ -65,4 +65,13 @@ public class DepartmentServiceTest {
 
         System.out.println(departmentService.getChildrenDepartments(deptCode, all));
     }
+
+    @Test
+    public void testGetDepartmentsByLevelAndDeptPCode() {
+        String deptLevel = "1";
+        String deptPCode = null;
+        Boolean all = false;
+
+        System.out.println(departmentService.getDepartmentsByLevelAndDeptPCode(deptLevel, deptPCode, all));
+    }
 }

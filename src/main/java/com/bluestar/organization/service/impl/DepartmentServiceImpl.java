@@ -201,7 +201,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public ServerResponse getChildrenDepartments(String deptCode, boolean isGetAllDepartments) {
 
         // 这两个参数都是必须的
-        if (deptCode == null) {
+        if (CodeUtil.isBlank(deptCode)) {
             return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
         }
 
@@ -214,6 +214,37 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         // 成功查询，返回前台
+        return ServerResponse.response(DepartmentEnum.SUCCESS, departments);
+    }
+
+    /**
+     * 通过父级编号找到指定级别的部门，其实只能找到子级
+     * 所以这个方法的参数设定其实是有问题的，但以后说不定会有新功能用到
+     *
+     * @param deptLevel           级别
+     * @param deptPCode           父级部门
+     * @param isGetAllDepartments 是否查询出所有部门信息
+     * @return 返回得到的部门
+     */
+    @Override
+    public ServerResponse getDepartmentsByLevelAndDeptPCode(String deptLevel, String deptPCode,
+                                                            boolean isGetAllDepartments) {
+
+        // 级别不能省略，这个方法的精髓就在级别。。。
+        if (CodeUtil.isBlank(deptLevel)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 查询数据库
+        List<Department> departments = departmentDao.listDepartmentByDeptLevel(deptLevel, deptPCode,
+                isGetAllDepartments);
+        if (departments == null) {
+            // 查询是空的，意味着查询出错了，因为即使数据为空，返回值也应该是空的 list，而不是 null
+            log.warn("listDepartmentByDeptLevel: 返回 null " + "(参数: " + deptLevel + ", "
+                    + deptPCode + ", " + isGetAllDepartments + ")");
+            return ServerResponse.response(DepartmentEnum.SUCCESS, new ArrayList<Department>(0));
+        }
+
         return ServerResponse.response(DepartmentEnum.SUCCESS, departments);
     }
 }

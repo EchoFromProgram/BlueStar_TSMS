@@ -87,4 +87,20 @@ public class DepartmentController {
     public ServerResponse getChildrenDepartments(String deptCode, @RequestParam(required = false) Boolean isGetAllDepartments) {
         return departmentService.getChildrenDepartments(deptCode, isGetAllDepartments);
     }
+
+    /**
+     * 通过部门级别和父级别得到部门信息
+     *
+     * @param deptLevel            指定的部门级别
+     * @param deptPCode 父级部门编号
+     * @param isGetAllDepartments 是否要显示所有部门信息，包括无效，这个参数不是必须的
+     * @return 返回查询的结果
+     */
+    @RequestMapping(path = "getDepartmentsByLevelAndDeptPCode.do")
+    @ResponseBody
+    public ServerResponse getDepartmentsByLevelAndDeptPCode(String deptLevel,
+                                                            @RequestParam(required = false) String deptPCode,
+                                                            @RequestParam(required = false) Boolean isGetAllDepartments) {
+        return departmentService.getDepartmentsByLevelAndDeptPCode(deptLevel, deptPCode, isGetAllDepartments);
+    }
 }
