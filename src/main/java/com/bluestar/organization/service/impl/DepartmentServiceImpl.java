@@ -356,4 +356,28 @@ public class DepartmentServiceImpl implements DepartmentService {
         // 操作成功
         return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
+
+    /**
+     * 删除用户部门关系
+     *
+     * @param userDeptId 用户部门编号，这是主键
+     * @return 返回删除情况
+     */
+    @Override
+    public ServerResponse deleteUserInDepartment(String userDeptId) {
+
+        if (CodeUtil.isBlank(userDeptId)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 开始删除
+        int affect = departmentDao.removeUserInUserDepartment(userDeptId);
+        if (affect <= 0) {
+            log.error("用户关系删除失败！id = " + userDeptId);
+            return ServerResponse.response(DepartmentEnum.REMOVE_FAILED);
+        }
+
+        // 删除成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
+    }
 }

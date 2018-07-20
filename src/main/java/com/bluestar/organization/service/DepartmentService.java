@@ -95,4 +95,12 @@ public interface DepartmentService {
      * @return 返回修改情况
      */
     public ServerResponse updateUserInDepartment(UserDepartment userDepartment);
+
+    /**
+     * 删除用户部门关系
+     *
+     * @param userDeptId 用户部门编号，这是主键
+     * @return 返回删除情况
+     */
+    public ServerResponse deleteUserInDepartment(String userDeptId);
 }

@@ -142,4 +142,16 @@ public class DepartmentController {
     public ServerResponse updateUserInDepartment(UserDepartment userDepartment) {
         return departmentService.updateUserInDepartment(userDepartment);
     }
+
+    /**
+     * 根据 userDeptId 来删除一条关系，就是把一个对象从部门中移除
+     *
+     * @param userDeptId 指定的 id
+     * @return 返回删除情况
+     */
+    @RequestMapping(path = "deleteUserInDepartment.do")
+    @ResponseBody
+    public ServerResponse deleteUserInDepartment(String userDeptId) {
+        return departmentService.deleteUserInDepartment(userDeptId);
+    }
 }

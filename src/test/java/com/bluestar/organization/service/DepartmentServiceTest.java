@@ -101,4 +101,11 @@ public class DepartmentServiceTest {
 
         System.out.println(departmentService.updateUserInDepartment(userDepartment));
     }
+
+    @Test
+    public void testDeleteUserInDepartment() {
+        String userDeptId = "";
+
+        System.out.println(departmentService.deleteUserInDepartment(userDeptId));
+    }
 }
