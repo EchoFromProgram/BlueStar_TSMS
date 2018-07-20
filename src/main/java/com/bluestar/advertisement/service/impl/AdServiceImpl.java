@@ -141,7 +141,7 @@ public class AdServiceImpl implements AdService {
      */
     @Override
     public ServerResponse updateAd(CommonsMultipartFile file, String dirPath, Advertise advertise,
-                                   String pictureId) {
+                                   String pictureId, String dir) {
 
         if(advertise == null) {
             return ServerResponse.getServerResponse(AdResponse.UPDATE_AD_FAILURE);
@@ -151,6 +151,8 @@ public class AdServiceImpl implements AdService {
         advertise.setAdPicture(null);
         int affect ;
         String path = null;
+        String oldPath = dir + adDao.getUpdateData(advertise.getAdId()).getEnclosurePath();
+
 
         // 重新上传了文件
         if(file != null && file.getSize() > 0) {
@@ -171,6 +173,10 @@ public class AdServiceImpl implements AdService {
             if(upFile(file, path , pictureName) != null) {
                 return upFile(file, path, pictureName);
             }
+
+            // 删除旧照片
+            File oldfile = new File(oldPath);
+            oldfile.delete();
 
             // 图片上传成功，将图片信息插入数据库
             try {
@@ -220,6 +226,11 @@ public class AdServiceImpl implements AdService {
         return ads;
     }
 
+
+    @Override
+    public ServerResponse getUpdateData(String adId) {
+        return ServerResponse.getServerResponse( AdResponse.GET_SUCCESS, adDao.getUpdateData(adId));
+    }
 
 
     /**

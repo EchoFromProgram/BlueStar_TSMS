@@ -1,6 +1,7 @@
 package com.bluestar.advertisement.dto;
 
 import com.bluestar.advertisement.enums.ResponseStatus;
+import com.bluestar.advertisement.vo.AdVo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.io.Serializable;
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 // 保证序列化json对象的时候，如果是null的对象，key也会消失
-public class ServerResponse<T> implements Serializable {
+public class ServerResponse<T> extends AdVo implements Serializable {
 
     // 状态
     private int statusCode;

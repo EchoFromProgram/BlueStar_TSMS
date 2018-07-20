@@ -61,14 +61,23 @@
             <if test="status != null"> and ad_status = #{status} </if>
             AND business_id = 1 AND ad.ad_picture = en.busi_con_id
         </where>
-        ORDER BY ad_order, ad_create_time
+        ORDER BY ad_order ASC, ad_create_time DESC
 
     </select>
 
     <!--将广告的状态置为无效-->
     <update id="deleteAdById">
-        UPDATE t_ad SET ad_status = 3 WHERE ad_id = #{adId}
+        UPDATE t_ad SET ad_status = 3, ad_order = 999 WHERE ad_id = #{adId}
     </update>
+
+
+    <select id="getUpdateData" resultType="com.bluestar.advertisement.vo.AdVo">
+        SELECT
+        <include refid="adColumn" />
+        FROM t_ad ad, t_enclosure en
+        where ad_id = #{adId} AND business_id = 1 AND ad.ad_picture = en.busi_con_id
+
+    </select>
 
 
 

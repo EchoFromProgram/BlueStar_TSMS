@@ -47,7 +47,6 @@ public class AdController {
         // 判断是否上传图片
         if( file == null || file.getSize() == 0 ){
             return ServerResponse.getServerResponse(AdResponse.PICTURE_IS_NULL);
-
         }
 
         // 得到文件上传路径 /File/advertise/作者
@@ -57,7 +56,6 @@ public class AdController {
 
         // 得到上传广告结果
         ServerResponse serverResponse = adService.saveAd(file, dirPath ,advertise);
-
 
         return  serverResponse;
     }
@@ -82,8 +80,13 @@ public class AdController {
                 session.getServletContext().getRealPath(AdConst.DIR_PATH) + File.separator + "advertise"
                         + File.separator + advertise.getAdCreateUser() ;
 
+
+
+        String dir = session.getServletContext().getRealPath("/");
+
+
         // 得到更新结果
-        ServerResponse serverResponse = adService.updateAd(file, dirPath ,advertise, pictureId);
+        ServerResponse serverResponse = adService.updateAd(file, dirPath ,advertise, pictureId, dir);
 
         return  serverResponse;
     }
@@ -109,5 +112,16 @@ public class AdController {
         model.addAttribute("ads", ads);
 
         return "advertisement/advertise_list.jsp";
+    }
+
+
+    @RequestMapping(value = "getUpdateData.do")
+    @ResponseBody
+    public ServerResponse getUpdata(String adId) {
+
+        if(adId == null ) {
+            return ServerResponse.getServerResponse(AdResponse.GET_DATA_FAILURE);
+        }
+        return adService.getUpdateData(adId);
     }
 }

@@ -60,4 +60,10 @@ public interface AdDao {
      */
     public Integer updateEnById(@Param("pictureId")String pictureId,@Param("enclosure")Enclosure enclosure);
 
+    /**
+     * 获取更新的数据
+     * @param adId 广告id
+     * @return
+     */
+    public AdVo getUpdateData(String adId);
 }

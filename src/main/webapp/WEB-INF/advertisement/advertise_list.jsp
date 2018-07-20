@@ -92,7 +92,6 @@
                         <div class="tab-pane active" id="panel-1">
                             <h2 class="sub-header">广告列表</h2>
                             <form action="listAd.do">
-                            <form action="listAd.do">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label for="which-input" class="">广告标题</label>
@@ -116,7 +115,7 @@
                             <div class="row">
                                 <br>
                                 <div class="col-sm-3">
-                                    <button href="#panel-3" data-toggle="tab" class="btn btn-warning " id="submit-add">添加</button>
+                                    <button href="#panel-3" data-toggle="tab" class="btn btn-warning " id="submit-add">添加广告</button>
                                 </div>
                                 <br>
                             </div>
@@ -156,95 +155,115 @@
                                         <td> <fmt:formatDate value="<%= advo.getAdCreateTime() %>" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                         <td><%= status %></td>
                                         <td><%= advo.getAdLinkUrl() %></td>
-                                        <td><img style="height: 50px;width: 50px" src="<%= advo.getEnclosurePath() %>" alt=""></td>
+                                        <td><img style="height: 60px;width: 70px" src="<%= advo.getEnclosurePath() %>" alt=""></td>
                                         <td>
-                                            <button id="delete-btn"  data-adId="<%= advo.getAdId() %>" class="delete-role-btn btn btn-danger pull-right btn-mine delete-btn"   role="button">
+                                            <button   href="#modal-delete-block" data-toggle="modal" data-adId="<%= advo.getAdId() %>" class="delete-role-btn btn btn-danger pull-right btn-mine delete-btn"   role="button">
                                                 删除
                                             </button>
-                                            <button class="update-role-btn btn btn-primary pull-right pre-update-button btn-mine" href="#panel-2" data-toggle="tab" name="'+ item.role +'" role="button">
+                                            <button data-adId="<%= advo.getAdId() %>" data-picId="<%= advo.getAdPicture()%>" class="update-role-btn btn btn-primary pull-right pre-update-button btn-mine update-btn" href="#modal-update-block" data-toggle="modal" role="button">
                                                 修改
                                             </button>
                                         </td>
                                     </tr>
+
                                     <%
                                         }
                                     %>
-
                                     </tbody>
+
                                 </table>
                             </div>
-                        </div>
-                        <!-- 标签2对应的模块  修改-->
-                        <div class="tab-pane col-sm-12" id="panel-2">
-
-                            <h2 class="sub-header">修改标题</h2>
-                            <form class="form" onsubmit="return ">
-                                <div class="form-group" id="rolename-change">
-                                    <label for="insert-rolename" class="sr-only ">用户名</label>
-                                    <input type="text" maxlength="63" id="update-rolename" style="width:200px;" class="form-control center-block" placeholder="请输入需要修改的角色名" required="" autofocus=""  readonly="readonly">
-                                    <span class="help-block center-block" style="text-align: center;" id="update-rolename-help"></span>
-                                </div>
-                                <div id="select-box-update">
-
-                                </div>
-                                <button class="btn btn-lg btn-primary btn-block center-block" id="submit-update-role" style="width:200px;">修改</button>
-                            </form>
-
-
-                        </div>
-                        <!-- 标签3对应的模块  模块-->
-                        <div class="tab-pane col-sm-12" id="panel-3">
-                            <h2 class="sub-header">新增标题</h2>
-                            <form class="form" onsubmit="return ">
-                                <div class="form-group" id="rolename-create">
-                                    <label for="insert-rolename" class="sr-only">角色名</label>
-                                    <input type="text" maxlength="63" id="insert-rolename" style="width:200px;" class="form-control center-block" placeholder="给新的角色起个名字把" required="" autofocus="">
-                                    <span class="help-block" id="insert-rolename-help"></span>
-                                </div>
-                                <div id="select-box-add">
-
-                                </div>
-                                <button class="btn btn-lg btn-primary btn-block center-block" id="submit-create-role" style="width:200px;">创建</button>
-                            </form>
-
-                        </div>
-                        <!-- 标签4对应的模块 -->
-                        <div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-4">
-                            <h2 class="sub-header">删除标题</h2>
-                            <form class="form" onsubmit="return false">
-                                <div class="form-group" id="role-delete" style="margin-top:50px">
-                                    <label for="delete-role-input" class="sr-only">角色名</label>
-                                    <input type="text" maxlength="63" id="delete-role-input" class="form-control" placeholder="输入需要删除的角色名" required=""  readonly="readonly">
-                                    <span class="help-block" id="delete-user-help"></span>
-                                </div>
-                                <!-- 遮罩窗体确定是否操作 -->
-                                <!-- 触发按钮 -->
-                                <button  id="modal-role-delete-a" href="#modal-delete-block" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" style="margin-top:50px">
-                                    删除
-                                </button>
-                                <!-- 被隐藏的模块 -->
+                                <!-- 被隐藏的删除框 -->
                                 <div class="modal fade" id="modal-delete-block" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                 <h4 class="modal-title " id="myModalLabel">
-                                                    确定要删除这个角色以及权限吗？
+                                                    确定要删除这个广告吗?
                                                 </h4>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-danger" id="delete-role-button">删除</button>
+                                                <button class="btn btn-danger" id="delete-button">删除</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
                         </div>
+
+
+                            <!-- 被隐藏的修改模块 -->
+                            <div class="modal fade" id="modal-update-block" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <form id="updateForm" method="POST" >
+                                                <div class="form-group" >
+                                                    标题<input id="update_title" type="text" name="adTitle" maxlength="63"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题" required="" autofocus="">
+                                                    采编人<input id="update_createUser" type="text" name="adCreateUser" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="创建人" required="" autofocus="">
+                                                    排序<input id="update_order" type="number" name="adOrder" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="" autofocus="">
+                                                    url<input id="update_url" type="text" name="adLinkUrl" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url" required="" autofocus="">
+                                                    状态<select class="form-control center-block" id="update-which-stage" style="width:400px;margin-bottom: 20px;" name="adStatus" data-sele="">
+                                                            <option value ="1">正常</option>
+                                                            <option value ="2">上架</option>
+                                                            <option value ="3">无效</option>
+                                                        </select>
+                                                    <input id="update_adId"  name="adId" type="hidden"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url" required="" autofocus="" >
+                                                    <input id="update_adPic" name="pictureId"  type="hidden"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url" required="" autofocus="">
+                                                        <img  style="margin: 0 10px;width:96%" id="update_pic" src="" alt="">
+                                                    <input  type="file" name="file" style="width:400px;margin-bottom: 20px" class=" center-block"  autofocus="" accept="image/*">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-danger" id="update-button">修改</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- //被隐藏的修改模块 -->
+
+
+                        <!-- 标签3对应的模块  新增模块-->
+                        <div class="tab-pane col-sm-12" id="panel-3">
+                            <h2 class="sub-header">新增广告</h2>
+                            <form id="uploadForm" method="POST" >
+                                <div class="form-group" id="rolename-create">
+                                    <input id="addTitle" type="text" name="adTitle" maxlength="63"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题(必填)" required="required" autofocus="">
+                                    <input id="addCreateUser" type="text" name="adCreateUser" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="创建人(必填)" required="required" autofocus="">
+                                    <input type="text" name="adOrder" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="required" autofocus="">
+                                    <input type="text" name="adLinkUrl" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url"  autofocus="">
+                                    <input type="file" name="file" style="width:400px;margin-bottom: 20px" class=" center-block"  autofocus="" accept="image/*">
+                                </div>
+                                <button  class="btn btn-lg btn-primary btn-block center-block" id="create-btn" style="width:200px;">创建</button>
+                            </form>
+
+                        </div>
+                        <!-- //标签3对应的模块  新增模块-->
+
+
+                        <!-- 标签4对应的模块 -->
+                        <%--<div class="tab-pane col-sm-5 col-sm-offset-3" id="panel-4">--%>
+                            <%--<h2 class="sub-header">删除标题</h2>--%>
+                            <%--<form class="form" onsubmit="return false">--%>
+                                <%--<div class="form-group" id="role-delete" style="margin-top:50px">--%>
+                                    <%--<label for="delete-role-input" class="sr-only">角色名</label>--%>
+                                    <%--<input type="text" maxlength="63" id="delete-role-input" class="form-control" placeholder="输入需要删除的角色名" required=""  readonly="readonly">--%>
+                                    <%--<span class="help-block" id="delete-user-help"></span>--%>
+                                <%--</div>--%>
+                                <%--<!-- 遮罩窗体确定是否操作 -->--%>
+                                <%--<!-- 触发按钮 -->--%>
+                                <%--<button  id="modal-role-delete-a" href="#modal-delete-block" role="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" style="margin-top:50px">--%>
+                                    <%--删除--%>
+                                <%--</button>--%>
+
+                            <%--</form>--%>
+                        <%--</div>--%>
 
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
