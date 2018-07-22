@@ -289,6 +289,12 @@ public class DepartmentServiceImpl implements DepartmentService {
             return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
         }
 
+        // 判断这个关系是否已经存在
+        resp = checkUserDept(userDepartment);
+        if (!resp.isSuccess()) {
+            return resp;
+        }
+
         // 设置主键，不允许别的地方设置主键
         userDepartment.setUserDeptId(CodeUtil.getId());
 
@@ -424,5 +430,33 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         // 查询成功，返回数据
         return ServerResponse.response(DepartmentEnum.SUCCESS, PageUtil.pageInfo(users));
+    }
+
+    /**
+     * 判断这个关系是否存在
+     *
+     * @param userDepartment 这个关系
+     * @return 返回 success 表示可用
+     */
+    @Override
+    public ServerResponse checkUserDept(UserDepartment userDepartment) {
+        // 检验参数
+        if (userDepartment == null) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        boolean isParametersUncompleted = userDepartment.getUserId() == null ||
+                CodeUtil.isBlank(userDepartment.getDeptCode());
+        if (isParametersUncompleted) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        int affect = departmentDao.countUserDept(userDepartment);
+        if (affect > 0) {
+            return ServerResponse.response(DepartmentEnum.USER_IS_IN_THIS_DEPARTMENT);
+        }
+
+        // 关系可用
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
 }

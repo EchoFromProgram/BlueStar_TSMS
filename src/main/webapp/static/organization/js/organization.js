@@ -404,4 +404,133 @@ $(() => {
             }
         });
     }
+
+    // 显示用户
+    $("#saveUserDept").on("mousedown", ()=>{
+        if (!hasActive()) {
+            alert("您还未选中任何部门！");
+            $("#listUserModal").modal("hide");
+            return;
+        }
+
+        const $currentDept = getActive();
+        const $table = $("#listUsersTable");
+        $table.empty(); // 清空列表
+
+        // 获取用户列表
+        const page = $table.data("current-page");
+        const deptCode = $currentDept.data("dept-code");
+        $table.attr("data-dept-code", deptCode);
+        getUsers(page, deptCode, (users)=>{
+            // 将数据贴到列表上
+            putUsersInTable($table, users, deptCode);
+        });
+    });
+
+    // 发送请求获取用户列表
+    function getUsers(page, deptCode, callback) {
+        $.ajax({
+            url: "listUsers.do",
+            type: "GET",
+            data: {
+                "page": page,
+                "deptCode": deptCode
+            },
+            success: (resp)=>{
+                if (resp.code === 0) {
+                    if (resp.data.isLastPage) {
+                        $("#listMoreUsers").hide();
+                    } else {
+                        $("#listMoreUsers").show();
+                    }
+                    $("#listUsersTable").attr("data-current-page", resp.data.pageNum);
+
+                    callback(resp.data.list);
+                    return;
+                }
+
+                alert(resp.msg);
+            },
+            error: ()=>{
+                alert("网络错误！");
+            }
+        });
+    }
+
+    // 将用户列表贴到表格上
+    function putUsersInTable(table, users, deptCode) {
+        if (users === null || typeof users === "undefined") {
+            return;
+        }
+
+        for (let i = 0; i < users.length; i++) {
+            const tempClass = NOT_A_CLASS + users[i].userName;
+            const tr =
+                `
+                <tr>
+                     <td>` + users[i].userName + `</td>
+                     <td>` + users[i].name + `</td>
+                     <td>
+                         <button class="btn btn-primary pull-right ` + tempClass + `">添加进部门</button>
+                     </td>
+                </tr>
+                `;
+
+            // 添加到表格上
+            table.append(tr);
+
+            const btn = $("." + tempClass);
+            btn.attr({
+                "data-user-id": users[i].userId,
+                "data-dept-code": deptCode
+            });
+            btn.removeClass(tempClass);
+        }
+    }
+
+    // 显示更多用户
+    $("#listMoreUsers").on("click", ()=>{
+        const $table = $("#listUsersTable");
+        let page = Number($table.attr("data-current-page")) + 1;
+        $table.attr("data-current-page", page);
+        let deptCode = $table.attr("data-dept-code");
+
+        getUsers(page, deptCode, (users)=>{
+            putUsersInTable($table, users, deptCode);
+        });
+    });
+
+    // 事件委托
+    $("#listUsersTable").delegate("button", "click", (e)=>{
+        const $target = $(e.target);
+
+    });
+
+    // 发送保存用户部门请求
+    function saveUserDept(userId, deptCode, callback) {
+        const btns = $("#listUsersTable button");
+        btns.slideUp();
+        $.ajax({
+            url: "putUserInDepartment.do",
+            type: "POST",
+            data: {
+                "userId": userId,
+                "deptCode": deptCode
+            },
+            success: (resp)=>{
+                btns.slideDown();
+
+                if (resp.code === 0) {
+                    callback();
+                    return;
+                }
+
+                alert(resp.msg);
+            },
+            error: ()=>{
+                alert("网络错误！");
+                btns.slideDown();
+            }
+        });
+    }
 });

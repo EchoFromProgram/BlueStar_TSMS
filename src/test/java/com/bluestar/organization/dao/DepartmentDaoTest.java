@@ -142,4 +142,13 @@ public class DepartmentDaoTest {
         String deptCode = "RA9-001";
         System.out.println(departmentDao.listUsers(deptCode));
     }
+
+    @Test
+    public void testCountUserDept() {
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setUserId(1);
+        userDepartment.setDeptCode("RA9-001");
+
+        System.out.println(departmentDao.countUserDept(userDepartment));
+    }
 }

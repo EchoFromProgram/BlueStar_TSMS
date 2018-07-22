@@ -143,7 +143,14 @@
             u.`name`
         FROM `user` u
         WHERE u.`user_id` NOT IN (SELECT t.`user_id`
-                                FROM `t_user_dept` t
-                                WHERE t.`dept_code` = #{deptCode})
+                                  FROM `t_user_dept` t
+                                  WHERE t.`dept_code` = #{deptCode})
+    </select>
+
+    <!-- int countUserDept(UserDepartment userDepartment); -->
+    <select id="countUserDept" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `t_user_dept`
+        WHERE `dept_code` = #{deptCode} AND `user_id` = #{userId}
     </select>
 </mapper>

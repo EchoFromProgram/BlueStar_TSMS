@@ -19,7 +19,8 @@ public enum DepartmentEnum implements Statusable {
     UPDATE_FAILED(-5, "修改失败"),
     PARAMETER_TOO_LONG(-6, "参数太长"),
     CODE_DOSE_NOT_EXIST(-7, "部门编号不存在"),
-    ERROR(-8, "内部错误");
+    ERROR(-8, "内部错误"),
+    USER_IS_IN_THIS_DEPARTMENT(-9, "这个用户已经存在于这个部门了");
 
     private int code;
     private String msg;

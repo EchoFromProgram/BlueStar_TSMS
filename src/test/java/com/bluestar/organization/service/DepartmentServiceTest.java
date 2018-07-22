@@ -79,7 +79,7 @@ public class DepartmentServiceTest {
     @Test
     public void testPutUserInDepartment() {
         UserDepartment userDepartment = new UserDepartment();
-        userDepartment.setDeptCode("RA9-0011");
+        userDepartment.setDeptCode("RA9-002");
         userDepartment.setUserId(4);
 
         System.out.println(departmentService.putUserInDepartment(userDepartment));

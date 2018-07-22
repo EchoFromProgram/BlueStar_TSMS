@@ -112,4 +112,12 @@ public interface DepartmentService {
      * @return 返回用户列表
      */
     public ServerResponse listUsers(Integer page, String deptCode);
+
+    /**
+     * 判断这个关系是否存在
+     *
+     * @param userDepartment 这个关系
+     * @return 返回 success 表示可用
+     */
+    public ServerResponse checkUserDept(UserDepartment userDepartment);
 }
