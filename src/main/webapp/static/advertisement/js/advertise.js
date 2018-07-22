@@ -160,8 +160,10 @@ function buile_page_nav(data) {
         })
         // 上一页
         prePageLi.click(function () {
+
+            // 注意：得到的data.pageNum不是int类型！
             window.location.href =
-                "listAd.do?pageNum=" + data.pageNum - 1 + "&adTitle="+$("#which-input").val()
+                "listAd.do?pageNum=" + (Number(data.pageNum) - 1) + "&adTitle="+$("#which-input").val()
                 +"&adStatus=" + $("#which-stage").val();
         })
     }
@@ -180,16 +182,16 @@ function buile_page_nav(data) {
                 "listAd.do?pageNum=" + data.pages  + "&adTitle="+$("#which-input").val()
                 +"&adStatus=" + $("#which-stage").val();
         })
+
         // 下一页
         nextPageLi.click(function () {
-
             window.location.href =
-                "listAd.do?pageNum=" + data.pageNum + 1 + "&adTitle="+$("#which-input").val()
+                "listAd.do?pageNum=" + (Number(data.pageNum ) + 1)  + "&adTitle="+$("#which-input").val()
                 +"&adStatus=" + $("#which-stage").val();
         })
     }
 
-    // 添加首页和下一页按钮
+    // 添加首页和上一页按钮
     ul.append(firstPageLi).append(prePageLi);
     // 遍历分页条
     var navPageNums = data.navigatepageNums;//里面为1,2,3,4,5 ..

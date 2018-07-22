@@ -208,10 +208,10 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                             <form id="updateForm" method="POST" >
                                                 <div class="form-group" >
-                                                    标题<input id="update_title" type="text" name="adTitle" maxlength="63"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题" required="" autofocus="">
+                                                    标题<input id="update_title" type="text" name="adTitle" maxlength="200"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题" required="" autofocus="">
                                                     采编人<input id="update_createUser" type="text" name="adCreateUser" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="创建人" required="" autofocus="">
-                                                    排序<input id="update_order" type="number" name="adOrder" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="" autofocus="">
-                                                    url<input id="update_url" type="text" name="adLinkUrl" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url" required="" autofocus="">
+                                                    排序<input id="update_order" type="number" name="adOrder"  min=0 style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="" autofocus="">
+                                                    url<input id="update_url" type="text" name="adLinkUrl" maxlength="200" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url" required="" autofocus="">
                                                     状态<select class="form-control center-block" id="update-which-stage" style="width:400px;margin-bottom: 20px;" name="adStatus" data-sele="">
                                                             <option value ="1">正常</option>
                                                             <option value ="2">上架</option>
@@ -238,10 +238,10 @@
                             <h2 class="sub-header">新增广告</h2>
                             <form id="uploadForm" method="POST" >
                                 <div class="form-group" id="rolename-create">
-                                    <input id="addTitle" type="text" name="adTitle" maxlength="63"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题(必填)" required="required" autofocus="">
+                                    <input id="addTitle" type="text" name="adTitle" maxlength="200"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题(必填)" required="required" autofocus="">
                                     <input id="addCreateUser" type="text" name="adCreateUser" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="创建人(必填)" required="required" autofocus="">
-                                    <input type="text" name="adOrder" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="required" autofocus="">
-                                    <input type="text" name="adLinkUrl" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url"  autofocus="">
+                                    <input type="text" name="adOrder" min=0 style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="required" autofocus="">
+                                    <input type="text" name="adLinkUrl" maxlength="200" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url"  autofocus="">
                                     <input type="file" name="file" style="width:400px;margin-bottom: 20px" class=" center-block"  autofocus="" accept="image/*">
                                 </div>
                                 <button  class="btn btn-lg btn-primary btn-block center-block" id="create-btn" style="width:200px;">创建</button>
