@@ -1,6 +1,7 @@
 <%@ page import="com.bluestar.advertisement.vo.AdVo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.github.pagehelper.PageInfo" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -136,7 +137,6 @@
                                         String status = null;
                                         List<AdVo> ads = new ArrayList<>();
                                         ads = (List<AdVo>)request.getAttribute("ads");
-
                                         if(ads != null && ads.size() > 0)
                                         for(int i = 0; i < ads.size(); i++) {
                                             AdVo advo = ads.get(i);
@@ -170,9 +170,17 @@
                                         }
                                     %>
                                     </tbody>
-
                                 </table>
+
                             </div>
+                            <!-- 分页信息 -->
+                            <div class="row">
+                                <!-- 分页文字 -->
+                                <div class="col-md-5" id="page_info_area"></div>
+                                <!-- 分页条 -->
+                                <div class="col-md-5" id="page_nav_area"></div>
+                            </div>
+                            <!--/ 分页结束-->
                                 <!-- 被隐藏的删除框 -->
                                 <div class="modal fade" id="modal-delete-block" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -200,10 +208,10 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                             <form id="updateForm" method="POST" >
                                                 <div class="form-group" >
-                                                    标题<input id="update_title" type="text" name="adTitle" maxlength="63"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题" required="" autofocus="">
+                                                    标题<input id="update_title" type="text" name="adTitle" maxlength="200"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题" required="" autofocus="">
                                                     采编人<input id="update_createUser" type="text" name="adCreateUser" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="创建人" required="" autofocus="">
-                                                    排序<input id="update_order" type="number" name="adOrder" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="" autofocus="">
-                                                    url<input id="update_url" type="text" name="adLinkUrl" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url" required="" autofocus="">
+                                                    排序<input id="update_order" type="number" name="adOrder"  min=0 style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="" autofocus="">
+                                                    url<input id="update_url" type="text" name="adLinkUrl" maxlength="200" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url" required="" autofocus="">
                                                     状态<select class="form-control center-block" id="update-which-stage" style="width:400px;margin-bottom: 20px;" name="adStatus" data-sele="">
                                                             <option value ="1">正常</option>
                                                             <option value ="2">上架</option>
@@ -230,10 +238,10 @@
                             <h2 class="sub-header">新增广告</h2>
                             <form id="uploadForm" method="POST" >
                                 <div class="form-group" id="rolename-create">
-                                    <input id="addTitle" type="text" name="adTitle" maxlength="63"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题(必填)" required="required" autofocus="">
+                                    <input id="addTitle" type="text" name="adTitle" maxlength="200"  style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="标题(必填)" required="required" autofocus="">
                                     <input id="addCreateUser" type="text" name="adCreateUser" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="创建人(必填)" required="required" autofocus="">
-                                    <input type="text" name="adOrder" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="required" autofocus="">
-                                    <input type="text" name="adLinkUrl" maxlength="63" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url"  autofocus="">
+                                    <input type="text" name="adOrder" min=0 style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="排序" required="required" autofocus="">
+                                    <input type="text" name="adLinkUrl" maxlength="200" style="width:400px;margin-bottom: 20px" class="form-control center-block" placeholder="url"  autofocus="">
                                     <input type="file" name="file" style="width:400px;margin-bottom: 20px" class=" center-block"  autofocus="" accept="image/*">
                                 </div>
                                 <button  class="btn btn-lg btn-primary btn-block center-block" id="create-btn" style="width:200px;">创建</button>
@@ -276,5 +284,10 @@
 <script src="./static/teach/js/ie10-viewport-bug-workaround.js"></script>
 <script src="./static/teach/js/general.js"></script>
 <script src=./static/advertisement/js/advertise.js></script>
+
 </body>
+<script>
+    var pageData = <%= request.getAttribute("pageInfo") %>;
+    to_page(pageData);
+</script>
 </html>

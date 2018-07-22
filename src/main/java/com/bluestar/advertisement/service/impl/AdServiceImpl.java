@@ -10,6 +10,8 @@ import com.bluestar.advertisement.service.AdService;
 import com.bluestar.advertisement.utils.AdUtils;
 import com.bluestar.advertisement.vo.AdVo;
 import com.bluestar.common.utils.CodeUtil;
+import com.bluestar.common.utils.PageUtil;
+import com.github.pagehelper.PageInfo;
 import org.apache.log4j.Logger;
 import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -210,20 +212,27 @@ public class AdServiceImpl implements AdService {
 
 
     @Override
-    public List<AdVo> queryAds(String adTitle, String adStatus) {
+    public PageInfo queryAds(String adTitle, String adStatus, Integer pageNum) {
 
         List<AdVo> ads = new ArrayList<>();
+        PageInfo pageInfo = null;
+        PageUtil.toPage(pageNum, AdConst.size);
+
         // -1代表全部
         if(adTitle.equals("-1") && adStatus.equals("-1")) {
             ads = adDao.queryAdsByStatusAndTitle(null, null);
         } else if(adTitle.equals("-1") && !adStatus.equals("-1")) {
+
             ads = adDao.queryAdsByStatusAndTitle(null, adStatus);
         } else if(!adTitle.equals("-1") && adStatus.equals("-1")) {
+
             ads = adDao.queryAdsByStatusAndTitle(adTitle, null);
         } else if(!adTitle.equals("-1") && !adStatus.equals("-1")) {
+
             ads = adDao.queryAdsByStatusAndTitle(adTitle, adStatus);
         }
-        return ads;
+
+        return PageUtil.pageInfo(ads);
     }
 
 

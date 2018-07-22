@@ -7,8 +7,13 @@ import com.bluestar.advertisement.enums.response.AdResponse;
 import com.bluestar.advertisement.service.AdService;
 import com.bluestar.advertisement.vo.AdVo;
 import com.bluestar.common.utils.CodeUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageInfo;
+import com.mchange.v2.codegen.CodegenUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +53,7 @@ public class AdController {
         if( file == null || file.getSize() == 0 ){
             return ServerResponse.getServerResponse(AdResponse.PICTURE_IS_NULL);
         }
+
 
         // 得到文件上传路径 /File/advertise/作者
         String dirPath =
@@ -94,13 +100,22 @@ public class AdController {
 
     @RequestMapping(value = "listAd.do")
     public String listAd(Model model, @RequestParam(value = "adTitle", defaultValue = "-1")String adTitle,
-                         @RequestParam(value = "adStatus",defaultValue = "-1") String adStatus ) {
+                         @RequestParam(value = "adStatus",defaultValue = "-1") String adStatus,
+                         @RequestParam(value = "pageNum", required = false)Integer pageNum ) {
 
-        if(!adTitle.equals("-1")){
+        // 第一次访问
+        if(pageNum == null){
+            pageNum = 1;
+        }
+
+        // 保存标题
+        if(!adTitle.equals("-1")) {
             model.addAttribute("title",adTitle);
         } else {
             model.addAttribute("title",null);
         }
+
+        // 保存状态
         model.addAttribute("status",adStatus);
 
         if(CodeUtil.isBlank(adTitle) || CodeUtil.isBlank(adStatus)) {
@@ -108,8 +123,24 @@ public class AdController {
         }
 
         List<AdVo> ads = new ArrayList<>();
-        ads = adService.queryAds(adTitle ,adStatus);
+
+        // 得到分页信息
+        PageInfo pageInfo = adService.queryAds(adTitle ,adStatus, pageNum );
+
+        // 单独保存数据
+        ads = pageInfo.getList();
         model.addAttribute("ads", ads);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String pageList = null;
+        try {
+            // 把对象转换成json格式
+            pageList = objectMapper.writeValueAsString(pageInfo);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("pageInfo", pageList);
 
         return "advertisement/advertise_list.jsp";
     }
