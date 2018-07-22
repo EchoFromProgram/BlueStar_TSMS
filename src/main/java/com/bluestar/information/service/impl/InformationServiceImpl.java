@@ -1,11 +1,17 @@
 package com.bluestar.information.service.impl;
 
+import com.bluestar.common.utils.CodeUtil;
+import com.bluestar.common.utils.PageUtil;
+import com.bluestar.information.common.status.enums.DepartmentEnum;
 import com.bluestar.information.dao.InformationDao;
+import com.bluestar.information.dto.ServerResponse;
 import com.bluestar.information.entity.Information;
 import com.bluestar.information.service.InformationService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,12 +25,20 @@ public class InformationServiceImpl implements InformationService {
     @Resource
     private InformationDao informationDao;
 
+    /**
+     * 根据咨询状态返回一个列表
+     * 1正常，2上架，3无效
+     * @param informationStatu
+     * @param informationTitle
+     * @return
+     */
     @Override
-    public List<Information> listInformationByStatu(String informationStatu, String informationTitle) {
+    public PageInfo<Information> listInformationByStatu(Integer page, String informationStatu, String informationTitle) {
         List<Information> informationList = null;
+        PageUtil.toPage(page);
         informationList = informationDao.listInformationByStatu(informationStatu, informationTitle);
         if(informationList != null && informationList.size() > 0){
-            return informationList;
+            return PageUtil.pageInfo(informationList);
         }
         return null;
     }
@@ -35,23 +49,73 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
-    public Information getInformationById(String informationId) {
-        return null;
+    public ServerResponse<Information> getInformationById(String informationId) {
+        if(informationId == null){
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+        Information information = informationDao.getInformationById(informationId);
+        if(information != null){
+            return ServerResponse.response(DepartmentEnum.SUCCESS, information);
+        }else {
+            return ServerResponse.response(DepartmentEnum.GET_FAILED);
+        }
+    }
+
+    /**
+     * 插入新资讯
+     * @param information
+     * @return
+     */
+    @Override
+    public ServerResponse saveInformation(Information information) {
+        if (information == null || information.getInformationCreateUser() == null ||
+                information.getInformationContent() == null || information.getInformationTitle() == null ||
+                information.getInformationAuthor() == null || information.getInformationStatu() == null){
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+        String informationId = CodeUtil.getId();
+        information.setInformationId(informationId);
+        information.setInformationPublishTime(new Date());
+        information.setInformationCreateTime(new Date());
+        information.setInformationOrder(1);
+        int result = informationDao.saveInformation(information);
+        if(result > 0){
+            return ServerResponse.response(DepartmentEnum.SUCCESS);
+        }else {
+            return ServerResponse.response(DepartmentEnum.SAVE_FAILED);
+        }
     }
 
     @Override
-    public Integer saveInformation(Information information) {
-        return null;
+    public ServerResponse updateInformation(Information information) {
+        if (information == null || information.getInformationCreateUser() == null ||
+                information.getInformationContent() == null || information.getInformationTitle() == null ||
+                information.getInformationAuthor() == null || information.getInformationStatu() == null ||
+                information.getInformationId() == null){
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+        information.setInformationPublishTime(new Date());
+        information.setInformationOrder(1);
+        int result = informationDao.updateInformation(information);
+        if(result > 0){
+            return ServerResponse.response(DepartmentEnum.SUCCESS);
+        }else {
+            return ServerResponse.response(DepartmentEnum.UPDATE_FAILED);
+        }
+
     }
 
     @Override
-    public Integer updateInformation(Information information) {
-        return null;
-    }
-
-    @Override
-    public Integer removeInformatin(String informationId) {
-        return null;
+    public ServerResponse removeInformatin(String informationId) {
+        if(informationId == null){
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+        int result = informationDao.removeInformatin(informationId);
+        if(result > 0){
+            return ServerResponse.response(DepartmentEnum.SUCCESS);
+        }else {
+            return ServerResponse.response(DepartmentEnum.REMOVE_FAILED);
+        }
     }
 
     @Override

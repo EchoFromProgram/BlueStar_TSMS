@@ -1,6 +1,8 @@
 package com.bluestar.information.service;
 
+import com.bluestar.information.dto.ServerResponse;
 import com.bluestar.information.entity.Information;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -15,9 +17,10 @@ public interface InformationService {
      * 根据咨询状态返回一个列表
      * 1正常，2上架，3无效
      * @param informationStatu
+     * @param informationTitle
      * @return
      */
-    List<Information> listInformationByStatu(String informationStatu, String informationTitle);
+    PageInfo<Information> listInformationByStatu(Integer page, String informationStatu, String informationTitle);
 
     /**
      * 模糊查询标题 返回一个列表
@@ -31,7 +34,7 @@ public interface InformationService {
      * @param informationId
      * @return
      */
-    Information getInformationById(String informationId);
+    ServerResponse<Information> getInformationById(String informationId);
 
     /**
      * 插入一个新的咨询
@@ -39,21 +42,21 @@ public interface InformationService {
      * @param information
      * @return
      */
-    Integer saveInformation(Information information);
+    ServerResponse saveInformation(Information information);
 
     /**
      * 修改咨询，这是一个大修改
      * @param information
      * @return
      */
-    Integer updateInformation(Information information);
+    ServerResponse updateInformation(Information information);
 
     /**
      * 删除一个咨询根据他的id
      * @param informationId
      * @return
      */
-    Integer removeInformatin(String informationId);
+    ServerResponse removeInformatin(String informationId);
 
     /**
      * 修改状态

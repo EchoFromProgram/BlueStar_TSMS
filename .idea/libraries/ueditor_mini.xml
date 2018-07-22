@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ueditor-mini">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/static/information/jsp/ueditor-mini.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -10,12 +10,14 @@ import com.bluestar.advertisement.enums.ResponseStatus;
 public enum  AdResponse  implements ResponseStatus {
 
     SUCCESS(ResponseStatus.SUCCESS_CODE, "操作成功！"),
+    GET_SUCCESS(ResponseStatus.SUCCESS_CODE, "获取数据成功！"),
     PICTURE_IS_NULL(-1, "未上传图片！"),
     PICTURE_IS_EXITS(-1, "该图片名已经存在！"),
     UP_PICTURE_FAILURE(-1, "上传图片失败"),
     IS_NOT_PICTURE(-1,"请上传图片"),
     DELETE_AD_FAILURE(-1, "删除广告失败"),
     UPDATE_AD_FAILURE(-1, "更新广告失败"),
+    GET_DATA_FAILURE(-1, "获取数据失败"),
     UP_AD_FAILURE(-1, "新增广告失败");
 
 
