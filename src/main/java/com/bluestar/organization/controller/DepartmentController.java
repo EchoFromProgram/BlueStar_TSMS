@@ -96,6 +96,7 @@ public class DepartmentController {
     @RequestMapping(path = "getChildrenDepartments.do")
     @ResponseBody
     public ServerResponse getChildrenDepartments(String deptCode, @RequestParam(required = false) Boolean isGetAllDepartments) {
+        System.out.println(isGetAllDepartments);
         return departmentService.getChildrenDepartments(deptCode, isGetAllDepartments);
     }
 
