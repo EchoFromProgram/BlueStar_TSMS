@@ -338,12 +338,15 @@ $(() => {
                             <button class="btn btn-danger btn-xs navbar-right ` + users[i].userDeptId + `" style="margin-right: 2px" data-type="delete"><span
                                  class="glyphicon glyphicon-trash"></span> 移出部门
                             </button>
-                            <button class="btn btn-primary btn-xs navbar-right ` + users[i].userDeptId + `" style="margin-right: 2px" data-type="update"><span
-                                 class="glyphicon glyphicon-pencil"></span> 更换部门
-                            </button>
                         </td>
                     </tr>
                     `;
+
+                /*
+                <button class="btn btn-primary btn-xs navbar-right ` + users[i].userDeptId + `" style="margin-right: 2px" data-type="update"><span
+                                 class="glyphicon glyphicon-pencil"></span> 更换部门
+                </button>
+                */
 
                 // 添加到表格
                 table.append(tr);
@@ -369,7 +372,7 @@ $(() => {
         // 判断点击的按钮类型
         if ($target.data("type") === "update") {
             // 更新按钮
-
+            // 暂时没有东西...
         } else {
             // 删除按钮
             if (window.confirm("您确定要删除这个用户？")) {
@@ -537,6 +540,8 @@ $(() => {
 
     // 当用户列表模态框关闭之后更新用户列表
     $('#listUserModal').on('hide.bs.modal', function (e) {
-        showUsers(getActive().attr("data-dept-code"));
+        if (hasActive()) {
+            showUsers(getActive().attr("data-dept-code"));
+        }
     })
 });

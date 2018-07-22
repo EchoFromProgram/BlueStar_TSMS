@@ -169,10 +169,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         // 参数合法
-        // 验证新的部门编号合法性
-        ServerResponse resp = checkDepartmentCode(department.getDeptCode());
-        if (!resp.isSuccess()) {
-            return resp;
+        if (!department.getDeptCode().equals(oldDepartmentCode)) {
+            // 验证新的部门编号合法性
+            ServerResponse resp = checkDepartmentCode(department.getDeptCode());
+            if (!resp.isSuccess()) {
+                return resp;
+            }
         }
 
         // 首先更新具体这条数据的信息
