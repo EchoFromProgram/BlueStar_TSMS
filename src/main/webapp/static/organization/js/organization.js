@@ -211,7 +211,7 @@ $(() => {
             url: "addDepartment.do",
             type: "POST",
             data: dept,
-            success: (resp)=>{
+            success: (resp) => {
                 if (resp.code === 0) {
                     // 新增成功就刷新界面
                     //$('#saveModal').modal('hide');
@@ -221,14 +221,14 @@ $(() => {
 
                 alert(resp.msg);
             },
-            error: ()=>{
+            error: () => {
                 alert("网络错误！");
             }
         });
     }
 
     // 新增部门按钮
-    $("#saveDept").on("click", ()=>{
+    $("#saveDept").on("click", () => {
         const $currentDept = getActive();
         const $deptPCode = $("#saveDeptPCode");
         const $deptLevel = $("#saveDeptLevel");
@@ -247,7 +247,7 @@ $(() => {
     });
 
     // 处理新增部门业务按钮
-    $("#doSaveDept").on("click", ()=>{
+    $("#doSaveDept").on("click", () => {
         saveDept($("#saveModal form").serialize());
     });
 
@@ -257,7 +257,7 @@ $(() => {
             url: "updateDepartment.do",
             type: "POST",
             data: dept,
-            success: (resp)=>{
+            success: (resp) => {
                 if (resp.code === 0) {
                     // 新增成功就刷新界面
                     //$('#saveModal').modal('hide');
@@ -267,14 +267,14 @@ $(() => {
 
                 alert(resp.msg);
             },
-            error: ()=>{
+            error: () => {
                 alert("网络错误！");
             }
         });
     }
 
     // 修改部门按钮
-    $("#updateDept").on("mousedown", ()=>{
+    $("#updateDept").on("mousedown", () => {
         if (!hasActive()) {
             alert("您还没有选中任何部门！！");
 
@@ -297,7 +297,7 @@ $(() => {
     });
 
     // 处理更新部门业务按钮
-    $("#doUpdateDept").on("click", ()=>{
+    $("#doUpdateDept").on("click", () => {
         updateDept($("#updateModal form").serialize());
     });
 
@@ -309,7 +309,7 @@ $(() => {
             data: {
                 "deptCode": deptCode
             },
-            success: (resp)=>{
+            success: (resp) => {
                 if (resp.code !== 0) {
                     alert(resp.msg);
                     return;
@@ -317,7 +317,7 @@ $(() => {
 
                 callback(resp.data);
             },
-            error: ()=>{
+            error: () => {
                 alert("网络错误！");
             }
         });
@@ -325,7 +325,7 @@ $(() => {
 
     // 显示这个部门下的用户
     function showUsers(deptCode) {
-        getUserInDept(deptCode, (users)=>{
+        getUserInDept(deptCode, (users) => {
             const table = $("#userDeptTable");
             table.empty();
             for (let i = 0; i < users.length; i++) {
@@ -335,10 +335,10 @@ $(() => {
                         <td>` + users[i].username + `</td>
                         <td>` + users[i].name + `</td>
                         <td>
-                            <button class="btn btn-danger btn-xs navbar-right ` + users[i].userDeptId + `" style="margin-right: 2px"><span
+                            <button class="btn btn-danger btn-xs navbar-right ` + users[i].userDeptId + `" style="margin-right: 2px" data-type="delete"><span
                                  class="glyphicon glyphicon-trash"></span> 移出部门
                             </button>
-                            <button class="btn btn-primary btn-xs navbar-right ` + users[i].userDeptId + `" style="margin-right: 2px"><span
+                            <button class="btn btn-primary btn-xs navbar-right ` + users[i].userDeptId + `" style="margin-right: 2px" data-type="update"><span
                                  class="glyphicon glyphicon-pencil"></span> 更换部门
                             </button>
                         </td>
@@ -360,5 +360,48 @@ $(() => {
                 tempClass.removeClass(users[i].userDeptId);
             }
         })
+    }
+
+    // 给用户旁边的按钮加事件
+    $("#userDeptTable").delegate("button", "click", (e) => {
+        const $target = $(e.target); // 获得点击的对象
+
+        // 判断点击的按钮类型
+        if ($target.data("type") === "update") {
+            // 更新按钮
+
+        } else {
+            // 删除按钮
+            if (window.confirm("您确定要删除这个用户？")) {
+                deleteUserInDept($target.data("user-dept-id"));
+            }
+        }
+    });
+
+    // 删除业务方法
+    function deleteUserInDept(userDeptId) {
+        if (userDeptId === null || typeof userDeptId === "undefined") {
+            return;
+        }
+
+        $.ajax({
+            url: "deleteUserInDepartment.do",
+            type: "GET",
+            data: {
+                "userDeptId": userDeptId
+            },
+            success: (resp) => {
+                if (resp.code === 0) {
+                    // 删除成功
+                    showUsers(getActive().attr("data-dept-code"));
+                    return;
+                }
+
+                alert(resp.msg);
+            },
+            error: () => {
+                alert("网络错误！");
+            }
+        });
     }
 });
