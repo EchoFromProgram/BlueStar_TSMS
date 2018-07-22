@@ -103,4 +103,13 @@ public interface DepartmentService {
      * @return 返回删除情况
      */
     public ServerResponse deleteUserInDepartment(String userDeptId);
+
+    /**
+     * 列出不属于这个部门的用户
+     *
+     * @param deptCode 部门编号
+     * @param page     页码数
+     * @return 返回用户列表
+     */
+    public ServerResponse listUsers(Integer page, String deptCode);
 }

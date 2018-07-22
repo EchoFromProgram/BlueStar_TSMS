@@ -29,4 +29,7 @@ public final class DepartmentConst {
 
     // 部门编号最长长度
     public static final int MAX_LENGTH_OF_DEPT_CODE = 64;
+
+    // 一次显示多少条用户
+    public static final int PAGE_SIZE = 10;
 }

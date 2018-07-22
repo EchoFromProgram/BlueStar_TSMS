@@ -108,4 +108,12 @@ public class DepartmentServiceTest {
 
         System.out.println(departmentService.deleteUserInDepartment(userDeptId));
     }
+
+    @Test
+    public void testListUsers() {
+        String deptCode = "RA9-001";
+        Integer page = 1;
+
+        System.out.println(departmentService.listUsers(page, deptCode));
+    }
 }

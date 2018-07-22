@@ -131,7 +131,19 @@
 
     <!-- int removeUserInUserDepartment(String userDepartmentId); -->
     <delete id="removeUserInUserDepartment">
-        DELETE FROM `t_user_dept` WHERE `user_dept_id` = #{userDeptId}
+        DELETE FROM `t_user_dept`
+        WHERE `user_dept_id` = #{userDeptId}
     </delete>
 
+    <!-- List<User> listUsers(String deptCode); -->
+    <select id="listUsers" resultType="com.bluestar.teach.entity.User">
+        SELECT
+            u.`user_id`,
+            u.`username`,
+            u.`name`
+        FROM `user` u
+        WHERE u.`user_id` NOT IN (SELECT t.`user_id`
+                                FROM `t_user_dept` t
+                                WHERE t.`dept_code` = #{deptCode})
+    </select>
 </mapper>
