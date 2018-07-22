@@ -503,13 +503,17 @@ $(() => {
     // 事件委托
     $("#listUsersTable").delegate("button", "click", (e)=>{
         const $target = $(e.target);
+        const userId = $target.attr("data-user-id");
+        const deptCode = $target.attr("data-dept-code");
 
+        // 发送请求，成功之后，这个按钮就隐藏掉
+        saveUserDept(userId, deptCode, ()=>{
+            $target.hide("fast");
+        });
     });
 
     // 发送保存用户部门请求
     function saveUserDept(userId, deptCode, callback) {
-        const btns = $("#listUsersTable button");
-        btns.slideUp();
         $.ajax({
             url: "putUserInDepartment.do",
             type: "POST",
@@ -518,8 +522,6 @@ $(() => {
                 "deptCode": deptCode
             },
             success: (resp)=>{
-                btns.slideDown();
-
                 if (resp.code === 0) {
                     callback();
                     return;
@@ -529,8 +531,12 @@ $(() => {
             },
             error: ()=>{
                 alert("网络错误！");
-                btns.slideDown();
             }
         });
     }
+
+    // 当用户列表模态框关闭之后更新用户列表
+    $('#listUserModal').on('hide.bs.modal', function (e) {
+        showUsers(getActive().attr("data-dept-code"));
+    })
 });
