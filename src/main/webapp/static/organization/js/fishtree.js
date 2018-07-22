@@ -48,5 +48,14 @@ function closeList(ele) {
     }
 }
 
+// 得到选中的卡片
+function getActive() {
+    return $("#tree p.active");
+}
+
+// 判断是否有选中
+function hasActive() {
+    return $("#tree p.active").length > 0;
+}
 
 reflash();

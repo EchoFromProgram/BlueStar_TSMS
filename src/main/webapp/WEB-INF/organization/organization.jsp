@@ -30,7 +30,7 @@
 </head>
 
 <body>
-<!-- Modal -->
+<!-- 保存部门模态框 -->
 <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -40,19 +40,23 @@
                 <h4 class="modal-title">新增部门</h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="POST">
                     <div class="form-group">
                         <label for="saveDeptCode">部门编号</label>
-                        <input type="text" class="form-control" id="saveDeptCode" placeholder="部门编号">
+                        <input type="text" class="form-control" id="saveDeptCode" placeholder="部门编号" name="deptCode"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="saveDeptName">部门名称</label>
-                        <input type="text" class="form-control" id="saveDeptName" placeholder="部门名称">
+                        <input type="text" class="form-control" id="saveDeptName" placeholder="部门名称" name="deptName"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="saveDeptRemark">部门说明</label>
-                        <textarea class="form-control" rows="3" id="saveDeptRemark"></textarea>
+                        <textarea class="form-control" rows="3" id="saveDeptRemark" name="deptRemark"></textarea>
                     </div>
+                    <input type="hidden" id="saveDeptPCode" name="deptPCode">
+                    <input type="hidden" id="saveDeptLevel" name="deptLevel">
                 </form>
             </div>
             <div class="modal-footer">
@@ -63,7 +67,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- 修改部门模态框 -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -73,19 +77,24 @@
                 <h4 class="modal-title">修改部门</h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="POST">
                     <div class="form-group">
                         <label for="saveDeptCode">部门编号</label>
-                        <input type="text" class="form-control" id="updateDeptCode" placeholder="部门编号">
+                        <input type="text" class="form-control" id="updateDeptCode" placeholder="部门编号" name="deptCode">
                     </div>
                     <div class="form-group">
                         <label for="saveDeptName">部门名称</label>
-                        <input type="text" class="form-control" id="updateDeptName" placeholder="部门名称">
+                        <input type="text" class="form-control" id="updateDeptName" placeholder="部门名称" name="deptName">
                     </div>
                     <div class="form-group">
                         <label for="saveDeptRemark">部门说明</label>
-                        <textarea class="form-control" rows="3" id="updateDeptRemark"></textarea>
+                        <textarea class="form-control" rows="3" id="updateDeptRemark" name="deptRemark"></textarea>
                     </div>
+                    <input type="hidden" id="updateDeptId" name="deptId">
+                    <input type="hidden" id="updateDeptPCode" name="deptPCode">
+                    <input type="hidden" id="updateDeptLevel" name="deptLevel">
+                    <input type="hidden" id="updateDeptOrder" name="deptOrder">
+                    <input type="hidden" id="updateOldDeptCode" name="oldDeptCode">
                 </form>
             </div>
             <div class="modal-footer">
@@ -160,22 +169,43 @@
                     </h3>
                     <div class="container-fluid">
                         <div id="tree">
-                            <p data-deptLevel="1" class="fish-open" data-deptId="001">一级</p>
+                            <%--<p data-deptLevel="1" class="fish-open" data-deptId="001">一级</p>
                             <p data-deptLevel="2" class="001 fish-close" data-deptId="001-001">二级</p>
                             <p data-deptLevel="2" class="001 fish-open" data-deptId="001-002">二级</p>
                             <p data-deptLevel="3" class="001-002 fish-close" data-deptId="001-002-001">三级</p>
                             <p data-deptLevel="3" class="001-002 fish-close" data-deptId="001-002-002">三级</p>
                             <p data-deptLevel="3" class="001-002 fish-close" data-deptId="001-002-003">三级</p>
                             <p data-deptLevel="2" class="001 fish-close" data-deptId="001-003">二级</p>
-                            <p data-deptLevel="1" class="fish-close" data-deptId="002">一级</p>
+                            <p data-deptLevel="1" class="fish-close" data-deptId="002">一级</p>--%>
                         </div>
                     </div>
                 </div>
                 <!-- 右侧详情 -->
                 <div class="col-md-6">
-                    <h3 class="page-header">组织部门详情</h3>
+                    <h3 class="page-header" id="deptDetail">（未选中部门）</h3>
                     <div class="container-fluid">
-
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>用户名</th>
+                                <th>名字</th>
+                            </tr>
+                            </thead>
+                            <tbody id="userDeptTable">
+                            <%--<tr>
+                                <td>fish</td>
+                                <td>叶子</td>
+                                <td>
+                                    <button class="btn btn-primary btn-xs navbar-right" style="margin-right: 2px"><span
+                                            class="glyphicon glyphicon-pencil"></span> 更换部门
+                                    </button>
+                                    <button class="btn btn-danger btn-xs navbar-right" style="margin-right: 2px"><span
+                                            class="glyphicon glyphicon-trash"></span> 移出部门
+                                    </button>
+                                </td>
+                            </tr>--%>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -187,7 +217,7 @@
 <script src="./static/teach/js/bootstrap.min.js"></script>
 <script src="./static/teach/js/holder.min.js"></script>
 <script src="./static/teach/js/ie10-viewport-bug-workaround.js"></script>
-<script src="./static/organization/js/fishtree.js"></script>
+<%--<script src="./static/organization/js/fishtree.js"></script>--%>
 <script src="./static/teach/js/general.js"></script>
 <script src=./static/organization/js/organization.js></script>
 </body>

@@ -16,7 +16,7 @@
         FROM t_dept
         <where>
             `dept_p_code` = #{deptCode}
-            <if test="all">
+            <if test="!all">
                 AND `dept_status` != '2'
             </if>
         </where>
@@ -34,7 +34,7 @@
             <if test="deptPCode != null">
                 AND `dept_p_code` = #{deptPCode}
             </if>
-            <if test="all">
+            <if test="!all">
                 AND `dept_status` != '2'
             </if>
         </where>
