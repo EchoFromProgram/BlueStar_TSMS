@@ -26,6 +26,8 @@ public final class  AdConst {
     // 模块id
     public static final String MODULE = "1";
 
+    public static Integer size = 5;
+
     public static final String LIST_FAILURE = "获取广告列表错误";
     // 图片类型后缀
     public static final String IMG[] =

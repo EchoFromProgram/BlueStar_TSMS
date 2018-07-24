@@ -126,4 +126,20 @@ public interface DepartmentDao {
      * @return 返回 0 表示失败，大于 0 表示成功
      */
     int removeUserInUserDepartment(String userDeptId);
+
+    /**
+     * 列出不属于这个部门的用户，方便添加业务
+     *
+     * @param deptCode 部门编号
+     * @return 返回用户列表
+     */
+    List<User> listUsers(String deptCode);
+
+    /**
+     * 查看这个关系是否存在了
+     *
+     * @param userDepartment 这个关系
+     * @return 返回 0 说明不存在，这是可用状态
+     */
+    int countUserDept(UserDepartment userDepartment);
 }

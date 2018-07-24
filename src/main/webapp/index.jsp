@@ -9,4 +9,10 @@
 <body>
 Hello World!
 </body>
+<%
+    request.setAttribute("json", "{'name':'fish'}");
+%>
+<script>
+    var a = <%=request.getAttribute("json") %>;
+</script>
 </html>

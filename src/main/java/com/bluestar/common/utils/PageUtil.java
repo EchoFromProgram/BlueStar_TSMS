@@ -30,4 +30,8 @@ public final class PageUtil {
         //第一个参数为分页对象，第二个为每次显示的页数
         return new PageInfo<T>(objs, Page.SHOW_PAGES);
     }
+
+    public static void toPage(Integer pn, Integer size) {
+        PageHelper.startPage(pn, size);
+    }
 }

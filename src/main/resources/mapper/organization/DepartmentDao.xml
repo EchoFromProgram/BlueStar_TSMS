@@ -16,7 +16,7 @@
         FROM t_dept
         <where>
             `dept_p_code` = #{deptCode}
-            <if test="all">
+            <if test="!all">
                 AND `dept_status` != '2'
             </if>
         </where>
@@ -34,7 +34,7 @@
             <if test="deptPCode != null">
                 AND `dept_p_code` = #{deptPCode}
             </if>
-            <if test="all">
+            <if test="!all">
                 AND `dept_status` != '2'
             </if>
         </where>
@@ -131,7 +131,26 @@
 
     <!-- int removeUserInUserDepartment(String userDepartmentId); -->
     <delete id="removeUserInUserDepartment">
-        DELETE FROM `t_user_dept` WHERE `user_dept_id` = #{userDeptId}
+        DELETE FROM `t_user_dept`
+        WHERE `user_dept_id` = #{userDeptId}
     </delete>
 
+    <!-- List<User> listUsers(String deptCode); -->
+    <select id="listUsers" resultType="com.bluestar.teach.entity.User">
+        SELECT
+            u.`user_id`,
+            u.`username`,
+            u.`name`
+        FROM `user` u
+        WHERE u.`user_id` NOT IN (SELECT t.`user_id`
+                                  FROM `t_user_dept` t
+                                  WHERE t.`dept_code` = #{deptCode})
+    </select>
+
+    <!-- int countUserDept(UserDepartment userDepartment); -->
+    <select id="countUserDept" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM `t_user_dept`
+        WHERE `dept_code` = #{deptCode} AND `user_id` = #{userId}
+    </select>
 </mapper>

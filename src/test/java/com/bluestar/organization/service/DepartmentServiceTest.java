@@ -79,7 +79,7 @@ public class DepartmentServiceTest {
     @Test
     public void testPutUserInDepartment() {
         UserDepartment userDepartment = new UserDepartment();
-        userDepartment.setDeptCode("RA9-0011");
+        userDepartment.setDeptCode("RA9-002");
         userDepartment.setUserId(4);
 
         System.out.println(departmentService.putUserInDepartment(userDepartment));
@@ -107,5 +107,13 @@ public class DepartmentServiceTest {
         String userDeptId = "";
 
         System.out.println(departmentService.deleteUserInDepartment(userDeptId));
+    }
+
+    @Test
+    public void testListUsers() {
+        String deptCode = "RA9-001";
+        Integer page = 1;
+
+        System.out.println(departmentService.listUsers(page, deptCode));
     }
 }

@@ -1,6 +1,7 @@
 package com.bluestar.organization.service.impl;
 
 import com.bluestar.common.utils.CodeUtil;
+import com.bluestar.common.utils.PageUtil;
 import com.bluestar.organization.common.DepartmentConst;
 import com.bluestar.organization.common.status.enums.DepartmentEnum;
 import com.bluestar.organization.dao.DepartmentDao;
@@ -8,6 +9,7 @@ import com.bluestar.organization.dto.ServerResponse;
 import com.bluestar.organization.entity.Department;
 import com.bluestar.organization.entity.UserDepartment;
 import com.bluestar.organization.service.DepartmentService;
+import com.bluestar.teach.entity.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,6 +169,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         // 参数合法
+        if (!department.getDeptCode().equals(oldDepartmentCode)) {
+            // 验证新的部门编号合法性
+            ServerResponse resp = checkDepartmentCode(department.getDeptCode());
+            if (!resp.isSuccess()) {
+                return resp;
+            }
+        }
+
         // 首先更新具体这条数据的信息
         int affect = departmentDao.updateDepartment(department);
         if (affect <= 0) {
@@ -281,6 +291,12 @@ public class DepartmentServiceImpl implements DepartmentService {
             return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
         }
 
+        // 判断这个关系是否已经存在
+        resp = checkUserDept(userDepartment);
+        if (!resp.isSuccess()) {
+            return resp;
+        }
+
         // 设置主键，不允许别的地方设置主键
         userDepartment.setUserDeptId(CodeUtil.getId());
 
@@ -378,6 +394,71 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         // 删除成功
+        return ServerResponse.response(DepartmentEnum.SUCCESS);
+    }
+
+    /**
+     * 列出不属于这个部门的用户
+     *
+     * @param deptCode 部门编号
+     * @param page 页码数
+     * @return 返回用户列表
+     */
+    @Override
+    public ServerResponse listUsers(Integer page, String deptCode) {
+        if (CodeUtil.isBlank(deptCode)) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        // 检查部门编号的合法性，存不存在这个部门
+        ServerResponse resp = checkDepartmentCode(deptCode);
+        if (resp.getCode() != DepartmentEnum.CODE_EXISTED.getCode()) {
+            // 如果这个部门编号是可用的，也就说现在不存在这个部门编号！！
+            return ServerResponse.response(DepartmentEnum.CODE_DOSE_NOT_EXIST);
+        }
+
+        // 没有传页码，就默认为第一页
+        if (page == null || page <= 0) {
+            page = 1;
+        }
+
+        // 一次查询 10 条记录
+        PageUtil.toPage(page, DepartmentConst.PAGE_SIZE);
+        List<User> users = departmentDao.listUsers(deptCode);
+        if (users == null) {
+            log.error("listUsers: " + page + ", " + deptCode);
+            return ServerResponse.response(DepartmentEnum.ERROR);
+        }
+
+        // 查询成功，返回数据
+        return ServerResponse.response(DepartmentEnum.SUCCESS, PageUtil.pageInfo(users));
+    }
+
+    /**
+     * 判断这个关系是否存在
+     *
+     * @param userDepartment 这个关系
+     * @return 返回 success 表示可用
+     */
+    @Override
+    public ServerResponse checkUserDept(UserDepartment userDepartment) {
+        // 检验参数
+        if (userDepartment == null) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        boolean isParametersUncompleted = userDepartment.getUserId() == null ||
+                CodeUtil.isBlank(userDepartment.getDeptCode());
+        if (isParametersUncompleted) {
+            return ServerResponse.response(DepartmentEnum.PARAMETER_UNCOMPLETED);
+        }
+
+        int affect = departmentDao.countUserDept(userDepartment);
+        if (affect > 0) {
+            return ServerResponse.response(DepartmentEnum.USER_IS_IN_THIS_DEPARTMENT);
+        }
+
+        // 关系可用
         return ServerResponse.response(DepartmentEnum.SUCCESS);
     }
 }

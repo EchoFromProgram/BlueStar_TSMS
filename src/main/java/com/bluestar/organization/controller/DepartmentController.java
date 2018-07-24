@@ -96,6 +96,7 @@ public class DepartmentController {
     @RequestMapping(path = "getChildrenDepartments.do")
     @ResponseBody
     public ServerResponse getChildrenDepartments(String deptCode, @RequestParam(required = false) Boolean isGetAllDepartments) {
+        System.out.println(isGetAllDepartments);
         return departmentService.getChildrenDepartments(deptCode, isGetAllDepartments);
     }
 
@@ -163,5 +164,18 @@ public class DepartmentController {
     @ResponseBody
     public ServerResponse deleteUserInDepartment(String userDeptId) {
         return departmentService.deleteUserInDepartment(userDeptId);
+    }
+
+    /**
+     * 列出不属于这个部门的用户
+     *
+     * @param page     页码数
+     * @param deptCode 部门编号
+     * @return 返回用户列表
+     */
+    @RequestMapping(path = "listUsers.do")
+    @ResponseBody
+    public ServerResponse listUsers(Integer page, String deptCode) {
+        return departmentService.listUsers(page, deptCode);
     }
 }
