@@ -12,7 +12,10 @@ public enum DepartmentEnum implements Statusable {
     REMOVE_FAILED(-4, "删除失败"),
     UPDATE_FAILED(-5, "修改失败"),
     PARAMETER_TOO_LONG(-6, "参数太长"),
-    GET_FAILED(-7, "获取资讯失败");
+    GET_FAILED(-7, "获取资讯失败"),
+    ENCLOSURE_IS_NULL(-8, "附件为空"),
+    PICTURE_IS_EXITS(-1, "该附件名已经存在！"),
+    UP_PICTURE_FAILURE(-1, "上传附件失败");
 
     private int code;
     private String msg;

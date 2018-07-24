@@ -23,6 +23,7 @@
             <if test="informationStatu != null"> AND information_statu = #{informationStatu}</if>
             <if test="informationTitle != null"> AND information_title LIKE '%${informationTitle}%'</if>
         </where>
+        ORDER BY information_publish_time DESC
     </select>
 
     <insert id="saveInformation" parameterType="com.bluestar.information.entity.Information">

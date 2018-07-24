@@ -1,5 +1,10 @@
 package com.bluestar.information.controller;
 
+import com.bluestar.advertisement.constant.AdConst;
+import com.bluestar.advertisement.entity.Advertise;
+import com.bluestar.advertisement.enums.response.AdResponse;
+import com.bluestar.advertisement.service.AdService;
+import com.bluestar.information.common.status.enums.DepartmentEnum;
 import com.bluestar.information.dto.ServerResponse;
 import com.bluestar.information.entity.Information;
 import com.bluestar.information.service.InformationService;
@@ -7,6 +12,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
@@ -31,6 +39,13 @@ public class InformationController {
 
     @Resource
     private InformationService informationService;
+
+    private final AdService adService;
+
+    @Autowired
+    public InformationController(AdService adService) {
+        this.adService = adService;
+    }
 
     /**
      * 根据statu查询列表  null，代表查询所有
@@ -180,5 +195,25 @@ public class InformationController {
     public ServerResponse removeInformation(String informationId) {
         ServerResponse serverResponse = informationService.removeInformatin(informationId);
         return serverResponse;
+    }
+
+    @RequestMapping(value = "information_enclosure.do")
+    @ResponseBody
+    public ServerResponse upFile(@RequestParam("file")CommonsMultipartFile file, HttpSession session) {
+
+        // 判断是否上传图片
+        if( file == null || file.getSize() == 0 ){
+            return ServerResponse.response(DepartmentEnum.ENCLOSURE_IS_NULL);
+        }
+
+        // 得到文件上传路径 /File/advertise/作者
+        String dirPath =
+                session.getServletContext().getRealPath(AdConst.DIR_PATH) + File.separator + "information"
+                        + File.separator + "information" ;
+
+        // 得到上传广告结果
+        ServerResponse serverResponse = informationService.savaEnclosure(file, dirPath);
+
+        return  serverResponse;
     }
 }

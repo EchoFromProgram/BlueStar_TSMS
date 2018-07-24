@@ -3,6 +3,7 @@ package com.bluestar.information.service;
 import com.bluestar.information.dto.ServerResponse;
 import com.bluestar.information.entity.Information;
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.List;
 
@@ -66,4 +67,6 @@ public interface InformationService {
      * @return
      */
     Integer updateStatuByid(String informationId, String statu);
+
+    ServerResponse savaEnclosure(CommonsMultipartFile file, String dirPath);
 }

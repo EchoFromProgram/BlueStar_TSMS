@@ -2,101 +2,125 @@ $(function () {
     $("select option[value='"+ $('#which-stage').attr("selec") +"']").attr("selected", "selected");
 })
 
-//新增资讯
-function submitEditor() {
-    var content = UM.getEditor('myEditor').getContent();
-    var title = $('#editor-title').val();
-    var createUser = $('#createUser').val();
-    var statu = $('#statu-select').val();
+$("#create-btn").on("click", function() {
+
+    let formData = new FormData($("#uploadForm" )[0]);
     $.ajax({
-        url : "information_addtext.do",
-        data : {
-            "content" : content,
-            "title" : title,
-            "createUser" : createUser,
-            "statu" : statu,
+        url: 'information_enclosure.do' ,
+        type: 'POST',
+        data: formData,
+        async: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if(data.statusCode != 0) {
+                alert(data.msg);
+            } else {
+                window.location.reload();
+            }
         },
-        type : "POST",
-        success : function (data) {
-            alert(data.msg);
-            window.location.reload();
-        },
-        error : function () {
-            alert("提交资讯失败");
+        error: function () {
+            alert("未知错误！");
         }
     });
     return false;
-}
+})
+
+//新增资讯
+function submitEditor() {
+        var content = UM.getEditor('myEditor').getContent();
+        var title = $('#editor-title').val();
+        var createUser = $('#createUser').val();
+        var statu = $('#statu-select').val();
+        $.ajax({
+            url : "information_addtext.do",
+            data : {
+                "content" : content,
+                "title" : title,
+                "createUser" : createUser,
+                "statu" : statu,
+            },
+            type : "POST",
+            success : function (data) {
+                alert(data.msg);
+                window.location.reload();
+            },
+            error : function () {
+                alert("提交资讯失败");
+            }
+        });
+        return false;
+    }
 
 //修改资讯
-function updateEditor(){
-    var content = UM.getEditor('myEditor').getContent();
-    var title = $('#editor-title').val();
-    var createUser = $('#createUser').val();
-    var statu = $('#statu-select').val();
-    var informationId = $('#editor-title').attr("informationId");
-    $.ajax({
-        url : "update_information.do",
-        data : {
-            "content" : content,
-            "title" : title,
-            "createUser" : createUser,
-            "statu" : statu,
-            "informationId" : informationId
-        },
-        async : false,
-        type : "POST",
-        success : function (data) {
-            alert(data.msg);
-            window.location.reload();
-        },
-        error : function () {
-            alert("提交资讯失败");
-        }
-    });
-}
+    function updateEditor(){
+        var content = UM.getEditor('myEditor').getContent();
+        var title = $('#editor-title').val();
+        var createUser = $('#createUser').val();
+        var statu = $('#statu-select').val();
+        var informationId = $('#editor-title').attr("informationId");
+        $.ajax({
+            url : "update_information.do",
+            data : {
+                "content" : content,
+                "title" : title,
+                "createUser" : createUser,
+                "statu" : statu,
+                "informationId" : informationId
+            },
+            async : false,
+            type : "POST",
+            success : function (data) {
+                alert(data.msg);
+                window.location.reload();
+            },
+            error : function () {
+                alert("提交资讯失败");
+            }
+        });
+    }
 
 
 //点击修改以后  因为到一个页面，所以这里的要是需要改变
 //并且这里需要把数据库的数据拿下了去做修改
-$(".update-information-btn").bind("click", function () {
-    $('#change-title').text("修改资讯");
-    $('#submit-editor').val("修改");
-    $('#submit-editor').attr('id','update-editor');
-    $('#text-form').attr('onsubmit', 'return updateEditor()');
-    $.ajax({
-        url : "get_information.do",
-        data : {
-            "informationId" : $(this).attr("informationid")
-        },
-        type : "POST",
-        success : function (data) {
-            $('#editor-title').val(data.data.informationTitle);
-            $('#editor-title').attr("informationId", data.data.informationId);
-            $('#createUser').val(data.data.informationCreateUser);
-            $('#statu-select').val(data.data.informationStatu);
-            UM.getEditor('myEditor').setContent("" + data.data.informationContent, false);
-        },
-        error : function () {
-            alert("更新资讯失败");
-        }
-    });
-})
+    $(".update-information-btn").bind("click", function () {
+        $('#change-title').text("修改资讯");
+        $('#submit-editor').val("修改");
+        $('#submit-editor').attr('id','update-editor');
+        $('#text-form').attr('onsubmit', 'return updateEditor()');
+        $.ajax({
+            url : "get_information.do",
+            data : {
+                "informationId" : $(this).attr("informationid")
+            },
+            type : "POST",
+            success : function (data) {
+                $('#editor-title').val(data.data.informationTitle);
+                $('#editor-title').attr("informationId", data.data.informationId);
+                $('#createUser').val(data.data.informationCreateUser);
+                $('#statu-select').val(data.data.informationStatu);
+                UM.getEditor('myEditor').setContent("" + data.data.informationContent, false);
+            },
+            error : function () {
+                alert("更新资讯失败");
+            }
+        });
+    })
 
 //样式改到增加的样式
-$("#submit-add").bind("click", function () {
-    $('#change-title').text("新增资讯");
-    $('#update-editor').val("提交");
-    $('#update-editor').attr('id','submit-editor');
-    $('#text-form').attr('onsubmit', 'return submitEditor()');
-})
+    $("#submit-add").bind("click", function () {
+        $('#change-title').text("新增资讯");
+        $('#update-editor').val("提交");
+        $('#update-editor').attr('id','submit-editor');
+        $('#text-form').attr('onsubmit', 'return submitEditor()');
+    })
 
-$(".delete-information-btn").bind("click", function () {
-    $("#delete-information-button").attr("informationid", $(this).attr("informationid"));
-})
+    $(".delete-information-btn").bind("click", function () {
+        $("#delete-information-button").attr("informationid", $(this).attr("informationid"));
+    })
 
-$("#delete-information-button").click(function () {
-    $.ajax({
+    $("#delete-information-button").click(function () {
+        $.ajax({
         url : "remove_information.do",
         data : {
             "informationId" : $(this).attr("informationid")
@@ -145,7 +169,7 @@ function buile_page_nav(data) {
         })
         //上一页
         prePageLi.click(function () {
-            window.location.href = "information_list.do?page="+ data.pageNum - 1 +"&statu=" + $("#which-stage").val() + "&title=" + $("#which-input").val() +"";
+            window.location.href = "information_list.do?page="+ (Number(data.pageNum) - 1) +"&statu=" + $("#which-stage").val() + "&title=" + $("#which-input").val() +"";
         })
     }
 
@@ -163,7 +187,7 @@ function buile_page_nav(data) {
         })
         //下一页
         nextPageLi.click(function () {
-            window.location.href = "information_list.do?page="+ data.pageNum + 1 +"&statu=" + $("#which-stage").val() + "&title=" + $("#which-input").val() +"";
+            window.location.href = "information_list.do?page="+ (Number(data.pageNum) + 1) +"&statu=" + $("#which-stage").val() + "&title=" + $("#which-input").val() +"";
         })
     }
 

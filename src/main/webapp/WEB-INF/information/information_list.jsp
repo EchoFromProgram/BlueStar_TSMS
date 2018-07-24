@@ -213,7 +213,7 @@
                                             </div>
                                         </div>
                                         <!--style给定宽度可以影响编辑器的最终宽度-->
-                                        <div type="text/plain" id="myEditor" style="width:1100px;height:410px;">
+                                        <div type="text/plain" id="myEditor" style="width:1100px;height:350px;">
                                             <p>这里我可以写一些输入提示</p>
                                         </div>
                                     </div>
@@ -227,10 +227,6 @@
                                         <label for="createUser">采编人：</label>
                                         <input id="createUser" class="form-control" type="text" placeholder="请输入采编人姓名"  required="required">
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label for="file">文件：</label>
-                                        <input type="file" class="form-control" id="file">
-                                    </div>
                                     <div class="col-sm-3">
                                         <label for="which-stage" class="">类型</label>
                                         <select class="form-control" id="statu-select" style="width:100%">
@@ -239,13 +235,31 @@
                                             <option value ="3">无效</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-11">
+                                    <div class="col-sm-2">
+                                        <label>&nbsp;</label>
                                         <br>
                                         <input type="submit" class="btn btn-info pull-right" id="submit-editor">
                                     </div>
                                 </div>
+                            </form>
+                            <form id="uploadForm" method="POST">
+                                <div class="row">
+                                    <div class="col-sm-4  col-sm-offset-1">
+                                        <label for="file">文件：</label>
+                                        <input type="file" name="file" class="form-control" id="file">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>&nbsp;</label>
+                                        <br>
+                                        <button class="btn btn-info" id="create-btn">上传文件</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>&nbsp;</label>
+                                        <br>
+                                        <span class="help-block pull-left text-danger" style="color: red">如果需要上传附件，请先提交文本，再上传附件</span>
+                                    </div>
+                                </div>
+
                             </form>
                             <%--<div class="clear"></div>--%>
                                 <%--<div id="btns">--%>
@@ -343,7 +357,6 @@
 <script>
     var pageData = <%=request.getAttribute("pageInfo")%>
         pageHelper(pageData);
-        console.log(pageData)
 </script>
 <script type="text/javascript">
     //实例化编辑器
